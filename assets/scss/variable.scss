@@ -1,0 +1,89 @@
+// 文字选中颜色
+$color-highlight-text: #06aaff;
+
+// 主体文字颜色
+$color-main-text: #666;
+
+// 文字辅助颜色
+$color-sub-text: #999;
+
+// 主体背景颜色
+$color-main-background: #e9eaed;
+
+// 修饰金色
+$color-golden: #f2be45;
+
+$color-white: #fff;
+
+$font-size-small: 12px;
+$font-size-base: 14px;
+$font-size-large: 16px;
+
+// 圆角
+$border-radius: 3px;
+
+// 容器之间的外间距
+$container-margin: 20px;
+
+// 容器的内边距
+$container-padding: 15px;
+
+// 透明兼容写法
+@mixin opacity($number: 0.5) {
+  opacity: $number;
+  filter: alpha(opacity=#{$number * 100});
+}
+
+// 修改input placeholder颜色
+@mixin placeholderColor($color: #fff) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+
+  &::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $color;
+  }
+
+  &:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $color;
+  }
+
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $color;
+  }
+}
+
+// 百分比换算
+@function percent($num, $total) {
+  @return ($num / $total * 100) + %;
+}
+
+%navJustify {
+  text-align: justify;
+
+  &:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+// 一行文字超出显示省略号
+%ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 多行文字超出显示省略号
+@mixin ellipsisMultiline($number: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $number;
+}

@@ -1,0 +1,73 @@
+// 设置标签默认样式
+blockquote,
+body,
+button,
+caption,
+dd,
+div,
+dl,
+dt,
+fieldset,
+figure,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+input,
+legend,
+li,
+menu,
+ol,
+p,
+pre,
+table,
+td,
+textarea,
+th,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: $font-size-base;
+  font-weight: lighter;
+}
+
+button,
+input,
+select,
+textarea {
+  outline: 0;
+  border: 0;
+  background: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.5s;
+  color: $color-main-text;
+  &:hover {
+    color: $color-highlight-text;
+  }
+}

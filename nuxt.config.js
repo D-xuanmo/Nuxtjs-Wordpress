@@ -10,13 +10,15 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ]
   },
+
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#06aaff' },
+
   /*
   ** Build configuration
   */
@@ -33,6 +35,40 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    },
+
+    // 打包静态资源路径
+    // publicPath: '/nuxt',
+
+    vendors: ['axios'],
+
+    // 全局引入scss
+    styleResources: {
+      scss: './assets/scss/variable.scss'
     }
+  },
+
+  modules: [
+    // npm install @nuxtjs/proxy -D
+    ['@nuxtjs/proxy']
+  ],
+
+  // 配置代理
+  axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8888',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
+  },
+
+  env: {
+    baseUrl: 'http://localhost:8888'
+    // baseUrl: 'http://blog.xuanmo.xin'
   }
 }
