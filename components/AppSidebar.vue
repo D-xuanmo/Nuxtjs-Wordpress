@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-wrap">
+  <div>
     <!-- 公告栏 -->
     <div class="sidebar-list notice">
       <div class="header">

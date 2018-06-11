@@ -6,7 +6,7 @@ import axios from 'axios'
 axios.defaults.timeout = 20000
 
 // 生产环境和发布环境给出不同的接口地址
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '' : '/api'
+axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/api' : '/api'
 
 // 设置数据格式
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
