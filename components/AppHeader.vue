@@ -9,7 +9,16 @@
               <nuxt-link to="/">首页</nuxt-link>
             </li>
             <li class="nav-list" v-for="item in navList" :key="item.key">
-              <nuxt-link :to="{ name: `${item.type}-id`, params: { id: item.ID } }">{{ item.title }}</nuxt-link>
+              <nuxt-link :to="{ name: `${item.type}-id`, params: { id: item.ID } }">
+                {{ item.title }}
+                <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
+              </nuxt-link>
+              <!-- 二级菜单 -->
+              <ul class="sub-nav-wrap">
+                <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
+                  <nuxt-link :to="{ name: `${child.type}-id`, params: { id: child.ID } }">{{ child.title }}</nuxt-link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
@@ -39,6 +48,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+$headerHeight: 60px;
 .header{
   background: $color-white;
 }
@@ -47,7 +57,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: $headerHeight;
 
   .left,
   .right{
@@ -69,11 +79,54 @@ export default {
       display: flex;
     }
 
+    // 一级菜单
     .nav-list{
+      display: flex;
+      align-items: center;
+      position: relative;
+      height: $headerHeight;
       margin-right: 30px;
 
       &:last-of-type{
         margin-right: 0;
+      }
+
+      &:hover{
+        .sub-nav-wrap{
+          display: block;
+        }
+      }
+
+      .icon-arrow-bottom{
+        font-size: $font-size-small;
+      }
+    }
+
+    // 二级菜单
+    .sub-nav-wrap{
+      display: none;
+      position: absolute;
+      z-index: 99;
+      top: 60px;
+      left: 50%;
+      width: 150px;
+      background: $color-white;
+      transform: translateX(-50%);
+    }
+
+    .sub-nav-list{
+      a{
+        display: block;
+        padding: 10px;
+        transition: 0s;
+      }
+
+      &:hover{
+        background: $color-highlight-text;
+
+        a{
+          color: $color-white;
+        }
       }
     }
   }
