@@ -1,12 +1,6 @@
 <template>
   <div id="">
-    <!-- 导航区 -->
-    <header>
-      <div class="wrap">
-        <div class="logo">Xuanmo Blog</div>
-      </div>
-    </header>
-111
+
   </div>
 </template>
 <script>

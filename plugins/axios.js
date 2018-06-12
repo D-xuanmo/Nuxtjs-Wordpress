@@ -25,9 +25,9 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   return {
     data: response.data,
+    headers: response.headers,
     status: response.status,
-    statusText: response.statusText,
-    header: response.headers
+    statusText: response.statusText
   }
 }, error => {
   return Promise.reject(error)

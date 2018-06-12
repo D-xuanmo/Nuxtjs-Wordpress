@@ -2,25 +2,30 @@
   <header class="header">
     <div class="wrap">
       <div class="left">
-        <div class="logo"><a :href="$store.state.info.baseUrl">{{ $store.state.info.blogName }}</a></div>
+        <div class="logo">
+          <a :href="$store.state.info.baseUrl">{{ $store.state.info.blogName }}</a>
+        </div>
         <nav class="nav-wrap">
-          <ul class="box">
-            <li class="nav-list">
-              <nuxt-link to="/">首页</nuxt-link>
-            </li>
-            <li class="nav-list" v-for="item in navList" :key="item.key">
-              <nuxt-link :to="{ name: `${item.type}-id`, params: { id: item.ID } }">
-                {{ item.title }}
-                <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
-              </nuxt-link>
-              <!-- 二级菜单 -->
-              <ul class="sub-nav-wrap">
-                <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
-                  <nuxt-link :to="{ name: `${child.type}-id`, params: { id: child.ID } }">{{ child.title }}</nuxt-link>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <no-ssr>
+            <ul class="box">
+              <li class="nav-list first"><a href="/">首页</a></li>
+              <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
+                <nuxt-link :to="{ name: `${item.type}-id-title`, params: { id: 1, title: item.title }, query: { type: item.ID } }">
+                  <i class="iconfont" :class="item.icon"></i>
+                  {{ item.title }}
+                  <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
+                </nuxt-link>
+                <!-- 二级菜单 -->
+                <ul class="sub-nav-wrap">
+                  <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
+                    <nuxt-link :to="{ name: `${child.type}-id-title`, params: { id: 1, title: child.title }, query: { type: child.ID } }">
+                      <i class="iconfont" :class="child.icon"></i> {{ child.title }}
+                    </nuxt-link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </no-ssr>
         </nav>
       </div>
       <div class="right">
@@ -33,17 +38,12 @@
   </header>
 </template>
 <script>
-import axios from '~/plugins/axios'
 export default {
   name: 'AppHeader',
   data () {
     return {
-      searchText: '',
-      navList: []
+      searchText: ''
     }
-  },
-  created () {
-    axios.get('/wp-json/xm-blog/v1/menu').then(res => (this.navList = res.data.menu)).catch(err => console.log(err))
   }
 }
 </script>
@@ -73,7 +73,7 @@ $headerHeight: 60px;
 
   // 导航
   .nav-wrap{
-    width: 600px;
+    width: 700px;
 
     .box{
       display: flex;

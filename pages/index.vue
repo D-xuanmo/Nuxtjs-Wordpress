@@ -5,7 +5,7 @@
       <ul class="big-banner">
         <li class="list">
           <nuxt-link to="/">
-            <img src="https://www.qiniu.com/assets/invite/banner-bf1febd06635739c4d241bdb1b683bc798e9abf06555cdda47245f32389d51fa.png" alt="">
+            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/03/bg1_1.jpg" alt="">
             <span class="title">标题文字</span>
           </nuxt-link>
         </li>
@@ -13,19 +13,19 @@
       <ul class="small-banner">
         <li class="list">
           <nuxt-link to="/">
-            <img src="http://cdn.itarea.cn/wp-content/uploads/2018/05/maxresdefault.jpg" alt="">
+            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
             <span class="title">标题文字</span>
           </nuxt-link>
         </li>
         <li class="list">
           <nuxt-link to="/">
-            <img src="http://cdn.itarea.cn/wp-content/uploads/2018/05/maxresdefault.jpg" alt="">
+            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
             <span class="title">标题文字</span>
           </nuxt-link>
         </li>
         <li class="list">
           <nuxt-link to="/">
-            <img src="http://cdn.itarea.cn/wp-content/uploads/2018/05/maxresdefault.jpg" alt="">
+            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
             <span class="title">标题文字标题文字标题文字标题文字标题文字标题文字标题文字</span>
           </nuxt-link>
         </li>
@@ -38,12 +38,12 @@
         <li class="list">最新文章</li>
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
-        <nuxt-link :to="{ name: 'article-id', params: { id: item.id } }">
+        <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
           <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
         </nuxt-link>
         <div class="list-content">
           <h2 class="title">
-            <nuxt-link :to="{ name: 'article-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
+            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
           </h2>
           <p class="summary">{{ item.articleInfor.summary }}...</p>
           <div class="opeartion">
@@ -53,14 +53,20 @@
               <span><i class="iconfont icon-message"></i>{{ item.articleInfor.commentCount }}</span>
               <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLink.very_good }}</span>
             </div>
-            <nuxt-link class="details-btn" :to="{ name: 'article-id', params: { id: item.id } }">阅读详情</nuxt-link>
+            <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
           </div>
         </div>
       </article>
       <!-- more btn start -->
-      <div class="more-btn-wrap">
-        <button class="btn active" @click="isCLick && getMoreList()"><i v-show="isShowLoading" class="iconfont icon-loading"></i> {{ btnText }}</button>
-      </div>
+      <el-pagination
+        :page-size="8"
+        layout="prev, pager, next, jumper"
+        :current-page.sync="nCurrentPage"
+        @current-change="currentPage"
+        @prev-click="prevPage"
+        @next-click="nextPage"
+        :total="total">
+      </el-pagination>
       <!-- more btn end -->
     </div>
     <!-- article list end -->
@@ -71,52 +77,67 @@
 import axios from '~/plugins/axios'
 export default {
   async asyncData ({ params }) {
-    let { data } = await axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
-    return { info: data }
+    let [info, menu, list] = await Promise.all([
+      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
+      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
+        params: {
+          page: 1,
+          per_page: 8,
+          _embed: true
+        }
+      })
+    ])
+    return {
+      info: info.data,
+      menu: menu.data.mainMenu,
+      articleList: list.data,
+      total: +list.headers['x-wp-total'],
+      nCurrentPage: 1
+    }
   },
   name: 'Index',
   data () {
     return {
-      isShowLoading: true,
-      isCLick: true,
-      currentPage: 1,
-      articleList: [],
-      btnText: '点击加载更多'
+      isShowLoading: true
     }
   },
   created () {
-    this.init()
-    console.log(process.env.NODE_ENV)
-    this.$store.commit('getInfo', this.info)
+    this.$store.commit('getInfo', {
+      info: this.info,
+      menu: this.menu
+    })
+    this.isShowLoading = false
+    console.log(this)
   },
   methods: {
-    // 获取第一页数据
-    init () {
-      axios.get('/wp-json/wp/v2/posts', {
+    currentPage (n) {
+      this.$router.push({
+        name: 'article-id-title',
         params: {
-          page: this.currentPage,
-          per_page: 5,
-          _embed: true
+          id: n
         }
-      }).then(res => {
-        this.articleList = [...this.articleList, ...res.data]
-        if (this.currentPage === +res.header['x-wp-totalpages']) {
-          this.btnText = '我是有底线的^_^'
-          this.isCLick = false
-          this.isShowLoading = false
-          return
-        }
-        this.isShowLoading = false
-        this.isCLick = true
-      }).catch(err => console.log(err))
+      })
     },
 
-    // 翻页
-    getMoreList () {
-      this.isShowLoading = true
-      this.isCLick = false
-      this.currentPage++
-      this.init()
+    // 上一页
+    prevPage (n) {
+      this.$router.push({
+        name: 'article-id-title',
+        params: {
+          id: n
+        }
+      })
+    },
+
+    // 下一页
+    nextPage (n) {
+      this.$router.push({
+        name: 'article-id-title',
+        params: {
+          id: n
+        }
+      })
     }
   }
 }
@@ -133,7 +154,7 @@ export default {
     vertical-align: top;
     width: 100%;
     height: 100%;
-    border-radius: $border-radius;
+    // border-radius: $border-radius;
   }
 
   .list{

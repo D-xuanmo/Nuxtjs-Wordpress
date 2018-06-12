@@ -107,14 +107,29 @@ body {
   color: $color-main-text;
 }
 
-// 查看更多
-.more-btn-wrap{
-  height: 30px;
-  margin: $container-margin 0;
-  line-height: 30px;
+// 翻页
+.el-pagination{
+  margin: 30px 0;
   text-align: center;
-}
 
+  li{
+    border: 0;
+
+    &:last-child{
+      border: 0;
+    }
+
+    &.active{
+      background: none;
+      color: $color-highlight-text;
+    }
+  }
+
+  .btn-next,
+  .btn-prev{
+    border: 0;
+  }
+}
 // .button--green {
 //   display: inline-block;
 //   border-radius: 4px;

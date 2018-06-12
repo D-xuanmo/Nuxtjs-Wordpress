@@ -37,16 +37,30 @@ module.exports = {
       }
     },
 
-    // 打包静态资源路径
-    // publicPath: '/nuxt',
+    // element-ui按需引入配置
+    babel: {
+      'plugins': [['component', [
+        {
+          'libraryName': 'element-ui',
+          'styleLibraryName': 'theme-default'
+        },
+        'transform-async-to-generator',
+        'transform-runtime'
+      ]]],
+      comments: true
+    },
 
-    vendors: ['axios'],
+    vendors: ['axios', 'element-ui'],
 
     // 全局引入scss
     styleResources: {
       scss: './assets/scss/variable.scss'
     }
   },
+
+  plugins: [
+    { src: '~/plugins/element-ui', ssr: true }
+  ],
 
   modules: [
     // npm install @nuxtjs/proxy -D

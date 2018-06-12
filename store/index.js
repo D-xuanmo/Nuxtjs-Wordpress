@@ -6,12 +6,14 @@ Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
   state: {
-    info: {}
+    info: {},
+    menu: {}
   },
 
   mutations: {
-    getInfo (state, params) {
-      return state.info = params
+    getInfo (state, { info, menu }) {
+      state.info = info,
+      state.menu = menu
     }
   }
 })
