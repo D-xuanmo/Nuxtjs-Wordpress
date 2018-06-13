@@ -161,6 +161,10 @@ export default {
         }).catch((err) => console.log(err))
       }
     }
+  },
+  mounted () {
+    // 代码高亮
+    window.Prism.highlightAll()
   }
 }
 </script>
