@@ -3,7 +3,7 @@
     <!-- article list start -->
     <div class="article-list-wrap">
       <ul class="header">
-        <li class="list">当前频道：{{ $route.params.title }}</li>
+        <li class="list">当前频道：{{ $route.query.title }}</li>
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
         <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
@@ -44,6 +44,7 @@
 <script>
 import axios from '~/plugins/axios'
 export default {
+  watchQuery: ['type'],
   async asyncData ({ params, query }) {
     let [info, menu, list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
@@ -71,24 +72,28 @@ export default {
       isShowLoading: true
     }
   },
+  head () {
+    return {
+      title: this.$route.query.title
+    }
+  },
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
       menu: this.menu
     })
     this.isShowLoading = false
-    // console.log(this)
   },
   methods: {
     currentPage (n) {
       this.$router.push({
-        name: 'category-id-title',
+        name: 'category-id',
         params: {
-          id: n,
-          title: this.$route.params.title
+          id: n
         },
         query: {
-          type: this.$route.query.type
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     },
@@ -96,13 +101,13 @@ export default {
     // 上一页
     prevPage (n) {
       this.$router.push({
-        name: 'category-id-title',
+        name: 'category-id',
         params: {
-          id: n,
-          title: this.$route.params.title
+          id: n
         },
         query: {
-          type: this.$route.query.type
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     },
@@ -110,22 +115,17 @@ export default {
     // 下一页
     nextPage (n) {
       this.$router.push({
-        name: 'category-id-title',
+        name: 'category-id',
         params: {
-          id: n,
-          title: this.$route.params.title
+          id: n
         },
         query: {
-          type: this.$route.query.type
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     }
-  },
-  watch: {
-    $route () {
-      Object.assign(this.$data, this.$options.data())
-    }
- }
+  }
 }
 </script>
 

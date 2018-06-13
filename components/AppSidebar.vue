@@ -22,7 +22,7 @@
           <div class="right">
             <h3 class="author">{{ item.comment_author }}</h3>
             <p class="comment-text" v-html="item.comment_content"></p>
-            <nuxt-link to="/" class="block title">评：{{ item.title }}</nuxt-link>
+            <nuxt-link :to="{ name: 'details-id', params: { id: item.comment_post_ID } }" class="block title">评：{{ item.title }}</nuxt-link>
           </div>
         </li>
       </ul>

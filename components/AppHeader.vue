@@ -8,9 +8,11 @@
         <nav class="nav-wrap">
           <no-ssr>
             <ul class="box">
-              <li class="nav-list first"><a href="/">首页</a></li>
+              <li class="nav-list first">
+                <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2"></i> 首页</nuxt-link>
+              </li>
               <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
-                <nuxt-link :to="{ name: `${item.type}-id-title`, params: { id: 1, title: item.title }, query: { type: item.ID } }">
+                <nuxt-link :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }">
                   <i class="iconfont" :class="item.icon"></i>
                   {{ item.title }}
                   <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
@@ -18,7 +20,10 @@
                 <!-- 二级菜单 -->
                 <ul class="sub-nav-wrap">
                   <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
-                    <nuxt-link :to="{ name: `${child.type}-id-title`, params: { id: 1, title: child.title }, query: { type: child.ID } }">
+                    <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
+                      <i class="iconfont" :class="child.icon"></i> {{ child.title }}
+                    </nuxt-link>
+                    <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
                       <i class="iconfont" :class="child.icon"></i> {{ child.title }}
                     </nuxt-link>
                   </li>
@@ -39,6 +44,8 @@
 </template>
 <script>
 export default {
+  watchQuery: ['type'],
+  key: (to) => to.fullPath,
   name: 'AppHeader',
   data () {
     return {
