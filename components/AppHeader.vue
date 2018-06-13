@@ -3,7 +3,7 @@
     <div class="wrap">
       <div class="left">
         <div class="logo">
-          <a :href="$store.state.info.baseUrl">{{ $store.state.info.blogName }}</a>
+          <nuxt-link :to="{ name: 'index' }">{{ $store.state.info.blogName }}</nuxt-link>
         </div>
         <nav class="nav-wrap">
           <no-ssr>
