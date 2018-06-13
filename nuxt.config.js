@@ -6,11 +6,13 @@ module.exports = {
     title: 'xm-nuxt-wordpress-theme',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+    ],
+    script: [
+      { src: '//at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' }
     ]
   },
 
@@ -59,7 +61,8 @@ module.exports = {
   },
 
   plugins: [
-    { src: '~/plugins/element-ui', ssr: true }
+    { src: '~/plugins/element-ui', ssr: true },
+    { src: '~/plugins/message', ssr: false }
   ],
 
   modules: [

@@ -51,7 +51,7 @@
               <span><i class="iconfont icon-time"></i>{{ item.date.replace('T', ' ') }}</span>
               <span><i class="iconfont icon-eye"></i>{{ item.articleInfor.viewCount }}</span>
               <span><i class="iconfont icon-message"></i>{{ item.articleInfor.commentCount }}</span>
-              <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLink.very_good }}</span>
+              <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLike.very_good }}</span>
             </div>
             <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
           </div>

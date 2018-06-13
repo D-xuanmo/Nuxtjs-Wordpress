@@ -107,6 +107,10 @@ $headerHeight: 60px;
       .icon-arrow-bottom{
         font-size: $font-size-small;
       }
+
+      .nuxt-link-exact-active{
+        color: $color-highlight-text;
+      }
     }
 
     // 二级菜单
