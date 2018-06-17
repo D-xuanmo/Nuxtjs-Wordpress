@@ -67,11 +67,6 @@ export default {
     }
   },
   name: 'Index',
-  data () {
-    return {
-      isShowLoading: true
-    }
-  },
   head () {
     return {
       title: this.$route.query.title
@@ -82,7 +77,6 @@ export default {
       info: this.info,
       menu: this.menu
     })
-    this.isShowLoading = false
   },
   methods: {
     currentPage (n) {

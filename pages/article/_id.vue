@@ -65,18 +65,11 @@ export default {
     }
   },
   name: 'Index',
-  data () {
-    return {
-      isShowLoading: true
-    }
-  },
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
       menu: this.menu
     })
-    this.isShowLoading = false
-    console.log(this)
   },
   methods: {
     currentPage (n) {

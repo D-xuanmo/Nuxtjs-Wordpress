@@ -62,15 +62,63 @@
           <p v-else>上一篇：<nuxt-link :to="{ name: 'details-id', params: { id: article.articleInfor.prevLink.ID } }">{{ article.articleInfor.prevLink.post_title }}</nuxt-link></p>
         </div>
         <div class="next">
-          <p v-if="article.articleInfor.nextLink === ''">已是第一篇文章！</p>
+          <p v-if="article.articleInfor.nextLink === ''">已是最后一篇文章！</p>
           <p v-else>下一篇：<nuxt-link :to="{ name: 'details-id', params: { id: article.articleInfor.nextLink.ID } }">{{ article.articleInfor.nextLink.post_title }}</nuxt-link></p>
         </div>
       </div>
+    </div>
+    <!-- 作者信息 -->
+    <div class="section author-introduct">
+      <!-- 头像 -->
+      <img :src="article.articleInfor.other.authorPic.full" alt="" width="100">
+      <div class="right">
+        <!-- 昵称 -->
+        <div class="header">
+          <p class="inline-block name">
+            作者简介：<i class="iconfont icon-about-f"></i><span class="f-s-14px">{{ article.articleInfor.author }}</span>
+          </p>
+          <p class="inline-block leave"></p>
+        </div>
+        <!-- 简介 -->
+        <p class="author-summary">{{ article.articleInfor.other.authorTro }}</p>
+        <!-- 社交信息 -->
+        <ul class="author-link">
+          <li class="list">
+            <nuxt-link :to="{ name: 'index' }">
+              <svg class="iconfont-colour" aria-hidden="true">
+                <use xlink:href="#icon-icon-test"></use>
+              </svg>
+            </nuxt-link>
+          </li>
+          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'" @click="showWechatNum(item.url)">
+            <a href="javascript:;">
+              <svg class="iconfont-colour" aria-hidden="true">
+                <use :xlink:href="item.icon"></use>
+              </svg>
+            </a>
+          </li>
+          <li class="list" v-else>
+            <a :href="key == 'email' ? `mailto:${item.url}` : item.url">
+              <svg class="iconfont-colour" aria-hidden="true">
+                <use :xlink:href="item.icon"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- 评论列表 -->
+    <div class="section comment">
+      <h2 class="comment-title" v-html="`共 ${article.articleInfor.commentCount} 条评论关于 “${article.title.rendered}”`"></h2>
+      <no-ssr>
+        <comments></comments>
+      </no-ssr>
     </div>
   </section>
 </template>
 <script>
 import axios from '~/plugins/axios'
+import Comments from '~/components/comment/Index'
 export default {
   async asyncData (context) {
     let [info, menu, article] = await Promise.all([
@@ -87,6 +135,9 @@ export default {
     }
   },
   name: 'Article',
+  components: {
+    Comments
+  },
   data () {
     return {
       opinion: {
@@ -115,15 +166,36 @@ export default {
           isShowLaoding: false,
           text: 'Angry'
         }
+      },
+      authorOtherInfo: {
+        github: {
+          icon: '#icon-GitHub'
+        },
+        qq: {
+          icon: '#icon-qq1'
+        },
+        wechatNum: {
+          icon: '#icon-weixin5'
+        },
+        sina: {
+          icon: '#icon-xinlang1'
+        },
+        email: {
+          icon: '#icon-youxiang'
+        }
       }
     }
   },
   created () {
-    console.log(this)
+    let other = this.article.articleInfor.other
     this.$store.commit('getInfo', {
       info: this.info,
       menu: this.menu
     })
+    // 合并作者数据
+    for (let key in this.authorOtherInfo) {
+      this.authorOtherInfo[key].url = other[key]
+    }
   },
   head () {
     return {
@@ -132,14 +204,15 @@ export default {
         { name: 'description', content: this.article.articleInfor.summary }
       ],
       link: [
-        { rel: 'stylesheet', href: 'https://www.xuanmo.xin/wp-content/themes/xm-vue-theme/static/css/prism.css' }
+        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ],
       script: [
-        { src: 'https://www.xuanmo.xin/wp-content/themes/xm-vue-theme/static/js/prism.js' }
+        { src: 'https://upyun.xuanmo.xin/js/prism.js' }
       ]
     }
   },
   methods: {
+    // 发表意见
     updateOpinion (key) {
       if (localStorage.getItem(`xm_link_${this.$route.params.id}`)) {
         this.$message({
@@ -148,7 +221,7 @@ export default {
         })
       } else {
         this.opinion[key].isShowLaoding = true
-        axios.post('/wp-json/xm-blog/v1/link/', {
+        axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/link/`, {
           params: {
             id: this.$route.params.id,
             key
@@ -160,11 +233,24 @@ export default {
           localStorage.setItem(`xm_link_${this.$route.params.id}`, true)
         }).catch((err) => console.log(err))
       }
+    },
+
+    // 显示微信号码
+    showWechatNum (num) {
+      this.$message({
+        title: `微信号：${num}`,
+        showClose: true,
+        showImg: true,
+        center: true,
+        wrapCenter: true,
+        width: 280,
+        imgUrl: this.article.articleInfor.other.wechatPic
+      })
     }
   },
   mounted () {
     // 代码高亮
-    window.Prism.highlightAll()
+    // if (process.browser) window.Prism.highlightAll()
   }
 }
 </script>
@@ -187,7 +273,7 @@ export default {
   .other-info{
     margin-bottom: 10px;
     padding-bottom: 5px;
-    border-bottom: 1px solid $color-main-background;
+    border-bottom: 1px solid $color-border;
     text-align: center;
   }
 
@@ -244,5 +330,61 @@ export default {
   .next{
     margin-top: 10px;
   }
+}
+
+// 作者信息
+.author-introduct{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .right{
+    flex: 1;
+  }
+
+  .header{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .name{
+    font-size: $font-size-large;
+  }
+
+  img{
+    margin-right: 10px;
+    border-radius: $border-radius;
+  }
+}
+
+.author-link{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+
+  .list{
+    box-sizing: border-box;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: $border-radius;
+    background: $color-sub-background;
+    font-size: $font-size-small;
+  }
+
+  .iconfont-colour{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+}
+
+.comment-title{
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-radius: $border-radius;
+  background: $color-sub-background;
+  font-size: $font-size-large;
+  text-align: center;
 }
 </style>

@@ -7,8 +7,14 @@ $color-main-text: #666;
 // 文字辅助颜色
 $color-sub-text: #999;
 
+$color-red: #f00;
+
 // 主体背景颜色
 $color-main-background: #e9eaed;
+$color-sub-background: #f5f5f5;
+
+// 主体边框颜色
+$color-border: #e9eaed;
 
 // 修饰金色
 $color-golden: #f2be45;
@@ -20,7 +26,7 @@ $font-size-base: 14px;
 $font-size-large: 16px;
 
 // 圆角
-$border-radius: 3px;
+$border-radius: 4px;
 
 // 容器之间的外间距
 $container-margin: 20px;

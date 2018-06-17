@@ -3,12 +3,20 @@
     <article class="article">
       <h2 class="title">{{ pages.title.rendered }}</h2>
       <div class="content" v-html="pages.content.rendered"></div>
+      <!-- 评论列表 -->
+      <div class="section comment">
+        <h2 class="comment-title" v-html="`共 ${pages.pageInfor.commentCount} 条评论关于 “${pages.title.rendered}”`"></h2>
+        <no-ssr>
+          <comments></comments>
+        </no-ssr>
+      </div>
     </article>
   </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios'
+import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
     let [info, menu, pages] = await Promise.all([
@@ -23,19 +31,17 @@ export default {
     }
   },
   name: 'Index',
-  data () {
-    return {
-      isShowLoading: true
-    }
+  components: {
+    Comments
   },
   head () {
     return {
       title: this.pages.title.rendered,
       link: [
-        { rel: 'stylesheet', href: 'https://www.xuanmo.xin/wp-content/themes/xm-vue-theme/static/css/prism.css' }
+        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ],
       script: [
-        { src: 'https://www.xuanmo.xin/wp-content/themes/xm-vue-theme/static/js/prism.js' }
+        { src: 'https://upyun.xuanmo.xin/js/prism.js' }
       ]
     }
   },
@@ -44,8 +50,6 @@ export default {
       info: this.info,
       menu: this.menu
     })
-    this.isShowLoading = false
-    console.log(this)
   }
 }
 </script>
@@ -67,5 +71,14 @@ export default {
   .content{
     line-height: 2;
   }
+}
+
+.comment-title{
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-radius: $border-radius;
+  background: $color-sub-background;
+  font-size: $font-size-large;
+  text-align: center;
 }
 </style>

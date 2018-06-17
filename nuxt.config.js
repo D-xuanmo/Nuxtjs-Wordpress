@@ -9,7 +9,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
       { src: '//at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' }
@@ -82,6 +82,10 @@ module.exports = {
       pathRewrite: {
         '^/api': '/'
       }
+    },
+    '/wp-content': {
+      // target: 'http://localhost:8888',
+      target: 'https://www.xuanmo.xin'
     }
   },
 

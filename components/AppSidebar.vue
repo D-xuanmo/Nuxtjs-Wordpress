@@ -70,7 +70,7 @@ export default {
   .header{
     margin-bottom: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid $color-main-background;
+    border-bottom: 1px solid $color-border;
 
     p{
       position: relative;
