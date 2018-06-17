@@ -64,7 +64,7 @@ export default {
       nCurrentPage: +params.id
     }
   },
-  name: 'Index',
+  name: 'Article',
   created () {
     this.$store.commit('getInfo', {
       info: this.info,

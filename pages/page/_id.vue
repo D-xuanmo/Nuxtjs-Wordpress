@@ -30,7 +30,7 @@ export default {
       pages: pages.data
     }
   },
-  name: 'Index',
+  name: 'Page',
   components: {
     Comments
   },

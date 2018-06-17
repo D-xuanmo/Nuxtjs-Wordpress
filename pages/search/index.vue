@@ -1,41 +1,9 @@
 <template>
   <div class="container">
-    <!-- banner start -->
-    <div class="banner-wrap">
-      <ul class="big-banner">
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/03/bg1_1.jpg" alt="">
-            <span class="title">标题文字</span>
-          </nuxt-link>
-        </li>
-      </ul>
-      <ul class="small-banner">
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字</span>
-          </nuxt-link>
-        </li>
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字</span>
-          </nuxt-link>
-        </li>
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字标题文字标题文字标题文字标题文字标题文字标题文字</span>
-          </nuxt-link>
-        </li>
-      </ul>
-    </div>
-    <!-- banner end -->
     <!-- article list start -->
     <div class="article-list-wrap">
       <ul class="header">
-        <li class="list">最新文章</li>
+        <li class="list">关于“<span class="mark">{{ $route.query.s }}</span>”的文章</li>
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
         <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
@@ -76,13 +44,15 @@
 <script>
 import axios from '~/plugins/axios'
 export default {
-  async asyncData ({ params }) {
+  watchQuery: ['page', 's'],
+  async asyncData ({ query }) {
     let [info, menu, list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
-          page: 1,
+          search: query.s,
+          page: query.page,
           per_page: 8,
           _embed: true
         }
@@ -93,15 +63,15 @@ export default {
       menu: menu.data.mainMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
-      nCurrentPage: 1
+      nCurrentPage: +query.page
     }
   },
   head () {
     return {
-      title: `${this.info.blogName} | ${this.info.blogDescription}`
+      title: `关于“${this.$route.query.s}”的文章`
     }
   },
-  name: 'Index',
+  name: 'Search',
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
@@ -111,9 +81,10 @@ export default {
   methods: {
     currentPage (n) {
       this.$router.push({
-        name: 'article-id-title',
-        params: {
-          id: n
+        name: 'search',
+        query: {
+          page: n,
+          s: this.$route.query.s
         }
       })
     },
@@ -121,9 +92,10 @@ export default {
     // 上一页
     prevPage (n) {
       this.$router.push({
-        name: 'article-id-title',
-        params: {
-          id: n
+        name: 'search',
+        query: {
+          page: n,
+          s: this.$route.query.s
         }
       })
     },
@@ -131,9 +103,10 @@ export default {
     // 下一页
     nextPage (n) {
       this.$router.push({
-        name: 'article-id-title',
-        params: {
-          id: n
+        name: 'search',
+        query: {
+          page: n,
+          s: this.$route.query.s
         }
       })
     }
@@ -142,61 +115,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// banner
-.banner-wrap{
-  display: flex;
-  justify-content: space-between;
-  height: 320px;
-
-  img{
-    vertical-align: top;
-    width: 100%;
-    height: 100%;
-    // border-radius: $border-radius;
-  }
-
-  .list{
-    position: relative;
-
-    .title{
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 30px;
-      background: rgba(0,0,0,.3);
-      text-indent: $font-size-base;
-      line-height: 30px;
-      color: $color-white;
-      @extend %ellipsis;
-    }
-  }
-
-  .big-banner{
-    width: 710px;
-
-    img{
-      height: 320px;
-    }
-  }
-
-  .small-banner{
-    width: 180px;
-
-    .list{
-      height: 100px;
-      margin-bottom: 10px;
-
-      &:last-of-type{
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
 // 文章列表
 .article-list-wrap{
-  margin-top: $container-margin;
   padding: $container-padding;
   background: $color-white;
 
@@ -204,6 +124,10 @@ export default {
     padding-bottom: $container-padding;
     border-bottom: 1px solid $color-main-background;
     font-size: $font-size-large;
+
+    .mark{
+      color: $color-highlight-text;
+    }
   }
 
   // 文章列表

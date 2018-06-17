@@ -104,6 +104,12 @@
   }
 }
 
+// 文字选中颜色
+::selection{
+  background: $color-highlight-text;
+  color: $color-white;
+}
+
 body {
   overflow-x: hidden;
   background: $color-main-background;

@@ -28,7 +28,7 @@
       </ul>
     </div>
     <!-- 站点统计 -->
-    <div class="sidebar-list count">
+    <div class="sidebar-list count" v-if="sidebar.setExtend.aside_count === 'on'">
       <div class="header">
         <p>
           <i class="iconfont icon-count"></i> 站点统计

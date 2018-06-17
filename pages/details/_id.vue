@@ -134,7 +134,7 @@ export default {
       xmLike: article.data.articleInfor.xmLike
     }
   },
-  name: 'Article',
+  name: 'Details',
   components: {
     Comments
   },

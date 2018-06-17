@@ -66,7 +66,7 @@ export default {
       nCurrentPage: +params.id
     }
   },
-  name: 'Index',
+  name: 'Category',
   head () {
     return {
       title: this.$route.query.title

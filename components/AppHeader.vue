@@ -35,8 +35,8 @@
       </div>
       <div class="right">
         <div class="search-wrap">
-          <input type="text" v-model="searchText" placeholder="请输入关键字">
-          <i class="iconfont icon-search"></i>
+          <input type="text" v-model="searchText" placeholder="请输入关键字" @keyup.enter="search">
+          <i class="iconfont icon-search" @click="search"></i>
         </div>
       </div>
     </div>
@@ -50,6 +50,18 @@ export default {
   data () {
     return {
       searchText: ''
+    }
+  },
+  methods: {
+    search () {
+      this.$router.push({
+        name: 'search',
+        query: {
+          page: 1,
+          s: this.searchText
+        }
+      })
+      this.searchText = ''
     }
   }
 }
@@ -162,6 +174,7 @@ $headerHeight: 60px;
       background: $color-main-background;
       text-align: center;
       line-height: 30px;
+      cursor: pointer;
     }
   }
 }

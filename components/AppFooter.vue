@@ -4,7 +4,7 @@
       <div class="link-wrap" v-html="$store.state.info.setExtend.link"></div>
       <div class="copyright">
         <div v-html="$store.state.info.setExtend.footer_copyright"></div>
-        <p><a href="https://www.xuanmo.xin">Theme by Xuanmo</a></p>
+        <p>Theme by <a href="https://www.xuanmo.xin">Xuanmo</a></p>
       </div>
     </div>
   </footer>
