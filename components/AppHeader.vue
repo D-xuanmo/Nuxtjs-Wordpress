@@ -9,25 +9,26 @@
           <no-ssr>
             <ul class="box">
               <li class="nav-list first">
-                <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2"></i> 首页</nuxt-link>
+                <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2"></i>首页</nuxt-link>
               </li>
               <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
                 <nuxt-link :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }">
-                  <i class="iconfont" :class="item.icon"></i>
-                  {{ item.title }}
+                  <i class="iconfont" :class="item.icon"></i>{{ item.title }}
                   <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
                 </nuxt-link>
                 <!-- 二级菜单 -->
-                <ul class="sub-nav-wrap">
-                  <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
-                    <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
-                      <i class="iconfont" :class="child.icon"></i> {{ child.title }}
-                    </nuxt-link>
-                    <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
-                      <i class="iconfont" :class="child.icon"></i> {{ child.title }}
-                    </nuxt-link>
-                  </li>
-                </ul>
+                <div class="sub-nav-wrap">
+                  <ul class="list-view-wrap">
+                    <li class="sub-nav-list" v-for="child in item.children" :key="child.key">
+                      <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
+                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
+                      </nuxt-link>
+                      <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
+                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
+                      </nuxt-link>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </no-ssr>
@@ -116,6 +117,11 @@ $headerHeight: 60px;
         }
       }
 
+      .iconfont{
+        vertical-align: bottom;
+        margin-right: 2px;
+      }
+
       .icon-arrow-bottom{
         font-size: $font-size-small;
       }
@@ -133,8 +139,28 @@ $headerHeight: 60px;
       top: 60px;
       left: 50%;
       width: 150px;
-      background: $color-white;
       transform: translateX(-50%);
+
+      &:after{
+        content: "";
+        position: absolute;
+        top: 1px;
+        left: 50%;
+        border: {
+          width: 5px;
+          style: solid;
+          color: transparent transparent $color-white transparent;
+        }
+        transform: translateX(-50%);
+      }
+
+      .list-view-wrap{
+        margin-top: 10px;
+        border: 1px solid $color-sub-background;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        border-radius: $border-radius;
+        background: $color-white;
+      }
     }
 
     .sub-nav-list{

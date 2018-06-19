@@ -8,7 +8,7 @@
         <span class="text">&nbsp;发表于：</span>
         <span class="time"><i class="iconfont icon-time"></i> {{ article.date.replace('T', ' ') }}</span>
         <span class="text">&nbsp;分类：</span>
-        <span class="classify" v-for="item in article.articleInfor.classify" :key="item.key">{{ item.name }}</span>&nbsp;
+        <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
         <i class="iconfont icon-hot1">{{ article.articleInfor.viewCount }}</i>&nbsp;
         <i class="iconfont icon-message-f">{{ article.articleInfor.commentCount }}</i>
       </div>
@@ -34,7 +34,7 @@
             <use xlink:href="#icon-QQ"></use>
           </svg>
         </a>
-        <a :href="`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}&title=${article.title.rendered}`" target="_blank">
+        <a :href="`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-Qzone"></use>
           </svg>
@@ -53,7 +53,7 @@
       <!-- 标签 -->
       <div class="tag-wrap text-center">
         <i class="iconfont icon-tag"></i>
-        <span v-for="(item, index) in classify" :key="item.key">{{ index === classify.length - 1 ? item.name : `${item.name}、` }}</span>
+        <span v-for="(item, index) in classify" :key="item.key" v-html="index === classify.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
       <!-- 上一篇、下一篇 -->
       <div class="relative-link-wrap">
@@ -247,10 +247,6 @@ export default {
         imgUrl: this.article.articleInfor.other.wechatPic
       })
     }
-  },
-  mounted () {
-    // 代码高亮
-    // if (process.browser) window.Prism.highlightAll()
   }
 }
 </script>
@@ -259,6 +255,7 @@ export default {
   margin-top: $container-margin;
   padding: $container-padding;
   background: $color-white;
+  border-radius: $border-radius;
 }
 
 .article{
@@ -280,6 +277,19 @@ export default {
   // 正文
   .content{
     line-height: 2;
+
+    /deep/ h2{
+      margin-top: 10px;
+      font-weight: bold;
+
+      .iconfont{
+        vertical-align: bottom;
+      }
+    }
+
+    /deep/ img{
+      box-shadow: 0 0 10px #d2d2d2;
+    }
   }
 }
 

@@ -59,9 +59,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sidebar-list{
-  background: $color-white;
   margin-top: $container-margin;
   padding: 10px;
+  border-radius: $border-radius;
+  background: $color-white;
 
   &:first-of-type{
     margin-top: 0;

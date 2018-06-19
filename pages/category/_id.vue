@@ -1,43 +1,40 @@
 <template>
   <div class="container">
-    <!-- article list start -->
-    <div class="article-list-wrap">
-      <ul class="header">
-        <li class="list">当前频道：{{ $route.query.title }}</li>
-      </ul>
-      <article class="article-list" v-for="item in articleList" :key="item.key">
-        <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
-          <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
-        </nuxt-link>
-        <div class="list-content">
-          <h2 class="title">
-            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
-          </h2>
-          <p class="summary">{{ item.articleInfor.summary }}...</p>
-          <div class="opeartion">
-            <div class="information">
-              <span><i class="iconfont icon-time"></i>{{ item.date.replace('T', ' ') }}</span>
-              <span><i class="iconfont icon-eye"></i>{{ item.articleInfor.viewCount }}</span>
-              <span><i class="iconfont icon-message"></i>{{ item.articleInfor.commentCount }}</span>
-              <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLike.very_good }}</span>
-            </div>
-            <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
+    <ul class="header">
+      <li class="list">当前频道：{{ $route.query.title }}</li>
+    </ul>
+    <div v-if="articleList.length === 0" class="not">暂无数据！</div>
+    <article v-else class="article-list" v-for="item in articleList" :key="item.key">
+      <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
+        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail" class="thumbnail" alt="">
+      </nuxt-link>
+      <div class="list-content">
+        <h2 class="title">
+          <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
+        </h2>
+        <p class="summary">{{ item.articleInfor.summary }}</p>
+        <div class="opeartion">
+          <div class="information">
+            <span><i class="iconfont icon-time"></i>{{ item.date.replace('T', ' ') }}</span>
+            <span><i class="iconfont icon-eye"></i>{{ item.articleInfor.viewCount }}</span>
+            <span><i class="iconfont icon-message"></i>{{ item.articleInfor.commentCount }}</span>
+            <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLike.very_good }}</span>
           </div>
+          <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
         </div>
-      </article>
-      <!-- more btn start -->
-      <el-pagination
-        :page-size="8"
-        layout="prev, pager, next, jumper"
-        :current-page.sync="nCurrentPage"
-        @current-change="currentPage"
-        @prev-click="prevPage"
-        @next-click="nextPage"
-        :total="total">
-      </el-pagination>
-      <!-- more btn end -->
-    </div>
-    <!-- article list end -->
+      </div>
+    </article>
+    <!-- more btn start -->
+    <el-pagination
+      :page-size="8"
+      layout="prev, pager, next, jumper"
+      :current-page.sync="nCurrentPage"
+      @current-change="currentPage"
+      @prev-click="prevPage"
+      @next-click="nextPage"
+      :total="total">
+    </el-pagination>
+    <!-- more btn end -->
   </div>
 </template>
 
@@ -125,14 +122,22 @@ export default {
 
 <style lang="scss" scoped>
 // 文章列表
-.article-list-wrap{
+.container{
   padding: $container-padding;
   background: $color-white;
+  border-radius: $border-radius;
 
   .header{
     padding-bottom: $container-padding;
     border-bottom: 1px solid $color-main-background;
     font-size: $font-size-large;
+  }
+
+  // 暂无数据
+  .not{
+    margin: 15px 0;
+    text-align: center;
+    color: $color-highlight-text;
   }
 
   // 文章列表

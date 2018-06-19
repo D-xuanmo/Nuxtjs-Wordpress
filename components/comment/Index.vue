@@ -89,7 +89,7 @@
     <!-- 评论列表 -->
     <ul class="comment-list-wrap">
       <li class="comment-list" v-for="item in commentList" :key="item.key">
-        <img :src="item.author_avatar_urls[96]" class="list-gravatar" width="60" height="60" alt="">
+        <img :src="item.userAgentInfo.author_avatar_urls" class="list-gravatar" width="60" height="60" alt="">
         <div class="list-header">
           <a :href="item.author_url" target="_blank" class="author">{{ item.author_name }}</a>
           <!-- 评论者等级 -->
@@ -101,7 +101,12 @@
           </p>
           <p class="inline-block system-wrap">
             <!-- 浏览器logo -->
-            <span class="browser-info" :class="item.userAgentInfo.userAgent.browserName.toLowerCase()">{{ item.userAgentInfo.userAgent.browserName.replace('-', ' ') }} | {{ item.userAgentInfo.userAgent.browserVersion }}</span>
+            <span
+              v-if="item.userAgentInfo.userAgent.browserName"
+              class="browser-info" :class="item.userAgentInfo.userAgent.browserName.toLowerCase()">
+                {{ item.userAgentInfo.userAgent.browserName.replace('-', ' ') }} | {{ item.userAgentInfo.userAgent.browserVersion }}
+            </span>
+            <span v-else class="browser-info">Unkonw</span>
             <!-- 系统logo -->
             <span class="system-info">{{ item.userAgentInfo.userAgent.system && item.userAgentInfo.userAgent.system.replace(/_/g, '.') }}</span>
           </p>

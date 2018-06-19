@@ -110,10 +110,23 @@
   color: $color-white;
 }
 
+// 滚动条颜色
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background: #e4e4e4;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: $color-highlight-text;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+
 body {
   overflow-x: hidden;
   background: $color-main-background;
-  font: $font-size-base "PingFangSC-Light",Microsoft Yahei;
+  font: $font-size-base "Andale Mono",PingFangSC-Light,Microsoft Yahei;
   color: $color-main-text;
 }
 

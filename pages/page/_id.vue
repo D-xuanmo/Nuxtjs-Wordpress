@@ -3,14 +3,14 @@
     <article class="article">
       <h2 class="title">{{ pages.title.rendered }}</h2>
       <div class="content" v-html="pages.content.rendered"></div>
-      <!-- 评论列表 -->
-      <div class="section comment">
-        <h2 class="comment-title" v-html="`共 ${pages.pageInfor.commentCount} 条评论关于 “${pages.title.rendered}”`"></h2>
-        <no-ssr>
-          <comments></comments>
-        </no-ssr>
-      </div>
     </article>
+    <!-- 评论列表 -->
+    <div class="comment">
+      <h2 class="comment-title" v-html="`共 ${pages.pageInfor.commentCount} 条评论关于 “${pages.title.rendered}”`"></h2>
+      <no-ssr>
+        <comments></comments>
+      </no-ssr>
+    </div>
   </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
 .article{
   padding: $container-padding;
   background: $color-white;
+  border-radius: $border-radius;
 
   .title{
     margin-bottom: 10px;
@@ -70,15 +71,31 @@ export default {
   // 正文
   .content{
     line-height: 2;
+
+    /deep/ h2{
+      margin-top: 10px;
+      font-weight: bold;
+
+      .iconfont{
+        vertical-align: bottom;
+      }
+    }
   }
 }
 
-.comment-title{
-  margin-bottom: 10px;
-  padding: 10px 0;
+.comment{
+  margin-top: $container-margin;
+  padding: $container-padding;
+  background: $color-white;
   border-radius: $border-radius;
-  background: $color-sub-background;
-  font-size: $font-size-large;
-  text-align: center;
+
+  .comment-title{
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-radius: $border-radius;
+    background: $color-sub-background;
+    font-size: $font-size-large;
+    text-align: center;
+  }
 }
 </style>

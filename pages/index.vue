@@ -39,13 +39,13 @@
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
         <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
-          <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
+          <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail" class="thumbnail" alt="">
         </nuxt-link>
         <div class="list-content">
           <h2 class="title">
             <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
           </h2>
-          <p class="summary">{{ item.articleInfor.summary }}...</p>
+          <p class="summary">{{ item.articleInfor.summary }}</p>
           <div class="opeartion">
             <div class="information">
               <span><i class="iconfont icon-time"></i>{{ item.date.replace('T', ' ') }}</span>
@@ -98,7 +98,11 @@ export default {
   },
   head () {
     return {
-      title: `${this.info.blogName} | ${this.info.blogDescription}`
+      title: `${this.info.blogName} | ${this.info.blogDescription}`,
+      meta: [
+        { name: 'keywords', content: this.info.setExtend.keywords },
+        { name: 'description', content: this.info.setExtend.description }
+      ]
     }
   },
   name: 'Index',
@@ -152,11 +156,12 @@ export default {
     vertical-align: top;
     width: 100%;
     height: 100%;
-    // border-radius: $border-radius;
   }
 
   .list{
+    overflow: hidden;
     position: relative;
+    border-radius: $border-radius;
 
     .title{
       position: absolute;
@@ -198,6 +203,7 @@ export default {
 .article-list-wrap{
   margin-top: $container-margin;
   padding: $container-padding;
+  border-radius: $border-radius;
   background: $color-white;
 
   .header{
