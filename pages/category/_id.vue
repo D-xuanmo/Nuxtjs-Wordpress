@@ -144,14 +144,14 @@ export default {
   .article-list{
     display: flex;
     justify-content: space-between;
-    height: 150px;
+    height: 145px;
     padding: 20px 0;
     border-bottom: 1px solid $color-main-background;
 
     // 缩略图
     .thumbnail{
-      width: 240px;
-      height: 150px;
+      width: 260px;
+      height: 145px;
       border-radius: $border-radius;
       transition: .5s;
 
@@ -162,7 +162,7 @@ export default {
 
     .list-content{
       position: relative;
-      width: 610px;
+      width: 590px;
     }
 
     .title{

@@ -4,29 +4,17 @@
     <div class="banner-wrap">
       <ul class="big-banner">
         <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/03/bg1_1.jpg" alt="">
-            <span class="title">标题文字</span>
+          <nuxt-link :to="info.banner.big_banner.link">
+            <img :src="info.banner.big_banner.path" alt="">
+            <span class="title" :title="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
           </nuxt-link>
         </li>
       </ul>
       <ul class="small-banner">
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字</span>
-          </nuxt-link>
-        </li>
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字</span>
-          </nuxt-link>
-        </li>
-        <li class="list">
-          <nuxt-link to="/">
-            <img src="https://www.xuanmo.xin/wp-content/uploads/2018/01/%E6%9C%AA%E6%A0%87%E9%A2%98-1.jpg" alt="">
-            <span class="title">标题文字标题文字标题文字标题文字标题文字标题文字标题文字</span>
+        <li class="list" v-for="item in info.banner.small_banner" :key="item.key">
+          <nuxt-link :to="item.link">
+            <img :src="item.path" alt="">
+            <span class="title" :title="item.text">{{ item.text }}</span>
           </nuxt-link>
         </li>
       </ul>
@@ -216,14 +204,14 @@ export default {
   .article-list{
     display: flex;
     justify-content: space-between;
-    height: 150px;
+    height: 145px;
     padding: 20px 0;
     border-bottom: 1px solid $color-main-background;
 
     // 缩略图
     .thumbnail{
-      width: 240px;
-      height: 150px;
+      width: 260px;
+      height: 145px;
       border-radius: $border-radius;
       transition: .5s;
 
@@ -234,7 +222,7 @@ export default {
 
     .list-content{
       position: relative;
-      width: 610px;
+      width: 590px;
     }
 
     .title{

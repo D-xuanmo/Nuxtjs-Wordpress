@@ -29,12 +29,12 @@
       <!-- 分享 -->
       <div class="share text-center">
         <span class="text">分享到：</span>
-        <a :href="`http://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}&title=${article.title.rendered}&summary=`" target="_blank">
+        <a :href="`http://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-QQ"></use>
           </svg>
         </a>
-        <a :href="`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
+        <a :href="`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-Qzone"></use>
           </svg>
@@ -44,7 +44,7 @@
             <use xlink:href="#icon-weichat"></use>
           </svg>
         </a>
-        <a :href="`http://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+        <a :href="`http://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-xinlang"></use>
           </svg>
