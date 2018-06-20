@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <ul class="header">
-      <li class="list">关于“<span class="mark">{{ $route.query.s }}</span>”的文章</li>
+      <li class="list">共<span class="mark">{{ total }}</span>条关于“<span class="mark">{{ $route.query.s }}</span>”的文章</li>
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
-        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail" class="thumbnail" alt="">
+        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
         <h2 class="title">

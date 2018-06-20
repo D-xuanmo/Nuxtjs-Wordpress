@@ -104,7 +104,7 @@
             <span
               v-if="item.userAgentInfo.userAgent.browserName"
               class="browser-info" :class="item.userAgentInfo.userAgent.browserName.toLowerCase()">
-                {{ item.userAgentInfo.userAgent.browserName.replace('-', ' ') }} | {{ item.userAgentInfo.userAgent.browserVersion }}
+                {{ item.userAgentInfo.userAgent.browserName.replace('-', ' ') }} {{ item.userAgentInfo.userAgent.browserVersion }}
             </span>
             <span v-else class="browser-info">Unkonw</span>
             <!-- 系统logo -->
@@ -215,7 +215,7 @@ export default {
       this.bClick = false
       this.sMoreBtnText = '加载中'
       this.currentNum++
-      axios.get('/wp-json/wp/v2/comments/', {
+      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/comments/`, {
         params: {
           post: this.$route.params.id,
           page: this.currentNum

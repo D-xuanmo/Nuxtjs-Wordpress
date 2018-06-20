@@ -6,7 +6,7 @@
     <div v-if="articleList.length === 0" class="not">暂无数据！</div>
     <article v-else class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
-        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail" class="thumbnail" alt="">
+        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
         <h2 class="title">
