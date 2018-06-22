@@ -187,6 +187,21 @@ body {
   display: none;
 }
 
+// 代码高亮
+pre{
+  position: relative;
+  margin: $container-margin 0;
+  &:after{
+    content: attr(data-lang);
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  .hljs{
+    border-radius: $border-radius;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .desktop-show{
     display: none;

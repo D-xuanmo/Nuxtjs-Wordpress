@@ -9,10 +9,10 @@
         <span class="time"><i class="iconfont icon-time"></i> {{ article.date.replace('T', ' ') }}</span>
         <span class="text">&nbsp;分类：</span>
         <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
-        <i class="iconfont icon-hot1">{{ article.articleInfor.viewCount }}</i>&nbsp;
-        <i class="iconfont icon-message-f">{{ article.articleInfor.commentCount }}</i>
+        <span><i class="iconfont icon-hot1"></i>{{ article.articleInfor.viewCount }}</span>&nbsp;
+        <span><i class="iconfont icon-message-f"></i>{{ article.articleInfor.commentCount }}</span>
       </div>
-      <div class="content" v-html="article.content.rendered"></div>
+      <div class="content" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
     </article>
     <!-- 文章内容结束 -->
     <div class="section operation">
@@ -22,7 +22,7 @@
           <span class="block total">
             <i class="iconfont icon-loading" v-show="item.isShowLaoding"></i> {{ xmLike[key] }}人
           </span>
-          <img :src="item.src" width="40" alt="">
+          <img :src="item.src" width="40" height="40" alt="">
           <span class="block">{{ item.text }}</span>
         </li>
       </ul>
@@ -199,7 +199,7 @@ export default {
     }
 
     // 更新阅读量
-    axios.post('/wp-json/xm-blog/v1/view-count/', {
+    axios.post('/wp-json/xm-blog/v1/view-count', {
       params: {
         id: this.$route.params.id
       }
@@ -212,10 +212,10 @@ export default {
         { name: 'description', content: this.article.articleInfor.summary }
       ],
       link: [
-        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
+        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/atom-one-dark.css' }
       ],
       script: [
-        { src: 'https://upyun.xuanmo.xin/js/prism.js' }
+        { src: 'https://upyun.xuanmo.xin/js/highlight.min.js' }
       ]
     }
   },
@@ -255,6 +255,9 @@ export default {
         imgUrl: this.article.articleInfor.other.wechatPic
       })
     }
+  },
+  mounted () {
+    process.browser && document.querySelectorAll('pre code').forEach(block => hljs.highlightBlock(block))
   }
 }
 </script>
@@ -280,6 +283,10 @@ export default {
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
     text-align: center;
+
+    .iconfont{
+      vertical-align: baseline;
+    }
   }
 
   // 正文
@@ -310,6 +317,7 @@ export default {
   text-align: center;
 
   .list{
+    width: 50px;
     margin: 0 20px;
     cursor: pointer;
   }
@@ -407,5 +415,15 @@ export default {
   background: $color-sub-background;
   font-size: $font-size-large;
   text-align: center;
+}
+
+@media screen and (max-width:767px) {
+  .opinion{
+    justify-content: space-between;
+
+    .list{
+      margin: 0;
+    }
+  }
 }
 </style>

@@ -21,7 +21,7 @@
           <img :src="item.avatar" class="thumbnail" width="50" height="50" alt="">
           <div class="right">
             <h3 class="author">{{ item.comment_author }}</h3>
-            <p class="comment-text" v-html="item.comment_content"></p>
+            <p class="comment-text" v-html="item.comment_content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
             <nuxt-link :to="{ name: 'details-id', params: { id: item.comment_post_ID } }" class="block title">评：{{ item.title }}</nuxt-link>
           </div>
         </li>
@@ -50,9 +50,7 @@ export default {
   name: 'AppSidebar',
   computed: {
     sidebar () {
-      let result = this.$store.state.info
-      result.newComment.map(item => (item.comment_content = item.comment_content.replace(/\[img\]\S+\[\/img\]/, '[图片]')))
-      return result
+      return this.$store.state.info
     }
   }
 }
