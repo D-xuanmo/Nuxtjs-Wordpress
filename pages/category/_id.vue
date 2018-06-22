@@ -5,7 +5,7 @@
     </ul>
     <div v-if="articleList.length === 0" class="not">暂无数据！</div>
     <article v-else class="article-list" v-for="item in articleList" :key="item.key">
-      <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
+      <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
         <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
@@ -216,6 +216,61 @@ export default {
       background: $color-highlight-text;
       border-radius: $border-radius;
       color: $color-white;
+    }
+  }
+}
+
+@media screen and (max-width:767px) {
+  // 文章列表
+  .container{
+    .article-list{
+      flex-wrap: wrap;
+      height: auto;
+
+      .title{
+        margin-top: 15px;
+        font-size: $font-size-large;
+      }
+
+      .summary{
+        height: auto;
+      }
+
+      .list-content{
+        height: auto;
+      }
+
+      .opeartion{
+        position: static;
+        display: block;
+        margin-top: 10px;
+      }
+
+      .details-btn{
+        display: block;
+        margin-top: 10px;
+        padding: 10px 0;
+        text-align: center;
+      }
+    }
+
+    .thumbnail-wrap{
+      width: 100%;
+      margin-right: 0;
+      text-align: center;
+
+      .thumbnail{
+        width: auto;
+        height: auto;
+        max-height: 150px;
+      }
+    }
+  }
+
+  // 翻页
+  /deep/ .el-pagination{
+    .el-pagination__jump{
+      display: none;
     }
   }
 }

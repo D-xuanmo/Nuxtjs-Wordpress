@@ -2,17 +2,15 @@
   <div class="container">
     <!-- banner start -->
     <div class="banner-wrap">
-      <ul class="big-banner">
-        <li class="list">
-          <nuxt-link :to="info.banner.big_banner.link">
-            <img :src="info.banner.big_banner.path" alt="">
-            <span class="title" :title="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
-          </nuxt-link>
-        </li>
-      </ul>
+      <div class="big-banner">
+        <nuxt-link class="list block" :to="info.banner.big_banner.link">
+          <img :src="info.banner.big_banner.path" alt="">
+          <span class="title" :title="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
+        </nuxt-link>
+      </div>
       <ul class="small-banner">
         <li class="list" v-for="item in info.banner.small_banner" :key="item.key">
-          <nuxt-link :to="item.link">
+          <nuxt-link class="block" :to="item.link">
             <img :src="item.path" alt="">
             <span class="title" :title="item.text">{{ item.text }}</span>
           </nuxt-link>
@@ -26,7 +24,7 @@
         <li class="list">最新文章</li>
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
-        <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">
+        <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
           <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
         </nuxt-link>
         <div class="list-content">
@@ -276,6 +274,93 @@ export default {
       background: $color-highlight-text;
       border-radius: $border-radius;
       color: $color-white;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .banner-wrap{
+    flex-wrap: wrap;
+    height: auto;
+
+    .big-banner{
+      width: 100%;
+
+      img{
+        height: auto;
+      }
+    }
+
+    .small-banner{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: $container-margin;
+
+      .list{
+        width: 32%;
+        height: auto;
+        margin-bottom: 0;
+      }
+
+      img{
+        height: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:767px) {
+  // 文章列表
+  .article-list-wrap{
+    .article-list{
+      flex-wrap: wrap;
+      height: auto;
+
+      .title{
+        margin-top: 15px;
+        font-size: $font-size-large;
+      }
+
+      .summary{
+        height: auto;
+      }
+
+      .list-content{
+        height: auto;
+      }
+
+      .opeartion{
+        position: static;
+        display: block;
+        margin-top: 10px;
+      }
+
+      .details-btn{
+        display: block;
+        margin-top: 10px;
+        padding: 10px 0;
+        text-align: center;
+      }
+    }
+
+    .thumbnail-wrap{
+      width: 100%;
+      margin-right: 0;
+      text-align: center;
+
+      .thumbnail{
+        width: auto;
+        height: auto;
+        max-height: 150px;
+      }
+    }
+  }
+
+  // 翻页
+  /deep/ .el-pagination{
+    .el-pagination__jump{
+      display: none;
     }
   }
 }

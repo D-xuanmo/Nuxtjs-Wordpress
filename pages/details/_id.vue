@@ -192,10 +192,18 @@ export default {
       info: this.info,
       menu: this.menu
     })
+
     // 合并作者数据
     for (let key in this.authorOtherInfo) {
       this.authorOtherInfo[key].url = other[key]
     }
+
+    // 更新阅读量
+    axios.post('/wp-json/xm-blog/v1/view-count/', {
+      params: {
+        id: this.$route.params.id
+      }
+    }).then(res => (this.article.articleInfor.viewCount = res.data)).catch(err => console.log(err))
   },
   head () {
     return {
@@ -277,6 +285,7 @@ export default {
   // 正文
   .content{
     line-height: 2;
+    word-break: break-all;
 
     /deep/ h2{
       margin-top: 10px;
@@ -288,6 +297,7 @@ export default {
     }
 
     /deep/ img{
+      height: auto !important;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }
@@ -376,6 +386,7 @@ export default {
   .list{
     box-sizing: border-box;
     margin-right: 10px;
+    margin-bottom: 5px;
     padding: 5px;
     border-radius: $border-radius;
     background: $color-sub-background;

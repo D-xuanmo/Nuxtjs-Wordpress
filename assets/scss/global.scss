@@ -78,8 +78,31 @@
   word-break: break-word;
 }
 
-.color-red{
+.color-red,
+.c-red{
   color: $color-red;
+}
+
+.c-blue{
+  color: $color-highlight-text;
+}
+
+.case-show{
+  display: block;
+  width: 150px;
+  margin: 20px auto;
+  padding: 10px 18px;
+  background-color: $color-highlight-text;
+  border-radius: $border-radius;
+  text-align: center;
+  color: $color-white !important;
+}
+
+.code {
+  padding: 2px 5px;
+  background: #e9eaed;
+  border-radius: $border-radius;
+  color: $color-highlight-text;
 }
 
 .wrap{
@@ -125,6 +148,7 @@
 
 body {
   overflow-x: hidden;
+  width: 100%;
   background: $color-main-background;
   font: $font-size-base "Andale Mono",PingFangSC-Light,Microsoft Yahei;
   color: $color-main-text;
@@ -153,31 +177,54 @@ body {
     border: 0;
   }
 }
-// .button--green {
-//   display: inline-block;
-//   border-radius: 4px;
-//   border: 1px solid #3b8070;
-//   color: #3b8070;
-//   text-decoration: none;
-//   padding: 10px 30px;
-// }
-//
-// .button--green:hover {
-//   color: #fff;
-//   background-color: #3b8070;
-// }
-//
-// .button--grey {
-//   display: inline-block;
-//   border-radius: 4px;
-//   border: 1px solid #35495e;
-//   color: #35495e;
-//   text-decoration: none;
-//   padding: 10px 30px;
-//   margin-left: 15px;
-// }
-//
-// .button--grey:hover {
-//   color: #fff;
-//   background-color: #35495e;
-// }
+
+.desktop-show{
+  display: block;
+}
+
+.tablet-show,
+.phone-show{
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .desktop-show{
+    display: none;
+  }
+
+  .tablet-show{
+    display: block;
+  }
+
+  .wrap{
+    width: 94%;
+  }
+
+  // 禁止点击
+  .prohibit-event{
+    pointer-events: none;
+  }
+
+  // 文章列表
+  .article-list-wrap,
+  .container{
+    .thumbnail-wrap{
+      width: 260px;
+      margin-right: 15px;
+    }
+  }
+}
+
+@media screen and (max-width:768px) {
+  .phone-show{
+    display: block;
+  }
+
+  .phone-hide{
+    display: none;
+  }
+
+  .wrap{
+    width: 90%;
+  }
+}

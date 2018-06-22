@@ -80,6 +80,11 @@ export default {
         vertical-align: bottom;
       }
     }
+
+    /deep/ img{
+      height: auto !important;
+      box-shadow: 0 0 10px #d2d2d2;
+    }
   }
 }
 
