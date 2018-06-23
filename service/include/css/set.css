@@ -1,0 +1,97 @@
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.highlighted {
+  background: #d4d4d4;
+  color: #d8296d;
+}
+
+input, textarea {
+  vertical-align: middle;
+}
+
+.url-inp {
+  width: 60%;
+}
+
+
+/* 导航切换页面 */
+
+.nav-wrap {
+  border-bottom: 1px solid #ccc;
+}
+
+.nav-wrap .nav-list {
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 10px 20px;
+  background: #008dd5;
+  color: #fff;
+  cursor: pointer;
+}
+
+.nav-wrap .nav-list.on {
+  background: #50baf1;
+}
+
+
+/*  */
+
+.content-wrap {
+  display: none;
+}
+
+.content-wrap:first-of-type {
+  display: block;
+}
+
+.row {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.row .left-wrap {
+  width: 10%;
+  text-align: right;
+}
+
+.row .right-wrap {
+  width: 88%;
+}
+
+.row .right-wrap input[type="text"] {
+  width: 80%;
+}
+
+.btn-wrap {
+  border: 0;
+}
+
+.submit-btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin-top: 20px;
+  border: 0;
+  outline: 0;
+  background: #008dd5;
+  color: #fff;
+  cursor: pointer;
+}

@@ -2,6 +2,8 @@
 
 > 使用[nuxtjs](https://nuxtjs.org) + [wordpress rest api](https://developer.wordpress.org/rest-api/)实现前后端分离，服务端渲染页面
 
+> service目录为wordpress主题文件
+
 ## Build Setup
 
 ``` bash
