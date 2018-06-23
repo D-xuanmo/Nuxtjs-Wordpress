@@ -1,6 +1,6 @@
-# xm-nuxt-wordpress-theme
+# xm-nuxt-wordpress
 
-> Nuxt.js project
+> 使用[nuxtjs](https://nuxtjs.org) + [wordpress rest api](https://developer.wordpress.org/rest-api/)实现前后端分离，服务端渲染页面
 
 ## Build Setup
 
