@@ -17,7 +17,7 @@
         <upload-img v-show="showChart" @showChart="getShowChart" @updateContent="getContent" :showChart="showChart"></upload-img>
         <!-- 表情容器 -->
         <div class="expression-wrap" ref="expression">
-          <a href="javascript:;" v-for="(item, key) in expression.content" :key="item.key" :title="item.title" :data-title="`/${key}`" @click.stop="editExpression($event)">
+          <a href="javascript:;" v-for="(item, key) in expression.content" :key="item.key" :title="item.title" :data-title="`[${key}]`" @click.stop="editExpression($event)">
             <img :src="item.url" :alt="item.title" width="30">
           </a>
         </div>

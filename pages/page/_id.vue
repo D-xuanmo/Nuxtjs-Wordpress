@@ -72,6 +72,10 @@ export default {
   .content{
     line-height: 2;
 
+    /deep/ a{
+      color: $color-highlight-text;
+    }
+
     /deep/ h2{
       margin-top: 10px;
       font-weight: bold;
@@ -83,6 +87,7 @@ export default {
 
     /deep/ img{
       height: auto !important;
+      margin: 20px 0;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }

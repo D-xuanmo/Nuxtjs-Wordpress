@@ -48,7 +48,6 @@
 <script>
 export default {
   watchQuery: ['type'],
-  key: (to) => to.fullPath,
   name: 'AppHeader',
   data () {
     return {

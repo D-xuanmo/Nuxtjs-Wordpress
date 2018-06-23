@@ -187,6 +187,11 @@ body {
   display: none;
 }
 
+// 禁止点击
+.prohibit-event{
+  pointer-events: none;
+}
+
 // 代码高亮
 pre{
   position: relative;
@@ -213,11 +218,6 @@ pre{
 
   .wrap{
     width: 94%;
-  }
-
-  // 禁止点击
-  .prohibit-event{
-    pointer-events: none;
   }
 
   // 文章列表

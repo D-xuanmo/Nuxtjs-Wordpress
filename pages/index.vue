@@ -5,7 +5,7 @@
       <div class="big-banner">
         <nuxt-link class="list block" :to="info.banner.big_banner.link">
           <img :src="info.banner.big_banner.path" alt="">
-          <span class="title" :title="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
+          <span class="title" :title="info.banner.big_banner.text" v-show="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
         </nuxt-link>
       </div>
       <ul class="small-banner">
@@ -29,7 +29,7 @@
         </nuxt-link>
         <div class="list-content">
           <h2 class="title">
-            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }">{{ item.title.rendered }}</nuxt-link>
+            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" v-html="item.title.rendered"></nuxt-link>
           </h2>
           <p class="summary">{{ item.articleInfor.summary }}</p>
           <div class="opeartion">

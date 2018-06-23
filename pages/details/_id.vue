@@ -29,12 +29,12 @@
       <!-- 分享 -->
       <div class="share text-center">
         <span class="text">分享到：</span>
-        <a :href="`http://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=`" target="_blank">
+        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-QQ"></use>
           </svg>
         </a>
-        <a :href="`http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
+        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-Qzone"></use>
           </svg>
@@ -44,7 +44,7 @@
             <use xlink:href="#icon-weichat"></use>
           </svg>
         </a>
-        <a :href="`http://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+        <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg class="iconfont-colour" aria-hidden="true">
             <use xlink:href="#icon-xinlang"></use>
           </svg>
@@ -53,7 +53,7 @@
       <!-- 标签 -->
       <div class="tag-wrap text-center">
         <i class="iconfont icon-tag"></i>
-        <span v-for="(item, index) in classify" :key="item.key" v-html="index === classify.length - 1 ? item.name : `${item.name}、`"></span>
+        <span v-for="(item, index) in tags" :key="item.key" v-html="index === tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
       <!-- 上一篇、下一篇 -->
       <div class="relative-link-wrap">
@@ -120,17 +120,18 @@
 import axios from '~/plugins/axios'
 import Comments from '~/components/comment/Index'
 export default {
-  async asyncData (context) {
+  async asyncData ({ params }) {
     let [info, menu, article] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${context.route.params.id}`)
+      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${params.id}`)
     ])
     return {
       info: info.data,
       menu: menu.data.mainMenu,
       article: article.data,
       classify: article.data.articleInfor.classify,
+      tags: article.data.articleInfor.tags,
       xmLike: article.data.articleInfor.xmLike
     }
   },
@@ -213,9 +214,6 @@ export default {
       ],
       link: [
         { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/atom-one-dark.css' }
-      ],
-      script: [
-        { src: 'https://upyun.xuanmo.xin/js/highlight.min.js' }
       ]
     }
   },
@@ -294,6 +292,10 @@ export default {
     line-height: 2;
     word-break: break-all;
 
+    /deep/ a{
+      color: $color-highlight-text;
+    }
+
     /deep/ h2{
       margin-top: 10px;
       font-weight: bold;
@@ -305,6 +307,7 @@ export default {
 
     /deep/ img{
       height: auto !important;
+      margin: 20px 0;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }

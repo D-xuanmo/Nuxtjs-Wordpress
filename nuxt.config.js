@@ -12,7 +12,8 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' }
+      { src: 'https://at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' },
+      { src: 'https://upyun.xuanmo.xin/js/highlight.min.js' }
     ]
   },
 
