@@ -13,7 +13,7 @@ module.exports = {
     ],
     script: [
       { src: 'https://at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' },
-      { src: 'https://upyun.xuanmo.xin/js/highlight.min.js' }
+      { src: 'https://upyun.xuanmo.xin/js/prism.js' }
     ]
   },
 

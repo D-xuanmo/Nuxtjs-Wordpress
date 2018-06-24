@@ -216,7 +216,7 @@ export default {
         { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
       ],
       link: [
-        { hid: 'hljs', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/atom-one-dark.css' }
+        { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ]
     }
   },
@@ -258,7 +258,7 @@ export default {
     }
   },
   mounted () {
-    process.browser && document.querySelectorAll('pre code').forEach(block => hljs.highlightBlock(block))
+    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   }
 }
 </script>
