@@ -52,7 +52,7 @@
       </div>
       <!-- 标签 -->
       <div class="tag-wrap text-center">
-        <i class="iconfont icon-tag"></i>
+        <i class="iconfont icon-tag" v-show="tags.length"></i>
         <span v-for="(item, index) in tags" :key="item.key" v-html="index === tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
       <!-- 上一篇、下一篇 -->
@@ -207,13 +207,16 @@ export default {
     }).then(res => (this.article.articleInfor.viewCount = res.data)).catch(err => console.log(err))
   },
   head () {
+    let keywords = []
+    this.tags && this.tags.forEach(item => keywords.push(item.name))
     return {
       title: this.article.title.rendered,
       meta: [
-        { name: 'description', content: this.article.articleInfor.summary }
+        { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
+        { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
       ],
       link: [
-        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/atom-one-dark.css' }
+        { hid: 'hljs', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/atom-one-dark.css' }
       ]
     }
   },
