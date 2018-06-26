@@ -3,7 +3,14 @@
     <div class="wrap">
       <div class="left">
         <div class="logo">
-          <nuxt-link :to="{ name: 'index' }">{{ $store.state.info.blogName }}</nuxt-link>
+          <h1>
+            <span class="hide">{{ $store.state.info.blogName }}</span>
+            <no-ssr>
+              <nuxt-link :to="{ name: 'index' }" class="block">
+                <img :src="$store.state.info.logo" class="vertical-middle" width="130" height="40" alt="">
+              </nuxt-link>
+            </no-ssr>
+          </h1>
         </div>
         <nav class="nav-wrap" :class="{ show: isShowNavWrap }">
           <no-ssr>
@@ -114,7 +121,12 @@ $headerHeight: 60px;
   .logo{
     max-width: 150px;
     margin-right: 20px;
-    font-size: 22px;
+
+    h1{
+      display: flex;
+      align-items: center;
+      height: 60px;
+    }
   }
 
   // 导航

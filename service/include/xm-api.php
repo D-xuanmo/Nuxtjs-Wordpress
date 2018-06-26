@@ -48,6 +48,7 @@ function add_get_blog_info ()
     'adminPic' => get_the_author_meta('simple_local_avatar', 1),
     'setExtend' => get_option('xm_vue_options'),
     'banner' => get_option('xm_vue_options')['banner'],
+    'logo' => get_option('xm_vue_options')['logo'],
     'getAllCountArticle' => wp_count_posts() -> publish,
     'getAllCountCat' => wp_count_terms('category'),
     'getAllCountTag' => wp_count_terms('post_tag'),

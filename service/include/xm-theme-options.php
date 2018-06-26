@@ -139,26 +139,27 @@ function themeoptions_page() {
             </div>
           </div>
         </div>
+
         <div class="row">
           <div class="margin-top-15 clearfix">
-            <label class="fl left-wrap" for="">窗口小图标：</label>
+            <label class="fl left-wrap" for="">导航logo：</label>
             <div class="fr right-wrap">
               <input
                 type="text"
                 class="url-inp"
-                name="favicon-img"
-                id="favicon-img"
-                value="<?php echo $a_options['favicon']; ?>"
+                name="logo"
+                id="logo"
+                value="<?php echo $a_options['logo']; ?>"
               >
               <input type="button" name="img-upload" value="选择文件">
             </div>
           </div>
           <div class="margin-top-15 clearfix">
             <div class="fl left-wrap">
-              窗口小图标预览：
+              导航logo预览：
             </div>
             <div class="fr right-wrap">
-              <img src="<?php echo $a_options['favicon']; ?>" class="preview-img" style="max-width: 100px;" alt="">
+              <img src="<?php echo $a_options['logo']; ?>" class="preview-img" style="max-width: 100px;" alt="">
             </div>
           </div>
         </div>
@@ -321,7 +322,7 @@ function themeoptions_page() {
       'login_logo' => $_POST['login-logo'],
       'aside_count' => $_POST['aside-count'],
       'text_pic' => $_POST['text-pic'],
-      'favicon' => $_POST['favicon-img'],
+      'logo' => $_POST['logo'],
       'thumbnail' => $_POST['thumbnail-img'],
       'sidebar_notice' => $_POST['sidebar-notice'],
       'footer_copyright' => $_POST['footer-copyright'],
