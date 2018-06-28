@@ -308,9 +308,25 @@ export default {
       }
     }
 
+    /deep/ h1,
+    /deep/ h2{
+      font-size: $font-size-large;
+      font-weight: bold;
+    }
+
+    /deep/ h3{
+      font-weight: bold;
+    }
+    /deep/ h4,
+    /deep/ h5,
+    /deep/ h6{
+      font-size: $font-size-small;
+      font-weight: bold;
+    }
+
     /deep/ img{
       height: auto !important;
-      margin: 20px 0;
+      margin-top: 20px;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }
