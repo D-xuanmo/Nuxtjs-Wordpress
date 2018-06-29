@@ -66,7 +66,7 @@ export default {
   name: 'Category',
   head () {
     return {
-      title: this.$route.query.title
+      title: `${this.$route.query.title} | ${this.info.blogName}`
     }
   },
   created () {

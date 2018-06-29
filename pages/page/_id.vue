@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <article class="article">
-      <h2 class="title">{{ pages.title.rendered }}</h2>
+      <h2 class="title">
+        <span>{{ pages.title.rendered }}</span>
+      </h2>
       <div class="content" v-html="pages.content.rendered"></div>
     </article>
     <!-- 评论列表 -->
@@ -37,7 +39,7 @@ export default {
   },
   head () {
     return {
-      title: this.pages.title.rendered,
+      title: `${this.pages.title.rendered} | ${this.info.blogName}`,
       link: [
         { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ],
@@ -62,11 +64,24 @@ export default {
   border-radius: $border-radius;
 
   .title{
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid $color-main-background;
+    margin-bottom: 30px;
     font-size: 20px;
+    font-weight: bold;
     text-align: center;
+
+    span{
+      display: inline-block;
+      color: #333;
+
+      &:after{
+        content: "";
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 5px auto 0;
+        background: $color-main-text;
+      }
+    }
   }
 
   // 正文

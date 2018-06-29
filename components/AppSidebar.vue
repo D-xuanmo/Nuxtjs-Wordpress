@@ -43,6 +43,20 @@
         <li class="list">最后更新：{{ sidebar.lastUpDate }}</li>
       </ul>
     </div>
+    <!-- 标签云 -->
+    <div class="sidebar-list tag-cloud">
+      <div class="header">
+        <p>
+          <i class="iconfont icon-tag1"></i> 标签云
+        </p>
+        <router-link :to="{ name: 'tags' }">更多</router-link>
+      </div>
+      <ul class="content">
+        <li v-for="(item, index) in sidebar.tagCloud" :key="item.key" v-if="index < 20" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
+          <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}</router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -150,6 +164,61 @@ export default {
 
       &:nth-of-type(even){
         width: 58%;
+      }
+    }
+  }
+
+  // 标签云
+  &.tag-cloud{
+      .header{
+        display: flex;
+        justify-content: space-between;
+      }
+
+    .content{
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .list{
+      margin: 10px 5px 0 0;
+      padding: 3px 6px;
+      border-radius: $border-radius;
+
+      a{
+        color: $color-white;
+      }
+
+      &.color-1{
+        background: #f3a683;
+      }
+
+      &.color-2{
+        background: #778beb;
+      }
+
+      &.color-3{
+        background: #e77f67;
+      }
+
+      &.color-4{
+        background: #f5cd79;
+      }
+
+      &.color-5{
+        background: #0fb9b1;
+      }
+
+      &.color-6{
+        background: #f8a5c2;
+      }
+
+      &.color-7{
+        background: #596275;
+      }
+
+      &.color-8{
+        background: #20bf6b;
       }
     }
   }

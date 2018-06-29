@@ -6,7 +6,7 @@
       <div class="other-info">
         <span class="author">{{ article.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
-        <span class="time"><i class="iconfont icon-time"></i> {{ article.date.replace('T', ' ') }}</span>
+        <span class="time"><i class="iconfont icon-time"></i>{{ article.date.replace('T', ' ') }}</span>
         <span class="text">&nbsp;分类：</span>
         <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
         <span><i class="iconfont icon-hot1"></i>{{ article.articleInfor.viewCount }}</span>&nbsp;
@@ -210,7 +210,7 @@ export default {
     let keywords = []
     this.tags && this.tags.forEach(item => keywords.push(item.name))
     return {
-      title: this.article.title.rendered,
+      title: `${this.article.title.rendered} | ${this.info.blogName}`,
       meta: [
         { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
         { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
@@ -437,6 +437,65 @@ export default {
   background: $color-sub-background;
   font-size: $font-size-large;
   text-align: center;
+}
+
+// 代码高亮
+/deep/ div.code-toolbar{
+  overflow: hidden;
+  width: 100%;
+  padding-top: 30px;
+  border-radius: $border-radius;
+
+  pre{
+    margin: 0;
+    border: {
+      width: 0 1px 1px;
+      style: solid;
+      color: $color-main-background;
+    }
+  }
+
+  code{
+    border: 0;
+    box-shadow: none;
+    background-size: 4em 4em;
+    line-height: 2;
+  }
+
+  .line-numbers .line-numbers-rows{
+    border-color: $color-main-background;
+  }
+
+  .toolbar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: #358ccb;
+    opacity: 1;
+
+    span{
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      color: #fff;
+    }
+  }
+
+  .toolbar-item{
+    padding-left: 20px;
+
+    span:hover{
+      color: $color-white;
+    }
+
+    &:before{
+      content: "\e7ae";
+      font-family: "iconfont";
+      color: $color-white;
+    }
+  }
 }
 
 @media screen and (max-width:767px) {

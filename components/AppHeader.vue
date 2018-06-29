@@ -33,6 +33,9 @@
                       <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
                         <i class="iconfont" :class="child.icon"></i> {{ child.title }}
                       </nuxt-link>
+                      <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
+                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
+                      </nuxt-link>
                     </li>
                   </ul>
                 </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="header">
-      <li class="list">共<span class="mark">{{ total }}</span>条关于“<span class="mark">{{ $route.query.s }}</span>”的文章</li>
+      <li class="list">当前标签：{{ $route.query.title }}</li>
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
@@ -40,15 +40,15 @@
 <script>
 import axios from '~/plugins/axios'
 export default {
-  watchQuery: ['page', 's'],
-  async asyncData ({ query }) {
+  watchQuery: ['type'],
+  async asyncData ({ params, query }) {
     let [info, menu, list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
-          search: query.s,
-          page: query.page,
+          tags: query.type,
+          page: params.id,
           per_page: 8,
           _embed: true
         }
@@ -59,15 +59,15 @@ export default {
       menu: menu.data.mainMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
-      nCurrentPage: +query.page
+      nCurrentPage: +params.id
     }
   },
+  name: 'Tags',
   head () {
     return {
-      title: `关于“${this.$route.query.s}”的文章 | ${this.info.blogName}`
+      title: this.$route.query.title
     }
   },
-  name: 'Search',
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
@@ -77,10 +77,13 @@ export default {
   methods: {
     currentPage (n) {
       this.$router.push({
-        name: 'search',
+        name: 'category-id',
+        params: {
+          id: n
+        },
         query: {
-          page: n,
-          s: this.$route.query.s
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     },
@@ -88,10 +91,13 @@ export default {
     // 上一页
     prevPage (n) {
       this.$router.push({
-        name: 'search',
+        name: 'category-id',
+        params: {
+          id: n
+        },
         query: {
-          page: n,
-          s: this.$route.query.s
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     },
@@ -99,10 +105,13 @@ export default {
     // 下一页
     nextPage (n) {
       this.$router.push({
-        name: 'search',
+        name: 'category-id',
+        params: {
+          id: n
+        },
         query: {
-          page: n,
-          s: this.$route.query.s
+          type: this.$route.query.type,
+          title: this.$route.query.title
         }
       })
     }
@@ -121,10 +130,6 @@ export default {
     padding-bottom: $container-padding;
     border-bottom: 1px solid $color-main-background;
     font-size: $font-size-large;
-
-    .mark{
-      color: $color-highlight-text;
-    }
   }
 
   // 文章列表
