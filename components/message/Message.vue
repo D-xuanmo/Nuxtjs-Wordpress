@@ -1,13 +1,15 @@
 <template>
   <transition name="msg-show">
-    <div v-if="isShow" class="message clearfix" :class="[`alert-${type === undefined ? 'content' : type}`, { 'align-center': center }, { 'box-center': wrapCenter }]" :style="`width: ${width}px`">
-      <p class="text">
-        <i class="iconfont" :class="icon"></i> {{ msg }}
-        <i v-if="showClose" class="fr iconfont icon-close" @click="leave"></i>
-      </p>
-      <p v-if="showImg && imgUrl" class="text-center msg-img">
-        <img :src="imgUrl" width="100" height="100" alt="">
-      </p>
+    <div v-if="isShow" class="xm-message clearfix" :class="[`alert-${type === undefined ? 'content' : type}`, { 'align-center': center }, { 'box-center': wrapCenter }]">
+      <div class="xm-message-content" :style="`width: ${width}`">
+        <p class="text">
+          <i class="iconfont" :class="icon"></i> {{ msg }}
+          <i v-if="showClose" class="fr iconfont icon-close" @click="leave"></i>
+        </p>
+        <p v-if="showImg && imgUrl" class="text-center msg-img">
+          <img :src="imgUrl" width="100" height="100" alt="">
+        </p>
+      </div>
     </div>
   </transition>
 </template>
@@ -30,86 +32,79 @@ export default {
     }
   },
   methods: {
-    leave (event) {
+    leave () {
       this.isShow = false
     },
 
     // 显示消息
-    show (opt, mark) {
+    show ({ title, type, center, wrapCenter, showImg, imgUrl, showClose, duration = 2000, width = 'initial' } = {}, mark) {
       this.isShow = mark
-      switch (typeof opt) {
-        case 'string':
-          this.msg = opt
-          this.type = 'content'
-          this.icon = 'icon-tips1'
-          this.closeTime = 2000
+      this.msg = title
+      this.type = type
+      this.center = center
+      this.wrapCenter = wrapCenter
+      this.closeTime = duration
+      this.showClose = showClose
+      this.showImg = showImg
+      this.width = width
+      this.imgUrl = imgUrl
+      switch (type) {
+        case 'success':
+          this.icon = 'icon-success-f'
           break
-        case 'object':
-          this.msg = opt.title
-          this.type = opt.type
-          this.center = opt.center
-          this.wrapCenter = opt.wrapCenter
-          this.closeTime = opt.time || 2000
-          this.showClose = opt.showClose || false
-          this.showImg = opt.showImg || false
-          this.width = opt.width || 380
-          this.imgUrl = opt.imgUrl
-          switch (opt.type) {
-            case 'success':
-              this.icon = 'icon-success-f'
-              break
-            case 'warning':
-              this.icon = 'icon-info-f'
-              break
-            case 'error':
-              this.icon = 'icon-close-f'
-              break
-            default:
-              this.icon = 'icon-tips-f'
-          }
+        case 'warning':
+          this.icon = 'icon-info-f'
           break
+        case 'error':
+          this.icon = 'icon-close-f'
+          break
+        default:
+          this.icon = 'icon-tips-f'
       }
       // 关闭消息提示
-      !this.showClose && setTimeout(() => (this.isShow = false), this.closeTime)
+      this.closeTime && setTimeout(() => (this.isShow = false), this.closeTime)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.message{
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  z-index: 99999;
-  box-sizing: border-box;
-  width: 380px;
-  padding: 10px 15px;
-  border: 1px solid #ebeef5;
-  border-radius: 5px;
+.xm-message{
+  text-align: center;
   transition: .7s;
-  transform: translateX(-50%);
+
+  .xm-message-content{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto 10px;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
 
   &.alert-success{
-    border-color: #e1f3d8;
-    background-color: #f0f9eb;
-    color: #67c23a;
+    .iconfont{
+      color: #52c41a;
+    }
   }
 
   &.alert-content{
-    background-color: #f4f4f5;
-    color: #909399;
+    .iconfont{
+      color: #1890ff;
+    }
   }
 
   &.alert-warning{
-    border-color: #faecd8;
-    background-color: #fdf6ec;
-    color: #e6a23c;
+    .iconfont{
+      color: #faad14;
+    }
   }
 
   &.alert-error{
-    border-color: #fde2e2;
-    background-color: #fef0f0;
-    color: #f56c6c;
+    .iconfont{
+      color: #f5222d;
+    }
   }
 
   &.align-center{
@@ -130,19 +125,15 @@ export default {
     font-size: 16px;
 
     &.icon-close{
+      margin-left: 20px;
       font-size: 14px;
+      color: #ccc;
       cursor: pointer;
     }
   }
 }
 .msg-show-enter, .msg-show-leave-to{
   opacity: 0;
-  transform: translateX(-50%) translateY(-100px);
-}
-@media screen and (max-width:360px) {
-  .message{
-    width: 240px;
-    transform: translateX(-50%);
-  }
+  transform: translateY(-100px);
 }
 </style>

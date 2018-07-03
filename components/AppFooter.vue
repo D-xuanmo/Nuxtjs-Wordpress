@@ -3,7 +3,17 @@
     <div class="wrap">
       <div class="link-wrap" v-html="$store.state.info.setExtend.link"></div>
       <div class="copyright">
-        <div class="left" v-html="$store.state.info.setExtend.footer_copyright"></div>
+        <div class="left">
+          <ul class="footer-menu">
+            <li class="list" v-for="item in $store.state.subMenu" :key="item.key">
+              <nuxt-link v-if="item.object === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: item.object_id, title: item.title } }">{{ item.title }}</nuxt-link>
+              <nuxt-link v-else-if="item.object === 'page'" :to="{ name: 'page-id', params: { id: item.object_id } }">{{ item.title }}</nuxt-link>
+              <a v-else-if="item.object === 'custom'" :href="item.url">{{ item.title }}</a>
+            </li>
+          </ul>
+          <!-- 版权文字 -->
+          <div class="copyright-text" v-html="$store.state.info.setExtend.footer_copyright"></div>
+        </div>
         <p class="right">Theme by <a href="https://www.xuanmo.xin">Xuanmo</a></p>
       </div>
     </div>
@@ -70,7 +80,29 @@ export default {
 .copyright{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: $font-size-small;
+
+  .footer-menu{
+    display: flex;
+
+    .list{
+      margin-right: 15px;
+      line-height: 1.8;
+
+      a{
+        padding-right: 15px;
+        border-right: 1px solid #666;
+        font-size: $font-size-base;
+      }
+
+      &:last-child{
+        a{
+          border: 0;
+        }
+      }
+    }
+  }
 
   img{
     vertical-align: baseline;

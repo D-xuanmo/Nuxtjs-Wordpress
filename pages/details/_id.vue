@@ -90,7 +90,7 @@
               </svg>
             </nuxt-link>
           </li>
-          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'" @click="showWechatNum(item.url)">
+          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'">
             <a href="javascript:;">
               <svg class="iconfont-colour" aria-hidden="true">
                 <use :xlink:href="item.icon"></use>
@@ -129,6 +129,7 @@ export default {
     return {
       info: info.data,
       menu: menu.data.mainMenu,
+      subMenu: menu.data.subMenu,
       article: article.data,
       classify: article.data.articleInfor.classify,
       tags: article.data.articleInfor.tags,
@@ -191,7 +192,8 @@ export default {
     let other = this.article.articleInfor.other
     this.$store.commit('getInfo', {
       info: this.info,
-      menu: this.menu
+      menu: this.menu,
+      subMenu: this.subMenu
     })
 
     // 合并作者数据

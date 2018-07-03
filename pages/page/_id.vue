@@ -29,6 +29,7 @@ export default {
     return {
       info: info.data,
       menu: menu.data.mainMenu,
+      subMenu: menu.data.subMenu,
       pages: pages.data
     }
   },
@@ -51,7 +52,8 @@ export default {
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
-      menu: this.menu
+      menu: this.menu,
+      subMenu: this.subMenu
     })
   }
 }

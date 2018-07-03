@@ -58,6 +58,7 @@ export default {
     return {
       info: info.data,
       menu: menu.data.mainMenu,
+      subMenu: menu.data.subMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
       nCurrentPage: +params.id
@@ -72,7 +73,8 @@ export default {
   created () {
     this.$store.commit('getInfo', {
       info: this.info,
-      menu: this.menu
+      menu: this.menu,
+      subMenu: this.subMenu
     })
   },
   methods: {
