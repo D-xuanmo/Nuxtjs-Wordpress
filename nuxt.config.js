@@ -78,17 +78,17 @@ module.exports = {
 
   proxy: {
     '/api': {
-      target: 'https://www.xuanmo.xin',
+      target: 'http://localhost:8888',
       pathRewrite: {
         '^/api': '/'
       }
     },
     '/wp-content': {
-      target: 'https://www.xuanmo.xin'
+      target: 'http://localhost:8888'
     }
   },
 
   env: {
-    baseUrl: 'https://www.xuanmo.xin'
+    baseUrl: 'http://localhost:8888'
   }
 }
