@@ -81,7 +81,6 @@ export default {
     display: inline-block;
     box-sizing: border-box;
     width: 100%;
-    margin: 0 auto 10px;
     padding: 10px 15px;
     background: #fff;
     border-radius: 5px;
