@@ -98,11 +98,14 @@
   color: $color-white !important;
 }
 
-.code {
+code:not([class*="lang"]),
+.code{
   padding: 2px 5px;
-  background: #e9eaed;
-  border-radius: $border-radius;
-  color: $color-highlight-text;
+  background: #f7f7f9;
+  border: 1px solid #E3EDF3;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  color: #d14;
 }
 
 .wrap{
@@ -150,7 +153,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   background: $color-main-background;
-  font: $font-size-base "Andale Mono",PingFangSC-Light,Microsoft Yahei;
+  font: $font-size-base "Andale Mono",PingFangSC-Regular,Microsoft Yahei;
   color: $color-main-text;
 }
 

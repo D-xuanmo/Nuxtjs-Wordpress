@@ -90,7 +90,7 @@
               </svg>
             </nuxt-link>
           </li>
-          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'">
+          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'" @click="showWechatNum(item.url)">
             <a href="javascript:;">
               <svg class="iconfont-colour" aria-hidden="true">
                 <use :xlink:href="item.icon"></use>
@@ -255,7 +255,8 @@ export default {
         center: true,
         wrapCenter: true,
         width: 280,
-        imgUrl: this.article.articleInfor.other.wechatPic
+        imgUrl: this.article.articleInfor.other.wechatPic,
+        duration: 0
       })
     }
   },

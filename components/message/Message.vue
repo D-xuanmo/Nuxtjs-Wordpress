@@ -69,8 +69,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .xm-message{
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 99999;
   text-align: center;
   transition: .7s;
+  transform: translateX(-50%);
 
   .xm-message-content{
     display: inline-block;
@@ -134,6 +139,6 @@ export default {
 }
 .msg-show-enter, .msg-show-leave-to{
   opacity: 0;
-  transform: translateY(-100px);
+  transform: translateX(-50%) translateY(-100px);
 }
 </style>
