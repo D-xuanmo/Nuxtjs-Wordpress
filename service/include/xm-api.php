@@ -39,9 +39,9 @@ function add_get_blog_info ()
     $newComment[$i] -> title = get_the_title($newComment[$i] -> comment_post_ID);
   }
   $array = array(
-    'baseUrl' => 'https://www.xuanmo.xin',
+    'baseUrl' => get_option('xm_vue_options')['domain'],
     'adminAjax' => admin_url('admin-ajax.php'),
-    'templeteUrl' => 'https://www.xuanmo.xin' . '/wp-content/themes/' . get_option('template'),
+    'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'contentUrl' => '/wp-content',
     'blogName' => get_bloginfo('name'),
     'blogDescription' => get_bloginfo('description'),
@@ -49,6 +49,7 @@ function add_get_blog_info ()
     'setExtend' => get_option('xm_vue_options'),
     'banner' => get_option('xm_vue_options')['banner'],
     'logo' => get_option('xm_vue_options')['logo'],
+    'tagCloud' => get_tags(array('orderby' => 'count', 'order' => 'DESC')),
     'getAllCountArticle' => wp_count_posts() -> publish,
     'getAllCountCat' => wp_count_terms('category'),
     'getAllCountTag' => wp_count_terms('post_tag'),
@@ -140,9 +141,7 @@ function xm_get_menu ()
   }
   return array(
     'mainMenu' => $menu,
-    'topMenu' => wp_get_nav_menu_items('Top'),
-    'aa' => wp_get_nav_menu_object('Home'),
-    'b' => wp_using_ext_object_cache()
+    'subMenu' => wp_get_nav_menu_items('SubMenu')
   );
 }
 

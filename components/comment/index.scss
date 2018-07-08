@@ -257,6 +257,10 @@
         height: initial !important;
         max-height: initial !important;
         vertical-align: bottom;
+
+        &.wp-smiley{
+          width: 25px;
+        }
       }
     }
 

@@ -66,6 +66,19 @@ function themeoptions_page() {
         </div>
 
         <div class="row clearfix">
+          <label for="domain" class="fl left-wrap">站点前端域名：</label>
+          <div class="fr right-wrap">
+						<input
+							type="text"
+							class="url-inp"
+							name="domain"
+							id="domain"
+							value="<?php echo $a_options['domain']; ?>"
+						>
+          </div>
+        </div>
+
+        <div class="row clearfix">
           <label for="sidebar-notice" class="fl left-wrap">侧边栏公告：</label>
           <div class="fr right-wrap">
             <textarea id="sidebar-notice" name="sidebar-notice" rows="5" cols="100"><?php echo $a_options['sidebar_notice']; ?></textarea>
@@ -324,6 +337,7 @@ function themeoptions_page() {
       'text_pic' => $_POST['text-pic'],
       'logo' => $_POST['logo'],
       'thumbnail' => $_POST['thumbnail-img'],
+      'domain' => $_POST['domain'],
       'sidebar_notice' => $_POST['sidebar-notice'],
       'footer_copyright' => $_POST['footer-copyright'],
       'login_css'  => $_POST['login-css'],
