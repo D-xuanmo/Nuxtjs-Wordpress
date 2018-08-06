@@ -128,7 +128,7 @@ function appthemes_add_quicktags()
     <script>
         var aLanguage = ['html', 'css', 'sass', 'scss', 'less', 'javascript', 'php', 'json', 'http'];
         for (var i = 0, length = aLanguage.length; i < length; i++) {
-            QTags.addButton(aLanguage[i], aLanguage[i], '\n<pre data-lang="' + aLanguage[i] + '"><code class="' + aLanguage[i] + '">\n', '\n</code></pre>\n');
+            QTags.addButton(aLanguage[i], aLanguage[i], '\n<pre class="language-' + aLanguage[i] + ' line-numbers"><code class="language-' + aLanguage[i] + '">\n', '\n</code></pre>\n');
         }
         QTags.addButton('c-code', 'c-code', '<span class="code">', '</span>');
         QTags.addButton('h2', 'h2', '<h2>', '</h2>');

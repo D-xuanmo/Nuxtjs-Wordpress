@@ -107,6 +107,10 @@ export default {
   img{
     vertical-align: baseline;
   }
+
+  .right{
+    align-self: flex-end;
+  }
 }
 
 .back-top{
@@ -116,6 +120,7 @@ export default {
   bottom: 40px;
   transition: .5s;
   transform: translateX(100px);
+  cursor: pointer;
 
   &.show{
     transform: translateX(0px);

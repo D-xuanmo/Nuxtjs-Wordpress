@@ -201,9 +201,10 @@ $headerHeight: 60px;
     }
 
     .list-view-wrap{
+      overflow: hidden;
       margin-top: 10px;
       border: 1px solid $color-sub-background;
-      box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+      box-shadow: 0 2px 20px 0 rgba(0,0,0,.3);
       border-radius: $border-radius;
       background: $color-white;
     }
