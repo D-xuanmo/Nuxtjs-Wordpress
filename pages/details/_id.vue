@@ -203,9 +203,7 @@ export default {
 
     // 更新阅读量
     axios.post('/wp-json/xm-blog/v1/view-count', {
-      params: {
-        id: this.$route.params.id
-      }
+      id: this.$route.params.id
     }).then(res => (this.article.articleInfor.viewCount = res.data)).catch(err => console.log(err))
   },
   head () {
@@ -233,10 +231,8 @@ export default {
       } else {
         this.opinion[key].isShowLaoding = true
         axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/link/`, {
-          params: {
-            id: this.$route.params.id,
-            key
-          }
+          id: this.$route.params.id,
+          key
         }).then((res) => {
           this.opinion[key].isShowLaoding = false
           this.xmLike[key] = res.data

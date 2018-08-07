@@ -1,5 +1,5 @@
 import Axios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 
 const option = {
   timeout: 20000,
@@ -7,7 +7,7 @@ const option = {
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },
-  // transformRequest: data => qs.stringify(data)
+  transformRequest: data => qs.stringify(data)
 }
 
 const axios = Axios.create(option)
