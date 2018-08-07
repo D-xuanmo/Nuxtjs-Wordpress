@@ -1,39 +1,28 @@
-import Vue from 'vue'
-import axios from 'axios'
+import Axios from 'axios'
 // import qs from 'qs'
 
-// 设置请求超时
-axios.defaults.timeout = 20000
+const option = {
+  timeout: 20000,
+  baseURL: process.env.NODE_ENV === 'production' ? '' : '/api',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  // transformRequest: data => qs.stringify(data)
+}
 
-// 生产环境和发布环境给出不同的接口地址
-axios.defaults.baseURL = '/api'
-// if (process.server) {
-//   axios.defaults.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 5200}`
-// }
-
-// 设置数据格式
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-
-// 转换数据
-// axios.defaults.transformRequest = (data) => qs.stringify(data)
+const axios = Axios.create(option)
 
 // 添加请求拦截器
-axios.interceptors.request.use(config => {
-  return config
-}, error => {
-  return Promise.reject(error)
-})
+axios.interceptors.request.use(config => config, error => Promise.reject(error))
 
 // 添加响应拦截器
 axios.interceptors.response.use(response => {
   return {
     data: response.data,
-    headers: response.headers,
     status: response.status,
+    headers: response.headers,
     statusText: response.statusText
   }
-}, error => {
-  return Promise.reject(error)
-})
+}, error => Promise.reject(error))
 
-export default axios.create()
+export default axios
