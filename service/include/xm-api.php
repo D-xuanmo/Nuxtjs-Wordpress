@@ -73,7 +73,7 @@ add_action('rest_api_init', function () {
  */
 function xm_opinion ($request)
 {
-  $data = $request -> get_params()['params'];
+  $data = $request -> get_params();
   $count_key = 'xm_post_link';
   $id = $data['id'];
   $key = $data['key'];
@@ -91,7 +91,7 @@ add_action('rest_api_init', function () {
  */
 function xm_get_view_count ($request)
 {
-  $postID = $request -> get_params()['params']['id'];
+  $postID = $request -> get_params()['id'];
   $count_key = 'post_views_count';
   $count = get_post_meta($postID, $count_key, true);
   if ($count == '') {

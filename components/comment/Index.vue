@@ -248,13 +248,14 @@ export default {
           email: this.email.value,
           url: this.url.value
         }))
-        data.append('author_name', this.author.value)
-        data.append('author_email', this.email.value)
-        data.append('author_url', this.url.value)
-        data.append('content', this.content.value)
-        data.append('post', this.$route.params.id)
-        data.append('author_user_agent', navigator.userAgent)
-        axios.post('/wp-json/wp/v2/comments', data).then((res) => {
+        axios.post('/wp-json/wp/v2/comments', {
+          author_name: this.author.value,
+          author_email: this.email.value,
+          author_url: this.url.value,
+          content: this.content.value,
+          post: this.$route.params.id,
+          author_user_agent: navigator.userAgent
+        }).then((res) => {
           // 允许继续点击提交按钮
           this.bSubmit = true
           this.submitText = '提交评论'
