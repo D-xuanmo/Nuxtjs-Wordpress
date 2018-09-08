@@ -121,10 +121,14 @@ import axios from '~/plugins/axios'
 import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
-    let [info, menu, article] = await Promise.all([
+    let [info, menu, article, viewCount] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
       axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${params.id}`)
+      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${params.id}`),
+      // 更新阅读量
+      axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, {
+        id: params.id
+      })
     ])
     return {
       info: info.data,
@@ -133,7 +137,8 @@ export default {
       article: article.data,
       classify: article.data.articleInfor.classify,
       tags: article.data.articleInfor.tags,
-      xmLike: article.data.articleInfor.xmLike
+      xmLike: article.data.articleInfor.xmLike,
+      viewCount: viewCount.data
     }
   },
   name: 'Details',
@@ -195,16 +200,14 @@ export default {
       menu: this.menu,
       subMenu: this.subMenu
     })
+  
+    // 更新阅读量
+    this.article.articleInfor.viewCount = this.viewCount
 
     // 合并作者数据
     for (let key in this.authorOtherInfo) {
       this.authorOtherInfo[key].url = other[key]
     }
-
-    // 更新阅读量
-    axios.post('/wp-json/xm-blog/v1/view-count', {
-      id: this.$route.params.id
-    }).then(res => (this.article.articleInfor.viewCount = res.data)).catch(err => console.log(err))
   },
   head () {
     let keywords = []
