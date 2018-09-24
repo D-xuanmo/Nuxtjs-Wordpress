@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="wrap">
-      <div class="link-wrap" v-html="$store.state.info.setExtend.link"></div>
+      <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.setExtend.link"></div>
       <div class="copyright">
         <div class="left">
           <ul class="footer-menu">
