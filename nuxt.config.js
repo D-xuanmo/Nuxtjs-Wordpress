@@ -78,17 +78,17 @@ module.exports = {
 
   proxy: {
     '/api': {
-      target: 'https://yourdomain',
+      target: 'https://yourdomain.com',
       pathRewrite: {
         '^/api': '/'
       }
     },
     '/wp-content': {
-      target: 'https://yourdomain'
+      target: 'https://yourdomain.com'
     }
   },
 
   env: {
-    baseUrl: 'https://yourdomain'
+    baseUrl: 'https://yourdomain.com'
   }
 }
