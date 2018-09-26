@@ -76,7 +76,7 @@
             autocomplete="off"
             @keyup="codeValidate"
           >
-          <canvas width="120" height="30" class="canvas-img-code" @click="randomCode()"></canvas>
+          <canvas width="240" height="60" class="canvas-img-code" @click="randomCode()"></canvas>
           <span v-show="imgCode.validate" class="comment-tips">{{ imgCode.msg }}</span>
         </div>
       </div>
@@ -289,9 +289,10 @@ export default {
       let nRandomResult = Math.floor(Math.random() * 3)
       let aOperator = ['+', '-', '*']
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.font = '20px Microsoft Yahei'
+      ctx.font = '40px Microsoft Yahei'
       ctx.fillStyle = '#333'
-      ctx.fillText(`${nRandom1} ${aOperator[nRandomResult]} ${nRandom2} = ?`, 10, 23)
+      ctx.textAlign = 'center'
+      ctx.fillText(`${nRandom1} ${aOperator[nRandomResult]} ${nRandom2} = ?`, 120, 50)
       this.random = {
         nRandom1,
         nRandom2,
