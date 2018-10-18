@@ -3,16 +3,19 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Xuanmo Blog',
+    title: 'Xuanmo Blog | WEB前端笔记',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' },
+      { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ],
     script: [
-      { src: 'https://at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' },
+      { src: '//at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' },
+      { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
+      { src: 'https://hm.baidu.com/hm.js?e44a328f25e7df044d47bfe1676d69ac' },
       { src: 'https://upyun.xuanmo.xin/js/prism.js' }
     ]
   },
@@ -67,7 +70,7 @@ module.exports = {
   ],
 
   modules: [
-    // yarn add @nuxtjs/proxy -D
+    // npm install @nuxtjs/proxy -D
     ['@nuxtjs/proxy']
   ],
 
@@ -76,19 +79,7 @@ module.exports = {
     proxy: true
   },
 
-  proxy: {
-    '/api': {
-      target: 'https://yourdomain.com',
-      pathRewrite: {
-        '^/api': '/'
-      }
-    },
-    '/wp-content': {
-      target: 'https://yourdomain.com'
-    }
-  },
-
   env: {
-    baseUrl: 'https://yourdomain.com'
+    baseUrl: 'https://www.xuanmo.xin'
   }
 }
