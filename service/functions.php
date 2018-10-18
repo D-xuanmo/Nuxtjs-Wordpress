@@ -405,7 +405,7 @@ function ludou_comment_mail_notify($comment_id, $comment_status)
     $message = '
       <div style="width:90%; margin:10px auto 0; border:1px solid #eee; border-radius:8px; font-size:12px; font-family:PingFangSC,Microsoft Yahei; color:#111;">
         <div style="width:100%; height:60px; border-radius:6px 6px 0 0; background:#eee; color:#333;">
-          <p style="margin:0 0 0 30px; line-height:60px;"> 您在 <a style="text-decoration:none; color:#2ebef3; font-weight:600;" href="' . get_option('home') . '">' . get_option('blogname') . '  </a> 的留言有新回复啦！</p>
+          <p style="margin:0 0 0 30px; line-height:60px;"> 您在 <a style="text-decoration:none; color:#2ebef3; font-weight:600;" href="' . get_option('xm_vue_options')['domain'] . '">' . get_option('blogname') . '  </a> 的留言有新回复啦！</p>
         </div>
         <div style="width:90%; margin:0 auto">
           <p><strong>' . $parent_comment->comment_author . '</strong> 您好!</p>
@@ -414,8 +414,8 @@ function ludou_comment_mail_notify($comment_id, $comment_status)
           <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . comments_embed_img($parent_comment->comment_content) . '</p>
           <p><strong>' . trim($comment->comment_author) . '</strong> 给你的回复是:<br />
           <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . trim($comment->comment_content) . '</p>
-          <p>您也可移步到文章<a style="text-decoration:none; color:#2ebef3" href="' . get_bloginfo('home') . '/#/single/' . $comment->comment_post_ID . '"> 《' . get_the_title($comment->comment_post_ID) . '》 </a>查看完整回复内容</p>
-          <p style="padding-bottom: 10px; border-bottom: 1px dashed #ccc;">欢迎再次光临 <a style="text-decoration:none; color:#2ebef3" href="' . get_option('home') . '">' . get_option('blogname') . '</a></p>
+          <p>您也可移步到文章<a style="text-decoration:none; color:#2ebef3" href="' . get_option('xm_vue_options')['domain'] . '/details/' . $comment->comment_post_ID . '"> 《' . get_the_title($comment->comment_post_ID) . '》 </a>查看完整回复内容</p>
+          <p style="padding-bottom: 10px; border-bottom: 1px dashed #ccc;">欢迎再次光临 <a style="text-decoration:none; color:#2ebef3" href="' . get_option('xm_vue_options')['domain'] . '">' . get_option('blogname') . '</a></p>
           <p>(此邮件由系统自动发出, 请勿回复。)</p>
         </div>
       </div>';
