@@ -13,7 +13,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_556506_fosg14c49ehtzkt9.js' },
+      { src: '//at.alicdn.com/t/font_556506_sucn34hulmj.js' },
       { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
       { src: 'https://hm.baidu.com/hm.js?e44a328f25e7df044d47bfe1676d69ac' },
       { src: 'https://upyun.xuanmo.xin/js/prism.js' }
@@ -66,7 +66,8 @@ module.exports = {
 
   plugins: [
     { src: '~/plugins/element-ui', ssr: true },
-    { src: '~/plugins/message', ssr: false }
+    { src: '~/plugins/message', ssr: false },
+    { src: '~/plugins/icon', ssr: true }
   ],
 
   modules: [
@@ -77,6 +78,18 @@ module.exports = {
   // 配置代理
   axios: {
     proxy: true
+  },
+
+  proxy: {
+    '/api': {
+      target: 'https://www.xuanmo.xin',
+      pathRewrite: {
+        '^/api': '/'
+      }
+    },
+    '/wp-content': {
+      target: 'https://www.xuanmo.xin'
+    }
   },
 
   env: {
