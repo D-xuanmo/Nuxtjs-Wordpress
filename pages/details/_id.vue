@@ -30,24 +30,16 @@
       <div class="share text-center">
         <span class="text">分享到：</span>
         <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=`" target="_blank">
-          <svg class="iconfont-colour" aria-hidden="true">
-            <use xlink:href="#icon-QQ"></use>
-          </svg>
+          <svg-icon iconName="#icon-QQ"></svg-icon>
         </a>
         <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
-          <svg class="iconfont-colour" aria-hidden="true">
-            <use xlink:href="#icon-Qzone"></use>
-          </svg>
+          <svg-icon iconName="#icon-Qzone"></svg-icon>
         </a>
         <a href="#">
-          <svg class="iconfont-colour" aria-hidden="true">
-            <use xlink:href="#icon-weichat"></use>
-          </svg>
+          <svg-icon iconName="#icon-weichat"></svg-icon>
         </a>
         <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
-          <svg class="iconfont-colour" aria-hidden="true">
-            <use xlink:href="#icon-xinlang"></use>
-          </svg>
+          <svg-icon iconName="#icon-xinlang"></svg-icon>
         </a>
       </div>
       <!-- 标签 -->
@@ -77,7 +69,27 @@
           <p class="inline-block name">
             作者简介：<i class="iconfont icon-about-f"></i><span class="f-s-14px">{{ article.articleInfor.author }}</span>
           </p>
-          <p class="inline-block leave"></p>
+          <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
+          <!-- 打赏详情 -->
+          <div v-if="isShowReward" class="reward-toast">
+            <div class="reward-toast-inner text-center">
+              <i class="iconfont icon-close" @click="isShowReward = false"></i>
+              <p class="thumbnail"><img :src="article.articleInfor.other.authorPic.full" alt="" width="80"></p>
+              <p class="summary">{{ $store.state.info.rewardText }}</p>
+              <div class="reward-qrcode-wrap">
+                <img v-if="reward" :src="$store.state.info.alipay" class="reward-qrcode" width="150" height="150" alt="">
+                <img v-else :src="$store.state.info.wechatpay" class="reward-qrcode" width="150" height="150" alt="">
+              </div>
+              <div class="reward-btn">
+                <el-radio v-model="reward" :label="true">
+                  <img src="../../assets/images/alipay.svg" width="80" alt="">
+                </el-radio>
+                <el-radio v-model="reward" :label="false">
+                  <img src="../../assets/images/wechatpay.svg" width="80" alt="">
+                </el-radio>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- 简介 -->
         <p class="author-summary">{{ article.articleInfor.other.authorTro }}</p>
@@ -85,23 +97,17 @@
         <ul class="author-link">
           <li class="list">
             <nuxt-link :to="{ name: 'index' }">
-              <svg class="iconfont-colour" aria-hidden="true">
-                <use xlink:href="#icon-icon-test"></use>
-              </svg>
+              <svg-icon iconName="#icon-icon-test"></svg-icon>
             </nuxt-link>
           </li>
           <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'" @click="showWechatNum(item.url)">
             <a href="javascript:;">
-              <svg class="iconfont-colour" aria-hidden="true">
-                <use :xlink:href="item.icon"></use>
-              </svg>
+              <svg-icon :iconName="item.icon"></svg-icon>
             </a>
           </li>
           <li class="list" v-else>
             <a :href="key == 'email' ? `mailto:${item.url}` : item.url">
-              <svg class="iconfont-colour" aria-hidden="true">
-                <use :xlink:href="item.icon"></use>
-              </svg>
+              <svg-icon :iconName="item.icon"></svg-icon>
             </a>
           </li>
         </ul>
@@ -147,6 +153,8 @@ export default {
   },
   data () {
     return {
+      reward: true,
+      isShowReward: false,
       opinion: {
         very_good: {
           src: 'https://upyun.xuanmo.xin/images/like_love.png',
@@ -200,7 +208,7 @@ export default {
       menu: this.menu,
       subMenu: this.subMenu
     })
-  
+
     // 更新阅读量
     this.article.articleInfor.viewCount = this.viewCount
 
@@ -270,6 +278,55 @@ export default {
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
+}
+
+.reward-toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+
+  .reward-toast-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    background: #fff;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+  }
+
+  .icon-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  .summary {
+    font-size: 18px;
+  }
+
+  .thumbnail {
+    padding: 30px 0 20px;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .reward-qrcode-wrap {
+    margin: 15px 0;
+  }
+
+  .reward-btn {
+    img {
+      vertical-align: middle;
+    }
+  }
 }
 
 .article{
@@ -395,9 +452,20 @@ export default {
   }
 
   .header{
+    display: flex;
+    align-items: center;
     margin-bottom: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
+  }
+
+  .reward {
+    margin-left: 10px;
+    cursor: pointer;
+
+    .iconfont-colour {
+      vertical-align: bottom;
+    }
   }
 
   .name{

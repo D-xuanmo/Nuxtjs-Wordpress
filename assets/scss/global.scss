@@ -156,6 +156,11 @@ body {
   color: $color-main-text;
 }
 
+.el-radio__inner {
+  width: 14px;
+  height: 14px;
+}
+
 // 翻页
 .el-pagination{
   margin: 30px 0;
