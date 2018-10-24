@@ -304,6 +304,69 @@ function themeoptions_page() {
       </div>
       <!-- 内容四 社交 -->
       <div class="content-wrap content4">
+				<div class="row clearfix">
+          <label for="reward-text" class="fl left-wrap">打赏欢迎语：</label>
+          <div class="fr right-wrap">
+						<input
+							type="text"
+							class="url-inp"
+							name="reward-text"
+							id="reward-text"
+							value="<?php echo $a_options['reward_text']; ?>"
+						>
+          </div>
+        </div>
+
+				<div class="row">
+          <div class="margin-top-15 clearfix">
+            <label class="fl left-wrap" for="">支付宝收账二维码：</label>
+            <div class="fr right-wrap">
+              <input
+                type="text"
+                class="url-inp"
+                name="alipay"
+                id="alipay"
+                value="<?php echo $a_options['alipay']; ?>"
+              >
+              <input type="button" name="img-upload" value="选择文件">
+            </div>
+          </div>
+          <div class="margin-top-15 clearfix">
+            <div class="fl left-wrap">
+              收账二维码预览：
+            </div>
+            <div class="fr right-wrap">
+              <img src="<?php echo $a_options['alipay']; ?>" class="preview-img" style="max-width: 100px;" alt="">
+            </div>
+          </div>
+        </div>
+
+				<!-- 微信付款二维码 -->
+				<div class="row">
+					<!-- 支付宝付款二维码 -->
+          <div class="margin-top-15 clearfix">
+            <label class="fl left-wrap" for="">微信收账二维码：</label>
+            <div class="fr right-wrap">
+              <input
+                type="text"
+                class="url-inp"
+                name="wechatpay"
+                id="wechatpay"
+                value="<?php echo $a_options['wechatpay']; ?>"
+              >
+              <input type="button" name="img-upload" value="选择文件">
+            </div>
+          </div>
+          <div class="margin-top-15 clearfix">
+            <div class="fl left-wrap">
+              收账二维码预览：
+            </div>
+            <div class="fr right-wrap">
+              <img src="<?php echo $a_options['wechatpay']; ?>" class="preview-img" style="max-width: 100px;" alt="">
+            </div>
+          </div>
+        </div>
+
         <div class="row clearfix">
           <label class="fl left-wrap" for="link">友情链接：</label>
           <div class="fr right-wrap">
@@ -345,6 +408,9 @@ function themeoptions_page() {
       'description' => $_POST['description'],
       'link' => $_POST['link'],
       'vip_style' => $_POST['vip-style'],
+      'reward_text' => $_POST['reward-text'],
+      'alipay' => $_POST['alipay'],
+      'wechatpay' => $_POST['wechatpay'],
 			'banner' => array(
 				'big_banner' => array(
 					'path' => $_POST['big-banner'],
