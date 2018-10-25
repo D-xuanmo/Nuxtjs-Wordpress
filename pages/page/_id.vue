@@ -112,7 +112,6 @@ export default {
 
     /deep/ img{
       height: auto !important;
-      margin-top: 20px;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }
