@@ -173,11 +173,11 @@ export default {
       margin-top: 10px;
 
       &:nth-of-type(odd){
-        width: 40%;
+        width: 38%;
       }
 
       &:nth-of-type(even){
-        width: 58%;
+        width: 60%;
       }
     }
   }
