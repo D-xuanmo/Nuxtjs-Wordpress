@@ -4,7 +4,7 @@
       <h2 class="title">
         <span>{{ pages.title.rendered }}</span>
       </h2>
-      <div class="content" v-html="pages.content.rendered"></div>
+      <div class="content-details" v-html="pages.content.rendered"></div>
     </article>
     <!-- 评论列表 -->
     <div class="comment">
@@ -43,6 +43,9 @@ export default {
       title: `${this.pages.title.rendered} | ${this.info.blogName}`,
       link: [
         { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
+      ],
+      style: [
+        { cssText: this.info.detailsCss, type: 'text/css' }
       ],
       script: [
         { src: 'https://upyun.xuanmo.xin/js/prism.js' }
@@ -87,7 +90,7 @@ export default {
   }
 
   // 正文
-  .content{
+  .content-details{
     line-height: 2;
 
     /deep/ a{

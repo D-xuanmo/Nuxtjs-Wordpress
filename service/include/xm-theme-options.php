@@ -382,6 +382,12 @@ function themeoptions_page() {
             <textarea id="login-css" name="login-css" rows="8" cols="100"><?php echo $a_options['login_css']; ?></textarea>
           </div>
         </div>
+				<div class="row clearfix">
+          <label class="fl left-wrap" for="details-css">文章详情页css（不需要style标签）：</label>
+          <div class="fr right-wrap">
+            <textarea id="details-css" name="details-css" rows="8" cols="100"><?php echo $a_options['details_css']; ?></textarea>
+          </div>
+        </div>
       </div>
       <div class="row btn-wrap">
         <input type="submit" class="submit-btn" name="bcn-admin-options" value="保存更改">
@@ -404,6 +410,7 @@ function themeoptions_page() {
       'sidebar_notice' => $_POST['sidebar-notice'],
       'footer_copyright' => $_POST['footer-copyright'],
       'login_css'  => $_POST['login-css'],
+      'details_css'  => $_POST['details-css'],
       'keywords' => $_POST['keywords'],
       'description' => $_POST['description'],
       'link' => $_POST['link'],

@@ -40,6 +40,7 @@ function add_get_blog_info ()
   }
   $array = array(
     'baseUrl' => get_option('xm_vue_options')['domain'],
+    'detailsCss' => get_option('xm_vue_options')['details_css'],
     'adminAjax' => admin_url('admin-ajax.php'),
     'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'contentUrl' => '/wp-content',

@@ -12,7 +12,7 @@
         <span><i class="iconfont icon-hot1"></i>{{ article.articleInfor.viewCount }}</span>&nbsp;
         <span><i class="iconfont icon-message-f"></i>{{ article.articleInfor.commentCount }}</span>
       </div>
-      <div class="content" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
+      <div class="content-details" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
     </article>
     <!-- 文章内容结束 -->
     <div class="section operation">
@@ -226,6 +226,9 @@ export default {
         { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
         { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
       ],
+      style: [
+        { cssText: this.info.detailsCss, type: 'text/css' }
+      ],
       link: [
         { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ]
@@ -351,7 +354,7 @@ export default {
   }
 
   // 正文
-  .content{
+  .content-details{
     line-height: 2;
     word-break: break-all;
 
