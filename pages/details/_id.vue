@@ -506,6 +506,7 @@ export default {
 /deep/ div.code-toolbar{
   overflow: hidden;
   width: 100%;
+  margin: 20px 0;
   padding-top: 30px;
   border-radius: $border-radius;
 
