@@ -89,7 +89,10 @@
     <!-- 评论列表 -->
     <ul class="comment-list-wrap">
       <li class="comment-list" v-for="item in commentList" :key="item.key">
-        <img :src="item.userAgentInfo.author_avatar_urls" class="list-gravatar" width="60" height="60" alt="">
+        <template>
+          <img v-if="$store.state.info.isTextThumbnail === 'off'" :src="item.userAgentInfo.author_avatar_urls" class="list-gravatar" width="60" height="60" alt="">
+          <p v-else-if="$store.state.info.isTextThumbnail === 'on'" class="list-gravatar-text" :style="{ background: item.userAgentInfo.background }">{{ item.author_name.substr(0, 1) }}</p>
+        </template>
         <div class="list-header">
           <a :href="item.author_url" target="_blank" class="author">{{ item.author_name }}</a>
           <!-- 评论者等级 -->

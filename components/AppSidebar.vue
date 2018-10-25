@@ -18,7 +18,10 @@
       </div>
       <ul class="content">
         <li class="list" v-for="item in sidebar.newComment" :key="item.key">
-          <img :src="item.avatar" class="thumbnail" width="50" height="50" alt="">
+          <template>
+            <img v-if="$store.state.info.isTextThumbnail === 'off'" :src="item.avatar" class="thumbnail" width="50" height="50" alt="">
+            <p v-else-if="$store.state.info.isTextThumbnail === 'on'" class="thumbnail-text" :style="{ background: item.background }">{{ item.comment_author.substr(0, 1) }}</p>
+          </template>
           <div class="right">
             <h3 class="author">{{ item.comment_author }}</h3>
             <p class="comment-text" v-html="item.comment_content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
@@ -131,6 +134,17 @@ export default {
     .thumbnail{
       margin-right: 10px;
       border-radius: $border-radius;
+    }
+
+    .thumbnail-text{
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: $border-radius;
+      font-size: 28px;
+      text-align: center;
+      line-height: 50px;
+      color: #fff;
     }
 
     .author{

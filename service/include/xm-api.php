@@ -34,12 +34,14 @@ function add_get_blog_info ()
   ));
   for ($i = 0; $i < count($newComment); $i++) {
     $newComment[$i] -> avatar = 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($newComment[$i] -> comment_author_email))) . '?s=200';
+    $newComment[$i] -> background = '#' . substr(md5(strtolower(trim($newComment[$i] -> comment_author_email))), 0, 6);
     $newComment[$i] -> countCom = get_comments_number($newComment[$i] -> comment_post_ID);
     $newComment[$i] -> link = get_post_meta($newComment[$i] -> comment_post_ID, 'xm_post_link', true)['very_good'];
     $newComment[$i] -> title = get_the_title($newComment[$i] -> comment_post_ID);
   }
   $array = array(
     'baseUrl' => get_option('xm_vue_options')['domain'],
+    'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
     'adminAjax' => admin_url('admin-ajax.php'),
     'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
@@ -323,7 +325,8 @@ function add_api_comment_meta_field ()
       $array = array(
         'userAgent' => get_browser_name($object[author_user_agent]),
         'vipStyle' => get_author_class($object[author_email]),
-        'author_avatar_urls' => 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($object[author_email]))) . '?s=200'
+        'author_avatar_urls' => 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($object[author_email]))) . '?s=200',
+        'background' => '#' . substr(md5(strtolower(trim($object[author_email]))), 0, 6)
       );
       return $array;
     },

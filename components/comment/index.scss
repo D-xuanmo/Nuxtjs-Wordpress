@@ -186,6 +186,19 @@
       border-radius: $border-radius;
     }
 
+    .list-gravatar-text{
+      position: absolute;
+      top: 5px;
+      left: -30px;
+      width: 60px;
+      height: 60px;
+      border-radius: $border-radius;
+      font-size: 30px;
+      text-align: center;
+      line-height: 60px;
+      color: #fff;
+    }
+
     .author{
       margin-right: 5px;
       font-size: 18px;
