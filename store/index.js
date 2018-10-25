@@ -12,7 +12,7 @@ const store = () => new Vuex.Store({
 
   mutations: {
     getInfo (state, { info, menu, subMenu }) {
-      state.info = info,
+      state.info = info
       state.menu = menu
       state.subMenu = subMenu
     }

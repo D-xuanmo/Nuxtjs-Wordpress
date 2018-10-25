@@ -3,13 +3,13 @@
     <!-- banner start -->
     <div class="banner-wrap">
       <div class="big-banner">
-        <nuxt-link class="list block" :to="info.banner.big_banner.link">
-          <img :src="info.banner.big_banner.path" alt="">
-          <span class="title" :title="info.banner.big_banner.text" v-show="info.banner.big_banner.text">{{ info.banner.big_banner.text }}</span>
+        <nuxt-link class="list block" :to="$store.state.info.banner.big_banner.link">
+          <img :src="$store.state.info.banner.big_banner.path" alt="">
+          <span class="title" :title="$store.state.info.banner.big_banner.text" v-show="$store.state.info.banner.big_banner.text">{{ $store.state.info.banner.big_banner.text }}</span>
         </nuxt-link>
       </div>
       <ul class="small-banner">
-        <li class="list" v-for="item in info.banner.small_banner" :key="item.key">
+        <li class="list" v-for="item in $store.state.info.banner.small_banner" :key="item.key">
           <nuxt-link class="block" :to="item.link">
             <img :src="item.path" alt="">
             <span class="title" :title="item.text">{{ item.text }}</span>
@@ -63,9 +63,7 @@
 import axios from '~/plugins/axios'
 export default {
   async asyncData ({ params }) {
-    let [info, menu, list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
           page: 1,
@@ -75,9 +73,6 @@ export default {
       })
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
       nCurrentPage: 1
@@ -85,21 +80,14 @@ export default {
   },
   head () {
     return {
-      title: `${this.info.blogName} | ${this.info.blogDescription}`,
+      title: `${this.$store.state.info.blogName} | ${this.$store.state.info.blogDescription}`,
       meta: [
-        { name: 'keywords', content: this.info.setExtend.keywords },
-        { name: 'description', content: this.info.setExtend.description }
+        { name: 'keywords', content: this.$store.state.info.setExtend.keywords },
+        { name: 'description', content: this.$store.state.info.setExtend.description }
       ]
     }
   },
   name: 'Index',
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
-  },
   methods: {
     currentPage (n) {
       this.$router.push({

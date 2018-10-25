@@ -21,6 +21,10 @@ module.exports = {
     ]
   },
 
+  router: {
+    middleware: 'info'
+  },
+
   /*
   ** Customize the progress bar color
   */

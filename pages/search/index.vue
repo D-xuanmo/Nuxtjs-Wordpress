@@ -42,9 +42,7 @@ import axios from '~/plugins/axios'
 export default {
   watchQuery: ['page', 's'],
   async asyncData ({ query }) {
-    let [info, menu, list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
           search: query.s,
@@ -55,9 +53,6 @@ export default {
       })
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
       nCurrentPage: +query.page
@@ -65,17 +60,10 @@ export default {
   },
   head () {
     return {
-      title: `关于“${this.$route.query.s}”的文章 | ${this.info.blogName}`
+      title: `关于“${this.$route.query.s}”的文章 | ${this.$store.state.info.blogName}`
     }
   },
   name: 'Search',
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
-  },
   methods: {
     currentPage (n) {
       this.$router.push({

@@ -43,9 +43,7 @@ import axios from '~/plugins/axios'
 export default {
   watchQuery: ['type'],
   async asyncData ({ params, query }) {
-    let [info, menu, list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
           categories: query.type,
@@ -56,9 +54,6 @@ export default {
       })
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
       nCurrentPage: +params.id
@@ -67,15 +62,8 @@ export default {
   name: 'Category',
   head () {
     return {
-      title: `${this.$route.query.title} | ${this.info.blogName}`
+      title: `${this.$route.query.title} | ${this.$store.state.info.blogName}`
     }
-  },
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
   },
   methods: {
     currentPage (n) {

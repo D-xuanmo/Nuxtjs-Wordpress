@@ -71,9 +71,9 @@
           </p>
           <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
           <!-- 打赏详情 -->
-          <div v-if="isShowReward" class="reward-toast">
-            <div class="reward-toast-inner text-center">
-              <i class="iconfont icon-close" @click="isShowReward = false"></i>
+          <div v-if="isShowReward" class="reward-toast" @click="isShowReward = false">
+            <div class="reward-toast-inner text-center" @click.stop="isShowReward = true">
+              <i class="iconfont icon-close" @click.stop="isShowReward = false"></i>
               <p class="thumbnail"><img :src="article.articleInfor.other.authorPic.full" alt="" width="80"></p>
               <p class="summary">{{ $store.state.info.rewardText }}</p>
               <div class="reward-qrcode-wrap">
@@ -127,9 +127,7 @@ import axios from '~/plugins/axios'
 import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
-    let [info, menu, article, viewCount] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [article, viewCount] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${params.id}`),
       // 更新阅读量
       axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, {
@@ -137,9 +135,6 @@ export default {
       })
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       article: article.data,
       classify: article.data.articleInfor.classify,
       tags: article.data.articleInfor.tags,
@@ -203,11 +198,6 @@ export default {
   },
   created () {
     let other = this.article.articleInfor.other
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
 
     // 更新阅读量
     this.article.articleInfor.viewCount = this.viewCount
@@ -221,13 +211,13 @@ export default {
     let keywords = []
     this.tags && this.tags.forEach(item => keywords.push(item.name))
     return {
-      title: `${this.article.title.rendered} | ${this.info.blogName}`,
+      title: `${this.article.title.rendered} | ${this.$store.state.info.blogName}`,
       meta: [
         { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
         { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
       ],
       style: [
-        { cssText: this.info.detailsCss, type: 'text/css' }
+        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
       ],
       link: [
         { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }

@@ -41,9 +41,7 @@
 import axios from '~/plugins/axios'
 export default {
   async asyncData ({ params }) {
-    let [info, menu, list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [list] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: {
           page: params.id,
@@ -53,22 +51,12 @@ export default {
       })
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       articleList: list.data,
       total: +list.headers['x-wp-total'],
       nCurrentPage: +params.id
     }
   },
   name: 'Article',
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
-  },
   methods: {
     currentPage (n) {
       this.$router.push({

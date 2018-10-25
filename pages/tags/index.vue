@@ -4,7 +4,7 @@
       <span>标签云</span>
     </h2>
     <ul class="list-wrap">
-      <li v-for="item in tags" :key="item.key" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
+      <li v-for="item in $store.state.info.tagCloud" :key="item.key" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
         <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}({{ item.count }})</router-link>
       </li>
     </ul>
@@ -14,29 +14,12 @@
 <script>
 import axios from '~/plugins/axios'
 export default {
-  async asyncData ({ params }) {
-    let [info, menu, pages] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
-    ])
-    return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      tags: info.data.tagCloud
-    }
-  },
   name: 'Page',
   layout: 'page',
   head () {
     return {
-      title: `标签云 | ${this.info.blogName}`
+      title: `标签云 | ${this.$store.state.info.blogName}`
     }
-  },
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu
-    })
   }
 }
 </script>

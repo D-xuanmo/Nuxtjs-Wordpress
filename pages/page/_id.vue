@@ -21,15 +21,10 @@ import axios from '~/plugins/axios'
 import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
-    let [info, menu, pages] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-      axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`),
+    let [pages] = await Promise.all([
       axios.get(`${process.env.baseUrl}/wp-json/wp/v2/pages/${params.id}`)
     ])
     return {
-      info: info.data,
-      menu: menu.data.mainMenu,
-      subMenu: menu.data.subMenu,
       pages: pages.data
     }
   },
@@ -40,24 +35,17 @@ export default {
   },
   head () {
     return {
-      title: `${this.pages.title.rendered} | ${this.info.blogName}`,
+      title: `${this.pages.title.rendered} | ${this.$store.state.info.blogName}`,
       link: [
         { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ],
       style: [
-        { cssText: this.info.detailsCss, type: 'text/css' }
+        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
       ],
       script: [
         { src: 'https://upyun.xuanmo.xin/js/prism.js' }
       ]
     }
-  },
-  created () {
-    this.$store.commit('getInfo', {
-      info: this.info,
-      menu: this.menu,
-      subMenu: this.subMenu
-    })
   }
 }
 </script>
