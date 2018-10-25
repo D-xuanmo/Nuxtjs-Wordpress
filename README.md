@@ -4,6 +4,8 @@
 
 > service目录为wordpress主题文件
 
+> 使用的时候请修改nuxt.config.js的配置项，改为自己的信息
+
 ## Build Setup
 
 ``` bash
