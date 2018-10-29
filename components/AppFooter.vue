@@ -85,6 +85,7 @@ export default {
 
   .footer-menu{
     display: flex;
+    flex-wrap: wrap;
 
     .list{
       margin-right: 15px;
