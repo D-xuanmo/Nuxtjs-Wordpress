@@ -8,7 +8,7 @@ chmod(__FILE__, 0777);
 $currentPath = "comments/" . $_POST["postID"] . "/";
 $addFilePath = dirname(dirname(dirname(__FILE__))) . "/uploads/" . $currentPath;
 
-if(!is_dir($addFilePath)) mkdir($addFilePath, 0700, true);
+if(!is_dir($addFilePath)) mkdir($addFilePath, 0777, true);
 
 if ($_FILES['file'] !== null) {
   // 上传文件大小
