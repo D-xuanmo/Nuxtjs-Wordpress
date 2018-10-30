@@ -155,7 +155,7 @@ export default {
         color: #333;
 
         &:hover{
-          color: $color-highlight-text;
+          color: $color-theme;
         }
       }
     }
@@ -195,7 +195,7 @@ export default {
 
     .details-btn{
       padding: 5px 10px;
-      background: $color-highlight-text;
+      background: $color-theme;
       border-radius: $border-radius;
       color: $color-white;
     }

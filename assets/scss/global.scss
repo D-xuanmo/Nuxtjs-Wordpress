@@ -84,7 +84,7 @@
 }
 
 .c-blue{
-  color: $color-highlight-text;
+  color: $color-theme;
 }
 
 .case-show{
@@ -92,7 +92,7 @@
   width: 150px;
   margin: 20px auto;
   padding: 10px 18px;
-  background-color: $color-highlight-text;
+  background-color: $color-theme;
   border-radius: $border-radius;
   text-align: center;
   color: $color-white !important;
@@ -114,13 +114,13 @@ code:not([class*="lang"]),
 
 .btn{
   padding: 10px 15px;
-  border: 1px solid $color-highlight-text;
+  border: 1px solid $color-theme;
   border-radius: $border-radius;
-  color: $color-highlight-text;
+  color: $color-theme;
   cursor: pointer;
 
   &.active{
-    background: $color-highlight-text;
+    background: $color-theme;
     color: $color-white;
   }
 
@@ -131,7 +131,7 @@ code:not([class*="lang"]),
 
 // 文字选中颜色
 ::selection{
-  background: $color-highlight-text;
+  background: $color-theme;
   color: $color-white;
 }
 
@@ -144,7 +144,7 @@ code:not([class*="lang"]),
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: $color-highlight-text;
+  background-color: $color-theme;
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
 }
 
@@ -152,7 +152,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   background: $color-main-background;
-  font: $font-size-base "Andale Mono",PingFangSC-Regular,Microsoft Yahei;
+  font: $font-size-base "PingFangSC-Regular",Microsoft Yahei;
   color: $color-main-text;
 }
 
@@ -175,7 +175,7 @@ body {
 
     &.active{
       background: none;
-      color: $color-highlight-text;
+      color: $color-theme;
     }
   }
 

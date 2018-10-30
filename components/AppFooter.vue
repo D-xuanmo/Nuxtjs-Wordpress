@@ -72,7 +72,7 @@ export default {
     color: #9295a2;
 
     &:hover{
-      color: $color-highlight-text;
+      color: $color-theme;
     }
   }
 }
@@ -129,7 +129,7 @@ export default {
 
   .iconfont{
     font-size: 40px;
-    color: $color-highlight-text;
+    color: $color-theme;
   }
 }
 

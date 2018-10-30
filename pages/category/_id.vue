@@ -127,7 +127,7 @@ export default {
   .not{
     margin: 15px 0;
     text-align: center;
-    color: $color-highlight-text;
+    color: $color-theme;
   }
 
   // 文章列表
@@ -163,7 +163,7 @@ export default {
         color: #333;
 
         &:hover{
-          color: $color-highlight-text;
+          color: $color-theme;
         }
       }
     }
@@ -203,7 +203,7 @@ export default {
 
     .details-btn{
       padding: 5px 10px;
-      background: $color-highlight-text;
+      background: $color-theme;
       border-radius: $border-radius;
       color: $color-white;
     }

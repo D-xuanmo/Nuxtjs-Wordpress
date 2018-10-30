@@ -248,7 +248,7 @@ export default {
       width: 0px;
       height: 5px;
       border-radius: $border-radius;
-      background-color: $color-highlight-text;
+      background-color: $color-theme;
       background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
     }
   }
@@ -314,7 +314,7 @@ export default {
       width: 100px;
       margin: 15px auto;
       border-radius: $border-radius;
-      background: $color-highlight-text;
+      background: $color-theme;
       color: $color-white;
       cursor: pointer;
     }

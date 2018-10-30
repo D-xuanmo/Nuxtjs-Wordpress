@@ -169,7 +169,7 @@ $headerHeight: 60px;
     }
 
     .nuxt-link-exact-active{
-      color: $color-highlight-text;
+      color: $color-theme;
     }
   }
 
@@ -218,7 +218,7 @@ $headerHeight: 60px;
     }
 
     &:hover{
-      background: $color-highlight-text;
+      background: $color-theme;
 
       a{
         color: $color-white;
@@ -308,7 +308,7 @@ $headerHeight: 60px;
         width: 60px;
         height: 60px;
         opacity: 0;
-        background: $color-highlight-text;
+        background: $color-theme;
         font-size: 20px;
         line-height: 60px;
         text-align: center;
@@ -336,7 +336,7 @@ $headerHeight: 60px;
       height: 100%;
       padding-left: $container-padding;
       opacity: 0;
-      background: $color-highlight-text;
+      background: $color-theme;
       color: $color-white;
       transition: .5s;
       transform: translateX(100%);

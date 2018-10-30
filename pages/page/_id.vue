@@ -82,7 +82,7 @@ export default {
     line-height: 2;
 
     /deep/ a{
-      color: $color-highlight-text;
+      color: $color-theme;
     }
 
     /deep/ h2{

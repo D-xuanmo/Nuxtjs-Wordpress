@@ -349,7 +349,7 @@ export default {
     word-break: break-all;
 
     /deep/ a{
-      color: $color-highlight-text;
+      color: $color-theme;
     }
 
     /deep/ h2{

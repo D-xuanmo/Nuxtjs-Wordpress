@@ -103,7 +103,7 @@ export default {
         left: 0;
         width: 100%;
         height: 2px;
-        background: $color-highlight-text;
+        background: $color-theme;
       }
     }
   }
@@ -148,7 +148,7 @@ export default {
     }
 
     .author{
-      color: $color-highlight-text;
+      color: $color-theme;
     }
 
     .comment-text{
@@ -158,7 +158,7 @@ export default {
 
     .title{
       @include ellipsisMultiline(2);
-      color: $color-highlight-text;
+      color: $color-theme;
     }
   }
 
