@@ -129,7 +129,7 @@ function xm_get_menu ()
       $menu[$m -> ID]['title'] = $m -> title;
       $menu[$m -> ID]['url'] = $m -> url;
       $menu[$m -> ID]['type'] = $m -> object;
-      $menu[$m -> ID]['icon'] = $m -> attr_title;
+      $menu[$m -> ID]['icon'] = implode(' ', $m -> classes);
       $menu[$m -> ID]['children'] = array();
     }
   }
@@ -141,7 +141,7 @@ function xm_get_menu ()
       $submenu[$m -> ID]['title'] = $m -> title;
       $submenu[$m -> ID]['url'] = $m -> url;
       $submenu[$m -> ID]['type'] = $m -> object;
-      $submenu[$m -> ID]['icon'] = $m -> attr_title;
+      $submenu[$m -> ID]['icon'] = implode(' ', $m -> classes);
       $menu[$m -> menu_item_parent]['children'][$m -> ID] = $submenu[$m -> ID];
     }
   }
