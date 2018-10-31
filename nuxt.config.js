@@ -68,7 +68,7 @@ module.exports = {
 
     // 全局引入scss
     styleResources: {
-      scss: ['./assets/scss/variable.scss', './assets/scss/animate.scss']
+      scss: ['./assets/scss/variable.scss']
     }
   },
 
