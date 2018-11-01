@@ -52,18 +52,6 @@ export default {
 @media screen and (max-width: 1024px) {
   .wrap{
     .content{
-      width: 73%;
-    }
-
-    .sidebar-wrap{
-      width: 25%;
-    }
-  }
-}
-
-@media screen and (max-width:768px) {
-  .wrap{
-    .content{
       width: 100%;
     }
 
