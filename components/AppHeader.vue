@@ -19,9 +19,19 @@
                 <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2" @click.native="hideNavWrap"></i>首页</nuxt-link>
               </li>
               <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
-                <nuxt-link :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }" :class="{ 'prohibit-event': item.children.length !== 0 }" @click.native="hideNavWrap">
+                <nuxt-link
+                   v-if="item.type === 'category'"
+                  :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }"
+                  :class="{ 'prohibit-event': item.children.length !== 0 }"
+                  @click.native="hideNavWrap">
                   <i class="iconfont" :class="item.icon"></i>{{ item.title }}
                   <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
+                </nuxt-link>
+                <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
+                  <i class="iconfont" :class="item.icon"></i> {{ item.title }}
+                </nuxt-link>
+                <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
+                  <i class="iconfont" :class="item.icon"></i> {{ item.title }}
                 </nuxt-link>
                 <!-- 二级菜单 -->
                 <div class="sub-nav-wrap" :class="{ not: item.children.length === 0 }">
