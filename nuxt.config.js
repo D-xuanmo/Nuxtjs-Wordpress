@@ -51,6 +51,10 @@ module.exports = {
       }
     },
 
+    extractCSS: {
+      allChunks: true
+    },
+
     // element-ui按需引入配置
     babel: {
       'plugins': [['component', [
