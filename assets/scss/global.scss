@@ -167,26 +167,123 @@ body {
 }
 
 // 翻页
-.el-pagination{
-  margin: 30px 0;
-  text-align: center;
+.main {
+  .el-pagination{
+    margin: 30px 0;
+    text-align: center;
 
-  li{
-    border: 0;
+    li{
+      border: 0;
 
-    &:last-child{
+      &:last-child{
+        border: 0;
+      }
+
+      &.active{
+        background: none;
+        color: $color-theme;
+      }
+    }
+
+    .btn-next,
+    .btn-prev{
       border: 0;
     }
+  }
+}
 
-    &.active{
-      background: none;
-      color: $color-theme;
-    }
+// 文章列表
+.article-list-wrap,
+.container{
+  margin-top: $container-margin;
+  padding: $container-padding;
+  border-radius: $border-radius;
+  background: $color-white;
+
+  .header{
+    padding-bottom: $container-padding;
+    border-bottom: 1px solid $color-main-background;
+    font-size: $font-size-large;
   }
 
-  .btn-next,
-  .btn-prev{
-    border: 0;
+  // 文章列表
+  .article-list{
+    display: flex;
+    justify-content: space-between;
+    height: 145px;
+    padding: 20px 0;
+    border-bottom: 1px solid $color-main-background;
+
+    // 缩略图
+    .thumbnail{
+      width: 260px;
+      height: 145px;
+      border-radius: $border-radius;
+      transition: .5s;
+
+      &:hover{
+        transform: scale(1.05);
+      }
+    }
+
+    .list-content{
+      position: relative;
+      width: 590px;
+    }
+
+    .title{
+      margin-bottom: 10px;
+      font-size: 18px;
+      @extend %ellipsis;
+
+      a{
+        color: #333;
+
+        &:hover{
+          color: $color-theme;
+        }
+      }
+    }
+
+    .summary{
+      display: -webkit-box;
+      overflow: hidden;
+      height: 80px;
+      -webkit-box-orient: vertical;
+      word-break: break-all;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 3;
+      line-height: 1.8;
+    }
+
+    // 文章信息
+    .opeartion{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: $font-size-small;
+      color: $color-golden;
+    }
+
+    .information{
+      span{
+        margin-right: 10px;
+      }
+
+      .iconfont{
+        margin-right: 2px;
+      }
+    }
+
+    .details-btn{
+      padding: 5px 10px;
+      background: $color-theme;
+      border-radius: $border-radius;
+      color: $color-white;
+    }
   }
 }
 
