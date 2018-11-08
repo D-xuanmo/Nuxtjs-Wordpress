@@ -12,7 +12,7 @@
         <li class="list" v-for="item in $store.state.info.banner.small_banner" :key="item.key">
           <nuxt-link class="block" :to="item.link">
             <img :src="item.path" alt="">
-            <span class="title" :title="item.text">{{ item.text }}</span>
+            <span v-show="item.text" class="title" :title="item.text">{{ item.text }}</span>
           </nuxt-link>
         </li>
       </ul>
