@@ -3,7 +3,7 @@
     <!-- 发表评论 -->
     <div class="comment-from">
       <h3 class="comment-title">发表评论</h3>
-      <p class="comment-sub-title">电子邮件地址不会被公开。 必填项已用<i class="color-red">*</i>标注</p>
+      <p class="comment-sub-title">电子邮件地址不会被公开。 必填项已用<i class="c-red">*</i>标注</p>
       <!-- 评论其他功能 -->
       <div class="comment-other">
         <ul class="list-wrap">
@@ -24,13 +24,13 @@
       </div>
       <!-- 评论输入框 -->
       <div class="comment-form-content">
-        <label for="content">内容<i class="color-red">*</i></label>
+        <label for="content">内容<i class="c-red">*</i></label>
         <textarea id="content" name="content" v-model="content.value" rows="8" cols="80" @keyup="contentValidate"></textarea>
         <span v-show="content.validate" class="comment-tips">{{ content.msg }}</span>
       </div>
       <div class="box">
         <div class="comment-inp comment-from-author">
-          <label for="author">昵称<i class="color-red">*</i></label>
+          <label for="author">昵称<i class="c-red">*</i></label>
           <input
             type="text"
             id="author"
@@ -43,7 +43,7 @@
           <span v-show="author.validate" class="comment-tips">{{ author.msg }}</span>
         </div>
         <div class="comment-inp comment-from-email">
-          <label for="email">邮箱<i class="color-red">*</i></label>
+          <label for="email">邮箱<i class="c-red">*</i></label>
           <input
             type="email"
             id="email"
@@ -66,7 +66,7 @@
           >
         </div>
         <div class="comment-inp comment-from-code">
-          <label for="img-code">验证码<i class="color-red">*</i></label>
+          <label for="img-code">验证码<i class="c-red">*</i></label>
           <input
             type="number"
             id="img-code"
@@ -94,6 +94,7 @@
           <p v-else-if="$store.state.info.isTextThumbnail === 'on'" class="list-gravatar-text" :style="{ background: item.userAgentInfo.background }">{{ item.author_name.substr(0, 1) }}</p>
         </template>
         <div class="list-header">
+          <a :name="`comment-${item.id}`"></a>
           <a :href="item.author_url" target="_blank" class="author">{{ item.author_name }}</a>
           <!-- 评论者等级 -->
           <p class="inline-block">

@@ -81,14 +81,14 @@ function themeoptions_page() {
         <div class="row clearfix">
           <label for="sidebar-notice" class="fl left-wrap">侧边栏公告：</label>
           <div class="fr right-wrap">
-            <textarea id="sidebar-notice" name="sidebar-notice" rows="5" cols="100"><?php echo $a_options['sidebar_notice']; ?></textarea>
+            <textarea id="sidebar-notice" name="sidebar-notice" rows="15" cols="100"><?php echo $a_options['sidebar_notice']; ?></textarea>
           </div>
         </div>
 
         <div class="row clearfix">
           <label for="footer-copyright" class="fl left-wrap">底部版权文字：</label>
           <div class="fr right-wrap">
-            <textarea id="footer-copyright" name="footer-copyright" rows="5" cols="100"><?php echo $a_options['footer_copyright']; ?></textarea>
+            <textarea id="footer-copyright" name="footer-copyright" rows="15" cols="100"><?php echo $a_options['footer_copyright']; ?></textarea>
           </div>
         </div>
       </div>

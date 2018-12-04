@@ -36,7 +36,7 @@
   text-align: justify;
 }
 
-.vertical-middle{
+.vertical-middle {
   vertical-align: middle;
 }
 
@@ -58,36 +58,35 @@
 }
 
 // 字体大小
-.f-s-small{
+.f-s-small {
   font-size: $font-size-small;
 }
 
-.f-s-base{
+.f-s-base {
   font-size: $font-size-base;
 }
 
-.f-s-large{
+.f-s-large {
   font-size: $font-size-large;
 }
 
-.c-pointer{
+.c-pointer {
   cursor: pointer;
 }
 
-.word-break{
+.word-break {
   word-break: break-word;
 }
 
-.color-red,
-.c-red{
+.c-red {
   color: $color-red;
 }
 
-.c-blue{
+.c-theme {
   color: $color-theme;
 }
 
-.case-show{
+.case-show {
   display: block;
   width: 150px;
   margin: 20px auto;
@@ -99,7 +98,7 @@
 }
 
 code:not([class*="lang"]),
-.code{
+.code {
   padding: 2px 5px;
   background: #f7f7f9;
   border: 1px solid #E3EDF3;
@@ -107,30 +106,30 @@ code:not([class*="lang"]),
   color: #d14;
 }
 
-.wrap{
+.wrap {
   width: 1200px;
   margin: 0 auto;
 }
 
-.btn{
+.btn {
   padding: 10px 15px;
   border: 1px solid $color-theme;
   border-radius: $border-radius;
   color: $color-theme;
   cursor: pointer;
 
-  &.active{
+  &.active {
     background: $color-theme;
     color: $color-white;
   }
 
-  .iconfont{
+  .iconfont {
     vertical-align: middle;
   }
 }
 
 // 文字选中颜色
-::selection{
+::selection {
   background: $color-theme;
   color: $color-white;
 }
@@ -148,8 +147,8 @@ code:not([class*="lang"]),
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
 }
 
-html,
-body {
+body,
+html {
   scroll-behavior: smooth;
 }
 
@@ -168,38 +167,38 @@ body {
 
 // 翻页
 .main {
-  .el-pagination{
+  .el-pagination {
     margin: 30px 0;
     text-align: center;
 
-    li{
+    li {
       border: 0;
 
-      &:last-child{
+      &:last-child {
         border: 0;
       }
 
-      &.active{
+      &.active {
         background: none;
         color: $color-theme;
       }
     }
 
     .btn-next,
-    .btn-prev{
+    .btn-prev {
       border: 0;
     }
   }
 }
 
 // 文章列表
-.article-list-wrap{
+.article-list-wrap {
   margin-top: $container-margin;
   padding: $container-padding;
   border-radius: $border-radius;
   background: $color-white;
 
-  .header{
+  .header {
     padding-bottom: $container-padding;
     border-bottom: 1px solid $color-main-background;
     font-size: $font-size-large;
@@ -207,45 +206,44 @@ body {
 }
 
 // 文章列表
-.article-list{
+.article-list {
   display: flex;
   justify-content: space-between;
   height: 145px;
   padding: 20px 0;
   border-bottom: 1px solid $color-main-background;
-
   // 缩略图
-  .thumbnail{
+  .thumbnail {
     width: 260px;
     height: 145px;
     border-radius: $border-radius;
-    transition: .5s;
+    transition: 0.5s;
 
-    &:hover{
+    &:hover {
       transform: scale(1.05);
     }
   }
 
-  .list-content{
+  .list-content {
     position: relative;
     width: 590px;
   }
 
-  .title{
+  .title {
     margin-bottom: 10px;
     font-size: 18px;
     @extend %ellipsis;
 
-    a{
+    a {
       color: #333;
 
-      &:hover{
+      &:hover {
         color: $color-theme;
       }
     }
   }
 
-  .summary{
+  .summary {
     display: -webkit-box;
     overflow: hidden;
     height: 80px;
@@ -257,7 +255,7 @@ body {
   }
 
   // 文章信息
-  .opeartion{
+  .opeartion {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -268,17 +266,17 @@ body {
     color: $color-golden;
   }
 
-  .information{
-    span{
+  .information {
+    span {
       margin-right: 10px;
     }
 
-    .iconfont{
+    .iconfont {
       margin-right: 2px;
     }
   }
 
-  .details-btn{
+  .details-btn {
     padding: 5px 10px;
     background: $color-theme;
     border-radius: $border-radius;
@@ -286,37 +284,37 @@ body {
   }
 }
 
-.desktop-show{
+.desktop-show {
   display: block;
 }
 
-.tablet-show,
-.phone-show{
+.phone-show,
+.tablet-show {
   display: none;
 }
 
 // 禁止点击
-.prohibit-event{
+.prohibit-event {
   pointer-events: none;
 }
 
 @media screen and (max-width: 1024px) {
-  .desktop-show{
+  .desktop-show {
     display: none;
   }
 
-  .tablet-show{
+  .tablet-show {
     display: block;
   }
 
-  .wrap{
+  .wrap {
     width: 94%;
   }
 
   // 文章列表
   .article-list-wrap,
-  .container{
-    .thumbnail-wrap{
+  .container {
+    .thumbnail-wrap {
       width: 260px;
       margin-right: 15px;
     }
@@ -324,15 +322,15 @@ body {
 }
 
 @media screen and (max-width:768px) {
-  .phone-show{
+  .phone-show {
     display: block;
   }
 
-  .phone-hide{
+  .phone-hide {
     display: none;
   }
 
-  .wrap{
+  .wrap {
     width: 90%;
   }
 }

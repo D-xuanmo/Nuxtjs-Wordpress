@@ -133,8 +133,8 @@ function appthemes_add_quicktags()
         QTags.addButton('c-code', 'c-code', '<span class="code">', '</span>');
         QTags.addButton('h2', 'h2', '<h2>', '</h2>');
         QTags.addButton('2-text', '2-text', '<span style="display:inline-block;width:28px;">', '</span>');
+        QTags.addButton('star', 'star', '<i class="iconfont icon-star" class="c-theme">', '</i>');
         QTags.addButton('red-star', 'red-star', '<i class="iconfont icon-star" style="color: #f00;">', '</i>');
-        QTags.addButton('blue-star', 'blue-star', '<i class="iconfont icon-star" style="color: #06aaff;">', '</i>');
         // 添加html转换容器
         jQuery(function () {
             jQuery('#html-transform').click(function () {
@@ -341,7 +341,7 @@ if (!isset($wpsmiliestrans)) {
 function comment_add_at($comment_text, $comment = '')
 {
   if ($comment->comment_parent > 0) {
-    $comment_text = '@<a href="#comment-' . $comment->comment_parent . '" style="color: #16C0F8;">' . get_comment_author($comment->comment_parent) . '</a> ' . $comment_text;
+    $comment_text = '@<a href="#comment-' . $comment->comment_parent . '" class="c-theme">' . get_comment_author($comment->comment_parent) . '</a> ' . $comment_text;
   }
   return $comment_text;
 }
