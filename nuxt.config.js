@@ -29,10 +29,11 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: {
-    height: '3px',
-    color: '#06aaff'
-  },
+  // loading: {
+  //   height: '3px',
+  //   color: '#06aaff'
+  // },
+  loading: './components/loading/Main.vue',
 
   /*
   ** Build configuration

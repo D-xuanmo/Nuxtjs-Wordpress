@@ -1,65 +1,67 @@
 <template>
   <header class="header">
-    <div class="wrap">
-      <div class="left">
-        <div class="logo">
-          <h1>
-            <span class="hide">{{ $store.state.info.blogName }}</span>
+    <div class="header-content">
+      <div class="wrap">
+        <div class="left">
+          <div class="logo">
+            <h1>
+              <span class="hide">{{ $store.state.info.blogName }}</span>
+              <no-ssr>
+                <nuxt-link :to="{ name: 'index' }" class="block">
+                  <img :src="$store.state.info.logo" class="vertical-middle" width="130" height="40" alt="">
+                </nuxt-link>
+              </no-ssr>
+            </h1>
+          </div>
+          <nav class="nav-wrap" :class="{ show: isShowNavWrap }">
             <no-ssr>
-              <nuxt-link :to="{ name: 'index' }" class="block">
-                <img :src="$store.state.info.logo" class="vertical-middle" width="130" height="40" alt="">
-              </nuxt-link>
+              <ul class="box">
+                <li class="nav-list first">
+                  <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2" @click.native="hideNavWrap"></i>首页</nuxt-link>
+                </li>
+                <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
+                  <nuxt-link
+                     v-if="item.type === 'category'"
+                    :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }"
+                    :class="{ 'prohibit-event': item.children.length !== 0 }"
+                    @click.native="hideNavWrap">
+                    <x-icon :type="item.icon"></x-icon>{{ item.title }}
+                    <x-icon type="icon-arrow-bottom" v-if="item.children.length !== 0"></x-icon>
+                  </nuxt-link>
+                  <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
+                    <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                  </nuxt-link>
+                  <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
+                    <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                  </nuxt-link>
+                  <!-- 二级菜单 -->
+                  <div class="sub-nav-wrap" :class="{ not: item.children.length === 0 }">
+                    <ul class="list-view-wrap">
+                      <li class="sub-nav-list" v-for="child in item.children" :key="child.key" @click="hideNavWrap">
+                        <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
+                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                        </nuxt-link>
+                        <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
+                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                        </nuxt-link>
+                        <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
+                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                        </nuxt-link>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
             </no-ssr>
-          </h1>
+          </nav>
         </div>
-        <nav class="nav-wrap" :class="{ show: isShowNavWrap }">
-          <no-ssr>
-            <ul class="box">
-              <li class="nav-list first">
-                <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2" @click.native="hideNavWrap"></i>首页</nuxt-link>
-              </li>
-              <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
-                <nuxt-link
-                   v-if="item.type === 'category'"
-                  :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }"
-                  :class="{ 'prohibit-event': item.children.length !== 0 }"
-                  @click.native="hideNavWrap">
-                  <i class="iconfont" :class="item.icon"></i>{{ item.title }}
-                  <i class="iconfont icon-arrow-bottom" v-if="item.children.length !== 0"></i>
-                </nuxt-link>
-                <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
-                  <i class="iconfont" :class="item.icon"></i> {{ item.title }}
-                </nuxt-link>
-                <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
-                  <i class="iconfont" :class="item.icon"></i> {{ item.title }}
-                </nuxt-link>
-                <!-- 二级菜单 -->
-                <div class="sub-nav-wrap" :class="{ not: item.children.length === 0 }">
-                  <ul class="list-view-wrap">
-                    <li class="sub-nav-list" v-for="child in item.children" :key="child.key" @click="hideNavWrap">
-                      <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
-                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
-                      </nuxt-link>
-                      <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
-                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
-                      </nuxt-link>
-                      <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
-                        <i class="iconfont" :class="child.icon"></i> {{ child.title }}
-                      </nuxt-link>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </no-ssr>
-        </nav>
-      </div>
-      <div class="right">
-        <div class="search-wrap">
-          <input type="text" class="desktop-show" :class="{ show: isShowSearch }" v-model="searchText" placeholder="请输入关键字" @keyup.enter="search">
-          <i class="iconfont icon-search" @click="showSearch"></i>
-          <i class="iconfont icon-menu phone-show" @click="showNavWrap"></i>
-          <i class="iconfont icon-close phone-show" :class="{ show: isShowNavWrap }" @click="hideNavWrap"></i>
+        <div class="right">
+          <div class="search-wrap">
+            <input type="text" class="desktop-show" :class="{ show: isShowSearch }" v-model="searchText" placeholder="请输入关键字" @keyup.enter="search">
+            <x-icon type="icon-search" @click.native="showSearch"></x-icon>
+            <x-icon type="icon-menu phone-show" @click.native="showNavWrap"></x-icon>
+            <x-icon type="icon-close phone-show" :class="{ show: isShowNavWrap }" @click.native="hideNavWrap"></x-icon>
+          </div>
         </div>
       </div>
     </div>
@@ -116,7 +118,17 @@ $headerHeight: 60px;
 .header{
   position: relative;
   width: 100%;
+  height: 60px;
   background: $color-white;
+}
+
+.header-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
 }
 
 .wrap{

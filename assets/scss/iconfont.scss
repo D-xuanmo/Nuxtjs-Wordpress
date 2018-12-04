@@ -107,6 +107,6 @@ $iconMap        : (
 
 @keyframes rotating {
   to {
-    transform: rotateZ(-359deg);
+    transform: rotateZ(360deg);
   }
 }
