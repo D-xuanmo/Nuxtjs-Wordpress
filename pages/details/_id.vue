@@ -280,6 +280,10 @@ export default {
   height: 100%;
   background: rgba(0,0,0,.5);
 
+  img {
+    margin-right: 0 !important;
+  }
+
   .reward-toast-inner {
     position: absolute;
     top: 50%;
@@ -335,6 +339,7 @@ export default {
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
     text-align: center;
+    color: $color-sub-text;
 
     .iconfont{
       vertical-align: baseline;
