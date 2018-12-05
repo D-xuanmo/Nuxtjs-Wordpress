@@ -60,16 +60,14 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
+import API from '~/api'
 export default {
   async asyncData ({ params }) {
     let [list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
-        params: {
-          page: 1,
-          per_page: 8,
-          _embed: true
-        }
+      API.getArticleList({
+        page: 1,
+        per_page: 8,
+        _embed: true
       })
     ])
     return {
@@ -89,31 +87,31 @@ export default {
   },
   name: 'Index',
   methods: {
-    currentPage (n) {
+    currentPage (id) {
       this.$router.push({
         name: 'article-id-title',
         params: {
-          id: n
+          id
         }
       })
     },
 
     // 上一页
-    prevPage (n) {
+    prevPage (id) {
       this.$router.push({
         name: 'article-id-title',
         params: {
-          id: n
+          id
         }
       })
     },
 
     // 下一页
-    nextPage (n) {
+    nextPage (id) {
       this.$router.push({
         name: 'article-id-title',
         params: {
-          id: n
+          id
         }
       })
     }

@@ -7,7 +7,15 @@ const option = {
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },
-  transformRequest: data => qs.stringify(data)
+  transformRequest: (data, headers) => {
+    if (headers['Content-Type'].search('application/json') !== -1) {
+      return JSON.stringify(data)
+    } else if (headers['Content-Type'].search('multipart/form-data') !== -1) {
+      return data
+    } else {
+      return qs.stringify(data)
+    }
+  }
 }
 
 const axios = Axios.create(option)

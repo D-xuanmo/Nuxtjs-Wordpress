@@ -38,6 +38,7 @@
 </template>
 <script>
 import axios from 'axios'
+import API from '~/api'
 import { mapState } from 'vuex'
 export default {
   name: 'uploadImg',
@@ -83,11 +84,19 @@ export default {
           data.append('file', _file.files[0])
           data.append('url', this.contentUrl)
           data.append('mark', 'upload')
-          axios.post('/wp-content/themes/xm-vue-theme/xm_upload.php', data, config).then(res => {
-            this.resultImgUrl = res.data.path
-            this.resFileName = res.data.name
-            _file.value = ''
-          }).catch(err => {
+          API.uploadImage(data, config).then(({ data }) => {
+            if (!data.code) {
+              this.$message({
+                title: '上传失败！',
+                type: 'error'
+              })
+            } else {
+              this.resultImgUrl = data.path
+              this.resFileName = data.name
+              _file.value = ''
+            }
+          })
+          .catch(err => {
             if (err.response.status === 404) {
               this.$message({
                 title: '上传失败(404)！',
@@ -107,7 +116,7 @@ export default {
       data.append('postID', this.$route.params.id)
       data.append('fileName', this.resFileName)
       // 如果本次上传的图片未发表就从服务器删除此图片
-      axios.post('/wp-content/themes/xm-vue-theme/xm_upload.php', data).catch(err => console.log(err))
+      API.deleteImage(data).catch(err => console.log(err))
       // 关闭控件
       this.$emit('showChart', {
         close: false,
@@ -166,9 +175,9 @@ export default {
           data.append('file', oReader.result)
           data.append('url', this.contentUrl)
           data.append('mark', 'upload')
-          axios.post('/wp-content/themes/xm-vue-theme/xm_upload.php', data, config).then(res => {
-            this.resultImgUrl = res.data.path
-            this.resFileName = res.data.name
+          API.uploadImage(data, config).then(({ data }) => {
+            this.resultImgUrl = data.path
+            this.resFileName = data.name
           }).catch(err => {
             if (err.response.status === 404) {
               this.$message({

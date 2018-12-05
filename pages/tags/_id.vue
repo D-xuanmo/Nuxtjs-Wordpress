@@ -38,18 +38,16 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
+import API from '~/api'
 export default {
   watchQuery: ['type'],
   async asyncData ({ params, query }) {
     let [list] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
-        params: {
-          tags: query.type,
-          page: params.id,
-          per_page: 8,
-          _embed: true
-        }
+      API.getArticleList({
+        tags: query.type,
+        page: params.id,
+        per_page: 8,
+        _embed: true
       })
     ])
     return {
@@ -65,11 +63,11 @@ export default {
     }
   },
   methods: {
-    currentPage (n) {
+    currentPage (id) {
       this.$router.push({
         name: 'category-id',
         params: {
-          id: n
+          id
         },
         query: {
           type: this.$route.query.type,
@@ -79,11 +77,11 @@ export default {
     },
 
     // 上一页
-    prevPage (n) {
+    prevPage (id) {
       this.$router.push({
         name: 'category-id',
         params: {
-          id: n
+          id
         },
         query: {
           type: this.$route.query.type,
@@ -93,11 +91,11 @@ export default {
     },
 
     // 下一页
-    nextPage (n) {
+    nextPage (id) {
       this.$router.push({
         name: 'category-id',
         params: {
-          id: n
+          id
         },
         query: {
           type: this.$route.query.type,

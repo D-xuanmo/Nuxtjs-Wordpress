@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
+import API from '~/api'
 import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
     let [pages] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/pages/${params.id}`)
+      API.getPageDetails(params.id)
     ])
     return {
       pages: pages.data

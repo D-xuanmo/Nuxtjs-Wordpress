@@ -123,16 +123,14 @@
   </section>
 </template>
 <script>
-import axios from '~/plugins/axios'
+import API from '~/api'
 import Comments from '~/components/comment/Index'
 export default {
   async asyncData ({ params }) {
     let [article, viewCount] = await Promise.all([
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${params.id}`),
+      API.getArticleDetails(params.id),
       // 更新阅读量
-      axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, {
-        id: params.id
-      })
+      API.updateViewCount({ id: params.id })
     ])
     return {
       article: article.data,
@@ -234,7 +232,7 @@ export default {
         })
       } else {
         this.opinion[key].isShowLaoding = true
-        axios.post(`${process.env.baseUrl}/wp-json/xm-blog/v1/link/`, {
+        API.updateArticleLike({
           id: this.$route.params.id,
           key
         }).then((res) => {

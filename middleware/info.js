@@ -1,9 +1,7 @@
-import axios from '~/plugins/axios'
+import API from '~/api'
+
 export default async function (context) {
-  let [info, menu] = await Promise.all([
-    axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`),
-    axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
-  ])
+  let [info, menu] = await Promise.all([API.getGlobalInfomation(), API.getMenuList()])
   context.store.commit('getInfo', {
     info: info.data,
     menu: menu.data.mainMenu,

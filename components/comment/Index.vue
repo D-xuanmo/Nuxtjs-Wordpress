@@ -129,7 +129,7 @@
   </div>
 </template>
 <script>
-import axios from '~/plugins/axios'
+import API from '~/api'
 import uploadImg from './UploadImg'
 import { mapState } from 'vuex'
 export default {
@@ -188,11 +188,9 @@ export default {
       this.url.value = authorInfo.url
     }
     // 获取评论列表
-    axios.get('/wp-json/wp/v2/comments/', {
-      params: {
-        post: this.$route.params.id,
-        page: this.currentNum
-      }
+    API.getCommentList({
+      post: this.$route.params.id,
+      page: this.currentNum
     }).then(res => {
       this.bMoreList = false
       this.sMoreBtnText = '下一页'
@@ -219,11 +217,9 @@ export default {
       this.bClick = false
       this.sMoreBtnText = '加载中'
       this.currentNum++
-      axios.get(`${process.env.baseUrl}/wp-json/wp/v2/comments/`, {
-        params: {
-          post: this.$route.params.id,
-          page: this.currentNum
-        }
+      API.getCommentList({
+        post: this.$route.params.id,
+        page: this.currentNum
       }).then(res => {
         this.bMoreList = false
         this.bClick = true
@@ -252,7 +248,7 @@ export default {
           email: this.email.value,
           url: this.url.value
         }))
-        axios.post('/wp-json/wp/v2/comments', {
+        API.updateComment({
           author_name: this.author.value,
           author_email: this.email.value,
           author_url: this.url.value,
@@ -373,7 +369,7 @@ export default {
       if (this.expression.clickState) {
         this.$refs.expression.style.display = 'block'
         if (this.expression.state) {
-          axios.get(`${this.templeteUrl}/expression.php`).then(res => {
+          API.getExpression(this.templeteUrl).then(res => {
             this.expression.content = res.data
             this.expression.state = false
           }).catch(err => console.log(err))
