@@ -32,9 +32,6 @@ axios.interceptors.response.use(response => {
     headers: response.headers,
     statusText: response.statusText
   }
-}, error => {
-  console.log(error)
-  return Promise.reject(error)
-})
+}, error => Promise.reject(error))
 
 export default axios
