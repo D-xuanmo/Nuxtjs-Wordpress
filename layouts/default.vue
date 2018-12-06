@@ -3,7 +3,7 @@
     <app-header/>
     <div class="main">
       <div class="wrap">
-        <div class="container">
+        <div class="content">
           <nuxt/>
         </div>
         <!-- sidebar start -->
@@ -36,7 +36,7 @@ export default {
   margin-top: $container-margin;
 
   // 左边内容容器
-  .container{
+  .content{
     width: 900px;
   }
 
@@ -48,7 +48,7 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .wrap{
-    .container{
+    .content{
       width: 100%;
     }
 

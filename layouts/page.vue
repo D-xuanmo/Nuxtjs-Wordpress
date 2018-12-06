@@ -3,7 +3,7 @@
     <app-header/>
     <div class="main">
       <div class="wrap">
-        <div class="container">
+        <div class="content">
           <nuxt/>
         </div>
       </div>
@@ -30,7 +30,7 @@ export default {
   justify-content: space-between;
   margin-top: $container-margin;
 
-  .container{
+  .content{
     width: 100%;
   }
 }
