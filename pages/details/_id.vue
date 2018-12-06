@@ -126,18 +126,25 @@
 import API from '~/api'
 import Comments from '~/components/comment/Index'
 export default {
-  async asyncData ({ params }) {
-    let [article, viewCount] = await Promise.all([
-      API.getArticleDetails(params.id),
-      // 更新阅读量
-      API.updateViewCount({ id: params.id })
-    ])
-    return {
-      article: article.data,
-      classify: article.data.articleInfor.classify,
-      tags: article.data.articleInfor.tags,
-      xmLike: article.data.articleInfor.xmLike,
-      viewCount: viewCount.data
+  async asyncData ({ params, error, store }) {
+    try {
+      let [article, viewCount] = await Promise.all([
+        API.getArticleDetails(params.id),
+        // 更新阅读量
+        API.updateViewCount({ id: params.id })
+      ])
+      return {
+        article: article.data,
+        classify: article.data.articleInfor.classify,
+        tags: article.data.articleInfor.tags,
+        xmLike: article.data.articleInfor.xmLike,
+        viewCount: viewCount.data
+      }
+    } catch (err) {
+      const code = err.response.data.data.status
+      const message = err.response.data.message
+      error({ statusCode: code, message })
+      store.dispatch('updateError', { code, message })
     }
   },
   name: 'Details',

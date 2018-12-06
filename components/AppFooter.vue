@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{ 'is-error': $store.state.errorInformation.statusCode > 400 }">
     <div class="wrap">
       <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.setExtend.link"></div>
       <div class="copyright">
@@ -23,7 +23,6 @@
   </footer>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name: 'AppFooter',
   data () {
@@ -49,6 +48,13 @@ export default {
   margin-top: $container-margin;
   padding: 30px 0;
   background: #2d3237;
+
+  &.is-error {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
 }
 
 .link-wrap{

@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import qs from 'qs'
+import store from '~/store'
 
 const option = {
   timeout: 20000,
@@ -31,6 +32,9 @@ axios.interceptors.response.use(response => {
     headers: response.headers,
     statusText: response.statusText
   }
-}, error => Promise.reject(error))
+}, error => {
+  console.log(error)
+  return Promise.reject(error)
+})
 
 export default axios

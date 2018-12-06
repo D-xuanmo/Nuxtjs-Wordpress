@@ -1,8 +1,9 @@
 import API from '~/api'
 
-export default async function (context) {
+export default async function ({ store }) {
   let [info, menu] = await Promise.all([API.getGlobalInfomation(), API.getMenuList()])
-  context.store.commit('getInfo', {
+  store.dispatch('updateError', { code: '', message: '' })
+  store.commit('GLOBAL_INFORMATION', {
     info: info.data,
     menu: menu.data.mainMenu,
     subMenu: menu.data.subMenu

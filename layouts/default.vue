@@ -3,7 +3,7 @@
     <app-header/>
     <div class="main">
       <div class="wrap">
-        <div class="content">
+        <div class="container">
           <nuxt/>
         </div>
         <!-- sidebar start -->
@@ -29,9 +29,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "~assets/scss/global.scss";
-</style>
 <style lang="scss" scoped>
 .wrap{
   display: flex;
@@ -39,7 +36,7 @@ export default {
   margin-top: $container-margin;
 
   // 左边内容容器
-  .content{
+  .container{
     width: 900px;
   }
 
@@ -51,7 +48,7 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .wrap{
-    .content{
+    .container{
       width: 100%;
     }
 

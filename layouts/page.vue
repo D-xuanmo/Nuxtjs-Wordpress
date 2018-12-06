@@ -3,7 +3,7 @@
     <app-header/>
     <div class="main">
       <div class="wrap">
-        <div class="content">
+        <div class="container">
           <nuxt/>
         </div>
       </div>
@@ -24,16 +24,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import "~assets/scss/global.scss";
-</style>
 <style lang="scss" scoped>
 .wrap{
   display: flex;
   justify-content: space-between;
   margin-top: $container-margin;
 
-  .content{
+  .container{
     width: 100%;
   }
 }
