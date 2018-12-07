@@ -23,7 +23,10 @@ module.exports = {
   },
 
   router: {
-    middleware: 'info'
+    middleware: 'info',
+    scrollBehavior (to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    }
   },
 
   /*
@@ -59,14 +62,19 @@ module.exports = {
 
     // element-ui按需引入配置
     babel: {
-      'plugins': [['component', [
-        {
-          'libraryName': 'element-ui',
-          'styleLibraryName': 'theme-default'
-        },
-        'transform-async-to-generator',
-        'transform-runtime'
-      ]]],
+      'plugins': [
+        [
+          'component',
+          [
+            {
+              'libraryName': 'element-ui',
+              'styleLibraryName': 'theme-default'
+            },
+            'transform-async-to-generator',
+            'transform-runtime'
+          ]
+        ]
+      ],
       comments: true
     },
 
