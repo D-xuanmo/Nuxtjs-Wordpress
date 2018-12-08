@@ -1,6 +1,7 @@
 <template>
-  <div v-if="isShowReward" class="reward-toast" @click="$emit('input', false)">
-    <div class="reward-toast-inner text-center" @click.stop="$emit('input', true)">
+  <div v-show="isShow" class="reward-toast">
+    <div class="mask" @click="$emit('input', false)"></div>
+    <div class="reward-toast-inner text-center">
       <x-icon type="icon-close" @click.native.stop="$emit('input', false)"></x-icon>
       <p class="thumbnail"><img :src="content.thumbnail" alt="" width="80"></p>
       <p class="summary">{{ content.text }}</p>
@@ -24,7 +25,8 @@ export default {
   name: 'Reward',
   data () {
     return {
-      reward: true
+      reward: true,
+      isShow: false
     }
   },
   props: {
@@ -36,14 +38,9 @@ export default {
     },
     value: {}
   },
-  computed: {
-    isShowReward: {
-      get () {
-        return this.value
-      },
-      set (v) {
-        this.$emit('value', v)
-      }
+  watch: {
+    value (v) {
+      this.isShow = v
     }
   }
 }
@@ -56,7 +53,15 @@ export default {
   z-index: 1000;
   width: 100%;
   height: 100%;
-  background: $color-mask;
+
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-mask;
+  }
 
   img {
     margin-right: 0 !important;

@@ -13,7 +13,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_556506_sucn34hulmj.js' },
+      { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },
       { src: 'https://upyun.xuanmo.xin/js/prism.js' },
       // 百度主推文章收录用
       { src: 'https://zz.bdstatic.com/linksubmit/push.js' },

@@ -16,7 +16,8 @@
     "axios": "^0.18.0",
     "element-ui": "^1.3.6",
     "html2canvas": "^1.0.0-alpha.12",
-    "nuxt": "latest"
+    "nuxt": "latest",
+    "qrcode": "^1.3.2"
   },
   "devDependencies": {
     "@nuxtjs/axios": "^5.3.6",

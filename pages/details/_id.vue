@@ -12,7 +12,7 @@
         <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
         <span><x-icon type="icon-message-f"></x-icon>{{ article.articleInfor.commentCount }}</span>
       </div>
-      <div class="content-details" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
+      <div class="content-details" ref="articleContent" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
     </article>
     <!-- 文章内容结束 -->
     <div class="section operation">
@@ -35,11 +35,11 @@
         <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
           <svg-icon iconName="#icon-Qzone"></svg-icon>
         </a>
-        <a href="#">
-          <svg-icon iconName="#icon-weichat"></svg-icon>
-        </a>
         <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg-icon iconName="#icon-xinlang"></svg-icon>
+        </a>
+        <a href="javascript:;" @click="isShowPoster = true">
+          <svg-icon iconName="#icon-shengchengerweima"></svg-icon>
         </a>
       </div>
       <!-- 标签 -->
@@ -102,7 +102,8 @@
         <comments></comments>
       </no-ssr>
     </div>
-    <!-- <create-poster></create-poster> -->
+    <!-- 生成海报 -->
+    <create-poster v-model="isShowPoster" :content="posterContent"></create-poster>
   </section>
 </template>
 <script>
@@ -141,7 +142,9 @@ export default {
   data () {
     return {
       isShowReward: false,
+      isShowPoster: false,
       rewardContent: {},
+      posterContent: {},
       opinion: {
         very_good: {
           src: 'https://upyun.xuanmo.xin/images/like_love.png',
@@ -188,6 +191,23 @@ export default {
       }
     }
   },
+  head () {
+    let keywords = []
+    this.tags && this.tags.forEach(item => keywords.push(item.name))
+    return {
+      title: `${this.article.title.rendered} | ${this.$store.state.info.blogName}`,
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
+        { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
+      ],
+      style: [
+        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
+      ],
+      link: [
+        { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
+      ]
+    }
+  },
   created () {
     let other = this.article.articleInfor.other
 
@@ -207,22 +227,20 @@ export default {
       wechatpay: this.$store.state.info.wechatpay
     }
   },
-  head () {
-    let keywords = []
-    this.tags && this.tags.forEach(item => keywords.push(item.name))
-    return {
-      title: `${this.article.title.rendered} | ${this.$store.state.info.blogName}`,
-      meta: [
-        { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
-        { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
-      ],
-      style: [
-        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
-      ],
-      link: [
-        { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
-      ]
+  mounted () {
+    const contentImg = this.$refs.articleContent.querySelectorAll('img')
+    // console.log(contentImg[0].getAttribute('src'))
+    // 海报内容
+    this.posterContent = {
+      imgUrl: contentImg.length ? contentImg[0].getAttribute('src') : this.$store.state.info.setExtend.thumbnail,
+      title: this.article.title.rendered,
+      summary: this.article.articleInfor.summary,
+      time: this.article.date.replace(/T.*/, ' '),
+      qrcodeLogo: this.article.articleInfor.other.authorPic[22],
+      qrcodeText: this.$store.state.info.blogName
     }
+
+    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   },
   methods: {
     // 发表意见
@@ -259,9 +277,6 @@ export default {
         duration: 0
       })
     }
-  },
-  mounted () {
-    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   }
 }
 </script>
