@@ -102,7 +102,7 @@
         <comments></comments>
       </no-ssr>
     </div>
-    <create-poster></create-poster>
+    <!-- <create-poster></create-poster> -->
   </section>
 </template>
 <script>
