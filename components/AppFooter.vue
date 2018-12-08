@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="back-top" ref="backTop" @click="backTop" :class="{ show: isShowBackTop }">
-      <i class="iconfont icon-back-top"></i>
+      <x-icon class="icon-back-top"></x-icon>
     </div>
   </footer>
 </template>

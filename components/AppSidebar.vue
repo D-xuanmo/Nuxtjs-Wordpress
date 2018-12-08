@@ -4,7 +4,7 @@
     <div class="sidebar-list notice">
       <div class="header">
         <p>
-          <i class="iconfont icon-notice2"></i> 公告
+          <x-icon type="icon-notice2"></x-icon> 公告
         </p>
       </div>
       <div class="content" v-html="sidebar.setExtend.sidebar_notice"></div>
@@ -13,7 +13,7 @@
     <div class="sidebar-list comment">
       <div class="header">
         <p>
-          <i class="iconfont icon-hot1"></i> 最新评论
+          <x-icon type="icon-hot1"></x-icon> 最新评论
         </p>
       </div>
       <ul class="content">
@@ -34,7 +34,7 @@
     <div class="sidebar-list count" v-if="sidebar.setExtend.aside_count === 'on'">
       <div class="header">
         <p>
-          <i class="iconfont icon-count"></i> 站点统计
+          <x-icon type="icon-count"></x-icon> 站点统计
         </p>
       </div>
       <ul class="content">
@@ -50,7 +50,7 @@
     <div class="sidebar-list tag-cloud">
       <div class="header">
         <p>
-          <i class="iconfont icon-tag1"></i> 标签云
+          <x-icon type="icon-tag1"></x-icon> 标签云
         </p>
         <router-link :to="{ name: 'tags' }">更多</router-link>
       </div>

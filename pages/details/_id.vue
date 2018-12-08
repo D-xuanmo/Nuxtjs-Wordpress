@@ -6,11 +6,11 @@
       <div class="other-info">
         <span class="author">{{ article.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
-        <span class="time"><i class="iconfont icon-time"></i>{{ article.date.replace('T', ' ') }}</span>
+        <span class="time"><x-icon type="icon-time"></x-icon>{{ article.date.replace('T', ' ') }}</span>
         <span class="text">&nbsp;分类：</span>
         <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
-        <span><i class="iconfont icon-hot1"></i>{{ article.articleInfor.viewCount }}</span>&nbsp;
-        <span><i class="iconfont icon-message-f"></i>{{ article.articleInfor.commentCount }}</span>
+        <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
+        <span><x-icon type="icon-message-f"></x-icon>{{ article.articleInfor.commentCount }}</span>
       </div>
       <div class="content-details" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
     </article>
@@ -20,7 +20,7 @@
       <ul class="opinion">
         <li class="list" v-for="(item, key) in opinion" :key="item.key" @click="updateOpinion(key)">
           <span class="block total">
-            <i class="iconfont icon-loading" v-show="item.isShowLaoding"></i> {{ xmLike[key] }}人
+            <x-icon type="icon-loading" v-show="item.isShowLaoding"></x-icon> {{ xmLike[key] }}人
           </span>
           <img :src="item.src" width="40" height="40" alt="">
           <span class="block">{{ item.text }}</span>
@@ -44,7 +44,7 @@
       </div>
       <!-- 标签 -->
       <div class="tag-wrap text-center">
-        <i class="iconfont icon-tag" v-show="tags.length"></i>
+        <x-icon type="icon-tag" v-show="tags.length"></x-icon>
         <span v-for="(item, index) in tags" :key="item.key" v-html="index === tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
       <!-- 上一篇、下一篇 -->
@@ -67,13 +67,13 @@
         <!-- 昵称 -->
         <div class="header">
           <p class="inline-block name">
-            作者简介：<i class="iconfont icon-about-f"></i><span class="f-s-14px">{{ article.articleInfor.author }}</span>
+            作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ article.articleInfor.author }}</span>
           </p>
           <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
           <!-- 打赏详情 -->
           <div v-if="isShowReward" class="reward-toast" @click="isShowReward = false">
             <div class="reward-toast-inner text-center" @click.stop="isShowReward = true">
-              <i class="iconfont icon-close" @click.stop="isShowReward = false"></i>
+              <x-icon type="icon-close" @click.stop="isShowReward = false"></x-icon>
               <p class="thumbnail"><img :src="article.articleInfor.other.authorPic.full" alt="" width="80"></p>
               <p class="summary">{{ $store.state.info.rewardText }}</p>
               <div class="reward-qrcode-wrap">

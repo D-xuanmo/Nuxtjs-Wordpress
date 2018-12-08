@@ -3,7 +3,7 @@
     <div class="sub-upload-wrap text-center">
       <template v-if="!bShowDragWrap">
         <h2 class="title">插入图片</h2>
-        <i class="iconfont icon-close" @click.stop="hideUpload"></i>
+        <x-icon type="icon-close" @click.native.stop="hideUpload"></x-icon>
         <div class="progress-wrap">
           <p class="text">上传进度：</p>
           <div class="current-pro">
@@ -14,7 +14,7 @@
         <div class="select-img">
           <input type="file" name="file" value="" ref="inpFile" accept="image/png,image/gif,image/jpeg" @change.stop="preview($event)">
           <p class="mask">
-            <span v-if="bFileMark"><i class="iconfont icon-upload-img2"></i>点击选择图片或者拖动图片到此窗口内</span>
+            <span v-if="bFileMark"><x-icon type="icon-upload-img2"></x-icon>点击选择图片或者拖动图片到此窗口内</span>
             <template v-else>
               已选择：<img :src="previewUrl" alt="">
             </template>

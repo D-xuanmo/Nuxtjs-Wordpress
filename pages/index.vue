@@ -34,10 +34,10 @@
           <p class="summary">{{ item.articleInfor.summary }}</p>
           <div class="opeartion">
             <div class="information">
-              <span><i class="iconfont icon-time"></i>{{ item.date.replace('T', ' ') }}</span>
-              <span><i class="iconfont icon-eye"></i>{{ item.articleInfor.viewCount }}</span>
-              <span><i class="iconfont icon-message"></i>{{ item.articleInfor.commentCount }}</span>
-              <span><i class="iconfont icon-zan"></i>{{ item.articleInfor.xmLike.very_good }}</span>
+              <span><x-icon type="icon-time"></x-icon>{{ item.date.replace('T', ' ') }}</span>
+              <span><x-icon type="icon-eye"></x-icon>{{ item.articleInfor.viewCount }}</span>
+              <span><x-icon type="icon-message"></x-icon>{{ item.articleInfor.commentCount }}</span>
+              <span><x-icon type="icon-zan"></x-icon>{{ item.articleInfor.xmLike.very_good }}</span>
             </div>
             <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
           </div>

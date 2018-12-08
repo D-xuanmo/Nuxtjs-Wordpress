@@ -3,8 +3,8 @@
     <div v-if="isShow" class="xm-message clearfix" :class="[`alert-${type === undefined ? 'content' : type}`, { 'align-center': center }, { 'box-center': wrapCenter }]">
       <div class="xm-message-content" :style="`width: ${width}`">
         <p class="text">
-          <i class="iconfont" :class="icon"></i> {{ msg }}
-          <i v-if="showClose" class="fr iconfont icon-close" @click="leave"></i>
+          <x-icon :type="icon"></x-icon> {{ msg }}
+          <x-icon v-if="showClose" type="icon-close" class="fr" @click.native="leave"></x-icon>
         </p>
         <p v-if="showImg && imgUrl" class="text-center msg-img">
           <img :src="imgUrl" width="100" height="100" alt="">

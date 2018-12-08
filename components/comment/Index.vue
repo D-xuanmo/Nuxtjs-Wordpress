@@ -8,10 +8,10 @@
       <div class="comment-other">
         <ul class="list-wrap">
           <li class="list" @click="showChartlet">
-            <i class="iconfont icon-upload-img2"></i>贴图
+            <x-icon type="icon-upload-img2"></x-icon>贴图
           </li>
           <li class="list" @click.stop="getExpression">
-            <i class="iconfont icon-expression"></i>表情
+            <x-icon type="icon-expression"></x-icon>表情
           </li>
         </ul>
         <upload-img v-show="showChart" @showChart="getShowChart" @updateContent="getContent" :showChart="showChart"></upload-img>

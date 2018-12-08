@@ -17,7 +17,7 @@
             <no-ssr>
               <ul class="box">
                 <li class="nav-list first">
-                  <nuxt-link :to="{ name: 'index' }"><i class="iconfont icon-home2" @click.native="hideNavWrap"></i>首页</nuxt-link>
+                  <nuxt-link :to="{ name: 'index' }"><x-icon type="icon-home2" @click.native="hideNavWrap"></x-icon>首页</nuxt-link>
                 </li>
                 <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
                   <nuxt-link
