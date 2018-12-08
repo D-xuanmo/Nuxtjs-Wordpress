@@ -252,7 +252,7 @@ export default {
           author_name: this.author.value,
           author_email: this.email.value,
           author_url: this.url.value,
-          content: this.content.value.replace(/(\[.*\])/, ' $1 '),
+          content: this.content.value.replace(/(\[[a-zA-Z\d]+\])/g, ' $1 '),
           post: this.$route.params.id,
           author_user_agent: navigator.userAgent
         }).then((res) => {
