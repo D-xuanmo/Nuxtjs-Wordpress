@@ -73,7 +73,7 @@
           <!-- 打赏详情 -->
           <div v-if="isShowReward" class="reward-toast" @click="isShowReward = false">
             <div class="reward-toast-inner text-center" @click.stop="isShowReward = true">
-              <x-icon type="icon-close" @click.stop="isShowReward = false"></x-icon>
+              <x-icon type="icon-close" @click.native.stop="isShowReward = false"></x-icon>
               <p class="thumbnail"><img :src="article.articleInfor.other.authorPic.full" alt="" width="80"></p>
               <p class="summary">{{ $store.state.info.rewardText }}</p>
               <div class="reward-qrcode-wrap">
@@ -285,7 +285,7 @@ export default {
   z-index: 999999;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.5);
+  background: $color-mask;
 
   img {
     margin-right: 0 !important;
