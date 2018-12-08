@@ -38,9 +38,11 @@ export default {
     finish () {
       this.percent = 100
       setTimeout(() => {
-        this.loading = false
         clearTimeout(this.timer)
-        this.$nextTick(() => (this.percent = 1))
+        this.$nextTick(() => {
+          this.percent = 1
+          this.loading = false
+        })
       }, this.throttle)
     },
     increase (num) {
