@@ -41,19 +41,26 @@
 import API from '~/api'
 export default {
   watchQuery: ['page', 's'],
-  async asyncData ({ query }) {
-    let [list] = await Promise.all([
-      API.getArticleList({
-        search: query.s,
-        page: query.page,
-        per_page: 8,
-        _embed: true
-      })
-    ])
-    return {
-      articleList: list.data,
-      total: +list.headers['x-wp-total'],
-      nCurrentPage: +query.page
+  async asyncData ({ query, error, store }) {
+    try {
+      let [list] = await Promise.all([
+        API.getArticleList({
+          search: query.s,
+          page: query.page,
+          per_page: 8,
+          _embed: true
+        })
+      ])
+      return {
+        articleList: list.data,
+        total: +list.headers['x-wp-total'],
+        nCurrentPage: +query.page
+      }
+    } catch (err) {
+      const code = err.response.data.data.status
+      const message = err.response.data.message
+      error({ statusCode: code, message })
+      store.dispatch('updateError', { code, message })
     }
   },
   head () {

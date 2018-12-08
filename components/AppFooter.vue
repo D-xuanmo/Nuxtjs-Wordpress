@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{ 'is-error': $store.state.errorInformation.statusCode > 400 }">
+  <footer class="footer" :class="{ 'is-error': $store.state.errorInformation.statusCode >= 400 }">
     <div class="wrap">
       <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.setExtend.link"></div>
       <div class="copyright">

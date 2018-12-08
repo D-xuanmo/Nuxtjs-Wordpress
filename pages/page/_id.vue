@@ -20,12 +20,19 @@
 import API from '~/api'
 import Comments from '~/components/comment/Index'
 export default {
-  async asyncData ({ params }) {
-    let [pages] = await Promise.all([
-      API.getPageDetails(params.id)
-    ])
-    return {
-      pages: pages.data
+  async asyncData ({ params, error, store }) {
+    try {
+      let [pages] = await Promise.all([
+        API.getPageDetails(params.id)
+      ])
+      return {
+        pages: pages.data
+      }
+    } catch (err) {
+      const code = err.response.data.data.status
+      const message = err.response.data.message
+      error({ statusCode: code, message })
+      store.dispatch('updateError', { code, message })
     }
   },
   name: 'Page',

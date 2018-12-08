@@ -7,13 +7,11 @@
 <script>
 export default {
   name: 'NuxtError',
-  data () {
-    return {
-
-    }
-  },
   props: ['error'],
-  layout: 'page'
+  layout: 'page',
+  created () {
+    this.$store.dispatch('updateError', { code: this.error.statusCode, message: this.error.message })
+  }
 }
 </script>
 <style lang="scss" scoped>

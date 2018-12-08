@@ -40,18 +40,25 @@
 <script>
 import API from '~/api'
 export default {
-  async asyncData ({ params }) {
-    let [list] = await Promise.all([
-      API.getArticleList({
-        page: params.id,
-        per_page: 8,
-        _embed: true
-      })
-    ])
-    return {
-      articleList: list.data,
-      total: +list.headers['x-wp-total'],
-      nCurrentPage: +params.id
+  async asyncData ({ params, error, store }) {
+    try {
+      let [list] = await Promise.all([
+        API.getArticleList({
+          page: params.id,
+          per_page: 8,
+          _embed: true
+        })
+      ])
+      return {
+        articleList: list.data,
+        total: +list.headers['x-wp-total'],
+        nCurrentPage: +params.id
+      }
+    } catch (err) {
+      const code = err.response.data.data.status
+      const message = err.response.data.message
+      error({ statusCode: code, message })
+      store.dispatch('updateError', { code, message })
     }
   },
   name: 'Article',
