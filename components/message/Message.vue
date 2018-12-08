@@ -72,7 +72,7 @@ export default {
   position: fixed;
   top: 30px;
   left: 50%;
-  z-index: 99999;
+  z-index: 2000;
   text-align: center;
   transition: .7s;
   transform: translateX(-50%);

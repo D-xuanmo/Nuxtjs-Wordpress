@@ -71,25 +71,7 @@
           </p>
           <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
           <!-- 打赏详情 -->
-          <div v-if="isShowReward" class="reward-toast" @click="isShowReward = false">
-            <div class="reward-toast-inner text-center" @click.stop="isShowReward = true">
-              <x-icon type="icon-close" @click.native.stop="isShowReward = false"></x-icon>
-              <p class="thumbnail"><img :src="article.articleInfor.other.authorPic.full" alt="" width="80"></p>
-              <p class="summary">{{ $store.state.info.rewardText }}</p>
-              <div class="reward-qrcode-wrap">
-                <img v-if="reward" :src="$store.state.info.alipay" class="reward-qrcode" width="150" height="150" alt="">
-                <img v-else :src="$store.state.info.wechatpay" class="reward-qrcode" width="150" height="150" alt="">
-              </div>
-              <div class="reward-btn">
-                <el-radio v-model="reward" :label="true">
-                  <img src="../../assets/images/alipay.svg" width="80" alt="">
-                </el-radio>
-                <el-radio v-model="reward" :label="false">
-                  <img src="../../assets/images/wechatpay.svg" width="80" alt="">
-                </el-radio>
-              </div>
-            </div>
-          </div>
+          <reward v-model="isShowReward" :content="rewardContent"></reward>
         </div>
         <!-- 简介 -->
         <p class="author-summary">{{ article.articleInfor.other.authorTro }}</p>
@@ -120,11 +102,14 @@
         <comments></comments>
       </no-ssr>
     </div>
+    <create-poster></create-poster>
   </section>
 </template>
 <script>
 import API from '~/api'
 import Comments from '~/components/comment/Index'
+import Reward from '~/components/reward'
+import CreatePoster from '~/components/createPoster'
 export default {
   async asyncData ({ params, error, store }) {
     try {
@@ -149,12 +134,14 @@ export default {
   },
   name: 'Details',
   components: {
-    Comments
+    Comments,
+    Reward,
+    CreatePoster
   },
   data () {
     return {
-      reward: true,
       isShowReward: false,
+      rewardContent: {},
       opinion: {
         very_good: {
           src: 'https://upyun.xuanmo.xin/images/like_love.png',
@@ -210,6 +197,14 @@ export default {
     // 合并作者数据
     for (let key in this.authorOtherInfo) {
       this.authorOtherInfo[key].url = other[key]
+    }
+
+    // 打赏数据
+    this.rewardContent = {
+      thumbnail: this.article.articleInfor.other.authorPic.full,
+      text: this.$store.state.info.rewardText,
+      alipay: this.$store.state.info.alipay,
+      wechatpay: this.$store.state.info.wechatpay
     }
   },
   head () {
@@ -276,60 +271,6 @@ export default {
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
-}
-
-.reward-toast {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  width: 100%;
-  height: 100%;
-  background: $color-mask;
-
-  img {
-    margin-right: 0 !important;
-  }
-
-  .reward-toast-inner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 400px;
-    background: #fff;
-    border-radius: 5px;
-    transform: translate(-50%, -50%);
-  }
-
-  .icon-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    cursor: pointer;
-  }
-
-  .summary {
-    font-size: 18px;
-  }
-
-  .thumbnail {
-    padding: 30px 0 20px;
-
-    img {
-      border-radius: 50%;
-    }
-  }
-
-  .reward-qrcode-wrap {
-    margin: 15px 0;
-  }
-
-  .reward-btn {
-    img {
-      vertical-align: middle;
-    }
-  }
 }
 
 .article{
