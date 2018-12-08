@@ -108,8 +108,8 @@
 <script>
 import API from '~/api'
 import Comments from '~/components/comment/Index'
-import Reward from '~/components/reward'
-import CreatePoster from '~/components/createPoster'
+import Reward from '~/components/reward/Index'
+import CreatePoster from '~/components/createPoster/Index'
 export default {
   async asyncData ({ params, error, store }) {
     try {
