@@ -13,8 +13,8 @@
             <x-icon type="icon-loading"></x-icon>
             <p>&nbsp;海报生成中...</p>
           </div>
-          <div class="content-img-wrap">
-            <img :src="content.imgUrl" width="100%" height="200">
+          <div class="content-img-wrap text-center">
+            <img :src="content.imgUrl" height="200">
             <div class="time">
               <p class="day text-center">{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$3') }}</p>
               <p>{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$1/$2') }}</p>
