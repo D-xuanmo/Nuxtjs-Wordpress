@@ -229,9 +229,8 @@ export default {
   },
   mounted () {
     // 海报内容
-    const contentImg = this.$refs.articleContent.querySelectorAll('img')
     this.posterContent = {
-      imgUrl: contentImg.length ? contentImg[0].getAttribute('src') : this.$store.state.info.setExtend.thumbnail,
+      imgUrl: this.article.articleInfor.thumbnail.replace(/https?:\/\/([a-z\d-]\.?)+(\/.*)/gi, this.$store.state.info.baseUrl),
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
