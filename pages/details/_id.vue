@@ -232,7 +232,7 @@ export default {
   mounted () {
     // 海报内容
     this.posterContent = {
-      imgUrl: this.article.articleInfor.thumbnail.replace(/https?:\/\/([a-z\d-]\.?)+(\/.*)/gi, `${this.$store.state.info.baseUrl}$2`),
+      imgUrl: this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$3`),
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
