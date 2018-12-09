@@ -10,7 +10,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch"
   },
   "dependencies": {
     "axios": "^0.18.0",
