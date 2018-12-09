@@ -1,93 +1,126 @@
 <template>
-  <div v-if="loading" class="loading-wrap">
-    <div class="loading-progress" :style="`width: ${percent}%; background: ${progressBackground};`"></div>
-    <div class="loading-content">
-      <x-icon type="icon-loading"></x-icon>
-      <p class="loading-text">页面加载中</p>
+  <div v-show="show" class="nuxt-loading-container">
+    <div class="nuxt-progress" :style="{
+      'width': percent+'%',
+      'height': height,
+      'background-color': canSuccess? color : failedColor,
+      'opacity': show ? 1 : 0
+    }">
     </div>
+    <x-icon type="icon-loading"></x-icon>
+    <p>页面加载中</p>
   </div>
 </template>
+
 <script>
+import Vue from 'vue'
 export default {
-  name: 'Loading',
+  name: 'nuxt-loading',
   data () {
     return {
-      loading: false,
-      throttle: 200,
-      percent: 1,
-      progressBackground: ''
+      percent: 0,
+      show: false,
+      canSuccess: true,
+      duration: 5000,
+      height: '',
+      color: '',
+      failedColor: ''
     }
-  },
-  created () {
-    this.progressBackground = this.$style['c-theme']
   },
   methods: {
     start () {
-      this.loading = true
-      const time = () => {
-        this.timer = setTimeout(() => {
-          this.increase(this.percent * Math.random())
-          time()
-          if (this.percent >= 90) {
-            this.finish()
-          }
-        }, this.throttle)
+      this.show = true
+      this.canSuccess = true
+      if (this._timer) {
+        clearInterval(this._timer)
+        this.percent = 0
       }
-      time()
+      this._cut = 10000 / Math.floor(this.duration)
+      this._timer = setInterval(() => {
+        this.increase(this._cut * Math.random())
+        if (this.percent > 95) {
+          this.finish()
+        }
+      }, 100)
+      return this
+    },
+    set (num) {
+      this.show = true
+      this.canSuccess = true
+      this.percent = Math.floor(num)
+      return this
+    },
+    get () {
+      return Math.floor(this.percent)
+    },
+    increase (num) {
+      this.percent = this.percent + Math.floor(num)
+      return this
+    },
+    decrease (num) {
+      this.percent = this.percent - Math.floor(num)
+      return this
     },
     finish () {
       this.percent = 100
-      setTimeout(() => {
-        clearTimeout(this.timer)
-        this.$nextTick(() => {
-          this.percent = 1
-          this.loading = false
-        })
-      }, this.throttle)
+      this.hide()
+      return this
     },
-    increase (num) {
-      this.percent = this.percent + Math.ceil(num)
+    pause () {
+      clearInterval(this._timer)
+      return this
+    },
+    hide () {
+      clearInterval(this._timer)
+      this._timer = null
+      setTimeout(() => {
+        this.show = false
+        Vue.nextTick(() => {
+          setTimeout(() => {
+            this.percent = 0
+          }, 200)
+        })
+      }, 500)
+      return this
     },
     fail () {
-      this.progressBackground = this.$style['c-error']
+      this.canSuccess = false
+      return this
     }
   }
 }
 </script>
-<style module>
-.c-theme {
-  background: $color-theme;
-}
 
-.c-error {
-  background: $color-error;
-}
-</style>
-<style lang="scss" scoped>
-.loading-wrap {
+<style lang="scss">
+.nuxt-loading-container {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 99999;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  text-align: center;
+  background: rgba(255,255,255,.8);
   color: $color-theme;
 
-  .iconfont {
-    font-size: 30px;
+  .icon-loading {
+    font-size: 26px;
   }
 
-  .loading-progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: $color-theme;
+  .nuxt-progress {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 2px;
+    width: 0%;
+    transition: width 0.2s, opacity 0.4s;
+    opacity: 1;
+    background-color: $color-theme;
+    z-index: 999999;
   }
 }
 </style>
