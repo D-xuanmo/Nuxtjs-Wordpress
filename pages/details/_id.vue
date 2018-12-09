@@ -230,9 +230,10 @@ export default {
     }
   },
   mounted () {
+    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$3`) : this.$store.state.info.setExtend.thumbnail
     // 海报内容
     this.posterContent = {
-      imgUrl: this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$3`),
+      imgUrl: contentImg,
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
