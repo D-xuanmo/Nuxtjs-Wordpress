@@ -35,7 +35,7 @@ module.exports = {
   // loading: './components/loading/Index.vue',
   loading: {
     color: '#1890ff',
-    height: '5px'
+    height: '3px'
   },
 
   css: [
