@@ -49,7 +49,7 @@
           </a>
         </div>
         <div class="btn">
-          <a :href="posterUrl" download>
+          <a :href="posterUrl" :download="`${content.title}.png`">
             <svg-icon iconName="#icon-xiazai" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;下载海报图</span>
           </a>
