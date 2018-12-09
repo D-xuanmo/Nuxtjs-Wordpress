@@ -14,7 +14,7 @@
             <p>&nbsp;海报生成中...</p>
           </div>
           <div class="content-img-wrap">
-            <img :src="content.imgUrl" width="100%">
+            <img :src="content.imgUrl" width="100%" height="200">
             <div class="time">
               <p class="day text-center">{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$3') }}</p>
               <p>{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$1/$2') }}</p>
