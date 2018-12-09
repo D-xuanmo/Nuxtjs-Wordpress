@@ -237,7 +237,7 @@ export default {
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
-      qrcodeLogo: this.article.articleInfor.other.authorPic[22],
+      qrcodeLogo: this.article.articleInfor.other.authorPic[96].replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
       qrcodeText: this.$store.state.info.blogName
     }
 
