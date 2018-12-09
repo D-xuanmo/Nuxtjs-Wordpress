@@ -38,7 +38,7 @@
         <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg-icon iconName="#icon-xinlang"></svg-icon>
         </a>
-        <a href="javascript:;" @click="isShowPoster = true">
+        <a href="javascript:;" class="create-poster-btn" @click="isShowPoster = true">
           <svg-icon iconName="#icon-shengchengerweima"></svg-icon>
         </a>
       </div>
@@ -103,7 +103,9 @@
       </no-ssr>
     </div>
     <!-- 生成海报 -->
-    <create-poster v-model="isShowPoster" :content="posterContent"></create-poster>
+    <no-ssr>
+      <create-poster v-model="isShowPoster" :content="posterContent"></create-poster>
+    </no-ssr>
   </section>
 </template>
 <script>
@@ -533,6 +535,10 @@ export default {
     .list{
       margin: 0;
     }
+  }
+
+  .create-poster-btn {
+    display: none;
   }
 }
 </style>
