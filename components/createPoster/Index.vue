@@ -87,8 +87,6 @@ export default {
   },
   watch: {
     value (v) {
-      // this.isShow = v
-      // this.$emit('value', v)
       this.isFirstCreate && this.createPoster()
     }
   },
@@ -107,7 +105,8 @@ export default {
     async createPoster () {
       // 生成海报
       let canvas = await html2canvas(this.$refs.poster, {
-        useCORS: true
+        useCORS: true,
+        logging: false
       })
       this.isFirstCreate = false
       this.isCompleted = true

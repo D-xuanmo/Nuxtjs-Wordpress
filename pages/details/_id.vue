@@ -228,9 +228,8 @@ export default {
     }
   },
   mounted () {
-    const contentImg = this.$refs.articleContent.querySelectorAll('img')
-    // console.log(contentImg[0].getAttribute('src'))
     // 海报内容
+    const contentImg = this.$refs.articleContent.querySelectorAll('img')
     this.posterContent = {
       imgUrl: contentImg.length ? contentImg[0].getAttribute('src') : this.$store.state.info.setExtend.thumbnail,
       title: this.article.title.rendered,
