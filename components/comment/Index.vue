@@ -17,7 +17,13 @@
         <upload-img v-show="showChart" @showChart="getShowChart" @updateContent="getContent" :showChart="showChart"></upload-img>
         <!-- 表情容器 -->
         <div class="expression-wrap" ref="expression">
-          <a href="javascript:;" v-for="(item, key) in expression.content" :key="item.key" :title="item.title" :data-title="`[${key}]`" @click.stop="editExpression($event)">
+          <a
+            href="javascript:;"
+            v-for="(item, key) in expression.content"
+            :key="item.key"
+            :title="item.title"
+            :data-title="`[${key}]`"
+            @click.stop="editExpression($event)">
             <img :src="item.url" :alt="item.title" width="30">
           </a>
         </div>
@@ -25,7 +31,7 @@
       <!-- 评论输入框 -->
       <div class="comment-form-content">
         <label for="content">内容<i class="c-red">*</i></label>
-        <textarea id="content" name="content" v-model="content.value" rows="8" cols="80" @keyup="contentValidate"></textarea>
+        <textarea id="content" name="content" v-model="content.value" rows="8" cols="80" @blur="contentValidate"></textarea>
         <span v-show="content.validate" class="comment-tips">{{ content.msg }}</span>
       </div>
       <div class="box">
@@ -38,7 +44,7 @@
             v-model="author.value"
             value=""
             autocomplete="off"
-            @keyup="authorValidate"
+            @blur="authorValidate"
           >
           <span v-show="author.validate" class="comment-tips">{{ author.msg }}</span>
         </div>
@@ -51,7 +57,7 @@
             v-model="email.value"
             value=""
             autocomplete="off"
-            @keyup="emailValidate"
+            @blur="emailValidate"
           >
           <span v-show="email.validate" class="comment-tips">{{ email.msg }}</span>
         </div>
@@ -74,9 +80,9 @@
             value=""
             v-model="imgCode.value"
             autocomplete="off"
-            @keyup="codeValidate"
+            @blur="codeValidate"
           >
-          <canvas width="240" height="60" class="canvas-img-code" @click="randomCode()"></canvas>
+          <canvas width="240" height="60" class="canvas-img-code" @click="randomCode"></canvas>
           <span v-show="imgCode.validate" class="comment-tips">{{ imgCode.msg }}</span>
         </div>
       </div>
@@ -90,8 +96,19 @@
     <ul class="comment-list-wrap">
       <li class="comment-list" v-for="item in commentList" :key="item.key">
         <template>
-          <img v-if="$store.state.info.isTextThumbnail === 'off'" :src="item.userAgentInfo.author_avatar_urls" class="list-gravatar" width="60" height="60" alt="">
-          <p v-else-if="$store.state.info.isTextThumbnail === 'on'" class="list-gravatar-text" :style="{ background: item.userAgentInfo.background }">{{ item.author_name.substr(0, 1) }}</p>
+          <img
+            v-if="$store.state.info.isTextThumbnail === 'off'"
+            :src="item.userAgentInfo.author_avatar_urls"
+            class="list-gravatar"
+            width="60"
+            height="60"
+            alt="">
+          <p
+            v-else-if="$store.state.info.isTextThumbnail === 'on'"
+            class="list-gravatar-text"
+            :style="{ background: item.userAgentInfo.background }">
+            {{ item.author_name.substr(0, 1) }}
+          </p>
         </template>
         <div class="list-header">
           <a :name="`comment-${item.id}`"></a>
@@ -181,12 +198,13 @@ export default {
     }
   },
   created () {
-    let authorInfo = JSON.parse(localStorage.getItem('authorInfo'))
-    if (authorInfo !== null) {
+    if (localStorage.getItem('authorInfo')) {
+      const authorInfo = JSON.parse(localStorage.getItem('authorInfo'))
       this.author.value = authorInfo.author
       this.email.value = authorInfo.email
       this.url.value = authorInfo.url
     }
+
     // 获取评论列表
     API.getCommentList({
       post: this.$route.params.id,
@@ -204,6 +222,17 @@ export default {
         this.bClick = false
       }
     }).catch(err => console.log(err))
+  },
+  mounted () {
+    this.randomCode()
+
+    // 关闭表情显示
+    document.body.onclick = () => {
+      if (this.$refs.expression) {
+        this.expression.clickState = true
+        this.$refs.expression.style.display = 'none'
+      }
+    }
   },
   computed: {
     ...mapState({
@@ -230,54 +259,6 @@ export default {
           this.bClick = false
         }
       }).catch(err => console.log(err))
-    },
-
-    // 提交评论
-    postComment () {
-      this.contentValidate()
-      this.authorValidate()
-      this.emailValidate()
-      this.codeValidate()
-      if (!this.content.validate && !this.author.validate && !this.email.validate && !this.imgCode.validate) {
-        this.bSubmit = false
-        this.submitText = '提交中...'
-        let data = new FormData()
-        // 保存评论者信息
-        localStorage.setItem('authorInfo', JSON.stringify({
-          author: this.author.value,
-          email: this.email.value,
-          url: this.url.value
-        }))
-        API.updateComment({
-          author_name: this.author.value,
-          author_email: this.email.value,
-          author_url: this.url.value,
-          content: this.content.value.replace(/(\[[a-zA-Z\d]+\])/g, ' $1 '),
-          post: this.$route.params.id,
-          author_user_agent: navigator.userAgent
-        }).then((res) => {
-          // 允许继续点击提交按钮
-          this.bSubmit = true
-          this.submitText = '提交评论'
-          this.commentList.unshift(res.data)
-          this.content.value = ''
-          this.imgCode.value = ''
-          this.randomCode()
-          this.$message({
-            title: '提交评论成功',
-            type: 'success'
-          })
-        }).catch((err) => {
-          this.$message({
-            title: err.response.data.message,
-            type: 'error'
-          })
-          this.randomCode()
-          this.submitText = '提交评论'
-          // 允许继续点击提交按钮
-          this.bSubmit = true
-        })
-      }
     },
 
     // 验证码
@@ -364,6 +345,54 @@ export default {
       }
     },
 
+    // 提交评论
+    postComment () {
+      this.contentValidate()
+      this.authorValidate()
+      this.emailValidate()
+      this.codeValidate()
+      if (!this.content.validate && !this.author.validate && !this.email.validate && !this.imgCode.validate) {
+        this.bSubmit = false
+        this.submitText = '提交中...'
+        let data = new FormData()
+        // 保存评论者信息
+        localStorage.setItem('authorInfo', JSON.stringify({
+          author: this.author.value,
+          email: this.email.value,
+          url: this.url.value
+        }))
+        API.updateComment({
+          author_name: this.author.value,
+          author_email: this.email.value,
+          author_url: this.url.value,
+          content: this.content.value.replace(/(\[[a-zA-Z\d]+\])/g, ' $1 '),
+          post: this.$route.params.id,
+          author_user_agent: navigator.userAgent
+        }).then((res) => {
+          // 允许继续点击提交按钮
+          this.bSubmit = true
+          this.submitText = '提交评论'
+          this.commentList.unshift(res.data)
+          this.content.value = ''
+          this.imgCode.value = ''
+          this.randomCode()
+          this.$message({
+            title: '提交评论成功',
+            type: 'success'
+          })
+        }).catch((err) => {
+          this.$message({
+            title: err.response.data.message,
+            type: 'error'
+          })
+          this.randomCode()
+          this.submitText = '提交评论'
+          // 允许继续点击提交按钮
+          this.bSubmit = true
+        })
+      }
+    },
+
     // 获取表情
     getExpression () {
       if (this.expression.clickState) {
@@ -400,16 +429,6 @@ export default {
     // 获取子组件发回来的图片数据
     getContent (params) {
       this.content.value += params
-    }
-  },
-  mounted () {
-    this.randomCode()
-    // 关闭表情显示
-    document.body.onclick = () => {
-      if (this.$refs.expression) {
-        this.expression.clickState = true
-        this.$refs.expression.style.display = 'none'
-      }
     }
   }
 }
