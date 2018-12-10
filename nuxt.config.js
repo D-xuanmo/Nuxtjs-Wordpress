@@ -102,6 +102,7 @@ module.exports = {
     proxy: true
   },
 
+  // 将此处3个地址改为自己的地址
   proxy: {
     '/api': {
       target: 'https://www.xuanmo.xin',
