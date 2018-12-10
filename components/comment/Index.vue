@@ -31,7 +31,7 @@
       <!-- 评论输入框 -->
       <div class="comment-form-content">
         <label for="content">内容<i class="c-red">*</i></label>
-        <textarea id="content" name="content" v-model="content.value" rows="8" cols="80" @blur="contentValidate"></textarea>
+        <textarea id="content" name="content" v-model="content.value" rows="8" cols="80" @keyup="contentValidate"></textarea>
         <span v-show="content.validate" class="comment-tips">{{ content.msg }}</span>
       </div>
       <div class="box">
@@ -44,7 +44,7 @@
             v-model="author.value"
             value=""
             autocomplete="off"
-            @blur="authorValidate"
+            @keyup="authorValidate"
           >
           <span v-show="author.validate" class="comment-tips">{{ author.msg }}</span>
         </div>
@@ -57,7 +57,7 @@
             v-model="email.value"
             value=""
             autocomplete="off"
-            @blur="emailValidate"
+            @keyup="emailValidate"
           >
           <span v-show="email.validate" class="comment-tips">{{ email.msg }}</span>
         </div>
@@ -80,7 +80,7 @@
             value=""
             v-model="imgCode.value"
             autocomplete="off"
-            @blur="codeValidate"
+            @keyup="codeValidate"
           >
           <canvas width="240" height="60" class="canvas-img-code" @click="randomCode"></canvas>
           <span v-show="imgCode.validate" class="comment-tips">{{ imgCode.msg }}</span>
