@@ -153,7 +153,7 @@ export default {
     }
 
     .comment-text{
-      height: 34px;
+      max-height: 34px;
       font-size: $font-size-small;
       @include ellipsisMultiline(2);
     }
