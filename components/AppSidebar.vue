@@ -148,10 +148,12 @@ export default {
     }
 
     .author{
+      height: 20px;
       color: $color-theme;
     }
 
     .comment-text{
+      height: 34px;
       font-size: $font-size-small;
       @include ellipsisMultiline(2);
     }

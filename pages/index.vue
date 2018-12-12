@@ -213,6 +213,12 @@ export default {
 }
 
 @media screen and (max-width:767px) {
+  .banner-wrap .list .title {
+    height: 20px;
+    font-size: 10px;
+    line-height: 20px;
+    text-indent: 8px;
+  }
   // 文章列表
   .article-list-wrap{
     .article-list{
