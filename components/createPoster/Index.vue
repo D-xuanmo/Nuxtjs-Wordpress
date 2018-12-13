@@ -204,7 +204,7 @@ $padding: 10px;
     }
 
     .title {
-      height: 50px;
+      max-height: 50px;
       margin: 20px 0 10px;
       padding: 0 $padding;
       overflow: hidden;
