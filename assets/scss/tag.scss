@@ -1,4 +1,5 @@
 // 设置标签默认样式
+
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +39,37 @@ a {
   text-decoration: none;
   transition: 0.5s;
   color: $color-main-text;
+
   &:hover {
     color: $color-theme;
+  }
+}
+
+table {
+  overflow-x: auto;
+  margin-top: 15px;
+  border: 0;
+  border-color: #ddd;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 3px 10px;
+  border: 1px solid #dee2e6;
+}
+
+tr {
+  &:not(:last-child) {
+    td {
+      border-bottom: 0;
+    }
+  }
+
+  td,
+  th {
+    &:first-child {
+      border-right: 0;
+    }
   }
 }
