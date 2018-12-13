@@ -20,5 +20,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   margin-top: 200px;
+
+  .error-code {
+    font-size: 30px;
+  }
 }
 </style>
