@@ -378,7 +378,7 @@ add_action('init', 'disable_emojis');
  */
 function comments_embed_img($comment)
 {
-  $comment = preg_replace('/(\[img\](\S+)\[\/img\])+/', '<img src="$2" style="vertical-align: bottom; max-width: 40%; max-height: 250px;" />', $comment);
+  $comment = preg_replace('/(\[img\]\s*(\S+)\s*\[\/img\])+/', '<img src="$2" style="vertical-align: bottom; max-width: 40%; max-height: 250px;" />', $comment);
   return $comment;
 }
 
