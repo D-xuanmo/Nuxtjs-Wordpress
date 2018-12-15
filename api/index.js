@@ -100,6 +100,9 @@ export default {
     return axios({
       url: '/wp-content/themes/xm-vue-theme/xm_upload.php',
       method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
       data
     })
   }
