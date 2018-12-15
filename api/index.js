@@ -68,7 +68,7 @@ export default {
   // 发表评论
   updateComment (data) {
     return axios({
-      url:'/wp-json/wp/v2/comments',
+      url: '/wp-json/wp/v2/comments',
       method: 'POST',
       data
     })

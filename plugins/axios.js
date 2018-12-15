@@ -1,6 +1,5 @@
 import Axios from 'axios'
 import qs from 'qs'
-import store from '~/store'
 
 const option = {
   timeout: 20000,

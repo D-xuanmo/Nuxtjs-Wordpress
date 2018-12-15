@@ -1,7 +1,8 @@
 module.exports = {
+  mode: 'universal',
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: 'Xuanmo Blog | WEB前端笔记',
     meta: [
@@ -25,13 +26,16 @@ module.exports = {
   router: {
     middleware: 'info',
     scrollBehavior (to, from, savedPosition) {
-      return { x: 0, y: 0 }
+      return {
+        x: 0,
+        y: 0
+      }
     }
   },
 
   /*
-  ** Customize the progress bar color
-  */
+   ** Customize the progress bar color
+   */
   loading: './components/loading/Index.vue',
 
   css: [
@@ -39,51 +43,28 @@ module.exports = {
   ],
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
-    /*
-    ** Run ESLint on save
-    */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    },
-
-    extractCSS: {
-      allChunks: true
-    },
 
     // element-ui按需引入配置
-    babel: {
-      'plugins': [
-        [
-          'component',
-          [
-            {
-              'libraryName': 'element-ui',
-              'styleLibraryName': 'theme-default'
-            },
-            'transform-async-to-generator',
-            'transform-runtime'
-          ]
-        ]
-      ],
-      comments: true
-    },
+    // babel: {
+    //   plugins: [
+    //     [
+    //       'component',
+    //       [{
+    //           'libraryName': 'element-ui',
+    //           'styleLibraryName': 'theme-default'
+    //         },
+    //         'transform-async-to-generator',
+    //         'transform-runtime'
+    //       ]
+    //     ]
+    //   ],
+    //   comments: true
+    // },
 
-    vendors: ['axios', 'element-ui'],
-
-    // 全局引入scss
-    styleResources: {
-      scss: ['./assets/scss/variable.scss']
-    }
+    vendors: ['axios', 'element-ui']
   },
 
   plugins: [
@@ -92,10 +73,11 @@ module.exports = {
     { src: '~/plugins/icon', ssr: true }
   ],
 
-  modules: [
-    // npm install @nuxtjs/proxy -D
-    ['@nuxtjs/proxy']
-  ],
+  modules: ['@nuxtjs/proxy', '@nuxtjs/style-resources'],
+
+  styleResources: {
+    scss: ['./assets/scss/variable.scss']
+  },
 
   // 配置代理
   axios: {

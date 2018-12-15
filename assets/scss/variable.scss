@@ -70,11 +70,6 @@ $container-padding: 15px;
   }
 }
 
-// 百分比换算
-@function percent($num, $total) {
-  @return ($num / $total * 100) + %;
-}
-
 %navJustify {
   text-align: justify;
 
