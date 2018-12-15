@@ -110,9 +110,9 @@
 </template>
 <script>
 import API from '~/api'
-import Comments from '~/components/comment/Index'
-import Reward from '~/components/reward/Index'
-import CreatePoster from '~/components/createPoster/Index'
+import Comments from '~/components/Comment'
+import Reward from '~/components/Reward'
+import CreatePoster from '~/components/CreatePoster'
 export default {
   async asyncData ({ params, error, store }) {
     try {

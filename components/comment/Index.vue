@@ -147,7 +147,7 @@
 </template>
 <script>
 import API from '~/api'
-import uploadImg from './UploadImg'
+import uploadImg from './upload'
 import { mapState } from 'vuex'
 export default {
   name: 'Comments',
@@ -434,4 +434,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./index.scss" scoped></style>
+<style lang="scss" src="../../assets/scss/comment.scss" scoped></style>

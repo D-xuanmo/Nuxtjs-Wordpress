@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import msgConponent from './Message'
+import msgConponent from './main'
 const VueMessage = Vue.extend(msgConponent)
 let message = null
 const Message = {

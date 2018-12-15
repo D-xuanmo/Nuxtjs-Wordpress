@@ -18,7 +18,7 @@
 
 <script>
 import API from '~/api'
-import Comments from '~/components/comment/Index'
+import Comments from '~/components/Comment'
 export default {
   async asyncData ({ params, error, store }) {
     try {
