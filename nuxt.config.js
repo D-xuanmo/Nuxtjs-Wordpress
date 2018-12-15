@@ -46,6 +46,18 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    babel: {
+      plugins: [
+        [
+          'component',
+          {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk'
+          }
+        ]
+      ]
+    },
+    extractCSS: true,
     vendors: ['axios', 'element-ui']
   },
 
