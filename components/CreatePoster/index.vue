@@ -251,7 +251,7 @@ $padding: 10px;
     }
 
     .btn {
-      width: 120px;
+      width: 125px;
       margin-top: 15px;
       padding: 8px 10px;
     }
