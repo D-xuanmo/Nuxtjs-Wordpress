@@ -114,12 +114,12 @@
           <a :name="`comment-${item.id}`"></a>
           <a :href="item.author_url" target="_blank" class="author">{{ item.author_name }}</a>
           <!-- 评论者等级 -->
-          <p class="inline-block">
-            <span class="icon-vip icon-level" :class="[item.userAgentInfo.vipStyle.style, item.userAgentInfo.vipStyle.level]" :style="`background-image: url(https://upyun.xuanmo.xin/blog/vip.png);`" :title="item.userAgentInfo.vipStyle.title"></span>
-            <svg v-if="item.userAgentInfo.vipStyle.title === '博主'" class="iconfont-colour admin" aria-hidden="true">
-              <use xlink:href="#icon-vip"></use>
-            </svg>
-          </p>
+          <span
+            class="icon-vip icon-level"
+            :class="[item.userAgentInfo.vipStyle.style, item.userAgentInfo.vipStyle.level]"
+            :title="item.userAgentInfo.vipStyle.title">
+          </span>
+          <img v-if="item.userAgentInfo.vipStyle.title === '博主'" src="../../assets/images/icon-admin.png" width="20" class="icon-admin">
           <p class="inline-block system-wrap">
             <!-- 浏览器logo -->
             <span

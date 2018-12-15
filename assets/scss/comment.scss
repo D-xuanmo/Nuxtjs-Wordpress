@@ -199,8 +199,13 @@
       color: #fff;
     }
 
+    .list-header {
+      display: flex;
+      align-items: center;
+    }
+
     .author{
-      margin-right: 5px;
+      margin-right: 3px;
       font-size: 18px;
       font-weight: bold;
     }
@@ -292,38 +297,20 @@
       }
 
       &.vip-style-1{
-        width: 16px;
-        height: 14px;
-        background-position: -147px -70px;
-        @for $i from 1 through 6 {
-          &.vip#{$i + 1}{
-            background-position-Y: -#{70 - $i * -25}px;
+        width: 20px;
+        height: 18px;
+        @for $i from 1 through 7 {
+          &.vip#{$i}{
+            background-repeat: no-repeat;
+            background-image: url('../images/vip-style-1-#{$i}.png');
+            background-size: contain;
           }
-        }
-      }
-
-      &.vip-style-2{
-        width: 43px;
-        height: 13px;
-        background-position: -2px -3px;
-        transition: .5s;
-        @for $i from 1 through 6 {
-          &.vip#{$i + 1}{
-            background-position-X: -#{$i * 59}px;
-          }
-        }
-
-        &:hover{
-          background-position-Y: -23px;
         }
       }
     }
 
     // 博主
-    .admin{
-      vertical-align: bottom;
-      width: 20px;
-      height: 20px;
+    .icon-admin{
       margin-right: 5px;
     }
 

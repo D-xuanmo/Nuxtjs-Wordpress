@@ -119,14 +119,6 @@ function themeoptions_page() {
               name="vip-style"
               value="vip-style-1" <?php if($a_options['vip_style'] == 'vip-style-1' || $a_options['vip_style'] == '') echo 'checked'; ?>
             >
-
-            <label for="vip-style-2" class="vip-style" style="display: inline-block; width: 42px; height: 15px; background: url(<?php bloginfo('template_url'); ?>/static/images/vip.png) -2px -2px;"></label>
-            <input
-              type="radio"
-              id="vip-style-2"
-              name="vip-style"
-              value="vip-style-2" <?php if($a_options['vip_style'] == 'vip-style-2') echo 'checked'; ?>
-            >
           </div>
         </div>
 				<div class="row">
