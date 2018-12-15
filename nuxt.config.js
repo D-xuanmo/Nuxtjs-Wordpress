@@ -46,24 +46,6 @@ module.exports = {
    ** Build configuration
    */
   build: {
-
-    // element-ui按需引入配置
-    // babel: {
-    //   plugins: [
-    //     [
-    //       'component',
-    //       [{
-    //           'libraryName': 'element-ui',
-    //           'styleLibraryName': 'theme-default'
-    //         },
-    //         'transform-async-to-generator',
-    //         'transform-runtime'
-    //       ]
-    //     ]
-    //   ],
-    //   comments: true
-    // },
-
     vendors: ['axios', 'element-ui']
   },
 
