@@ -1,3 +1,3 @@
 import Vue from 'vue'
-import Message from '~/components/message/index'
+import Message from '~/components/Message/index'
 Vue.use(Message)
