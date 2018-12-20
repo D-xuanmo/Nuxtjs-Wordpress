@@ -207,16 +207,23 @@ body {
   height: 145px;
   padding: 20px 0;
   border-bottom: 1px solid $color-main-background;
+
+  &:hover {
+    .thumbnail {
+      transform: scale(1.1);
+    }
+  }
+
+  .thumbnail-wrap {
+    overflow: hidden;
+  }
+
   // 缩略图
   .thumbnail {
     width: 260px;
     height: 145px;
     border-radius: $border-radius;
     transition: 0.5s;
-
-    &:hover {
-      transform: scale(1.05);
-    }
   }
 
   .list-content {
