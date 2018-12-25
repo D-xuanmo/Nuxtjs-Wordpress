@@ -3,17 +3,22 @@
     <!-- banner start -->
     <div class="banner-wrap">
       <div class="big-banner">
-        <nuxt-link class="list block" :to="$store.state.info.banner.big_banner.link">
+        <a class="list block" :href="$store.state.info.banner.big_banner.link">
           <img :src="$store.state.info.banner.big_banner.path" alt="">
-          <span class="title" :title="$store.state.info.banner.big_banner.text" v-show="$store.state.info.banner.big_banner.text">{{ $store.state.info.banner.big_banner.text }}</span>
-        </nuxt-link>
+          <span
+            class="title"
+            :title="$store.state.info.banner.big_banner.text"
+            v-show="$store.state.info.banner.big_banner.text">
+            {{ $store.state.info.banner.big_banner.text }}
+          </span>
+        </a>
       </div>
       <ul class="small-banner">
         <li class="list" v-for="item in $store.state.info.banner.small_banner" :key="item.key">
-          <nuxt-link class="block" :to="item.link">
+          <a class="block" :href="item.link">
             <img :src="item.path" alt="">
             <span v-show="item.text" class="title" :title="item.text">{{ item.text }}</span>
-          </nuxt-link>
+          </a>
         </li>
       </ul>
     </div>
