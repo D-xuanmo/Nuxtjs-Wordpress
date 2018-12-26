@@ -243,6 +243,9 @@ export default {
 
     process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   },
+  beforeDestroy () {
+    document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
+  },
   methods: {
     // 发表意见
     updateOpinion (key) {
