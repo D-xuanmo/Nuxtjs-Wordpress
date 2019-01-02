@@ -32,7 +32,6 @@ export default {
   .title{
     margin-bottom: 30px;
     font-size: 20px;
-    font-weight: bold;
     text-align: center;
 
     span{

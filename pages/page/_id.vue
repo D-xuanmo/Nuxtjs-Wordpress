@@ -66,7 +66,6 @@ export default {
   .title{
     margin-bottom: 30px;
     font-size: 20px;
-    font-weight: bold;
     text-align: center;
 
     span{
@@ -94,7 +93,6 @@ export default {
 
     /deep/ h2{
       margin-top: 10px;
-      font-weight: bold;
 
       .iconfont{
         vertical-align: bottom;
@@ -104,17 +102,12 @@ export default {
     /deep/ h1,
     /deep/ h2{
       font-size: $font-size-large;
-      font-weight: bold;
     }
 
-    /deep/ h3{
-      font-weight: bold;
-    }
     /deep/ h4,
     /deep/ h5,
     /deep/ h6{
       font-size: $font-size-small;
-      font-weight: bold;
     }
 
     /deep/ img{

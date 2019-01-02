@@ -247,7 +247,6 @@ $padding: 10px;
 
     .title {
       margin-top: 50px;
-      font-weight: bold;
     }
 
     .btn {
