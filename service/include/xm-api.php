@@ -2,8 +2,7 @@
 /**
  * 删除不需要的字段
  */
-function xm_rest_prepare_post ($data, $post, $request)
-{
+function xm_rest_prepare_post ($data, $post, $request) {
   $_data = $data -> data;
   $params = $request -> get_params();
   unset($_data['template']);
@@ -12,18 +11,18 @@ function xm_rest_prepare_post ($data, $post, $request)
   $data -> data = $_data;
   return $data;
 }
-
 add_filter('rest_prepare_post', 'xm_rest_prepare_post', 10, 3);
 
 /**
  * 获取网站基本信息
  */
-function add_get_blog_info ()
-{
+function add_get_blog_info () {
   global $wpdb;
+
   // 获取最后更新时间
   $last = $wpdb -> get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
   $last = date('Y-n-j', strtotime($last[0] -> MAX_m));
+
   // 获取最新评论
   $newComment = get_comments(array(
     'number' => 10,
@@ -39,7 +38,8 @@ function add_get_blog_info ()
     $newComment[$i] -> link = get_post_meta($newComment[$i] -> comment_post_ID, 'xm_post_link', true)['very_good'];
     $newComment[$i] -> title = get_the_title($newComment[$i] -> comment_post_ID);
   }
-  $array = array(
+
+  $result = array(
     'baseUrl' => get_option('xm_vue_options')['domain'],
     'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
@@ -66,9 +66,8 @@ function add_get_blog_info ()
     'newArticle' => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
     'newComment' => $newComment
   );
-  return $array;
+  return $result;
 }
-
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/info', array('methods' => 'GET', 'callback' => 'add_get_blog_info'));
 });
@@ -76,8 +75,7 @@ add_action('rest_api_init', function () {
 /**
  * 发表意见
  */
-function xm_opinion ($request)
-{
+function xm_opinion ($request) {
   $data = $request -> get_params();
   $count_key = 'xm_post_link';
   $id = $data['id'];
@@ -86,7 +84,6 @@ function xm_opinion ($request)
   update_post_meta($id, $count_key, array_merge($count, array($key => $count[$key] + 1)));
   return $count[$key] + 1;
 }
-
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/link/', array('methods' => 'POST', 'callback' => 'xm_opinion'));
 });
@@ -94,8 +91,7 @@ add_action('rest_api_init', function () {
 /**
  * 更新阅读量
  */
-function xm_get_view_count ($request)
-{
+function xm_get_view_count ($request) {
   $postID = $request -> get_params()['id'];
   $count_key = 'post_views_count';
   $count = get_post_meta($postID, $count_key, true);
@@ -109,7 +105,6 @@ function xm_get_view_count ($request)
   }
   return $count;
 }
-
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/view-count/', array('methods' => 'POST', 'callback' => 'xm_get_view_count',));
 });
@@ -117,8 +112,7 @@ add_action('rest_api_init', function () {
 /**
  * 获取主菜单
  */
-function xm_get_menu ()
-{
+function xm_get_menu () {
   $array_menu = wp_get_nav_menu_items('Home');
   $menu = array();
   foreach ($array_menu as $m) {
@@ -149,7 +143,6 @@ function xm_get_menu ()
     'subMenu' => wp_get_nav_menu_items('SubMenu')
   );
 }
-
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/menu', array('methods' => 'GET', 'callback' => 'xm_get_menu'));
 });
@@ -157,8 +150,7 @@ add_action('rest_api_init', function () {
 /**
  * 获取page添加自定义字段
  */
-function add_api_page_meta_field ()
-{
+function add_api_page_meta_field () {
   register_rest_field('page', 'pageInfor', array(
     'get_callback' => function () {
       $array = array('commentCount' => get_comments_number());
@@ -167,14 +159,56 @@ function add_api_page_meta_field ()
     'schema' => null,
   ));
 }
-
 add_action('rest_api_init', 'add_api_page_meta_field');
+
+/**
+ * 文章添加自定义字段
+ */
+function xm_get_article_infor ($object) {
+  $postID = $object['id'];
+  // 添加发表意见默认值
+  if (get_post_meta($postID, 'xm_post_link', true) === '') {
+    add_post_meta($postID, 'xm_post_link', array(
+      'very_good' => 0,
+      'good' => 0,
+      'commonly' => 0,
+      'bad' => 0,
+      'very_bad' => 0
+    ));
+  }
+  $current_category = get_the_category($postID);
+  $array = array(
+    'author' => get_the_author(),
+    'other' => array(
+      'authorPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar')),
+      'authorTro' => get_the_author_meta('description'),
+      'github' => get_the_author_meta('github_url'),
+      'qq' => get_the_author_meta('qq'),
+      'wechatNum' => get_the_author_meta('wechat_num'),
+      'wechatPic' => get_the_author_meta('wechat_img'),
+      'sina' => get_the_author_meta('sina_url'),
+      'email' => get_the_author_meta('user_email'),
+    ),
+    'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($postID), 'Full')[0],
+    'viewCount' => get_post_meta($postID, 'post_views_count', true) === '' ? 0 : get_post_meta($postID, 'post_views_count', true),
+    'commentCount' => get_comments_number(),
+    'xmLike' => get_post_meta($postID, 'xm_post_link', true),
+    'summary' => xm_get_post_excerpt(300, ''),
+    'classify' => get_the_category(),
+    'tags' => get_the_tags($postID),
+    'prevLink' => get_previous_post($current_category, ''),
+    'nextLink' => get_next_post($current_category, '')
+  );
+  return $array;
+}
+add_action('rest_api_init', function () {
+  register_rest_field('post', 'articleInfor', array('get_callback' => 'xm_get_article_infor', 'schema' => null,));
+});
 
 /**
  * 获取用户添加自定义字段
  */
-function add_api_user_meta_field ()
-{
+function add_api_user_meta_field () {
   register_rest_field('user', 'meta', array(
     'get_callback' => function () {
       $id = intval($_GET['id']);
@@ -191,15 +225,13 @@ function add_api_user_meta_field ()
     'schema' => null,
   ));
 }
-
 add_action('rest_api_init', 'add_api_user_meta_field');
 
 /**
  * 评论添加字段
  */
 // 判断浏览器型号
-function get_browser_name ($str)
-{
+function get_browser_name ($str) {
   $matches['ua'] = $str;
   // 判断系统
   if (preg_match('/Maci/', $str)) {
@@ -291,8 +323,7 @@ function get_browser_name ($str)
 }
 
 // 访客等级
-function get_author_class ($comment_author_email)
-{
+function get_author_class ($comment_author_email) {
   global $wpdb;
   $adminEmail = get_bloginfo('admin_email');
   $styleClass = get_option('xm_vue_options')['vip_style'];
@@ -318,8 +349,7 @@ function get_author_class ($comment_author_email)
   }
 }
 
-function add_api_comment_meta_field ()
-{
+function add_api_comment_meta_field () {
   register_rest_field('comment', 'userAgentInfo', array(
     'get_callback' => function ($object) {
       $array = array(
@@ -333,56 +363,9 @@ function add_api_comment_meta_field ()
     'schema' => null
   ));
 }
-
 add_action('rest_api_init', 'add_api_comment_meta_field');
 
-/**
- * 添加自定义字段
- */
-function add_api_posts_meta_field ()
-{
-  // 获取文章相关信息
-  register_rest_field('post', 'articleInfor', array('get_callback' => 'xm_get_article_infor', 'schema' => null,));
-}
+function add_api_comment_metadata () {
 
-function xm_get_article_infor ($object)
-{
-  $postID = $object['id'];
-  // 添加发表意见默认值
-  if (get_post_meta($postID, 'xm_post_link', true) === '') {
-    add_post_meta($postID, 'xm_post_link', array(
-      'very_good' => 0,
-      'good' => 0,
-      'commonly' => 0,
-      'bad' => 0,
-      'very_bad' => 0
-    ));
-  }
-  $current_category = get_the_category($postID);
-  $array = array(
-    'author' => get_the_author(),
-    'other' => array(
-      'authorPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar')),
-      'authorTro' => get_the_author_meta('description'),
-      'github' => get_the_author_meta('github_url'),
-      'qq' => get_the_author_meta('qq'),
-      'wechatNum' => get_the_author_meta('wechat_num'),
-      'wechatPic' => get_the_author_meta('wechat_img'),
-      'sina' => get_the_author_meta('sina_url'),
-      'email' => get_the_author_meta('user_email'),
-    ),
-    'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($postID), 'Full')[0],
-    'viewCount' => get_post_meta($postID, 'post_views_count', true) === '' ? 0 : get_post_meta($postID, 'post_views_count', true),
-    'commentCount' => get_comments_number(),
-    'xmLike' => get_post_meta($postID, 'xm_post_link', true),
-    'summary' => xm_get_post_excerpt(300, ''),
-    'classify' => get_the_category(),
-    'tags' => get_the_tags($postID),
-    'prevLink' => get_previous_post($current_category, ''),
-    'nextLink' => get_next_post($current_category, '')
-  );
-  return $array;
 }
-
-add_action('rest_api_init', 'add_api_posts_meta_field');
 ?>
