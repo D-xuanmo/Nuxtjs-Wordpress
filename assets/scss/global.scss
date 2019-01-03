@@ -173,7 +173,8 @@ body {
         border: 0;
       }
 
-      &.active {
+      &.active,
+      &:hover {
         background: none;
         color: $color-theme;
       }
