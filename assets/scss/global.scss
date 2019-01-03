@@ -202,15 +202,31 @@ body {
 
 // 文章列表
 .article-list {
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: 145px;
   padding: 20px 0;
   border-bottom: 1px solid $color-main-background;
 
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0px;
+    height: 1px;
+    background: $color-theme;
+    transition: .4s;
+  }
+
   &:hover {
     .thumbnail {
       transform: scale(1.1);
+    }
+
+    &:after {
+      width: 100%;
     }
   }
 
