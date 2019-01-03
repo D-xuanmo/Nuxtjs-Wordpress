@@ -43,7 +43,6 @@ function add_get_blog_info ()
     'baseUrl' => get_option('xm_vue_options')['domain'],
     'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
-    'adminAjax' => admin_url('admin-ajax.php'),
     'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'contentUrl' => '/wp-content',
     'blogName' => get_bloginfo('name'),
@@ -51,7 +50,7 @@ function add_get_blog_info ()
     'rewardText' => get_option('xm_vue_options')['reward_text'],
     'alipay' => get_option('xm_vue_options')['alipay'],
     'wechatpay' => get_option('xm_vue_options')['wechatpay'],
-    'adminPic' => get_the_author_meta('simple_local_avatar', 1),
+    'adminPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar', 1)),
     'setExtend' => get_option('xm_vue_options'),
     'banner' => get_option('xm_vue_options')['banner'],
     'logo' => get_option('xm_vue_options')['logo'],
@@ -363,7 +362,7 @@ function xm_get_article_infor ($object)
   $array = array(
     'author' => get_the_author(),
     'other' => array(
-      'authorPic' => get_the_author_meta('simple_local_avatar'),
+      'authorPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar')),
       'authorTro' => get_the_author_meta('description'),
       'github' => get_the_author_meta('github_url'),
       'qq' => get_the_author_meta('qq'),

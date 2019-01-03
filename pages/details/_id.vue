@@ -12,7 +12,7 @@
         <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
         <span><x-icon type="icon-message-f"></x-icon>{{ article.articleInfor.commentCount }}</span>
       </div>
-      <div class="content-details" ref="articleContent" v-html="article.content.rendered.replace(/https?:\/\/(\w+\.)+\w+:\d+/g, '')"></div>
+      <div class="content-details" ref="articleContent" v-html="article.content.rendered"></div>
     </article>
     <!-- 文章内容结束 -->
     <div class="section operation">
