@@ -1,5 +1,9 @@
 @import "./tag";
 @import "./iconfont";
+@font-face {
+  font-family: "play";
+  src: url(../font/PlayRegular.woff.ttf);
+}
 
 // 左浮动
 .fl {
@@ -103,6 +107,7 @@ code:not([class*="lang"]),
   background: #f7f7f9;
   border: 1px solid #E3EDF3;
   border-radius: 3px;
+  font-family: "play";
   color: #d14;
 }
 
@@ -151,7 +156,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   background: $color-main-background;
-  font: $font-size-base "PingFangSC-Regular",Microsoft Yahei;
+  font: $font-size-base "play", PingFangSC-Regular,Microsoft Yahei;
   color: $color-main-text;
 }
 
