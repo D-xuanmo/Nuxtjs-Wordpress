@@ -74,6 +74,15 @@ export default {
     })
   },
 
+  // 评论列表点赞和踩
+  updateCommentOpinion (data) {
+    return axios({
+      url: '/wp-json/xm-blog/v1/update-comment-meta',
+      method: 'POST',
+      data
+    })
+  },
+
   // 获取表情列表
   getExpression (domain, params) {
     return axios({

@@ -1,11 +1,12 @@
 // 字体图标
 @font-face {
   font-family: 'iconfont';  /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_f7y73ko4gc.eot');
-  src: url('//at.alicdn.com/t/font_552040_f7y73ko4gc.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_f7y73ko4gc.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_f7y73ko4gc.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_f7y73ko4gc.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_552040_vh844papw3e.eot');
+  src: url('//at.alicdn.com/t/font_552040_vh844papw3e.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_552040_vh844papw3e.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_vh844papw3e.woff') format('woff'),
+  url('//at.alicdn.com/t/font_552040_vh844papw3e.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_552040_vh844papw3e.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -30,8 +31,9 @@ $iconMap         : (
   "link2"        : "\e622",
   "time"         : "\e6c1",
   "time1"        : "\e62a",
-  "zan"          : "\e681",
-  "hot"          : "\e688",
+  "good"         : "\e69c",
+  "bad"          : "\e609",
+  "hot"          : "\e6a4",
   "hot1"         : "\e6a0",
   "tag"          : "\e636",
   "tag1"         : "\e611",

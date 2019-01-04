@@ -14,6 +14,86 @@ function xm_rest_prepare_post ($data, $post, $request) {
 add_filter('rest_prepare_post', 'xm_rest_prepare_post', 10, 3);
 
 /**
+ * 获取page添加自定义字段
+ */
+function add_api_page_meta_field () {
+  register_rest_field('page', 'pageInfor', array(
+    'get_callback' => function () {
+      $array = array('commentCount' => get_comments_number());
+      return $array;
+    },
+    'schema' => null,
+  ));
+}
+add_action('rest_api_init', 'add_api_page_meta_field');
+
+/**
+ * 文章添加自定义字段
+ */
+function xm_get_article_infor ($object) {
+  $postID = $object['id'];
+  // 添加发表意见默认值
+  if (get_post_meta($postID, 'xm_post_link', true) === '') {
+    add_post_meta($postID, 'xm_post_link', array(
+      'very_good' => 0,
+      'good' => 0,
+      'commonly' => 0,
+      'bad' => 0,
+      'very_bad' => 0
+    ));
+  }
+  $current_category = get_the_category($postID);
+  $array = array(
+    'author' => get_the_author(),
+    'other' => array(
+      'authorPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar')),
+      'authorTro' => get_the_author_meta('description'),
+      'github' => get_the_author_meta('github_url'),
+      'qq' => get_the_author_meta('qq'),
+      'wechatNum' => get_the_author_meta('wechat_num'),
+      'wechatPic' => get_the_author_meta('wechat_img'),
+      'sina' => get_the_author_meta('sina_url'),
+      'email' => get_the_author_meta('user_email'),
+    ),
+    'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($postID), 'Full')[0],
+    'viewCount' => get_post_meta($postID, 'post_views_count', true) === '' ? 0 : get_post_meta($postID, 'post_views_count', true),
+    'commentCount' => get_comments_number(),
+    'xmLike' => get_post_meta($postID, 'xm_post_link', true),
+    'summary' => xm_get_post_excerpt(300, ''),
+    'classify' => get_the_category(),
+    'tags' => get_the_tags($postID),
+    'prevLink' => get_previous_post($current_category, ''),
+    'nextLink' => get_next_post($current_category, '')
+  );
+  return $array;
+}
+add_action('rest_api_init', function () {
+  register_rest_field('post', 'articleInfor', array('get_callback' => 'xm_get_article_infor', 'schema' => null,));
+});
+
+/**
+ * 获取用户添加自定义字段
+ */
+function add_api_user_meta_field () {
+  register_rest_field('user', 'meta', array(
+    'get_callback' => function () {
+      $id = intval($_GET['id']);
+      $array = array(
+        'qq' => get_the_author_meta('qq', $id),
+        'github' => get_the_author_meta('github_url', $id),
+        'wechat_num' => get_the_author_meta('wechat_num', $id),
+        'wechat_img' => get_the_author_meta('wechat_img', $id),
+        'sina_url' => get_the_author_meta('sina_url', $id),
+        'sex' => get_the_author_meta('sex', $id)
+      );
+      return $array;
+    },
+    'schema' => null,
+  ));
+}
+add_action('rest_api_init', 'add_api_user_meta_field');
+
+/**
  * 获取网站基本信息
  */
 function add_get_blog_info () {
@@ -148,206 +228,25 @@ add_action('rest_api_init', function () {
 });
 
 /**
- * 获取page添加自定义字段
+ * [评论列表增加点赞]
  */
-function add_api_page_meta_field () {
-  register_rest_field('page', 'pageInfor', array(
-    'get_callback' => function () {
-      $array = array('commentCount' => get_comments_number());
-      return $array;
-    },
-    'schema' => null,
-  ));
-}
-add_action('rest_api_init', 'add_api_page_meta_field');
-
-/**
- * 文章添加自定义字段
- */
-function xm_get_article_infor ($object) {
-  $postID = $object['id'];
-  // 添加发表意见默认值
-  if (get_post_meta($postID, 'xm_post_link', true) === '') {
-    add_post_meta($postID, 'xm_post_link', array(
-      'very_good' => 0,
-      'good' => 0,
-      'commonly' => 0,
-      'bad' => 0,
-      'very_bad' => 0
-    ));
-  }
-  $current_category = get_the_category($postID);
-  $array = array(
-    'author' => get_the_author(),
-    'other' => array(
-      'authorPic' => preg_replace('/https?:\/\/(\w+\.)+\w+(:\d+)?/', '', get_the_author_meta('simple_local_avatar')),
-      'authorTro' => get_the_author_meta('description'),
-      'github' => get_the_author_meta('github_url'),
-      'qq' => get_the_author_meta('qq'),
-      'wechatNum' => get_the_author_meta('wechat_num'),
-      'wechatPic' => get_the_author_meta('wechat_img'),
-      'sina' => get_the_author_meta('sina_url'),
-      'email' => get_the_author_meta('user_email'),
-    ),
-    'thumbnail' => wp_get_attachment_image_src(get_post_thumbnail_id($postID), 'Full')[0],
-    'viewCount' => get_post_meta($postID, 'post_views_count', true) === '' ? 0 : get_post_meta($postID, 'post_views_count', true),
-    'commentCount' => get_comments_number(),
-    'xmLike' => get_post_meta($postID, 'xm_post_link', true),
-    'summary' => xm_get_post_excerpt(300, ''),
-    'classify' => get_the_category(),
-    'tags' => get_the_tags($postID),
-    'prevLink' => get_previous_post($current_category, ''),
-    'nextLink' => get_next_post($current_category, '')
+function add_api_comment_metadata ($request) {
+  $postID = $request -> get_params()['id'];
+  $key = $request -> get_params()['type'];
+  $result = get_metadata('comment', $postID, 'opinion', true);
+  return array(
+    'success' => update_metadata('comment', $postID, 'opinion', array_merge($result, array($key => $result[$key] + 1))),
+    'data' => get_metadata('comment', $postID, 'opinion', true)
   );
-  return $array;
 }
 add_action('rest_api_init', function () {
-  register_rest_field('post', 'articleInfor', array('get_callback' => 'xm_get_article_infor', 'schema' => null,));
+  register_rest_route('xm-blog/v1', '/update-comment-meta', array('methods' => 'POST', 'callback' => 'add_api_comment_metadata'));
 });
-
-/**
- * 获取用户添加自定义字段
- */
-function add_api_user_meta_field () {
-  register_rest_field('user', 'meta', array(
-    'get_callback' => function () {
-      $id = intval($_GET['id']);
-      $array = array(
-        'qq' => get_the_author_meta('qq', $id),
-        'github' => get_the_author_meta('github_url', $id),
-        'wechat_num' => get_the_author_meta('wechat_num', $id),
-        'wechat_img' => get_the_author_meta('wechat_img', $id),
-        'sina_url' => get_the_author_meta('sina_url', $id),
-        'sex' => get_the_author_meta('sex', $id)
-      );
-      return $array;
-    },
-    'schema' => null,
-  ));
-}
-add_action('rest_api_init', 'add_api_user_meta_field');
 
 /**
  * 评论添加字段
  */
-// 判断浏览器型号
-function get_browser_name ($str) {
-  $matches['ua'] = $str;
-  // 判断系统
-  if (preg_match('/Maci/', $str)) {
-    // mac
-    preg_match_all('/(?P<system>Mac(\s\w+)+\s(?P<version>(\d+\.\d+)|\d+(_\d+){2}))/i', $str, $match, PREG_SET_ORDER);
-    $matches['system'] = 'Mac ' . $match[0]['version'];
-  } else if (preg_match('/iPad|iPhone/', $str)) {
-    // iPad or iphone
-    preg_match_all('/(?P<system>\w+);(\s[a-zA-Z]+)+\s(?P<version>\d+_\d+)/i', $str, $match, PREG_SET_ORDER);
-    $matches['system'] = $match[0]['system'] . ' ' . $match[0]['version'];
-  } else if (preg_match('/Android/', $str)) {
-    // Android
-    preg_match_all('/(?P<system>Android\s\d+\.\d+)/i', $str, $match, PREG_SET_ORDER);
-    $matches['system'] = $match[0]['system'];
-  } else if (preg_match('/Wind/', $str)) {
-    // windows
-    preg_match_all('/(?P<system>Windows\sNT\s\d+\.\d+)/i', $str, $match, PREG_SET_ORDER);
-    if (strpos($match[0]['system'], '6.1')) {
-      $matches['system'] = str_replace(' NT 6.1', ' 7', $match[0]['system']);
-    } else if (strpos($match[0]['system'], '6.2')) {
-      $matches['system'] = str_replace(' NT 6.2', ' 8', $match[0]['system']);
-    } else if (strpos($match[0]['system'], '6.3')) {
-      $matches['system'] = str_replace(' NT 6.3', ' 8.1', $match[0]['system']);
-    } else if (strpos($match[0]['system'], '10.0')) {
-      $matches['system'] = str_replace(' NT 10.0', ' 10', $match[0]['system']);
-    } else if (strpos($match[0]['system'], '5.1')) {
-      $matches['system'] = str_replace(' NT 5.1', ' XP', $match[0]['system']);
-    }
-  } else {
-    $matches['system'] = 'Unknown';
-  }
-
-  // 判断浏览器信息
-  if (preg_match('/QQBrowser/', $str)) {
-    // QQ浏览器
-    preg_match_all('/(?P<name>QQBrowser)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/MicroMessenger/', $str)) {
-    // 微信内置浏览器
-    preg_match_all('/(?P<name>MicroMessenger)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = 'wechat';
-  } else if (preg_match('/QQ\/\d/', $str)) {
-    // QQ
-    preg_match_all('/(?P<name>QQ)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/UCBrowser/', $str)) {
-    // UC
-    preg_match_all('/(?P<name>UCBrowser)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/Edge/', $str)) {
-    // edge
-    preg_match_all('/(?P<name>Edge)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/OPR/', $str)) {
-    // opera
-    preg_match_all('/(?P<name>OPR)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = 'Opera';
-  } else if (preg_match('/Chrome|MetaSr/', $str)) {
-    // chrome
-    preg_match_all('/(?P<name>(Chrome))\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/Safari/', $str)) {
-    // safari
-    preg_match_all('/(?P<name>Version\/\d+\.\d+)/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = str_replace('Version/', '', $match[0]['name']);
-    $matches['browserName'] = 'Safari';
-  } else if (preg_match('/Firefox/', $str)) {
-    // Firefox
-    preg_match_all('/(?P<name>Firefox)\/(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = $match[0]['name'];
-  } else if (preg_match('/Trident/', $str)) {
-    // IE
-    preg_match_all('/MSIE\s(?P<version>(\d+\.\d+))/i', $str, $match, PREG_SET_ORDER);
-    $matches['browserVersion'] = $match[0]['version'];
-    $matches['browserName'] = 'Internet-Explorer';
-  } else {
-    $matches['browserVersion'] = 'Unknown';
-    $matches['browserName'] = 'Unknown';
-  }
-  return $matches;
-}
-
-// 访客等级
-function get_author_class ($comment_author_email) {
-  global $wpdb;
-  $adminEmail = get_bloginfo('admin_email');
-  $styleClass = get_option('xm_vue_options')['vip_style'];
-  $author_count = count($wpdb -> get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email'"));
-  if ($comment_author_email == $adminEmail) {
-    return array('style' => $styleClass, 'level' => 'vip7', 'admin' => true, 'title' => '博主');
-  } else {
-    if ($author_count >= 1 && $author_count < 10) {
-      return array('style' => $styleClass, 'level' => 'vip1', 'title' => 'LV.1');
-    } else if ($author_count >= 10 && $author_count < 20) {
-      return array('style' => $styleClass, 'level' => 'vip2', 'title' => 'LV.2');
-    } else if ($author_count >= 20 && $author_count < 40) {
-      return array('style' => $styleClass, 'level' => 'vip3', 'title' => 'LV.3');
-    } else if ($author_count >= 40 && $author_count < 80) {
-      return array('style' => $styleClass, 'level' => 'vip4', 'title' => 'LV.4');
-    } else if ($author_count >= 80 && $author_count < 160) {
-      return array('style' => $styleClass, 'level' => 'vip5', 'title' => 'LV.5');
-    } else if ($author_count >= 160 && $author_count < 300) {
-      return array('style' => $styleClass, 'level' => 'vip6', 'title' => 'LV.6');
-    } else if ($author_count >= 300) {
-      return array('style' => $styleClass, 'level' => 'vip7', 'title' => '博主好基友');
-    }
-  }
-}
+require_once(TEMPLATEPATH . '/include/xm-comment-extra.php');
 
 function add_api_comment_meta_field () {
   register_rest_field('comment', 'userAgentInfo', array(
@@ -362,10 +261,18 @@ function add_api_comment_meta_field () {
     },
     'schema' => null
   ));
+
+  register_rest_field('comment', 'meta', array(
+    'get_callback' => function ($object) {
+      if (!get_metadata('comment', $object[id], 'opinion', true)) {
+        add_metadata('comment', $object[id], 'opinion', array('good' => 0, 'bad' => 0), true);
+      }
+      return array(
+        'opinion' => get_metadata('comment', $object[id], 'opinion', true)
+      );
+    },
+    'schema' => null
+  ));
 }
 add_action('rest_api_init', 'add_api_comment_meta_field');
-
-function add_api_comment_metadata () {
-
-}
 ?>

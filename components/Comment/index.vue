@@ -94,7 +94,7 @@
     </div>
     <!-- 评论列表 -->
     <ul class="comment-list-wrap">
-      <li class="comment-list" v-for="item in commentList" :key="item.key">
+      <li class="comment-list" v-for="(item, index) in commentList" :key="item.key">
         <template>
           <img
             v-if="$store.state.info.isTextThumbnail === 'off'"
@@ -131,10 +131,20 @@
             <!-- 系统logo -->
             <span class="system-info">{{ item.userAgentInfo.userAgent.system && item.userAgentInfo.userAgent.system.replace(/_/g, '.') }}</span>
           </p>
-          <time>{{ item.date.replace('T', ' ') }}</time>
           <span v-if="item.status === 'hold'">您的评论正在审核中...</span>
         </div>
         <div class="list-content" v-html="item.content.rendered"></div>
+        <div class="list-footer">
+          <time>{{ item.date.replace('T', ' ') }}</time>
+          <div class="opinion">
+            <span class="opinion-btn" @click="updateCommentOpinion(item.id, 'good', index)">
+              <x-icon type="icon-good"></x-icon> {{ item.meta.opinion.good }}
+            </span>
+            <span class="opinion-btn" @click="updateCommentOpinion(item.id, 'bad', index)">
+              <x-icon type="icon-bad"></x-icon> {{ item.meta.opinion.bad }}
+            </span>
+          </div>
+        </div>
         <!-- <div class="list-btn-wrap">
           <a href="#">回复</a>
         </div> -->
@@ -429,6 +439,25 @@ export default {
     // 获取子组件发回来的图片数据
     getContent (params) {
       this.content.value += params
+    },
+
+    // 评论点赞、踩
+    updateCommentOpinion (id, type, index) {
+      if (localStorage.getItem(`commentOpinion_${id}`)) {
+        this.$message({ title: '已经发表过了哦！', type: 'warning' })
+        return
+      }
+      API.updateCommentOpinion({
+        id,
+        type
+      }).then(({ data }) => {
+        if (!data.success) {
+          this.$message({ title: '哦豁，失败了！', type: 'error' })
+        } else {
+          this.commentList[index].meta.opinion = data.data
+          localStorage.setItem(`commentOpinion_${id}`, true)
+        }
+      })
     }
   }
 }

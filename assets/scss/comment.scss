@@ -1,12 +1,12 @@
-.comments-wrap{
+.comments-wrap {
   padding: 10px 0;
 
-  .more-btn{
+  .more-btn {
     margin-top: 30px;
     text-align: center;
     color: $color-white;
 
-    span{
+    span {
       display: inline-block;
       padding: 10px 30px;
       border-radius: $border-radius;
@@ -15,26 +15,25 @@
     }
   }
 
-  .comment-other{
+  .comment-other {
     position: relative;
     margin: 10px 0;
 
-    .list-wrap{
+    .list-wrap {
       display: flex;
 
-      .list{
+      .list {
         margin-right: 5px;
         cursor: pointer;
       }
 
-      .iconfont{
+      .iconfont {
         vertical-align: bottom;
         font-size: $font-size-large;
       }
     }
-
     // 表情容器
-    .expression-wrap{
+    .expression-wrap {
       display: none;
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
@@ -49,13 +48,13 @@
       background: $color-white;
       border-radius: $border-radius;
 
-      &:after{
+      &:after {
         content: "";
         display: inline-block;
         width: 100%;
       }
 
-      a{
+      a {
         display: inline-block;
         width: 50px;
         height: 50px;
@@ -66,25 +65,25 @@
         line-height: 50px;
       }
 
-      img{
+      img {
         vertical-align: middle;
       }
     }
   }
 
-  .comment-from{
+  .comment-from {
     box-sizing: border-box;
     margin-bottom: 20px;
     padding: 10px;
     border-radius: $border-radius;
     background: $color-sub-background;
 
-    .comment-tips:not(p){
+    .comment-tips:not(p) {
       font-size: $font-size-small;
       color: $color-red;
     }
 
-    .comment-form-content{
+    .comment-form-content {
       box-sizing: border-box;
       margin-bottom: 20px;
       padding: 5px;
@@ -92,7 +91,7 @@
       background: $color-white;
     }
 
-    textarea{
+    textarea {
       box-sizing: border-box;
       resize: vertical;
       width: 100%;
@@ -100,13 +99,13 @@
       padding: 5px;
     }
 
-    .box{
+    .box {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
 
-    .comment-inp{
+    .comment-inp {
       box-sizing: border-box;
       width: 49%;
       padding: 5px;
@@ -114,26 +113,25 @@
       background: $color-white;
 
       &:nth-of-type(1),
-      &:nth-of-type(2){
+      &:nth-of-type(2) {
         margin-bottom: 20px;
       }
 
-      label{
+      label {
         display: block;
       }
 
-      input{
+      input {
         -webkit-appearance: none;
         width: 100%;
         height: 30px;
       }
     }
-
     // 验证码
-    .comment-from-code{
+    .comment-from-code {
       position: relative;
 
-      .canvas-img-code{
+      .canvas-img-code {
         position: absolute;
         bottom: 5px;
         right: 5px;
@@ -143,7 +141,7 @@
       }
     }
 
-    .submit-wrap{
+    .submit-wrap {
       width: 250px;
       height: 45px;
       margin: 20px auto;
@@ -153,12 +151,12 @@
       line-height: 45px;
       cursor: pointer;
 
-      input{
+      input {
         -webkit-appearance: none;
         color: $color-white;
       }
 
-      .iconfont{
+      .iconfont {
         vertical-align: middle;
         font-size: 18px;
         color: $color-white;
@@ -166,7 +164,7 @@
     }
   }
 
-  .comment-list{
+  .comment-list {
     box-sizing: border-box;
     position: relative;
     width: 95%;
@@ -175,18 +173,18 @@
     border-radius: $border-radius;
     background: $color-sub-background;
 
-    &:last-of-type{
+    &:last-of-type {
       margin-bottom: 0;
     }
 
-    .list-gravatar{
+    .list-gravatar {
       position: absolute;
       top: 5px;
       left: -30px;
       border-radius: $border-radius;
     }
 
-    .list-gravatar-text{
+    .list-gravatar-text {
       position: absolute;
       top: 5px;
       left: -30px;
@@ -205,14 +203,13 @@
       align-items: center;
     }
 
-    .author{
+    .author {
       margin-right: 3px;
       font-size: 18px;
       font-weight: bold;
     }
-
     // 浏览器信息
-    .browser-info{
+    .browser-info {
       display: inline-block;
       vertical-align: text-bottom;
       margin-right: 5px;
@@ -221,45 +218,44 @@
       border-radius: 3px;
       color: $color-white;
 
-      &.chrome{
+      &.chrome {
         background: linear-gradient(to right, #5087ec, #d95040, #f2bd42);
       }
 
-      &.safari{
-        background: linear-gradient(to right, #2670cb, #47a2c5);;
+      &.safari {
+        background: linear-gradient(to right, #2670cb, #47a2c5);
       }
 
-      &.firefox{
+      &.firefox {
         background: linear-gradient(to right, #dd3a45, #fcea67);
       }
 
-      &[class*="qq"]{
+      &[class*="qq"] {
         background: linear-gradient(to right, #3072d1, #4ea8f3);
       }
 
-      &.edge{
+      &.edge {
         background: #4378b5;
       }
 
-      &.internet-explorer{
+      &.internet-explorer {
         background: linear-gradient(to right, #fadc4f, #8ae2fb, #57a0d4);
       }
 
-      &.wechat{
+      &.wechat {
         background: #94d258;
       }
 
-      &.ucbrowser{
+      &.ucbrowser {
         background: linear-gradient(to right, #ed5e31, #f8cd46);
       }
 
-      &.opera{
+      &.opera {
         background: #eb3b3a;
       }
     }
-
     // 系统信息
-    .system-info{
+    .system-info {
       display: inline-block;
       vertical-align: text-bottom;
       margin-right: 5px;
@@ -270,94 +266,105 @@
       color: $color-white;
     }
 
-    .list-content{
+    .list-content {
       margin: 10px 0;
 
-      /deep/ img{
+      /deep/ img {
         max-width: 40%;
         height: initial !important;
         max-height: initial !important;
         vertical-align: bottom;
 
-        &.wp-smiley{
+        &.wp-smiley {
           width: 25px;
         }
       }
     }
-
     // 评论者等级
-    .icon-vip{
+    .icon-vip {
       display: inline-block;
       margin-right: 5px;
-
       // 博主
-      &.icon-admin{
+      &.icon-admin {
         width: 20px;
         height: 20px;
         background-position: -172px -70px;
       }
 
-      &.vip-style-1{
+      &.vip-style-1 {
         width: 20px;
         height: 18px;
         @for $i from 1 through 7 {
-          &.vip#{$i}{
+          &.vip#{$i} {
             background-repeat: no-repeat;
-            background-image: url('../images/vip-style-1-#{$i}.png');
+            background-image: url("../images/vip-style-1-#{$i}.png");
             background-size: contain;
           }
         }
       }
     }
-
     // 博主
-    .icon-admin{
+    .icon-admin {
       margin-right: 5px;
     }
 
-    time,
-    span{
+    span,
+    time {
       font-size: $font-size-small;
       color: #a8b6c0;
     }
 
-    .list-btn-wrap{
-      a{
+    .list-btn-wrap {
+      a {
         display: inline-block;
         padding: 5px 15px;
         border-radius: $border-radius;
         background: $color-white;
       }
     }
+
+    .list-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .opinion-btn {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      .iconfont {
+        vertical-align: baseline;
+      }
+    }
   }
 }
 @media screen and (max-width: 767px) {
-  .comments-wrap{
-    .comment-from{
-      .box{
+  .comments-wrap {
+    .comment-from {
+      .box {
         display: block;
       }
 
-      .comment-inp{
+      .comment-inp {
         width: 100%;
       }
 
-      .comment-from-url{
+      .comment-from-url {
         margin-bottom: 20px;
       }
 
-      .submit-btn{
+      .submit-btn {
         width: 100%;
       }
     }
-
     // 评论列表
-    .comment-list{
-      .list-gravatar{
+    .comment-list {
+      .list-gravatar {
         left: -15px;
       }
 
-      .system-wrap{
+      .system-wrap {
         display: block;
         margin: 5px 0;
       }
