@@ -149,27 +149,27 @@ export default {
       posterContent: {},
       opinion: {
         very_good: {
-          src: 'https://upyun.xuanmo.xin/images/like_love.png',
+          src: require('~/assets/images/like_love.png'),
           isShowLaoding: false,
           text: 'Love'
         },
         good: {
-          src: 'https://upyun.xuanmo.xin/images/like_haha.png',
+          src: require('~/assets/images/like_haha.png'),
           isShowLaoding: false,
           text: 'Haha'
         },
         commonly: {
-          src: 'https://upyun.xuanmo.xin/images/like_wow.png',
+          src: require('~/assets/images/like_wow.png'),
           isShowLaoding: false,
           text: 'Wow'
         },
         bad: {
-          src: 'https://upyun.xuanmo.xin/images/like_sad.png',
+          src: require('~/assets/images/like_sad.png'),
           isShowLaoding: false,
           text: 'Sad'
         },
         very_bad: {
-          src: 'https://upyun.xuanmo.xin/images/like_angry.png',
+          src: require('~/assets/images/like_angry.png'),
           isShowLaoding: false,
           text: 'Angry'
         }
