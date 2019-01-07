@@ -438,10 +438,10 @@ function xm_new_comment($comment_id) {
             .'<p class="comment-content">作者：'. $comment->comment_author .'</p>'
             .'<p class="comment-content">电子邮箱：'. $comment->comment_author_email .'</p>'
             .'<p class="comment-content">URL：'. $comment->comment_author_url .'</p>'
-            .'<p class="comment-content">评论：'. $comment->comment_content .'</p>'
-            .'<p class="comment-content" style="margin-top: 20px;">快速回复评论：'. admin_url('edit-comments.php') .'</p>';
+            .'<p class="comment-content">评论：'. $comment->comment_content .'</p>';
   $message_headers = "Content-Type: text/html; charset=utf-8;";
-  wp_mail($to, $title, $message, $message_headers);
+  // 为新评论时才发送邮件
+  if ($comment->comment_approved == 0) wp_mail($to, $title, $message, $message_headers);
 }
 add_action('wp_insert_comment', 'xm_new_comment');
 
