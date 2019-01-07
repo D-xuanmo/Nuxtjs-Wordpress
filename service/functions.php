@@ -370,7 +370,6 @@ function disable_emojis_tinymce($plugins)
     return array();
   }
 }
-
 add_action('init', 'disable_emojis');
 
 /**
@@ -381,7 +380,6 @@ function comments_embed_img($comment)
   $comment = preg_replace('/(\[img\]\s*(\S+)\s*\[\/img\])+/', '<img src="$2" style="vertical-align: bottom; max-width: 40%; max-height: 250px;" />', $comment);
   return $comment;
 }
-
 add_action('comment_text', 'comments_embed_img');
 
 /**
@@ -421,15 +419,31 @@ function ludou_comment_mail_notify($comment_id, $comment_status)
     $message_headers = "Content-Type: text/html; charset=\"" . get_option('blog_charset') . "\"\n";
     // 不用给不填email的评论者和管理员发提醒邮件
     if ($to != '' && $to != get_bloginfo('admin_email')) {
-      @wp_mail($to, $subject, $message, $message_headers);
+      wp_mail($to, $subject, $message, $message_headers);
     }
   }
 }
-
 // 编辑和管理员的回复直接发送提醒邮件，因为编辑和管理员的评论不需要审核
 add_action('comment_post', 'ludou_comment_mail_notify', 20, 2);
 // 普通访客发表的评论，等博主审核后再发送提醒邮件
 add_action('wp_set_comment_status', 'ludou_comment_mail_notify', 20, 2);
+
+// 有人评论时通知管理员
+function xm_new_comment($comment_id) {
+  $to = get_bloginfo('admin_email');
+  $comment = get_comment($comment_id);
+  $title = '['. get_option('blogname') .'] 新评论："'. get_the_title($comment->comment_post_ID) .'"';
+  $message = '<style>.comment-content { font-size: 14px; }</style>'
+            .'<h2 style="font-size: 16px;">您的文章：《'. get_the_title($comment->comment_post_ID) .'》有新评论</h2>'
+            .'<p class="comment-content">作者：'. $comment->comment_author .'</p>'
+            .'<p class="comment-content">电子邮箱：'. $comment->comment_author_email .'</p>'
+            .'<p class="comment-content">URL：'. $comment->comment_author_url .'</p>'
+            .'<p class="comment-content">评论：'. $comment->comment_content .'</p>'
+            .'<p class="comment-content" style="margin-top: 20px;">快速回复评论：'. admin_url('edit-comments.php') .'</p>';
+  $message_headers = "Content-Type: text/html; charset=utf-8;";
+  wp_mail($to, $title, $message, $message_headers);
+}
+add_action('wp_insert_comment', 'xm_new_comment');
 
 // 添加svg文件上传
 function xm_upload_mimes($mimes = array()) {
