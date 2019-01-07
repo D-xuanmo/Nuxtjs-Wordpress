@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch"
+    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch",
+    "watch": "node watch.js"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
@@ -27,7 +28,6 @@
   "devDependencies": {
     "babel-plugin-component": "^1.1.1",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.11.0",
     "sass-loader": "^7.0.3"
   },
   "browserslist": [
