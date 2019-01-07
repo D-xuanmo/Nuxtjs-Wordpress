@@ -441,7 +441,7 @@ function xm_new_comment($comment_id) {
             .'<p class="comment-content">评论：'. $comment->comment_content .'</p>';
   $message_headers = "Content-Type: text/html; charset=utf-8;";
   // 为新评论时才发送邮件
-  if ($comment->comment_approved == 0) wp_mail($to, $title, $message, $message_headers);
+  if ($comment->comment_approved == 0 && $to != '') wp_mail($to, $title, $message, $message_headers);
 }
 add_action('wp_insert_comment', 'xm_new_comment');
 
