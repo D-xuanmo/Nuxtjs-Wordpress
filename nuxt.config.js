@@ -11,7 +11,8 @@ module.exports = {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
     ],
     script: [
       { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },

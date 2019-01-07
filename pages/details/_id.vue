@@ -204,9 +204,6 @@ export default {
       ],
       style: [
         { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
-      ],
-      link: [
-        { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ]
     }
   },
