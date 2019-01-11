@@ -8,5 +8,7 @@
   <?php wp_head(); ?>
 </head>
 <body>
+  <h2>主题安装成功！</h2>
+  <p>查看文章开始配置主题：<a href="https://www.xuanmo.xin/details/2987" target="_blank">https://www.xuanmo.xin/details/2987</a></p>
 </body>
 </html>
