@@ -24,7 +24,7 @@
             :title="item.title"
             :data-title="`[${key}]`"
             @click.stop="editExpression($event)">
-            <img :src="item.url" :alt="item.title" width="30">
+            <img :src="item.url" :alt="item.title" width="20">
           </a>
         </div>
       </div>
@@ -315,7 +315,7 @@ export default {
     emailValidate () {
       if (this.email.value !== '') {
         this.email.validate = false
-        if (this.email.value.match(/^(\w+|\w+(\.\w+))+@(\w+\.)+\w+$/) === null) {
+        if (/^(\w+|\w+(\.\w+))+@(\w+\.)+\w+$/.test(this.email.value)) {
           this.email.validate = true
           this.email.msg = '邮箱格式错误！'
         }
