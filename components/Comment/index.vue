@@ -315,7 +315,7 @@ export default {
     emailValidate () {
       if (this.email.value !== '') {
         this.email.validate = false
-        if (/^(\w+|\w+(\.\w+))+@(\w+\.)+\w+$/.test(this.email.value)) {
+        if (!/^(\w+|\w+(\.\w+))+@(\w+\.)+\w+$/.test(this.email.value)) {
           this.email.validate = true
           this.email.msg = '邮箱格式错误！'
         }
