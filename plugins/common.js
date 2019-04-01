@@ -12,8 +12,8 @@ document.body.addEventListener('click', (e) => {
       'https://upyun.xuanmo.xin/images/smilies/koubi.gif'
     ]
     moveDotWrap.className = 'move-dot-wrap on'
-    moveDotWrap.style.top = e.clientY + 'px'
-    moveDotWrap.style.left = e.clientX + 'px'
+    moveDotWrap.style.top = e.clientY - 10 + 'px'
+    moveDotWrap.style.left = e.clientX - 10 + 'px'
     const oImg = new Image()
     oImg.src = expression[parseInt(Math.random() * expression.length)]
     moveDotWrap.appendChild(oImg)
