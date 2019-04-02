@@ -1,6 +1,7 @@
 <template>
-  <header class="header" :class="{ 'is-float': isFloat }" ref="header">
-    <div class="header-content">
+  <header class="header">
+    <div v-if="isFloat" class="hide-header"></div>
+    <div class="header-content" :class="{ 'is-float': isFloat }" ref="header">
       <div class="wrap">
         <div class="left">
           <div class="logo">
@@ -126,15 +127,10 @@ $headerHeight: 60px;
   position: relative;
   width: 100%;
   height: 60px;
-  background: $color-white;
+}
 
-  &.is-float {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    box-shadow: 0 0 15px rgba(0,0,0,.2);
-  }
+.hide-header {
+  height: 60px;
 }
 
 .header-content {
@@ -144,6 +140,16 @@ $headerHeight: 60px;
   z-index: 999;
   width: 100%;
   height: 100%;
+  background: $color-white;
+
+  &.is-float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 60px;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+  }
 }
 
 .wrap{
