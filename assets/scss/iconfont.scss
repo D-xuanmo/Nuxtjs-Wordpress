@@ -1,12 +1,12 @@
 // 字体图标
 @font-face {
   font-family: 'iconfont';  /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.eot');
-  src: url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_a8lnqr6y5op.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.eot');
+  src: url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.woff') format('woff'),
+  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -77,6 +77,8 @@ $iconMap         : (
   "angular-f"    : "\e615",
   "bootstrap-f"  : "\e608",
   "javascript-f" : "\e635",
+  "sass"         : "\e616",
+  "less"         : "\e66a",
   "wordpress"    : "\e65b",
   "aliyun"       : "\e625",
   "twitter-f"    : "\e603",
