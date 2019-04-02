@@ -132,7 +132,7 @@ $headerHeight: 60px;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99999;
+    z-index: 999;
     box-shadow: 0 0 15px rgba(0,0,0,.2);
   }
 }
