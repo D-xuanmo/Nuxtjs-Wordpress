@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'is-float': isFloat }" ref="header">
     <div class="header-content">
       <div class="wrap">
         <div class="left">
@@ -75,8 +75,15 @@ export default {
     return {
       searchText: '',
       isShowNavWrap: false,
-      isShowSearch: false
+      isShowSearch: false,
+      isFloat: false
     }
+  },
+  mounted () {
+    let self = this
+    window.addEventListener('scroll', function () {
+      self.isFloat = this.scrollY > 500 ? true : false
+    }, false)
   },
   methods: {
     // 搜索
@@ -120,6 +127,14 @@ $headerHeight: 60px;
   width: 100%;
   height: 60px;
   background: $color-white;
+
+  &.is-float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+  }
 }
 
 .header-content {
