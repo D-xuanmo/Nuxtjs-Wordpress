@@ -30,16 +30,16 @@ export default {
       isShowBackTop: false
     }
   },
+  mounted () {
+    let self = this
+    window.addEventListener('scroll', function () {
+      self.isShowBackTop = this.scrollY > 300 ? true : false
+    })
+  },
   methods: {
     backTop () {
       window.scrollTo(0, 0)
     }
-  },
-  mounted () {
-    let self = this
-    window.addEventListener('scroll', function () {
-      this.scrollY > 300 ? self.isShowBackTop = true : self.isShowBackTop = false
-    })
   }
 }
 </script>
