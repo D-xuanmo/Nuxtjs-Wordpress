@@ -144,6 +144,7 @@ export default {
       font-size: 28px;
       text-align: center;
       line-height: 50px;
+      text-transform: uppercase;
       color: #fff;
     }
 
