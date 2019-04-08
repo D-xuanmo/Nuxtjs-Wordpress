@@ -2,7 +2,7 @@
   <section class="container">
     <!-- 文章内容开始 -->
     <article class="section article">
-      <h2 class="title">{{ article.title.rendered }}</h2>
+      <h2 class="title" v-html="article.title.rendered"></h2>
       <div class="other-info">
         <span class="author">{{ article.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
