@@ -62,7 +62,7 @@
     <!-- 作者信息 -->
     <div class="section author-introduct">
       <!-- 头像 -->
-      <img :src="article.articleInfor.other.authorPic.full" alt="" width="100">
+      <img :src="article.articleInfor.other.authorPic" alt="" width="100">
       <div class="right">
         <!-- 昵称 -->
         <div class="header">
@@ -227,14 +227,14 @@ export default {
     }
   },
   mounted () {
-    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`) : this.$store.state.info.setExtend.thumbnail
+    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`) : this.$store.state.info.extra.thumbnail
     // 海报内容
     this.posterContent = {
       imgUrl: contentImg,
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
-      qrcodeLogo: this.article.articleInfor.other.authorPic[96].replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
+      qrcodeLogo: this.article.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
       qrcodeText: this.$store.state.info.blogName
     }
 

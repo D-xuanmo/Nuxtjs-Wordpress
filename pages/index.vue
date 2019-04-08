@@ -30,7 +30,7 @@
       </ul>
       <article class="article-list" v-for="item in articleList" :key="item.key">
         <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
-          <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
+          <img :src="item.articleInfor.thumbnail === null ? $store.state.info.extra.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
         </nuxt-link>
         <div class="list-content">
           <h2 class="title">
@@ -93,8 +93,8 @@ export default {
     return {
       title: `${this.$store.state.info.blogName} | ${this.$store.state.info.blogDescription}`,
       meta: [
-        { name: 'keywords', content: this.$store.state.info.setExtend.keywords },
-        { name: 'description', content: this.$store.state.info.setExtend.description }
+        { name: 'keywords', content: this.$store.state.info.extra.keywords },
+        { name: 'description', content: this.$store.state.info.extra.description }
       ]
     }
   },
