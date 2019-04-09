@@ -1,12 +1,12 @@
 // 字体图标
 @font-face {
   font-family: 'iconfont';  /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.eot');
-  src: url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_5d4x02nnz2d.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_552040_b00c3psboec.eot');
+  src: url('//at.alicdn.com/t/font_552040_b00c3psboec.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_552040_b00c3psboec.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_b00c3psboec.woff') format('woff'),
+  url('//at.alicdn.com/t/font_552040_b00c3psboec.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_552040_b00c3psboec.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -62,12 +62,15 @@ $iconMap         : (
   "note1"        : "\e727",
   "note2"        : "\e617",
   "case"         : "\e678",
+  "tool"         : "\e627",
   "life1"        : "\e65a",
   "software"     : "\e612",
   "download1"    : "\e71e",
   "download2"    : "\e637",
   "loading"      : "\e6da",
   "star"         : "\e664",
+  "eye"          : "\e62f",
+  "reward"       : "\e604",
   "html5"        : "\e6f0",
   "html5-f"      : "\e602",
   "css3"         : "\e7c9",
@@ -77,8 +80,16 @@ $iconMap         : (
   "angular-f"    : "\e615",
   "bootstrap-f"  : "\e608",
   "javascript-f" : "\e635",
+  "nodejs"       : "\e71d",
   "sass"         : "\e616",
   "less"         : "\e66a",
+  "php"          : "\e787",
+  "mongodb"      : "\e71f",
+  "mysql"        : "\e7f4",
+  "webpack"      : "\e65c",
+  "gulp"         : "\e958",
+  "git"          : "\eaf5",
+  "xiaochengxu"  : "\e71f",
   "wordpress"    : "\e65b",
   "aliyun"       : "\e625",
   "twitter-f"    : "\e603",
@@ -89,8 +100,6 @@ $iconMap         : (
   "sina"         : "\e620",
   "github"       : "\e7ab",
   "github-f"     : "\e691",
-  "eye"          : "\e62f",
-  "reward"       : "\e604"
 );
 
 @each $key, $value in $iconMap {
