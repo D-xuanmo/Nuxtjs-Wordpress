@@ -15,7 +15,7 @@
         <p class="summary">{{ item.articleInfor.summary }}</p>
         <div class="opeartion">
           <div class="information">
-            <span><x-icon type="icon-time"></x-icon>{{ item.date.replace('T', ' ') }}</span>
+            <span><x-icon type="icon-date"></x-icon>{{ item.date.replace('T', ' ') }}</span>
             <span><x-icon type="icon-eye"></x-icon>{{ item.articleInfor.viewCount }}</span>
             <span><x-icon type="icon-message"></x-icon>{{ item.articleInfor.commentCount }}</span>
             <span><x-icon type="icon-good"></x-icon>{{ item.articleInfor.xmLike.very_good }}</span>
