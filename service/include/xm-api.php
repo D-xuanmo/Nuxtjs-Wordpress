@@ -6,10 +6,10 @@ function replace_domain ($url) {
 
 // 获取头像
 function local_avatar_url ($user_id = 1) {
-  if (get_the_author_meta('simple_local_avatar', $user_id)) {
-    return get_the_author_meta('simple_local_avatar', $user_id)[full];
-  } else {
+  if (get_the_author_meta('simple_local_avatar', $user_id) === '') {
     return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(get_the_author_meta('email')))) . '?s=200';
+  } else {
+    return get_the_author_meta('simple_local_avatar', $user_id)[full];
   }
 }
 
@@ -59,7 +59,7 @@ function xm_get_article_infor ($object) {
   $array = array(
     'author' => get_the_author(),
     'other' => array(
-      'authorPic' => local_avatar_url(),
+      'authorPic' => local_avatar_url($postID),
       'authorTro' => get_the_author_meta('description'),
       'github' => get_the_author_meta('github_url'),
       'qq' => get_the_author_meta('qq'),
