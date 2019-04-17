@@ -5,11 +5,11 @@ function replace_domain ($url) {
 }
 
 // 获取头像
-function local_avatar_url ($user_id = 1) {
-  if (get_the_author_meta('simple_local_avatar', $user_id) === '') {
+function local_avatar_url () {
+  if (get_the_author_meta('simple_local_avatar') === '') {
     return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim(get_the_author_meta('email')))) . '?s=200';
   } else {
-    return get_the_author_meta('simple_local_avatar', $user_id)[full];
+    return get_the_author_meta('simple_local_avatar')[full];
   }
 }
 
@@ -59,7 +59,7 @@ function xm_get_article_infor ($object) {
   $array = array(
     'author' => get_the_author(),
     'other' => array(
-      'authorPic' => local_avatar_url($postID),
+      'authorPic' => local_avatar_url(),
       'authorTro' => get_the_author_meta('description'),
       'github' => get_the_author_meta('github_url'),
       'qq' => get_the_author_meta('qq'),
@@ -143,7 +143,7 @@ function add_get_blog_info () {
     'rewardText' => get_option('xm_vue_options')['reward_text'],
     'alipay' => get_option('xm_vue_options')['alipay'],
     'wechatpay' => get_option('xm_vue_options')['wechatpay'],
-    'adminPic' => local_avatar_url(),
+    'adminPic' => local_avatar_url(1),
     'extra' => get_option('xm_vue_options'),
     'banner' => get_option('xm_vue_options')['banner'],
     'logo' => get_option('xm_vue_options')['logo'],
