@@ -2,7 +2,7 @@
   <div class="container">
     <article class="article">
       <h2 class="title">
-        <span>{{ pages.title.rendered }}</span>
+        <span v-html="pages.title.rendered"></span>
       </h2>
       <div class="content-details" v-html="pages.content.rendered"></div>
     </article>

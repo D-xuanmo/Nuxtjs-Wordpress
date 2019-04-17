@@ -7,7 +7,7 @@
           <x-icon type="icon-notice2"></x-icon> 公告
         </p>
       </div>
-      <div class="content" v-html="sidebar.setExtend.sidebar_notice"></div>
+      <div class="content" v-html="sidebar.extra.sidebar_notice"></div>
     </div>
     <!-- 最新评论 -->
     <div class="sidebar-list comment">
@@ -31,7 +31,7 @@
       </ul>
     </div>
     <!-- 站点统计 -->
-    <div class="sidebar-list count" v-if="sidebar.setExtend.aside_count === 'on'">
+    <div class="sidebar-list count" v-if="sidebar.extra.aside_count === 'on'">
       <div class="header">
         <p>
           <x-icon type="icon-count"></x-icon> 站点统计
@@ -144,6 +144,7 @@ export default {
       font-size: 28px;
       text-align: center;
       line-height: 50px;
+      text-transform: uppercase;
       color: #fff;
     }
 

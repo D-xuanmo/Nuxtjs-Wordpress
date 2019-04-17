@@ -1,136 +1,9 @@
 @import "./tag";
 @import "./iconfont";
+@import "./class.scss";
 @font-face {
   font-family: "play";
   src: url(../font/PlayRegular.woff.ttf);
-}
-
-// 左浮动
-.fl {
-  float: left;
-}
-
-// 右浮动
-.fr {
-  float: right;
-}
-
-// 清除浮动
-.clearfix:after {
-  content: "";
-  display: block;
-  height: 0;
-  clear: both;
-}
-
-// 文本对齐
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
-.vertical-middle {
-  vertical-align: middle;
-}
-
-// 状态显示
-.inline-block {
-  display: inline-block;
-}
-
-.block {
-  display: block;
-}
-
-.hide {
-  display: none;
-}
-
-.o-hide {
-  overflow: hidden;
-}
-
-// 字体大小
-.f-s-small {
-  font-size: $font-size-small;
-}
-
-.f-s-base {
-  font-size: $font-size-base;
-}
-
-.f-s-large {
-  font-size: $font-size-large;
-}
-
-.c-pointer {
-  cursor: pointer;
-}
-
-.word-break {
-  word-break: break-word;
-}
-
-.c-red {
-  color: $color-red;
-}
-
-.c-theme {
-  color: $color-theme;
-}
-
-.case-show {
-  display: block;
-  width: 150px;
-  margin: 20px auto;
-  padding: 10px 18px;
-  background-color: $color-theme;
-  border-radius: $border-radius;
-  text-align: center;
-  color: $color-white !important;
-}
-
-code:not([class*="lang"]),
-.code {
-  padding: 2px 5px;
-  background: #f7f7f9;
-  border: 1px solid #E3EDF3;
-  border-radius: 3px;
-  font-family: "play";
-  color: #d14;
-}
-
-.wrap {
-  width: 1200px;
-  margin: 0 auto;
-}
-
-.btn {
-  padding: 10px 15px;
-  border: 1px solid $color-theme;
-  border-radius: $border-radius;
-  color: $color-theme;
-  cursor: pointer;
-
-  &.active {
-    background: $color-theme;
-    color: $color-white;
-  }
-
-  .iconfont {
-    vertical-align: middle;
-  }
 }
 
 // 文字选中颜色
@@ -165,7 +38,7 @@ body {
   height: 14px;
 }
 
-// 翻页
+// 翻页按钮
 .main {
   .el-pagination {
     margin: 30px 0;
@@ -206,7 +79,6 @@ body {
   }
 }
 
-// 文章列表
 .article-list {
   position: relative;
   display: flex;
@@ -308,18 +180,21 @@ body {
   }
 }
 
-.desktop-show {
-  display: block;
+// 鼠标点击特效
+.move-dot-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  animation: move-dot .8s linear forwards;
 }
 
-.phone-show,
-.tablet-show {
-  display: none;
-}
-
-// 禁止点击
-.prohibit-event {
-  pointer-events: none;
+@keyframes move-dot {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -80px, 0);
+  }
 }
 
 @media screen and (max-width: 1024px) {

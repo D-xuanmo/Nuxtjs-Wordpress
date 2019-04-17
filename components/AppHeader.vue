@@ -1,6 +1,7 @@
 <template>
   <header class="header">
-    <div class="header-content">
+    <div v-if="isFloat" class="hide-header"></div>
+    <div class="header-content" :class="{ 'is-float': isFloat }" ref="header">
       <div class="wrap">
         <div class="left">
           <div class="logo">
@@ -75,8 +76,15 @@ export default {
     return {
       searchText: '',
       isShowNavWrap: false,
-      isShowSearch: false
+      isShowSearch: false,
+      isFloat: false
     }
+  },
+  mounted () {
+    let self = this
+    window.addEventListener('scroll', function () {
+      self.isFloat = this.scrollY > 500 ? true : false
+    }, false)
   },
   methods: {
     // 搜索
@@ -119,7 +127,10 @@ $headerHeight: 60px;
   position: relative;
   width: 100%;
   height: 60px;
-  background: $color-white;
+}
+
+.hide-header {
+  height: 60px;
 }
 
 .header-content {
@@ -129,6 +140,16 @@ $headerHeight: 60px;
   z-index: 999;
   width: 100%;
   height: 100%;
+  background: $color-white;
+
+  &.is-float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 60px;
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+  }
 }
 
 .wrap{

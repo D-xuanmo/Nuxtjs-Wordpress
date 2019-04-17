@@ -2,11 +2,11 @@
   <section class="container">
     <!-- 文章内容开始 -->
     <article class="section article">
-      <h2 class="title">{{ article.title.rendered }}</h2>
+      <h2 class="title" v-html="article.title.rendered"></h2>
       <div class="other-info">
         <span class="author">{{ article.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
-        <span class="time"><x-icon type="icon-time"></x-icon>{{ article.date.replace('T', ' ') }}</span>
+        <span class="time"><x-icon type="icon-date"></x-icon>{{ article.date.replace('T', ' ') }}</span>
         <span class="text">&nbsp;分类：</span>
         <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
         <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
@@ -62,7 +62,7 @@
     <!-- 作者信息 -->
     <div class="section author-introduct">
       <!-- 头像 -->
-      <img :src="article.articleInfor.other.authorPic.full" alt="" width="100">
+      <img :src="article.articleInfor.other.authorPic" alt="" width="100">
       <div class="right">
         <!-- 昵称 -->
         <div class="header">
@@ -227,14 +227,14 @@ export default {
     }
   },
   mounted () {
-    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`) : this.$store.state.info.setExtend.thumbnail
+    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`) : this.$store.state.info.extra.thumbnail
     // 海报内容
     this.posterContent = {
       imgUrl: contentImg,
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
-      qrcodeLogo: this.article.articleInfor.other.authorPic[96].replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
+      qrcodeLogo: this.article.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
       qrcodeText: this.$store.state.info.blogName
     }
 

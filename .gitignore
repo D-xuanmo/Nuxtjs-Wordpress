@@ -1,5 +1,6 @@
 # dependencies
 node_modules
+watch.js
 
 # logs
 npm-debug.log

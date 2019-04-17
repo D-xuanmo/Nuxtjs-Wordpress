@@ -134,6 +134,7 @@ function appthemes_add_quicktags()
         QTags.addButton('h2', 'h2', '<h2>', '</h2>');
         QTags.addButton('2-text', '2-text', '<span style="display:inline-block; width:28px;">', '</span>');
         QTags.addButton('star', 'star', '<i class="iconfont icon-star c-theme">', '</i>');
+        QTags.addButton('arrow-right', 'arrow-right', '<i class="iconfont icon-arrow-right-f">', '</i>');
         // 添加html转换容器
         jQuery(function () {
             jQuery('#html-transform').click(function () {

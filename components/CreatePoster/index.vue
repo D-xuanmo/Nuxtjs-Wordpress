@@ -25,7 +25,8 @@
           <div class="qrcode">
             <div class="left">
               <p>
-                <img :src="content.qrcodeLogo" width="20" height="20" class="vertical-middle"><span class="vertical-middle"> {{ content.qrcodeText }}</span>
+                <!-- <img :src="content.qrcodeLogo" width="20" height="20" class="vertical-middle"> -->
+                <span class="vertical-middle"> {{ content.qrcodeText }}</span>
               </p>
               <p class="tips">长按二维码或扫描二维码查看完整内容</p>
             </div>

@@ -5,7 +5,7 @@
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
-        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.setExtend.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
+        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.extra.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
         <h2 class="title">
@@ -14,7 +14,7 @@
         <p class="summary">{{ item.articleInfor.summary }}</p>
         <div class="opeartion">
           <div class="information">
-            <span><x-icon type="icon-time"></x-icon>{{ item.date.replace('T', ' ') }}</span>
+            <span><x-icon type="icon-date"></x-icon>{{ item.date.replace('T', ' ') }}</span>
             <span><x-icon type="icon-eye"></x-icon>{{ item.articleInfor.viewCount }}</span>
             <span><x-icon type="icon-message"></x-icon>{{ item.articleInfor.commentCount }}</span>
             <span><x-icon type="icon-good"></x-icon>{{ item.articleInfor.xmLike.very_good }}</span>
