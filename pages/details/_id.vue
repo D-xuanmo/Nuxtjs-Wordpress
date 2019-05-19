@@ -150,7 +150,6 @@ export default {
     return {
       isShowReward: false,
       isShowPoster: false,
-      poster: '',
       rewardContent: {},
       posterContent: {},
       opinion: {
