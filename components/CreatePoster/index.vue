@@ -97,7 +97,11 @@ export default {
       try {
         this.QRCodeUrl = await QRCode.toDataURL(text)
       } catch (error) {
-        console.log(error)
+        console.warn(`[createQRcode]: ${error}`)
+        this.$message({
+          title: error,
+          type: 'error'
+        })
       }
     }
     createQR(window.location.href)

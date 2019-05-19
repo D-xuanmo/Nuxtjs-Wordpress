@@ -8,7 +8,12 @@
         <span class="text">&nbsp;发表于：</span>
         <time class="time"><x-icon type="icon-date"></x-icon>{{ article.date.replace('T', ' ') }}</time>
         <span class="text">&nbsp;分类：</span>
-        <span class="classify" v-for="(item, index) in article.articleInfor.classify" :key="item.key" v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"></span>&nbsp;
+        <span
+          class="classify"
+          v-for="(item, index) in article.articleInfor.classify"
+          :key="item.key"
+          v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
+        </span>&nbsp;
         <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
         <span><x-icon type="icon-message-f"></x-icon>{{ article.articleInfor.commentCount }}</span>
       </div>
