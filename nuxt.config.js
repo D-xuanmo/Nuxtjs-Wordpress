@@ -65,8 +65,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/element-ui', ssr: true },
     { src: '~/plugins/message', ssr: false },
-    { src: '~/plugins/icon', ssr: true },
-    { src: '~/plugins/common', ssr: false },
+    { src: '~/plugins/icon', ssr: true }
   ],
 
   modules: ['@nuxtjs/proxy', '@nuxtjs/style-resources'],
@@ -83,17 +82,17 @@ module.exports = {
   // 将此处3个地址改为自己的地址
   proxy: {
     '/api': {
-      target: 'https://www.xuanmo.xin',
+      target: 'http://localhost:8888',
       pathRewrite: {
         '^/api': '/'
       }
     },
     '/wp-content': {
-      target: 'https://www.xuanmo.xin'
+      target: 'http://localhost:8888'
     }
   },
 
   env: {
-    baseUrl: 'https://www.xuanmo.xin'
+    baseUrl: 'http://localhost:8888'
   }
 }

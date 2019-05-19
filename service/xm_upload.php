@@ -1,67 +1,61 @@
 <?php
-header('Content-type:text/json');
+header("Content-type:text/json");
 date_default_timezone_set("PRC");
 
 chmod(__FILE__, 0777);
 
-// 在根目录下增加tmp目录的路径
-$currentPath = "comments/" . $_POST["postID"] . "/";
-$addFilePath = dirname(dirname(dirname(__FILE__))) . "/uploads/" . $currentPath;
+// 拼接当前图片的路径
+$id = $_POST["postID"];
+$uploadFilePath = dirname(dirname(dirname(__FILE__)));
+$currentPath = "/uploads/comments/$id/";
+$fullPath = $uploadFilePath . $currentPath;
+$result = array();
 
-if(!is_dir($addFilePath)) mkdir($addFilePath, 0777, true);
+if(!is_dir($fullPath)) mkdir($fullPath, 0777, true);
 
-if ($_FILES['file'] !== null) {
+if ($_FILES["file"] === null && $_POST['file'] === null) {
+  $result = array(
+    "message" => "上传失败，图片为空！",
+    "code" => "4001"
+  );
+} else {
   // 上传文件大小
-  $fileSize = filesize($_FILES["file"]["tmp_name"]);
+  $fileSize = ceil(filesize($_FILES["file"]["tmp_name"]) / 1024) . "Kb";
 
-  // 截取后缀名
-  $fileEx = strtolower(substr(strrchr($_FILES["file"]["name"], "."), 1));
+  // 生成后缀名
+  preg_match('/data:image\/(?P<type>(\w+));base64,(?P<base64>\S+)/', $_POST['file'], $result);
+  $fileEx = $_POST['file']
+    ? $result["type"]
+    : strtolower(substr(strrchr($_FILES["file"]["name"], "."), 1));
 
   // 生成随机文件名
-  $fileName = date("YmdHis") . substr(rand(), 0, 6) . "." . $fileEx;
+  $fileName = $_POST["name"] ? $_POST["name"] ."." . $fileEx : date("YmdHis") . substr(rand(), 0, 6) . "." . $fileEx;
+
+  $fileType = "";
 
   // 移动文件到指定目录
-  move_uploaded_file($_FILES["file"]["tmp_name"], $addFilePath . $fileName);
+  if ($_POST["file"]) {
+    file_put_contents($fullPath . $fileName, base64_decode($result["base64"]));
+    $fileType = urlencode("image/" . $result["type"]);
+  } else {
+    move_uploaded_file($_FILES["file"]["tmp_name"], $fullPath . $fileName);
+    $fileType = urlencode($_FILES["file"]["type"]);
+  }
 
   // 判断发表文章的时候是否提交了本次的图片，未提交从服务器删除本图片
   if ($_POST["mark"] === "upload") {
     $result = array(
       "name"  => urlencode($fileName),
-      "size"  => ceil($fileSize / 1024) . "Kb",
-      "type"  => urlencode($_FILES["file"]["type"]),
-      "path"  => $_POST["url"] . '/uploads/' . $currentPath . urlencode($fileName),
+      "size"  => $fileSize,
+      "type"  => $fileType,
+      "path"  => $_POST["url"] . $currentPath . urlencode($fileName),
       "code"  => $_POST["mark"]
     );
   } else {
     $result = array(
-      "code" => unlink(dirname(dirname(dirname(__FILE__))) . "/uploads/" . $currentPath . $_POST['fileName'])
+      "code" => unlink(dirname(dirname(dirname(__FILE__))) . $uploadFilePath . $_POST["fileName"])
     );
   }
-} else {
-  // 上传文件为base64格式
-  if ($_POST["mark"] === "upload") {
-    // 截取图片类型
-    preg_match('/data:\s*image\/(?P<type>(\w+));base64,(?P<base64>\S+)/', $_POST['file'], $result);
-
-    // 生成文件名字
-    $fileName = date("YmdHis") . substr(rand(), 0, 6) . '.' . $result['type'];
-
-    // 生成文件
-    file_put_contents($addFilePath . $fileName, base64_decode($result['base64']));
-
-    $result = array(
-      "name"  => urlencode($fileName),
-      "type"  => urlencode("image/" . $result['type']),
-      "path"  => $_POST["url"] . '/uploads/' . $currentPath . urlencode($fileName),
-      "code"  => $_POST["mark"]
-    );
-  } else {
-     $result = array(
-       "code" => unlink(dirname(dirname(dirname(__FILE__))) . "/uploads/" . $currentPath . $_POST['fileName'])
-     );
-   }
 }
-
-// 输出结果
 echo urldecode(json_encode($result));
 ?>
