@@ -38,6 +38,11 @@ body {
   height: 14px;
 }
 
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+  border-color: $color-theme !important;
+}
+
 // 翻页按钮
 .main {
   .el-pagination {

@@ -125,6 +125,13 @@ export default {
       &:last-of-type{
         border: 0;
       }
+
+      &:hover {
+        .thumbnail {
+          transition: all 10s;
+          transform: rotate(20turn);
+        }
+      }
     }
 
     .right{
@@ -133,7 +140,7 @@ export default {
 
     .thumbnail{
       margin-right: 10px;
-      border-radius: $border-radius;
+      border-radius: 50%;
     }
 
     .thumbnail-text{
