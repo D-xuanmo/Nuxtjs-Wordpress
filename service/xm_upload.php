@@ -16,7 +16,7 @@ if(!is_dir($fullPath)) mkdir($fullPath, 0777, true);
 if ($_FILES["file"] === null && $_POST['file'] === null) {
   if ($_POST["mark"] === "close") {
     $result = array(
-      "code" => unlink(dirname(dirname(dirname(__FILE__))) . $uploadFilePath . $_POST["fileName"])
+      "code" => unlink(dirname(dirname(dirname(__FILE__))) . $currentPath . $_POST["fileName"])
     );
   } else {
     $result = array(
