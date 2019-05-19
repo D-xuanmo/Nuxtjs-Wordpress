@@ -14,10 +14,16 @@ $result = array();
 if(!is_dir($fullPath)) mkdir($fullPath, 0777, true);
 
 if ($_FILES["file"] === null && $_POST['file'] === null) {
-  $result = array(
-    "message" => "上传失败，图片为空！",
-    "code" => "4001"
-  );
+  if ($_POST["mark"] === "close") {
+    $result = array(
+      "code" => unlink(dirname(dirname(dirname(__FILE__))) . $uploadFilePath . $_POST["fileName"])
+    );
+  } else {
+    $result = array(
+      "message" => "上传失败，图片为空！",
+      "code" => "4001"
+    );
+  }
 } else {
   // 上传文件大小
   $fileSize = ceil(filesize($_FILES["file"]["tmp_name"]) / 1024) . "Kb";
@@ -50,10 +56,6 @@ if ($_FILES["file"] === null && $_POST['file'] === null) {
       "type"  => $fileType,
       "path"  => $_POST["url"] . $currentPath . urlencode($fileName),
       "code"  => $_POST["mark"]
-    );
-  } else {
-    $result = array(
-      "code" => unlink(dirname(dirname(dirname(__FILE__))) . $uploadFilePath . $_POST["fileName"])
     );
   }
 }
