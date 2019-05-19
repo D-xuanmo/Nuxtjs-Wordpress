@@ -82,17 +82,17 @@ module.exports = {
   // 将此处3个地址改为自己的地址
   proxy: {
     '/api': {
-      target: 'http://localhost:8888',
+      target: 'https://www.xuanmo.xin',
       pathRewrite: {
         '^/api': '/'
       }
     },
     '/wp-content': {
-      target: 'http://localhost:8888'
+      target: 'https://www.xuanmo.xin'
     }
   },
 
   env: {
-    baseUrl: 'http://localhost:8888'
+    baseUrl: 'https://www.xuanmo.xin'
   }
 }
