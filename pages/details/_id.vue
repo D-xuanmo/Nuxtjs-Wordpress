@@ -145,6 +145,7 @@ export default {
     return {
       isShowReward: false,
       isShowPoster: false,
+      poster: '',
       rewardContent: {},
       posterContent: {},
       opinion: {
@@ -227,7 +228,10 @@ export default {
     }
   },
   mounted () {
-    const contentImg = this.article.articleInfor.thumbnail ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`) : this.$store.state.info.extra.thumbnail
+    const contentImg
+      = this.article.articleInfor.thumbnail
+      ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`)
+      : this.$store.state.info.extra.thumbnail
     // 海报内容
     this.posterContent = {
       imgUrl: contentImg,
@@ -235,7 +239,8 @@ export default {
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
       qrcodeLogo: this.article.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
-      qrcodeText: this.$store.state.info.blogName
+      qrcodeText: this.$store.state.info.blogName,
+      id: this.$route.params.id
     }
 
     process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))

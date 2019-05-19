@@ -38,13 +38,13 @@
       <div class="poster-share text-center">
         <h2 class="title">分享本文海报</h2>
         <div class="btn">
-          <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${content.title}&summary=${content.summary}`" target="_blank">
+          <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${content.title}&summary=${content.summary}&pics=${poster}`" target="_blank">
             <svg-icon iconName="#icon-QQkongjian" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;分享到QQ空间</span>
           </a>
         </div>
         <div class="btn">
-          <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${content.title}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+          <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${content.title}&appkey=1343713053&searchPic=true&pic=${poster}#_loginLayer_1473259217614`" target="_blank">
             <svg-icon iconName="#icon-xinlang1" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;分享到新浪</span>
           </a>
@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+import API from '~/api'
 import QRCode from 'qrcode'
 import html2canvas from  'html2canvas'
 export default {
@@ -71,7 +72,8 @@ export default {
       posterUrl: '',
       isCompleted: false,
       isFirstCreate: true,
-      isShow: true
+      isShow: true,
+      poster: ''
     }
   },
   props: {
@@ -109,6 +111,15 @@ export default {
         useCORS: true,
         logging: false
       })
+      let formData = new FormData()
+      formData.append('file', canvas.toDataURL('image/png'))
+      formData.append('postID',  this.content.id)
+      formData.append('name', `poster-${this.content.id}`)
+      formData.append('url', '/wp-content')
+      formData.append('mark', 'upload')
+      let { data: poster } = await API.uploadImage(formData)
+      this.$emit('on-change', poster)
+      this.poster = this.$store.state.info.baseUrl + poster.path
       this.isFirstCreate = false
       this.isCompleted = true
       this.posterUrl = canvas.toDataURL('image/png')
