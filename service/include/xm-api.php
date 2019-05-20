@@ -134,11 +134,19 @@ function add_get_blog_info () {
 
   $xm_options = get_option('xm_vue_options');
   $result = array(
+    'baseUrl' => get_option('xm_vue_options')['domain'],
+    'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
+    'detailsCss' => get_option('xm_vue_options')['details_css'],
     'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'contentUrl' => '/wp-content',
     'blogName' => get_bloginfo('name'),
     'blogDescription' => get_bloginfo('description'),
-    'adminPic' => local_avatar_url(1),
+    'rewardText' => get_option('xm_vue_options')['reward_text'],
+    'alipay' => get_option('xm_vue_options')['alipay'],
+    'wechatpay' => get_option('xm_vue_options')['wechatpay'],
+    'adminPic' => local_avatar_url(),
+    'banner' => get_option('xm_vue_options')['banner'],
+    'logo' => get_option('xm_vue_options')['logo'],
     'tagCloud' => get_tags(array('orderby' => 'count', 'order' => 'DESC')),
     'getAllCountArticle' => wp_count_posts() -> publish,
     'getAllCountCat' => wp_count_terms('category'),
@@ -146,6 +154,8 @@ function add_get_blog_info () {
     'getAllCountPage' => wp_count_posts('page') -> publish,
     'getAllCountComment' => $wpdb -> get_var("SELECT COUNT(*) FROM $wpdb->comments"),
     'lastUpDate' => $last,
+    'getSidebarCount' => get_option('xm_vue_options')['aside_count'],
+    'link' => get_option('xm_vue_options')['link'],
     'newArticle' => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
     'newComment' => $newComment
   );
