@@ -232,13 +232,9 @@ export default {
     }
   },
   mounted () {
-    const contentImg
-      = this.article.articleInfor.thumbnail
-      ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`)
-      : this.$store.state.info.thumbnail
     // 海报内容
     this.posterContent = {
-      imgUrl: contentImg,
+      imgUrl: this.$store.state.info.thumbnail,
       title: this.article.title.rendered,
       summary: this.article.articleInfor.summary,
       time: this.article.date.replace(/T.*/, ' '),
