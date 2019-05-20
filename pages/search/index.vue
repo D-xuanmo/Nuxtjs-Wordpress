@@ -5,7 +5,7 @@
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
-        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.extra.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
+        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
         <h2 class="title">

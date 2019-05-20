@@ -1,7 +1,7 @@
 <template>
   <footer class="footer" :class="{ 'is-error': $store.state.errorInformation.statusCode >= 400 }">
     <div class="wrap">
-      <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.extra.link"></div>
+      <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.link"></div>
       <div class="copyright">
         <div class="left">
           <ul class="footer-menu">
@@ -12,7 +12,7 @@
             </li>
           </ul>
           <!-- 版权文字 -->
-          <div class="copyright-text" v-html="$store.state.info.extra.footer_copyright"></div>
+          <div class="copyright-text" v-html="$store.state.info.footer_copyright"></div>
         </div>
         <p class="right">Theme by <a href="https://www.xuanmo.xin">Xuanmo</a></p>
       </div>

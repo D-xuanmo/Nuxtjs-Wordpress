@@ -51,7 +51,7 @@ export default {
   // 发表意见
   updateArticleLike (data) {
     return axios({
-      url: `${process.env.baseUrl}/wp-json/xm-blog/v1/link/`,
+      url: `${process.env.baseUrl}/wp-json/xm-blog/v1/like`,
       method: 'POST',
       data
     })
@@ -60,7 +60,7 @@ export default {
   // 获取评论列表
   getCommentList (params) {
     return axios({
-      url: '/wp-json/wp/v2/comments',
+      url: `${process.env.baseUrl}/wp-json/wp/v2/comments`,
       params
     })
   },
@@ -68,7 +68,7 @@ export default {
   // 发表评论
   updateComment (data) {
     return axios({
-      url: '/wp-json/wp/v2/comments',
+      url: `${process.env.baseUrl}/wp-json/wp/v2/comments`,
       method: 'POST',
       data
     })
@@ -77,7 +77,7 @@ export default {
   // 评论列表点赞和踩
   updateCommentOpinion (data) {
     return axios({
-      url: '/wp-json/xm-blog/v1/update-comment-meta',
+      url: `${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`,
       method: 'POST',
       data
     })
@@ -94,7 +94,7 @@ export default {
   // 上传图片
   uploadImage (data, config) {
     return axios({
-      url: '/wp-content/themes/xm-vue-theme/xm_upload.php',
+      url: `${process.env.baseUrl}/wp-content/themes/xm-vue-theme/xm_upload.php`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -107,7 +107,7 @@ export default {
   // 删除图片
   deleteImage (data) {
     return axios({
-      url: '/wp-content/themes/xm-vue-theme/xm_upload.php',
+      url: `${process.env.baseUrl}/wp-content/themes/xm-vue-theme/xm_upload.php`,
       method: 'POST',
       headers: {
         'Content-Type': 'multipart/form-data'

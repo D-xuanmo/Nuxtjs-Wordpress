@@ -235,7 +235,7 @@ export default {
     const contentImg
       = this.article.articleInfor.thumbnail
       ? this.article.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`)
-      : this.$store.state.info.extra.thumbnail
+      : this.$store.state.info.thumbnail
     // 海报内容
     this.posterContent = {
       imgUrl: contentImg,
