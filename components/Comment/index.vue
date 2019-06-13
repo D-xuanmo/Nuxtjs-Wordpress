@@ -7,7 +7,7 @@
       <!-- 评论其他功能 -->
       <div class="comment-other">
         <ul class="list-wrap">
-          <li class="list" @click="showChartlet">
+          <li v-if="isOpenCommentUpload === 'on'" class="list" @click="showChartlet">
             <x-icon type="icon-upload-img2"></x-icon>贴图
           </li>
           <li class="list" @click.stop="getExpression">
@@ -246,6 +246,7 @@ export default {
   },
   computed: {
     ...mapState({
+      isOpenCommentUpload: state => state.info.isOpenCommentUpload,
       templeteUrl: state => state.info.templeteUrl
     })
   },

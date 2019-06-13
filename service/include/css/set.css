@@ -1,3 +1,13 @@
+:root {
+  --theme: #1890ff;
+  --borderColor: #ccc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .fl {
   float: left;
 }
@@ -13,85 +23,89 @@
   clear: both;
 }
 
-.margin-top-15 {
-  margin-top: 15px;
+.container {
+  padding: 10px;
 }
 
-.highlighted {
-  background: #d4d4d4;
-  color: #d8296d;
+/* tab切换 */
+.tab-wrapper {
+  position: relative;
+  display: flex;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--borderColor);
 }
 
-input, textarea {
-  vertical-align: middle;
+.tab-wrapper .line {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 46px;
+  height: 2px;
+  margin-bottom: 0;
+  background: var(--theme);
+  transition: .5s;
 }
 
-.url-inp {
-  width: 60%;
-}
-
-
-/* 导航切换页面 */
-
-.nav-wrap {
-  border-bottom: 1px solid #ccc;
-}
-
-.nav-wrap .nav-list {
-  float: left;
-  margin: 0 10px 0 0;
-  padding: 10px 20px;
-  background: #008dd5;
-  color: #fff;
+.tab-wrapper .item {
+  margin-bottom: 0;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
-.nav-wrap .nav-list.on {
-  background: #50baf1;
+.tab-wrapper .item.is-active {
+  color: var(--theme);
 }
 
-
-/*  */
-
-.content-wrap {
-  display: none;
-}
-
-.content-wrap:first-of-type {
-  display: block;
-}
-
-.row {
+/* 表单 */
+.form-item {
+  display: flex;
   margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed #ccc;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--borderColor);
 }
 
-.row .left-wrap {
-  width: 10%;
+.form-item-group {
+  border-bottom: 1px dashed var(--borderColor);
+}
+.form-item-group .form-item {
+  border-bottom: 0;
+}
+
+.form-item-title {
+  width: 150px;
+  margin: 0 10px 0 0;
   text-align: right;
 }
 
-.row .right-wrap {
-  width: 88%;
+.form-item-content {
+  flex: 1;
 }
 
-.row .right-wrap input[type="text"] {
-  width: 80%;
+.content-item {
+  display: none;
 }
 
-.btn-wrap {
-  border: 0;
+.content-item:first-of-type {
+  display: block;
 }
 
-.submit-btn {
+.input-inner {
+  width: 500px;
+}
+
+.preview-img {
+  max-width: 200px;
+}
+
+.btn-submit {
   display: block;
   width: 200px;
-  height: 50px;
+  height: 40px;
   margin-top: 20px;
   border: 0;
   outline: 0;
-  background: #008dd5;
+  background: var(--theme);
+  border-radius: 5px;
   color: #fff;
   cursor: pointer;
 }

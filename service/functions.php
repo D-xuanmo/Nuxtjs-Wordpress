@@ -89,7 +89,6 @@ function xm_user_contact($user_contactmethods)
   $user_contactmethods['sex'] = '性别';
   return $user_contactmethods;
 }
-
 add_filter('user_contactmethods', 'xm_user_contact');
 
 /*
@@ -345,7 +344,6 @@ function comment_add_at($comment_text, $comment = '')
   }
   return $comment_text;
 }
-
 add_filter('comment_text', 'comment_add_at', 20, 2);
 
 /**
