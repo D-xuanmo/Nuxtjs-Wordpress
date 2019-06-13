@@ -6,6 +6,14 @@
 
 > 使用的时候请修改nuxt.config.js的配置项，改为自己的信息
 
+## 主题设置截图
+
+![](https://upyun.xuanmo.xin/blog/xm-nuxt-wordpress-1.png)
+
+![](https://upyun.xuanmo.xin/blog/xm-nuxt-wordpress-2.png)
+
+![](https://upyun.xuanmo.xin/blog/xm-nuxt-wordpress-3.png)
+
 ## Build Setup
 
 ``` bash
