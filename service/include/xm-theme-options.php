@@ -182,7 +182,7 @@ function themeoptions_page() {
           </div>
 
           <div class="form-item">
-            <p class="form-item-title">默认缩略图：</p>
+            <p class="form-item-title">文章列表默认缩略图：</p>
             <div class="form-item-content">
               <input
                 type="text"

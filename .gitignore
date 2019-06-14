@@ -1,6 +1,7 @@
 # dependencies
 node_modules
 watch.js
+.tern-project
 
 # logs
 npm-debug.log
