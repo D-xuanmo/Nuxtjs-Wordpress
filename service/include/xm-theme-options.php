@@ -28,6 +28,19 @@ function themeoptions_page() {
       <ul class="content-wrapper">
         <!-- 内容一 基本 -->
         <li class="content-item content1">
+					<div class="form-item">
+						<p class="form-item-title">站点前端域名：</p>
+						<div class="form-item-content">
+							<input
+								type="text"
+								class="input-inner"
+								name="domain"
+								id="domain"
+								value="<?php echo $xm_options['domain']; ?>"
+							>
+						</div>
+					</div>
+
           <div class="form-item">
             <p class="form-item-title">侧边栏统计功能：</p>
             <div class="form-item-content">
@@ -84,19 +97,6 @@ function themeoptions_page() {
                 id="open-text-picture-off-off"
                 name="is-open-text-picture"
                 value="off" <?php if($xm_options['text_pic'] == 'off' || $xm_options['text_pic'] == '') echo 'checked'; ?>
-              >
-            </div>
-          </div>
-
-          <div class="form-item">
-            <p class="form-item-title">站点前端域名：</p>
-            <div class="form-item-content">
-              <input
-                type="text"
-                class="input-inner"
-                name="domain"
-                id="domain"
-                value="<?php echo $xm_options['domain']; ?>"
               >
             </div>
           </div>
