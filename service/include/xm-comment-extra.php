@@ -1,7 +1,7 @@
 <?php
 // 判断浏览器型号
 function get_browser_name ($str) {
-  $matches['ua'] = $str;
+  // $matches['ua'] = $str;
   // 判断系统
   if (preg_match('/Maci/', $str)) {
     // mac
@@ -29,6 +29,9 @@ function get_browser_name ($str) {
     } else if (strpos($match[0]['system'], '5.1')) {
       $matches['system'] = str_replace(' NT 5.1', ' XP', $match[0]['system']);
     }
+  } else if (preg_match('/Linux/', $str)) {
+    $matches['system'] = 'Linux';
+    // 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'
   } else {
     $matches['system'] = 'Unknown';
   }
