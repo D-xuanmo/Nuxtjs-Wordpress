@@ -214,23 +214,23 @@ function themeoptions_page() {
               </div>
             </div>
             <div class="form-item">
-              <p class="form-item-title">banner标题：</p>
+              <p class="form-item-title">banner大图标题：</p>
               <div class="form-item-content">
                 <input
                   type="text"
                   class="input-inner"
                   name="big-banner-text"
-                  value="<?php echo $a_options['banner']['big_banner']['text']; ?>"
+                  value="<?php echo $xm_options['banner']['big_banner']['text']; ?>"
                 >
               </div>
             </div>
             <div class="form-item">
-              <p class="form-item-title">banner链接：</p>
+              <p class="form-item-title">banner大图链接：</p>
               <div class="form-item-content">
                 <input
                   type="text"
                   class="input-inner"
-                  name="big-banner-text"
+                  name="big-banner-link"
                   value="<?php echo $xm_options['banner']['big_banner']['link']; ?>"
                 >
               </div>
