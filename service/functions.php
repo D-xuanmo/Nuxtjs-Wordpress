@@ -129,7 +129,6 @@ function appthemes_add_quicktags()
         for (var i = 0, length = aLanguage.length; i < length; i++) {
             QTags.addButton(aLanguage[i], aLanguage[i], '\n<pre class="language-' + aLanguage[i] + ' line-numbers"><code class="language-' + aLanguage[i] + '">\n', '\n</code></pre>\n');
         }
-        QTags.addButton('c-code', 'c-code', '<span class="code">', '</span>');
         QTags.addButton('h2', 'h2', '<h2>', '</h2>');
         QTags.addButton('2-text', '2-text', '<span style="display:inline-block; width:28px;">', '</span>');
         QTags.addButton('star', 'star', '<i class="iconfont icon-star c-theme">', '</i>');
@@ -450,4 +449,16 @@ function xm_upload_mimes($mimes = array()) {
   return $mimes;
 }
 add_filter('upload_mimes', 'xm_upload_mimes');
+
+//新建或更新文章时移除 noreferrer
+function xm_targeted_link_rel_remove_noreferrer($rel_values) {
+  return preg_replace('/noreferrer\s*/i', '', $rel_values);
+}
+add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noreferrer', 999);
+
+//新建或更新文章时移除 noopener
+function xm_targeted_link_rel_remove_noopener($rel_values) {
+  return preg_replace('/noopener\s*/i', '', $rel_values);
+}
+add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noopener', 999);
 ?>
