@@ -10,7 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue .",
-    "pm2": "pm2 start --name 'nuxt' npm run build --watch"
+    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.5.4",
