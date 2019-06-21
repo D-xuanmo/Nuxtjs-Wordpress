@@ -25,7 +25,7 @@
           <div class="qrcode">
             <div class="left">
               <p>
-                <!-- <img :src="content.qrcodeLogo" width="20" height="20" class="vertical-middle"> -->
+                <img :src="content.qrcodeLogo" width="20" height="20" class="vertical-middle">
                 <span class="vertical-middle"> {{ content.qrcodeText }}</span>
               </p>
               <p class="tips">长按二维码或扫描二维码查看完整内容</p>
@@ -61,7 +61,8 @@
   </div>
 </template>
 <script>
-import API from '~/api'
+import { mapActions } from 'vuex'
+// import API from '~/api'
 import QRCode from 'qrcode'
 import html2canvas from 'html2canvas'
 export default {
@@ -90,7 +91,7 @@ export default {
   },
   watch: {
     value (v) {
-      this.isFirstCreate && this.createPoster()
+      this.isFirstCreate && this._createPoster()
     }
   },
   mounted () {
@@ -109,7 +110,8 @@ export default {
     createQR(window.location.href)
   },
   methods: {
-    async createPoster () {
+    ...mapActions(['uploadImage']),
+    async _createPoster () {
       // 生成海报
       let canvas = await html2canvas(this.$refs.poster, {
         useCORS: true,
@@ -121,7 +123,7 @@ export default {
       formData.append('name', `poster-${this.content.id}`)
       formData.append('url', '/wp-content')
       formData.append('mark', 'upload')
-      let { data: poster } = await API.uploadImage(formData)
+      let { data: poster } = await this.uploadImage(formData)
       this.$emit('on-change', poster)
       this.poster = this.$store.state.info.baseUrl + poster.path
       this.isFirstCreate = false

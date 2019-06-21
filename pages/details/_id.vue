@@ -119,7 +119,7 @@
     </div>
     <!-- 生成海报 -->
     <no-ssr placeholder="Loading...">
-      <!-- <create-poster v-model="isShowPoster" :content="posterContent"/> -->
+      <create-poster v-model="isShowPoster" :content="posterContent"/>
     </no-ssr>
   </section>
 </template>
@@ -127,7 +127,7 @@
 import { mapState, mapActions } from 'vuex'
 import Comments from '~/components/Comment'
 import Reward from '~/components/Reward'
-// import CreatePoster from '~/components/CreatePoster'
+import CreatePoster from '~/components/CreatePoster'
 export default {
   name: 'Details',
   fetch ({ params, error, store }) {
@@ -136,8 +136,8 @@ export default {
   },
   components: {
     Comments,
-    Reward
-    // CreatePoster
+    Reward,
+    CreatePoster
   },
   data () {
     return {
