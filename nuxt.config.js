@@ -14,11 +14,11 @@ export default {
     ],
     script: [
       { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },
-      { src: 'https://upyun.xuanmo.xin/js/prism.js' }
+      { src: 'https://upyun.xuanmo.xin/js/prism.js' },
       // 百度主推文章收录用
-      // { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
+      { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
       // 加入百度统计js，使用时自行添加为自己的
-      // { src: 'https://hm.baidu.com/hm.js?' }
+      { src: 'https://hm.baidu.com/hm.js?' }
     ]
   },
 
