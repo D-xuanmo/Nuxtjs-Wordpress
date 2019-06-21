@@ -37,7 +37,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
 import API from '~/api'
 import { mapState } from 'vuex'
 export default {
@@ -95,8 +94,7 @@ export default {
               this.resFileName = data.name
               _file.value = ''
             }
-          })
-          .catch(err => {
+          }).catch(err => {
             if (err.response.status === 404) {
               this.$message({
                 title: '上传失败(404)！',

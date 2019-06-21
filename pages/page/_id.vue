@@ -2,52 +2,44 @@
   <div class="container">
     <article class="article">
       <h2 class="title">
-        <span v-html="pages.title.rendered"></span>
+        <span v-html="detail.title.rendered"></span>
       </h2>
-      <div class="content-details" v-html="pages.content.rendered"></div>
+      <div class="content-details" v-html="detail.content.rendered"></div>
     </article>
     <!-- 评论列表 -->
     <div class="comment">
-      <h2 class="comment-title" v-html="`共 ${pages.pageInfor.commentCount} 条评论关于 “${pages.title.rendered}”`"></h2>
+      <h2 class="comment-title" v-html="`共 ${detail.pageInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
       <no-ssr>
-        <comments></comments>
+        <comments/>
       </no-ssr>
     </div>
   </div>
 </template>
 
 <script>
-import API from '~/api'
 import Comments from '~/components/Comment'
+import { mapState } from 'vuex'
 export default {
-  async asyncData ({ params, error, store }) {
-    try {
-      let [pages] = await Promise.all([
-        API.getPageDetails(params.id)
-      ])
-      return {
-        pages: pages.data
-      }
-    } catch (err) {
-      const code = err.response.data.data.status
-      const message = err.response.data.message
-      error({ statusCode: code, message })
-      store.dispatch('updateError', { code, message })
-    }
-  },
   name: 'Page',
   layout: 'page',
+  fetch ({ params, store }) {
+    return store.dispatch('page/getPageDetail', params.id)
+  },
   components: {
     Comments
   },
+  computed: {
+    ...mapState(['info']),
+    ...mapState('page', ['detail'])
+  },
   head () {
     return {
-      title: `${this.pages.title.rendered} | ${this.$store.state.info.blogName}`,
+      title: `${this.detail.title.rendered} | ${this.info.blogName}`,
       link: [
         { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
       ],
       style: [
-        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
+        { cssText: this.info.detailsCss, type: 'text/css' }
       ],
       script: [
         { src: 'https://upyun.xuanmo.xin/js/prism.js' }

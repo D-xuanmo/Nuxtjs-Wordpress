@@ -5,7 +5,7 @@
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
-        <img :src="item.articleInfor.thumbnail === null ? $store.state.info.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
+        <img :src="item.articleInfor.thumbnail === null ? info.thumbnail : item.articleInfor.thumbnail.replace(/https?:\/\/.+\:\d+/, '')" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
         <h2 class="title">
@@ -28,83 +28,43 @@
       small
       :page-size="8"
       layout="prev, pager, next, jumper"
-      :current-page.sync="nCurrentPage"
-      @current-change="currentPage"
-      @prev-click="prevPage"
-      @next-click="nextPage"
-      :total="total">
+      :current-page="currentPage"
+      @current-change="_changePagination"
+      :total="totalPage">
     </el-pagination>
     <!-- more btn end -->
   </div>
 </template>
 
 <script>
-import API from '~/api'
+import { mapState } from 'vuex'
 export default {
-  watchQuery: ['type'],
-  async asyncData ({ params, query, error, store }) {
-    try {
-      let [list] = await Promise.all([
-        API.getArticleList({
-          tags: query.type,
-          page: params.id,
-          per_page: 8,
-          _embed: true
-        })
-      ])
-      return {
-        articleList: list.data,
-        total: +list.headers['x-wp-total'],
-        nCurrentPage: +params.id
-      }
-    } catch (err) {
-      const code = err.response.data.data.status
-      const message = err.response.data.message
-      error({ statusCode: code, message })
-      store.dispatch('updateError', { code, message })
-    }
-  },
   name: 'Tags',
+  watchQuery: ['type'],
+  fetch ({ params, query, store }) {
+    store.commit('article/SET_CURRENT_PAGE', +params.id)
+    return store.dispatch('article/getArticleList', {
+      tags: query.type,
+      page: params.id,
+      per_page: 8,
+      _embed: true
+    })
+  },
+  computed: {
+    ...mapState(['info']),
+    ...mapState('article', ['articleList', 'totalPage', 'currentPage'])
+  },
   head () {
     return {
       title: this.$route.query.title
     }
   },
   methods: {
-    currentPage (id) {
+    _changePagination (id) {
+      this.$store.commit('article/SET_CURRENT_PAGE', id)
       this.$router.push({
-        name: 'category-id',
-        params: {
-          id
-        },
-        query: {
-          type: this.$route.query.type,
-          title: this.$route.query.title
-        }
-      })
-    },
-
-    // 上一页
-    prevPage (id) {
-      this.$router.push({
-        name: 'category-id',
-        params: {
-          id
-        },
-        query: {
-          type: this.$route.query.type,
-          title: this.$route.query.title
-        }
-      })
-    },
-
-    // 下一页
-    nextPage (id) {
-      this.$router.push({
-        name: 'category-id',
-        params: {
-          id
-        },
+        name: 'tags-id',
+        params: { id },
         query: {
           type: this.$route.query.type,
           title: this.$route.query.title

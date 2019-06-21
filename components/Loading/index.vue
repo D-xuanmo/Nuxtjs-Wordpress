@@ -8,7 +8,7 @@
     }">
     </div>
     <x-icon type="icon-loading"></x-icon>
-    <p>页面加载中</p>
+    <p>{{ text }}</p>
   </div>
 </template>
 
@@ -24,11 +24,13 @@ export default {
       duration: 5000,
       height: '',
       color: '',
-      failedColor: ''
+      failedColor: '',
+      text: '数据加载中...'
     }
   },
   methods: {
-    start () {
+    start (text = '数据加载中...') {
+      this.text = text
       this.show = true
       this.canSuccess = true
       if (this._timer) {

@@ -2,84 +2,92 @@
   <section class="container">
     <!-- 文章内容开始 -->
     <article class="section article">
-      <h2 class="title" v-html="article.title.rendered"></h2>
+      <h2 class="title" v-html="detail.title.rendered"></h2>
       <div class="other-info">
-        <span class="author">{{ article.articleInfor.author }}</span>
+        <span class="author">{{ detail.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
-        <time class="time"><x-icon type="icon-date"></x-icon>{{ article.date.replace('T', ' ') }}</time>
+        <time class="time"><x-icon type="icon-date"></x-icon>{{ detail.date.replace('T', ' ') }}</time>
         <span class="text">&nbsp;分类：</span>
         <span
           class="classify"
-          v-for="(item, index) in article.articleInfor.classify"
+          v-for="(item, index) in detail.articleInfor.classify"
           :key="item.key"
-          v-html="index === article.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
+          v-html="index === detail.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
         </span>&nbsp;
-        <span><x-icon type="icon-hot1"></x-icon>{{ article.articleInfor.viewCount }}</span>&nbsp;
-        <span><x-icon type="icon-message-f"></x-icon>{{ article.articleInfor.commentCount }}</span>
+        <span><x-icon type="icon-hot1"></x-icon>{{ viewCount }}</span>&nbsp;
+        <span><x-icon type="icon-message-f"></x-icon>{{ detail.articleInfor.commentCount }}</span>
       </div>
-      <div class="content-details" ref="articleContent" v-html="article.content.rendered"></div>
+      <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
     <!-- 文章内容结束 -->
     <div class="section operation">
-      <!-- 点赞 -->
+
+      <!-- 点赞开始 -->
       <ul class="opinion">
-        <li class="list" v-for="(item, key) in opinion" :key="item.key" @click="updateOpinion(key)">
+        <li class="list" v-for="(item, key) in opinion" :key="key" @click="_updateOpinion(key)">
           <span class="block total">
-            <x-icon type="icon-loading" v-show="item.isShowLaoding"></x-icon> {{ xmLike[key] }}人
+            <x-icon type="icon-loading" v-show="item.isShowLaoding"></x-icon> {{ item.data }}人
           </span>
           <img :src="item.src" width="40" height="40" alt="">
           <span class="block">{{ item.text }}</span>
         </li>
       </ul>
-      <!-- 分享 -->
+      <!-- 点赞结束 -->
+
+      <!-- 分享开始 -->
       <div class="share text-center">
         <span class="text">分享到：</span>
-        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=`" target="_blank">
+        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.baseUrl}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`" target="_blank">
           <svg-icon iconName="#icon-QQ"></svg-icon>
         </a>
-        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.baseUrl}/details/${$route.params.id}&title=${article.title.rendered}&summary=${article.articleInfor.summary}`" target="_blank">
+        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.baseUrl}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`" target="_blank">
           <svg-icon iconName="#icon-Qzone"></svg-icon>
         </a>
-        <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${article.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+        <a :href="`https://service.weibo.com/share/share.php?url=${info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg-icon iconName="#icon-xinlang"></svg-icon>
         </a>
         <a href="javascript:;" class="create-poster-btn" @click="isShowPoster = true">
           <svg-icon iconName="#icon-shengchengerweima"></svg-icon>
         </a>
       </div>
-      <!-- 标签 -->
+      <!-- 分享结束 -->
+
+      <!-- 标签开始 -->
       <div class="tag-wrap text-center">
-        <x-icon type="icon-tag" v-show="tags.length"></x-icon>
-        <span v-for="(item, index) in tags" :key="item.key" v-html="index === tags.length - 1 ? item.name : `${item.name}、`"></span>
+        <x-icon type="icon-tag" v-show="detail.articleInfor.tags.length"></x-icon>
+        <span v-for="(item, index) in detail.articleInfor.tags" :key="item.key" v-html="index === detail.articleInfor.tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
-      <!-- 上一篇、下一篇 -->
+      <!-- 标签结束 -->
+
+      <!-- 切换上下一篇文章 -->
       <div class="relative-link-wrap">
         <div class="prev">
-          <p v-if="article.articleInfor.prevLink === ''">已是第一篇文章！</p>
-          <p v-else>上一篇：<nuxt-link :to="{ name: 'details-id', params: { id: article.articleInfor.prevLink.ID } }">{{ article.articleInfor.prevLink.post_title }}</nuxt-link></p>
+          <p v-if="detail.articleInfor.prevLink === ''">已是第一篇文章！</p>
+          <p v-else>上一篇：<nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.prevLink.ID } }">{{ detail.articleInfor.prevLink.post_title }}</nuxt-link></p>
         </div>
         <div class="next">
-          <p v-if="article.articleInfor.nextLink === ''">已是最后一篇文章！</p>
-          <p v-else>下一篇：<nuxt-link :to="{ name: 'details-id', params: { id: article.articleInfor.nextLink.ID } }">{{ article.articleInfor.nextLink.post_title }}</nuxt-link></p>
+          <p v-if="detail.articleInfor.nextLink === ''">已是最后一篇文章！</p>
+          <p v-else>下一篇：<nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.nextLink.ID } }">{{ detail.articleInfor.nextLink.post_title }}</nuxt-link></p>
         </div>
       </div>
+      <!-- 切换结束 -->
     </div>
     <!-- 作者信息 -->
     <div class="section author-introduct">
       <!-- 头像 -->
-      <img :src="article.articleInfor.other.authorPic" alt="" width="100">
+      <img :src="detail.articleInfor.other.authorPic" alt="" width="100">
       <div class="right">
         <!-- 昵称 -->
         <div class="header">
           <p class="inline-block name">
-            作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ article.articleInfor.author }}</span>
+            作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
           <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
           <!-- 打赏详情 -->
           <reward v-model="isShowReward" :content="rewardContent"></reward>
         </div>
         <!-- 简介 -->
-        <p class="author-summary">{{ article.articleInfor.other.authorTro }}</p>
+        <p class="author-summary">{{ detail.articleInfor.other.authorTro }}</p>
         <!-- 社交信息 -->
         <ul class="author-link">
           <li class="list">
@@ -87,64 +95,49 @@
               <svg-icon iconName="#icon-icon-test"></svg-icon>
             </nuxt-link>
           </li>
-          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" v-if="key === 'wechatNum'" @click="showWechatNum(item.url)">
-            <a href="javascript:;">
-              <svg-icon :iconName="item.icon"></svg-icon>
-            </a>
-          </li>
-          <li class="list" v-else>
-            <a :href="key == 'email' ? `mailto:${item.url}` : item.url">
-              <svg-icon :iconName="item.icon"></svg-icon>
-            </a>
+          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" @click="_showWechatNum(item.url)">
+            <template v-if="key === 'wechatNum'">
+              <a href="javascript:;">
+                <svg-icon :iconName="item.icon"></svg-icon>
+              </a>
+            </template>
+            <template v-else>
+              <a :href="key == 'email' ? `mailto:${item.url}` : item.url">
+                <svg-icon :iconName="item.icon"></svg-icon>
+              </a>
+            </template>
           </li>
         </ul>
       </div>
     </div>
     <!-- 评论列表 -->
     <div class="section comment">
-      <h2 class="comment-title" v-html="`共 ${article.articleInfor.commentCount} 条评论关于 “${article.title.rendered}”`"></h2>
-      <no-ssr>
-        <comments></comments>
+      <h2 class="comment-title" v-html="`共 ${detail.articleInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
+      <no-ssr placeholder="Loading...">
+        <comments/>
       </no-ssr>
     </div>
     <!-- 生成海报 -->
-    <no-ssr>
-      <create-poster v-model="isShowPoster" :content="posterContent"></create-poster>
+    <no-ssr placeholder="Loading...">
+      <!-- <create-poster v-model="isShowPoster" :content="posterContent"/> -->
     </no-ssr>
   </section>
 </template>
 <script>
-import API from '~/api'
+import { mapState, mapActions } from 'vuex'
 import Comments from '~/components/Comment'
 import Reward from '~/components/Reward'
-import CreatePoster from '~/components/CreatePoster'
+// import CreatePoster from '~/components/CreatePoster'
 export default {
-  async asyncData ({ params, error, store }) {
-    try {
-      let [article, viewCount] = await Promise.all([
-        API.getArticleDetails(params.id),
-        // 更新阅读量
-        API.updateViewCount({ id: params.id })
-      ])
-      return {
-        article: article.data,
-        classify: article.data.articleInfor.classify,
-        tags: article.data.articleInfor.tags,
-        xmLike: article.data.articleInfor.xmLike,
-        viewCount: viewCount.data
-      }
-    } catch (err) {
-      const code = err.response.data.data.status
-      const message = err.response.data.message
-      error({ statusCode: code, message })
-      store.dispatch('updateError', { code, message })
-    }
-  },
   name: 'Details',
+  fetch ({ params, error, store }) {
+    store.dispatch('article/updateArticleViewCount', params.id)
+    return store.dispatch('article/getArticleDetail', params.id)
+  },
   components: {
     Comments,
-    Reward,
-    CreatePoster
+    Reward
+    // CreatePoster
   },
   data () {
     return {
@@ -152,33 +145,6 @@ export default {
       isShowPoster: false,
       rewardContent: {},
       posterContent: {},
-      opinion: {
-        very_good: {
-          src: require('~/assets/images/like_love.png'),
-          isShowLaoding: false,
-          text: 'Love'
-        },
-        good: {
-          src: require('~/assets/images/like_haha.png'),
-          isShowLaoding: false,
-          text: 'Haha'
-        },
-        commonly: {
-          src: require('~/assets/images/like_wow.png'),
-          isShowLaoding: false,
-          text: 'Wow'
-        },
-        bad: {
-          src: require('~/assets/images/like_sad.png'),
-          isShowLaoding: false,
-          text: 'Sad'
-        },
-        very_bad: {
-          src: require('~/assets/images/like_angry.png'),
-          isShowLaoding: false,
-          text: 'Angry'
-        }
-      },
       authorOtherInfo: {
         github: {
           icon: '#icon-GitHub'
@@ -198,25 +164,26 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['info']),
+    ...mapState('article', ['detail', 'viewCount', 'opinion'])
+  },
   head () {
     let keywords = []
-    this.tags && this.tags.forEach(item => keywords.push(item.name))
+    this.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
     return {
-      title: `${this.article.title.rendered} | ${this.$store.state.info.blogName}`,
+      title: `${this.detail.title.rendered} | ${this.info.blogName}`,
       meta: [
         { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
-        { hid: 'description', name: 'description', content: this.article.articleInfor.summary }
+        { hid: 'description', name: 'description', content: this.detail.articleInfor.summary }
       ],
       style: [
-        { cssText: this.$store.state.info.detailsCss, type: 'text/css' }
+        { cssText: this.info.detailsCss, type: 'text/css' }
       ]
     }
   },
   created () {
-    let other = this.article.articleInfor.other
-
-    // 更新阅读量
-    this.article.articleInfor.viewCount = this.viewCount
+    let other = this.detail.articleInfor.other
 
     // 合并作者数据
     for (let key in this.authorOtherInfo) {
@@ -225,53 +192,59 @@ export default {
 
     // 打赏数据
     this.rewardContent = {
-      thumbnail: this.article.articleInfor.other.authorPic.full,
-      text: this.$store.state.info.rewardText,
-      alipay: this.$store.state.info.alipay,
-      wechatpay: this.$store.state.info.wechatpay
+      thumbnail: this.detail.articleInfor.other.authorPic,
+      text: this.info.rewardText,
+      alipay: this.info.alipay,
+      wechatpay: this.info.wechatpay
     }
   },
   mounted () {
     // 海报内容
     this.posterContent = {
-      imgUrl: this.$store.state.info.thumbnail,
-      title: this.article.title.rendered,
-      summary: this.article.articleInfor.summary,
-      time: this.article.date.replace(/T.*/, ' '),
-      qrcodeLogo: this.article.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.$store.state.info.baseUrl}$4`),
-      qrcodeText: this.$store.state.info.blogName,
+      imgUrl: this.info.thumbnail,
+      title: this.detail.title.rendered,
+      summary: this.detail.articleInfor.summary,
+      time: this.detail.date.replace(/T.*/, ' '),
+      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.info.baseUrl}$4`),
+      qrcodeText: this.info.blogName,
       id: this.$route.params.id
     }
 
+    // eslint-disable-next-line
     process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   },
   beforeDestroy () {
     document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
   },
   methods: {
+    ...mapActions('article', ['updateOpinion']),
+
     // 发表意见
-    updateOpinion (key) {
+    async _updateOpinion (key) {
       if (localStorage.getItem(`xm_link_${this.$route.params.id}`)) {
         this.$message({
           title: '您已经发表过意见了！',
           type: 'warning'
         })
       } else {
-        this.opinion[key].isShowLaoding = true
-        API.updateArticleLike({
+        this.$store.commit('article/UPDATE_OPINION_LOADING', {
+          key,
+          flag: true
+        })
+        await this.updateOpinion({
           id: this.$route.params.id,
           key
-        }).then((res) => {
-          this.opinion[key].isShowLaoding = false
-          this.xmLike[key] = res.data
-          // 设置点赞状态
-          localStorage.setItem(`xm_link_${this.$route.params.id}`, true)
-        }).catch((err) => console.log(err))
+        })
+        this.$store.commit('article/UPDATE_OPINION_LOADING', {
+          key,
+          flag: false
+        })
+        localStorage.setItem(`xm_link_${this.$route.params.id}`, true)
       }
     },
 
     // 显示微信号码
-    showWechatNum (num) {
+    _showWechatNum (num) {
       this.$message({
         title: `微信号：${num}`,
         showClose: true,
@@ -279,7 +252,7 @@ export default {
         center: true,
         wrapCenter: true,
         width: 280,
-        imgUrl: this.article.articleInfor.other.wechatPic,
+        imgUrl: this.detail.articleInfor.other.wechatPic,
         duration: 0
       })
     }

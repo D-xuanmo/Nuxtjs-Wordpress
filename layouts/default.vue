@@ -25,7 +25,7 @@ export default {
     AppHeader,
     AppFooter,
     AppSidebar
-  },
+  }
 }
 </script>
 

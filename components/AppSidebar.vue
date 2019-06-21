@@ -7,7 +7,7 @@
           <x-icon type="icon-notice2"></x-icon> 公告
         </p>
       </div>
-      <div class="content" v-html="sidebar.sidebar_notice"></div>
+      <div class="content" v-html="sidebar.notice"></div>
     </div>
     <!-- 最新评论 -->
     <div class="sidebar-list comment">
@@ -19,8 +19,19 @@
       <ul class="content">
         <li class="list" v-for="item in sidebar.newComment" :key="item.key">
           <template>
-            <img v-if="$store.state.info.isTextThumbnail === 'off'" :src="item.avatar" class="thumbnail" width="50" height="50" alt="">
-            <p v-else-if="$store.state.info.isTextThumbnail === 'on'" class="thumbnail-text" :style="{ background: item.background }">{{ item.comment_author.substr(0, 1) }}</p>
+            <img
+              v-if="sidebar.isTextThumbnail === 'off'"
+              :src="item.avatar"
+              class="thumbnail"
+              width="50"
+              height="50">
+            <p
+              v-else-if="sidebar.isTextThumbnail === 'on'"
+              class="thumbnail-text"
+              :style="{ background: item.background }"
+            >
+              {{ item.comment_author.substr(0, 1) }}
+            </p>
           </template>
           <div class="right">
             <h3 class="author">{{ item.comment_author }}</h3>
@@ -31,7 +42,7 @@
       </ul>
     </div>
     <!-- 站点统计 -->
-    <div class="sidebar-list count" v-if="sidebar.aside_count === 'on'">
+    <div class="sidebar-list count" v-if="sidebar.isShowCount === 'on'">
       <div class="header">
         <p>
           <x-icon type="icon-count"></x-icon> 站点统计
@@ -55,20 +66,35 @@
         <router-link :to="{ name: 'tags' }">更多</router-link>
       </div>
       <ul class="content">
-        <li v-for="(item, index) in sidebar.tagCloud" :key="item.key" v-if="index < 20" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
-          <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}</router-link>
-        </li>
+        <template v-for="(item, index) in sidebar.tagCloud">
+          <li :key="item.key" v-if="index < 20" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
+            <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}</router-link>
+          </li>
+        </template>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'AppSidebar',
   computed: {
-    sidebar () {
-      return this.$store.state.info
-    }
+    ...mapState({
+      sidebar: state => ({
+        notice: state.info.sidebar_notice,
+        newComment: state.info.newComment,
+        isTextThumbnail: state.info.isTextThumbnail,
+        isShowCount: state.info.aside_count,
+        getAllCountTag: state.info.getAllCountTag,
+        getAllCountArticle: state.info.getAllCountArticle,
+        getAllCountPage: state.info.getAllCountPage,
+        getAllCountComment: state.info.getAllCountComment,
+        getAllCountCat: state.info.getAllCountCat,
+        lastUpDate: state.info.lastUpDate,
+        tagCloud: state.info.tagCloud
+      })
+    })
   }
 }
 </script>

@@ -6,10 +6,10 @@
         <div class="left">
           <div class="logo">
             <h1>
-              <span class="hide">{{ $store.state.info.blogName }}</span>
+              <span class="hide">{{ info.blogName }}</span>
               <no-ssr>
                 <nuxt-link :to="{ name: 'index' }" class="block">
-                  <img :src="$store.state.info.logo" class="vertical-middle" width="130" height="40" alt="">
+                  <img :src="info.logo" class="vertical-middle" width="130" height="40" alt="">
                 </nuxt-link>
               </no-ssr>
             </h1>
@@ -20,7 +20,7 @@
                 <li class="nav-list first">
                   <nuxt-link :to="{ name: 'index' }"><x-icon type="icon-home2" @click.native="hideNavWrap"></x-icon>首页</nuxt-link>
                 </li>
-                <li class="nav-list" v-for="item in $store.state.menu" :key="item.key">
+                <li class="nav-list" v-for="item in menu" :key="item.key">
                   <nuxt-link
                      v-if="item.type === 'category'"
                     :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }"
@@ -69,6 +69,7 @@
   </header>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   watchQuery: ['type'],
   name: 'AppHeader',
@@ -80,10 +81,13 @@ export default {
       isFloat: false
     }
   },
+  computed: {
+    ...mapState(['info', 'menu'])
+  },
   mounted () {
     let self = this
     window.addEventListener('scroll', function () {
-      self.isFloat = this.scrollY > 500 ? true : false
+      self.isFloat = this.scrollY > 500
     }, false)
   },
   methods: {

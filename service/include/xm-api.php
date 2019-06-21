@@ -176,7 +176,7 @@ function xm_opinion ($request) {
   $key = $data['key'];
   $count = get_post_meta($id, $count_key, true);
   update_post_meta($id, $count_key, array_merge($count, array($key => $count[$key] + 1)));
-  return $count[$key] + 1;
+  return get_post_meta($id, $count_key, true);
 }
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/like', array('methods' => 'POST', 'callback' => 'xm_opinion'));

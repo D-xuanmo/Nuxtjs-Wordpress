@@ -1,18 +1,32 @@
 <template>
-  <footer class="footer" :class="{ 'is-error': $store.state.errorInformation.statusCode >= 400 }">
+  <footer class="footer" :class="{ 'is-error': errorInformation.statusCode >= 400 }">
     <div class="wrap">
-      <div class="link-wrap" v-if="$route.name === 'index'" v-html="$store.state.info.link"></div>
+      <div class="link-wrap" v-if="$route.name === 'index'" v-html="link"></div>
       <div class="copyright">
         <div class="left">
           <ul class="footer-menu">
-            <li class="list" v-for="item in $store.state.subMenu" :key="item.key">
-              <nuxt-link v-if="item.object === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: item.object_id, title: item.title } }">{{ item.title }}</nuxt-link>
-              <nuxt-link v-else-if="item.object === 'page'" :to="{ name: 'page-id', params: { id: item.object_id } }">{{ item.title }}</nuxt-link>
+            <li class="list" v-for="item in subMenu" :key="item.key">
+              <nuxt-link
+                v-if="item.object === 'category'"
+                :to="{
+                  name: 'category-id',
+                  params: { id: 1 },
+                  query: { type: item.object_id, title: item.title }
+                }"
+              >
+                {{ item.title }}
+              </nuxt-link>
+              <nuxt-link
+                v-else-if="item.object === 'page'"
+                :to="{ name: 'page-id', params: { id: item.object_id } }"
+              >
+                {{ item.title }}
+              </nuxt-link>
               <a v-else-if="item.object === 'custom'" :href="item.url">{{ item.title }}</a>
             </li>
           </ul>
           <!-- 版权文字 -->
-          <div class="copyright-text" v-html="$store.state.info.footer_copyright"></div>
+          <div class="copyright-text" v-html="copyright"></div>
         </div>
         <p class="right">Theme by <a href="https://www.xuanmo.xin">Xuanmo</a></p>
       </div>
@@ -23,6 +37,7 @@
   </footer>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'AppFooter',
   data () {
@@ -30,10 +45,18 @@ export default {
       isShowBackTop: false
     }
   },
+  computed: {
+    ...mapState({
+      errorInformation: state => state.errorInformation,
+      link: state => state.info.link,
+      subMenu: state => state.subMenu,
+      copyright: state => state.info.footer_copyright
+    })
+  },
   mounted () {
     let self = this
     window.addEventListener('scroll', function () {
-      self.isShowBackTop = this.scrollY > 300 ? true : false
+      self.isShowBackTop = this.scrollY > 300
     })
   },
   methods: {

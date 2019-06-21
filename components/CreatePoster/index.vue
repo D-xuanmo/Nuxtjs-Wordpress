@@ -63,7 +63,7 @@
 <script>
 import API from '~/api'
 import QRCode from 'qrcode'
-import html2canvas from  'html2canvas'
+import html2canvas from 'html2canvas'
 export default {
   name: 'CreatePoster',
   data () {
@@ -117,7 +117,7 @@ export default {
       })
       let formData = new FormData()
       formData.append('file', canvas.toDataURL('image/png'))
-      formData.append('postID',  this.content.id)
+      formData.append('postID', this.content.id)
       formData.append('name', `poster-${this.content.id}`)
       formData.append('url', '/wp-content')
       formData.append('mark', 'upload')

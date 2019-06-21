@@ -1,36 +1,31 @@
-import Axios from 'axios'
-import qs from 'qs'
-
-const option = {
-  timeout: 20000,
-  baseURL: process.env.NODE_ENV === 'production' ? '' : '/api',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  transformRequest: (data, headers) => {
-    if (headers['Content-Type'].search('application/json') !== -1) {
-      return JSON.stringify(data)
-    } else if (headers['Content-Type'].search('multipart/form-data') !== -1) {
-      return data
-    } else {
-      return qs.stringify(data)
+export default function ({ $axios, redirect }) {
+  $axios.onRequest(config => {
+    if (config.data && config.data.progress !== undefined) {
+      let data = {}
+      for (let [key, value] of Object.entries(config.data)) {
+        key !== 'progress' && (data[key] = value)
+      }
+      config.progress = config.data.progress
+      config.data = data
     }
-  }
+    console.log('Making request to ' + config.url)
+    return config
+  })
+
+  $axios.onResponse(response => {
+    response.data = {
+      data: response.data,
+      status: response.status,
+      headers: response.headers,
+      statusText: response.statusText
+    }
+    return response
+  })
+
+  $axios.onError(error => {
+    const code = parseInt(error.response && error.response.status)
+    if (code === 400) {
+      redirect('/400')
+    }
+  })
 }
-
-const axios = Axios.create(option)
-
-// 添加请求拦截器
-axios.interceptors.request.use(config => config, error => Promise.reject(error))
-
-// 添加响应拦截器
-axios.interceptors.response.use(response => {
-  return {
-    data: response.data,
-    status: response.status,
-    headers: response.headers,
-    statusText: response.statusText
-  }
-}, error => Promise.reject(error))
-
-export default axios

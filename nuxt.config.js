@@ -1,8 +1,6 @@
-module.exports = {
+export default {
   mode: 'universal',
-  /*
-   ** Headers of the page
-   */
+
   head: {
     title: 'Xuanmo Blog | WEB前端笔记',
     meta: [
@@ -16,16 +14,18 @@ module.exports = {
     ],
     script: [
       { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },
-      { src: 'https://upyun.xuanmo.xin/js/prism.js' },
+      { src: 'https://upyun.xuanmo.xin/js/prism.js' }
       // 百度主推文章收录用
-      { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
+      // { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
       // 加入百度统计js，使用时自行添加为自己的
-      { src: 'https://hm.baidu.com/hm.js?' }
+      // { src: 'https://hm.baidu.com/hm.js?' }
     ]
   },
 
+  loading: './components/Loading',
+
   router: {
-    middleware: 'info',
+    // middleware: 'info',
     scrollBehavior (to, from, savedPosition) {
       return {
         x: 0,
@@ -34,68 +34,58 @@ module.exports = {
     }
   },
 
-  /*
-   ** Customize the progress bar color
-   */
-  loading: './components/Loading',
-
   css: [
+    'element-ui/lib/theme-chalk/index.css',
     './assets/scss/global.scss'
   ],
-
-  /*
-   ** Build configuration
-   */
-  build: {
-    babel: {
-      plugins: [
-        [
-          'component',
-          {
-            libraryName: 'element-ui',
-            styleLibraryName: 'theme-chalk'
-          }
-        ]
-      ]
-    },
-    extractCSS: true,
-    vendors: ['axios', 'element-ui']
-  },
-
-  plugins: [
-    { src: '~/plugins/element-ui', ssr: true },
-    { src: '~/plugins/message', ssr: false },
-    { src: '~/plugins/icon', ssr: true }
-  ],
-
-  modules: ['@nuxtjs/proxy', '@nuxtjs/style-resources'],
 
   styleResources: {
     scss: ['./assets/scss/variable.scss']
   },
 
-  // 配置代理
+  plugins: [
+    '~/plugins/axios',
+    { src: '~/plugins/element-ui', ssr: true },
+    { src: '~/plugins/message', ssr: false },
+    { src: '~/plugins/icon', ssr: true }
+  ],
+
+  modules: [
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+    '@nuxtjs/style-resources',
+    '@nuxtjs/proxy'
+  ],
+
   axios: {
     proxy: true
+  },
+
+  build: {
+    transpile: [/^element-ui/],
+    extractCSS: true,
+    vendors: ['@nuxtjs/axios', 'element-ui']
+    // extend(config, ctx) {
+    // }
   },
 
   // 将此处3个地址改为自己的地址
   proxy: {
     '/api': {
-      // target: 'https://www.xuanmo.xin',
-      target: 'http://localhost:8888',
+      target: 'https://www.xuanmo.xin',
+      // target: 'http://localhost:8888',
       pathRewrite: {
         '^/api': '/'
       }
     },
     '/wp-content': {
-      // target: 'https://www.xuanmo.xin'
-      target: 'http://localhost:8888'
+      target: 'https://www.xuanmo.xin'
+      // target: 'http://localhost:8888'
     }
   },
 
   env: {
-    // baseUrl: 'https://www.xuanmo.xin'
-    baseUrl: 'http://localhost:8888'
+    baseUrl: 'https://www.xuanmo.xin'
+    // baseUrl: 'http://localhost:8888'
   }
 }
