@@ -37,7 +37,23 @@ export const actions = {
   },
 
   // 上传图片
-  async uploadImage ({ commit }, requestData) {
+  async uploadImage ({ commit }, { requestData, config }) {
+    try {
+      let { data } = await this.$axios.$post(`/api/wp-content/themes/xm-vue-theme/xm_upload.php`, requestData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          progress: false
+        },
+        ...config
+      })
+      return Promise.resolve(data)
+    } catch (error) {
+      return Promise.reject(error)
+    }
+  },
+
+  // 删除图片
+  async deleteImage ({ commit }, requestData) {
     try {
       let { data } = await this.$axios.$post(`/api/wp-content/themes/xm-vue-theme/xm_upload.php`, requestData, {
         headers: {

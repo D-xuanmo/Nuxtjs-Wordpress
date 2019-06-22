@@ -3,7 +3,7 @@
     <div class="sub-upload-wrap text-center">
       <template v-if="!bShowDragWrap">
         <h2 class="title">插入图片</h2>
-        <x-icon type="icon-close" @click.native.stop="hideUpload"></x-icon>
+        <x-icon type="icon-close" @click.native.stop="_hideUpload"></x-icon>
         <div class="progress-wrap">
           <p class="text">上传进度：</p>
           <div class="current-pro">
@@ -12,7 +12,7 @@
           <div>{{ currentProgress }}%</div>
         </div>
         <div class="select-img">
-          <input type="file" name="file" value="" ref="inpFile" accept="image/png,image/gif,image/jpeg" @change.stop="preview($event)">
+          <input type="file" name="file" value="" ref="inpFile" accept="image/png,image/gif,image/jpeg" @change.stop="_preview($event)">
           <p class="mask">
             <span v-if="bFileMark"><x-icon type="icon-upload-img2"></x-icon>点击选择图片或者拖动图片到此窗口内</span>
             <template v-else>
@@ -21,8 +21,8 @@
           </p>
         </div>
         <div class="btn-wrap">
-          <div v-show="!bFileMark" class="btn btn-upload" @click.stop="uploadImg">上传文件</div>
-          <div class="btn btn-insert" @click.stop="insertImg">插入到文章</div>
+          <div v-show="!bFileMark" class="btn btn-upload" @click.stop="_uploadImg">上传文件</div>
+          <div class="btn btn-insert" @click.stop="_insertImg">插入到文章</div>
         </div>
         <div class="result-img">
           <img :src="resultImgUrl">
@@ -33,12 +33,11 @@
       </div>
     </div>
     <!-- 遮罩层 -->
-    <div class="model" @click.stop="hideUpload"></div>
+    <div class="model" @click.stop="_hideUpload"></div>
   </div>
 </template>
 <script>
-import API from '~/api'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'uploadImg',
   data: () => ({
@@ -55,87 +54,6 @@ export default {
       contentUrl: state => state.info.contentUrl,
       templeteUrl: state => state.info.templeteUrl
     })
-  },
-  methods: {
-    preview (event) {
-      let oReader = new FileReader()
-      oReader.readAsDataURL(event.target.files[0])
-      oReader.onload = () => (this.previewUrl = oReader.result)
-      this.bFileMark = false
-    },
-
-    // 上传图片
-    uploadImg () {
-      let _file = this.$refs.inpFile
-      if (_file.value) {
-        // 上传实时进度
-        let config = {
-          onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
-        }
-        let data = new FormData()
-        if (_file.files[0].size / 1024 > 2048) {
-          this.$message({
-            title: '请上传小于2M的图片！',
-            type: 'error'
-          })
-        } else {
-          data.append('postID', this.$route.params.id)
-          data.append('file', _file.files[0])
-          data.append('url', this.contentUrl)
-          data.append('mark', 'upload')
-          API.uploadImage(data, config).then(({ data }) => {
-            if (!data.code) {
-              this.$message({
-                title: '上传失败！',
-                type: 'error'
-              })
-            } else {
-              this.resultImgUrl = data.path
-              this.resFileName = data.name
-              _file.value = ''
-            }
-          }).catch(err => {
-            if (err.response.status === 404) {
-              this.$message({
-                title: '上传失败(404)！',
-                type: 'error'
-              })
-            }
-          })
-        }
-      }
-    },
-
-    // 隐藏上传控件
-    hideUpload () {
-      let data = new FormData()
-      data.append('mark', 'close')
-      data.append('url', this.contentUrl)
-      data.append('postID', this.$route.params.id)
-      data.append('fileName', this.resFileName)
-      // 如果本次上传的图片未发表就从服务器删除此图片
-      API.deleteImage(data).catch(err => console.log(err))
-      // 关闭控件
-      this.$emit('showChart', {
-        close: false,
-        resFileName: this.resFileName
-      })
-      this.currentProgress = 0
-      this.resultImgUrl = ''
-      this.bFileMark = true
-    },
-
-    // 插入到文章
-    insertImg () {
-      this.$emit('updateContent', ` [img]${this.resultImgUrl}[/img] `)
-      this.$emit('showChart', {
-        close: false,
-        resFileName: this.resFileName
-      })
-      this.currentProgress = 0
-      this.resultImgUrl = ''
-      this.bFileMark = true
-    }
   },
   mounted () {
     // 拖拽上传文件
@@ -161,11 +79,7 @@ export default {
         this.bFileMark = true
       } else {
         oReader.readAsDataURL(oFile)
-        oReader.onload = () => {
-          // 上传实时进度
-          let config = {
-            onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
-          }
+        oReader.onload = async () => {
           let data = new FormData()
           this.previewUrl = oReader.result
           this.bFileMark = false
@@ -173,19 +87,127 @@ export default {
           data.append('file', oReader.result)
           data.append('url', this.contentUrl)
           data.append('mark', 'upload')
-          API.uploadImage(data, config).then(({ data }) => {
-            this.resultImgUrl = data.path
-            this.resFileName = data.name
-          }).catch(err => {
-            if (err.response.status === 404) {
+          try {
+            // 上传实时进度
+            let config = {
+              onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
+            }
+            let response = await this.uploadImage({
+              requestData: data,
+              config
+            })
+            if (!response.code) {
+              this.$message({
+                title: '上传失败！',
+                type: 'error'
+              })
+            } else {
+              this.resultImgUrl = response.path
+              this.resFileName = response.name
+            }
+          } catch (error) {
+            if (error === 404) {
               this.$message({
                 title: '上传失败(404)！',
                 type: 'error'
               })
             }
-          })
+          }
         }
       }
+    }
+  },
+  methods: {
+    ...mapActions(['uploadImage', 'deleteImage']),
+    _preview (event) {
+      let oReader = new FileReader()
+      oReader.readAsDataURL(event.target.files[0])
+      oReader.onload = () => (this.previewUrl = oReader.result)
+      this.bFileMark = false
+    },
+
+    // 上传图片
+    async _uploadImg () {
+      let _file = this.$refs.inpFile
+      if (_file.value) {
+        let data = new FormData()
+        if (_file.files[0].size / 1024 > 2048) {
+          this.$message({
+            title: '请上传小于2M的图片！',
+            type: 'error'
+          })
+        } else {
+          data.append('postID', this.$route.params.id)
+          data.append('file', _file.files[0])
+          data.append('url', this.contentUrl)
+          data.append('mark', 'upload')
+          try {
+            // 上传实时进度
+            let config = {
+              onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
+            }
+            let response = await this.uploadImage({
+              requestData: data,
+              config
+            })
+            if (!response.code) {
+              this.$message({
+                title: '上传失败！',
+                type: 'error'
+              })
+            } else {
+              this.resultImgUrl = response.path
+              this.resFileName = response.name
+              _file.value = ''
+            }
+          } catch (error) {
+            if (error === 404) {
+              this.$message({
+                title: '上传失败(404)！',
+                type: 'error'
+              })
+            }
+          }
+        }
+      }
+    },
+
+    // 隐藏上传控件
+    async _hideUpload () {
+      let data = new FormData()
+      data.append('mark', 'close')
+      data.append('url', this.contentUrl)
+      data.append('postID', this.$route.params.id)
+      data.append('fileName', this.resFileName)
+      // 如果本次上传的图片未发表就从服务器删除此图片
+      try {
+        await this.deleteImage(data)
+      } catch (error) {
+        this.$message({
+          title: error,
+          type: 'error'
+        })
+      }
+      // 关闭控件
+      this.$emit('showChart', {
+        close: false,
+        resFileName: this.resFileName
+      })
+      this.currentProgress = 0
+      this.resultImgUrl = ''
+      this.bFileMark = true
+    },
+
+    // 插入到文章
+    _insertImg () {
+      this.$emit('updateContent', ` [img]${this.resultImgUrl}[/img] `)
+      this.$emit('showChart', {
+        close: false,
+        resFileName: this.resFileName
+      })
+      this.currentProgress = 0
+      this.resultImgUrl = ''
+      this.bFileMark = true
     }
   }
 }
