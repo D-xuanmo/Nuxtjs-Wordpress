@@ -73,10 +73,8 @@ export const actions = {
   // 获取表情列表
   async getExpression ({ commit }, domain) {
     try {
-      let { data } = await this.$axios.$get(`${domain}/expression.php`, {}, {
-        headers: {
-          progress: false
-        }
+      let { data } = await this.$axios.$get(`${domain}/expression.php`, {
+        data: { progress: false }
       })
       commit(SET_EXPRESSION, data)
       return Promise.resolve(data)
