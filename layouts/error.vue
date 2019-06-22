@@ -11,6 +11,9 @@ export default {
   layout: 'page',
   created () {
     this.$store.commit('UPDATE_ERROR_MESSAGE', { code: this.error.statusCode, message: this.error.message })
+  },
+  beforeDestroy () {
+    this.$store.commit('UPDATE_ERROR_MESSAGE', { code: null, message: '' })
   }
 }
 </script>
