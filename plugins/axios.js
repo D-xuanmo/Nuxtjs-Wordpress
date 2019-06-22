@@ -1,18 +1,23 @@
 export default function ({ $axios, redirect }) {
   $axios.onRequest(config => {
-    if (config.data && config.data.progress !== undefined) {
+    if (config.data) {
       let data = {}
       for (let [key, value] of Object.entries(config.data)) {
         key !== 'progress' && (data[key] = value)
       }
-      config.progress = config.data.progress
+      if (config.method === 'get') {
+        config.progress = config.data.progress
+      } else {
+        config.progress = config.headers.progress
+        delete config.headers.progress
+      }
       config.data = data
     }
-    console.log('Making request to ' + config.url)
     return config
   })
 
   $axios.onResponse(response => {
+    console.log('response data===>', response.data)
     response.data = {
       data: response.data,
       status: response.status,

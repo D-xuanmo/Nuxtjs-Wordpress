@@ -109,11 +109,12 @@ export const actions = {
   },
 
   // 更新阅读量
-  async updateArticleViewCount ({ commit }, id) {
+  async updateArticleViewCount ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, {
-        id,
-        progress: false
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, requestData, {
+        headers: {
+          progress: false
+        }
       })
       commit(UPDATE_VIEW_COUNT, data)
       return Promise.resolve(data)
@@ -125,9 +126,10 @@ export const actions = {
   // 发表意见
   async updateOpinion ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/like`, {
-        progress: false,
-        ...requestData
+      let { data } = await this.$axios.$post(`/api/wp-json/xm-blog/v1/like`, requestData, {
+        headers: {
+          progress: false
+        }
       })
       commit(UPDATE_OPINION, data)
       return Promise.resolve(data)

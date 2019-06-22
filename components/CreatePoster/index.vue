@@ -123,9 +123,9 @@ export default {
       formData.append('name', `poster-${this.content.id}`)
       formData.append('url', '/wp-content')
       formData.append('mark', 'upload')
-      let { data: poster } = await this.uploadImage(formData)
-      this.$emit('on-change', poster)
-      this.poster = this.$store.state.info.baseUrl + poster.path
+      let data = await this.uploadImage(formData)
+      this.$emit('on-change', data)
+      this.poster = this.$store.state.info.baseUrl + data.path
       this.isFirstCreate = false
       this.isCompleted = true
       this.posterUrl = canvas.toDataURL('image/png')

@@ -3,7 +3,8 @@ import {
   SET_COMMENT_TOTAL,
   UPDATE_COMMENT,
   SET_EXPRESSION,
-  UPDATE_COMMENT_OPINION
+  UPDATE_COMMENT_OPINION,
+  RESET_COMMENT
 } from './mutations-types'
 
 export const state = () => ({
@@ -15,6 +16,11 @@ export const state = () => ({
 export const mutations = {
   [SET_COMMENT_LIST] (state, data) {
     state.commentList = [...state.commentList, ...data]
+  },
+
+  [RESET_COMMENT] (state) {
+    state.commentList = []
+    state.totalPage = 0
   },
 
   [SET_COMMENT_TOTAL] (state, n) {
@@ -53,9 +59,10 @@ export const actions = {
   // 提交评论
   async updateComment ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/wp/v2/comments`, {
-        progress: false,
-        ...requestData
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/wp/v2/comments`, requestData, {
+        headers: {
+          progress: false
+        }
       })
       return Promise.resolve(data)
     } catch (error) {
@@ -66,8 +73,10 @@ export const actions = {
   // 获取表情列表
   async getExpression ({ commit }, domain) {
     try {
-      let { data } = await this.$axios.$get(`${domain}/expression.php`, {
-        data: { progress: false }
+      let { data } = await this.$axios.$get(`${domain}/expression.php`, {}, {
+        headers: {
+          progress: false
+        }
       })
       commit(SET_EXPRESSION, data)
       return Promise.resolve(data)
@@ -79,9 +88,10 @@ export const actions = {
   // 评论列表点赞
   async updateCommentOpinion ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`, {
-        progress: false,
-        ...requestData
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`, requestData, {
+        headers: {
+          progress: false
+        }
       })
       return data.success ? Promise.resolve(data.data) : Promise.reject(new Error('请求异常！'))
     } catch (error) {

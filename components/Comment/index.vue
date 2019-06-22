@@ -242,6 +242,7 @@ export default {
     document.body.addEventListener('click', this._closeExpression, false)
   },
   beforeDestroy () {
+    this.$store.commit('comment/RESET_COMMENT')
     document.body.removeEventListener('click', this._closeExpression, false)
   },
   methods: {

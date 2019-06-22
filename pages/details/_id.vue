@@ -131,7 +131,7 @@ import CreatePoster from '~/components/CreatePoster'
 export default {
   name: 'Details',
   fetch ({ params, error, store }) {
-    store.dispatch('article/updateArticleViewCount', params.id)
+    store.dispatch('article/updateArticleViewCount', { id: params.id })
     return store.dispatch('article/getArticleDetail', params.id)
   },
   components: {

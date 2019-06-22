@@ -13,7 +13,9 @@ export const mutations = {
 export const actions = {
   async getPageDetail ({ commit }, id) {
     try {
-      let { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages/${id}`)
+      let { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages/${id}`, {
+        data: { progress: false }
+      })
       commit(SET_CURRENT_PAGE, data)
       return Promise.resolve(data)
     } catch (error) {

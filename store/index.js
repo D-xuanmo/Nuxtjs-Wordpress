@@ -39,10 +39,11 @@ export const actions = {
   // 上传图片
   async uploadImage ({ commit }, requestData) {
     try {
-      this.$axios.setHeader('Content-Type', 'multipart/form-data')
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/xm-vue-theme/xm_upload.php`, {
-        ...requestData,
-        progress: false
+      let { data } = await this.$axios.$post(`/api/wp-content/themes/xm-vue-theme/xm_upload.php`, requestData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          progress: false
+        }
       })
       return Promise.resolve(data)
     } catch (error) {
