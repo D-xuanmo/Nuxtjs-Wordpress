@@ -17,7 +17,6 @@ export default function ({ $axios, redirect }) {
   })
 
   $axios.onResponse(response => {
-    console.log('response data===>', response.data)
     response.data = {
       data: response.data,
       status: response.status,
