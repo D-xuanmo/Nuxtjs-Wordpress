@@ -127,7 +127,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 $headerHeight: 60px;
-.header{
+.header {
   position: relative;
   width: 100%;
   height: 60px;
@@ -156,23 +156,23 @@ $headerHeight: 60px;
   }
 }
 
-.wrap{
+.wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: $headerHeight;
 
   .left,
-  .right{
+  .right {
     display: flex;
     align-items: center;
   }
 
-  .logo{
+  .logo {
     max-width: 150px;
     margin-right: 20px;
 
-    h1{
+    h1 {
       display: flex;
       align-items: center;
       height: 60px;
@@ -180,48 +180,48 @@ $headerHeight: 60px;
   }
 
   // 导航
-  .nav-wrap{
+  .nav-wrap {
     width: 700px;
 
-    .box{
+    .box {
       display: flex;
     }
   }
 
   // 一级菜单
-  .nav-list{
+  .nav-list {
     display: flex;
     align-items: center;
     position: relative;
     height: $headerHeight;
     margin-right: 30px;
 
-    &:last-of-type{
+    &:last-of-type {
       margin-right: 0;
     }
 
-    &:hover{
-      .sub-nav-wrap{
+    &:hover {
+      .sub-nav-wrap {
         display: block;
       }
     }
 
-    .iconfont{
+    .iconfont {
       vertical-align: bottom;
       margin-right: 2px;
     }
 
-    .icon-arrow-bottom{
+    .icon-arrow-bottom {
       font-size: $font-size-small;
     }
 
-    .nuxt-link-exact-active{
+    .nuxt-link-exact-active {
       color: $color-theme;
     }
   }
 
   // 二级菜单
-  .sub-nav-wrap{
+  .sub-nav-wrap {
     display: none;
     position: absolute;
     z-index: 99;
@@ -230,11 +230,11 @@ $headerHeight: 60px;
     width: 150px;
     transform: translateX(-50%);
 
-    &.not{
+    &.not {
       display: none !important;
     }
 
-    &:after{
+    &:after {
       content: "";
       position: absolute;
       top: 1px;
@@ -247,7 +247,7 @@ $headerHeight: 60px;
       transform: translateX(-50%);
     }
 
-    .list-view-wrap{
+    .list-view-wrap {
       overflow: hidden;
       margin-top: 10px;
       border: 1px solid $color-sub-background;
@@ -257,17 +257,17 @@ $headerHeight: 60px;
     }
   }
 
-  .sub-nav-list{
-    a{
+  .sub-nav-list {
+    a {
       display: block;
       padding: 10px;
       transition: 0s;
     }
 
-    &:hover{
+    &:hover {
       background: $color-theme;
 
-      a{
+      a {
         color: $color-white;
       }
     }
@@ -281,14 +281,14 @@ $headerHeight: 60px;
     border: 1px solid $color-main-background;
     border-radius: $border-radius;
 
-    input[type="text"]{
+    input[type="text"] {
       -webkit-appearance: none;
       width: 160px;
       height: 30px;
       padding: 0 5px;
     }
 
-    .iconfont{
+    .iconfont {
       width: 30px;
       height: 30px;
       background: $color-main-background;
@@ -300,12 +300,12 @@ $headerHeight: 60px;
 }
 
 @media screen and (max-width: 1024px) {
-  .wrap{
-    .search-wrap{
+  .wrap {
+    .search-wrap {
       width: initial;
       border: 0;
 
-      input[type="text"]{
+      input[type="text"] {
         display: block;
         box-sizing: border-box;
         position: fixed;
@@ -322,12 +322,12 @@ $headerHeight: 60px;
         transition: .7s;
         transform: translateX(100%);
 
-        &.show{
+        &.show {
           transform: translateX(0);
         }
       }
 
-      .iconfont{
+      .iconfont {
         width: initial;
         background: none;
       }
@@ -336,18 +336,18 @@ $headerHeight: 60px;
 }
 
 @media screen and (max-width:768px) {
-  .wrap{
-    .search-wrap{
-      .iconfont{
+  .wrap {
+    .search-wrap {
+      .iconfont {
         font-size: 20px;
       }
 
-      .icon-menu{
+      .icon-menu {
         margin-left: 20px;
       }
 
       // 关闭按钮
-      .icon-close{
+      .icon-close {
         position: absolute;
         z-index: -1;
         top: 0;
@@ -362,7 +362,7 @@ $headerHeight: 60px;
         color: $color-white;
         transition: .5s;
 
-        &.show{
+        &.show {
           z-index: 99;
           right: 60%;
           opacity: 1;
@@ -372,7 +372,7 @@ $headerHeight: 60px;
     }
 
     // 导航
-    .nav-wrap{
+    .nav-wrap {
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       position: fixed;
@@ -388,28 +388,28 @@ $headerHeight: 60px;
       transition: .5s;
       transform: translateX(100%);
 
-      &.show{
+      &.show {
         opacity: 1;
         transform: translateX(0px);
       }
 
-      .box{
+      .box {
         display: block;
         height: 100%;
       }
 
-      a{
+      a {
         color: $color-white !important;
       }
     }
 
-    .nav-list{
+    .nav-list {
       display: block;
       width: 100%;
       height: auto;
       margin: 0;
 
-      > a{
+      > a {
         display: block;
         width: 100%;
         height: 50px;
@@ -418,7 +418,7 @@ $headerHeight: 60px;
     }
 
     // 二级导航
-    .sub-nav-wrap{
+    .sub-nav-wrap {
       display: block !important;
       box-sizing: border-box;
       position: static;
@@ -426,11 +426,11 @@ $headerHeight: 60px;
       padding-left: 10px;
       transform: translateX(0);
 
-      &:after{
+      &:after {
         display: none;
       }
 
-      .list-view-wrap{
+      .list-view-wrap {
         background: none;
         border: 0;
         box-shadow: none;

@@ -68,7 +68,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.xm-message{
+.xm-message {
   position: fixed;
   top: 30px;
   left: 50%;
@@ -77,7 +77,7 @@ export default {
   transition: .7s;
   transform: translateX(-50%);
 
-  .xm-message-content{
+  .xm-message-content {
     display: inline-block;
     box-sizing: border-box;
     width: 100%;
@@ -87,7 +87,7 @@ export default {
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
   }
 
-  &.alert-success{
+  &.alert-success {
     .iconfont{
       color: #52c41a;
     }
@@ -99,36 +99,36 @@ export default {
     }
   }
 
-  &.alert-warning{
+  &.alert-warning {
     .iconfont{
       color: #faad14;
     }
   }
 
-  &.alert-error{
-    .iconfont{
+  &.alert-error {
+    .iconfont {
       color: #f5222d;
     }
   }
 
-  &.align-center{
+  &.align-center {
     text-align: center;
   }
 
-  &.box-center{
+  &.box-center {
     top: 50%;
     box-shadow: 0 0 20px #eee;
     transform: translate(-50%, -50%);
   }
 
-  .msg-img{
+  .msg-img {
     margin-top: 10px;
   }
 
-  .iconfont{
+  .iconfont {
     font-size: 16px;
 
-    &.icon-close{
+    &.icon-close {
       margin-left: 20px;
       font-size: 14px;
       color: #ccc;
@@ -136,7 +136,8 @@ export default {
     }
   }
 }
-.msg-show-enter, .msg-show-leave-to{
+.msg-show-enter,
+.msg-show-leave-to {
   opacity: 0;
   transform: translateX(-50%) translateY(-100px);
 }

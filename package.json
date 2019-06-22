@@ -10,6 +10,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue .",
+    "precommit": "npm run lint",
     "pm2": "pm2 start npm --name 'nuxt' -- run build --watch"
   },
   "dependencies": {
@@ -33,9 +34,14 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1",
     "node-sass": "^4.12.0",
     "nodemon": "^1.18.9",
     "sass-loader": "^7.1.0"
+  },
+  "gitHooks": {
+    "pre-commit": "npm run lint"
   },
   "browserslist": [
     "> 1%",

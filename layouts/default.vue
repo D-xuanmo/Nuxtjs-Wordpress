@@ -30,29 +30,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   display: flex;
   justify-content: space-between;
   margin-top: $container-margin;
 
   // 左边内容容器
-  .content{
+  .content {
     width: 900px;
   }
 
   // 侧边栏
-  .sidebar-wrap{
+  .sidebar-wrap {
     width: 280px;
   }
 }
 
 @media screen and (max-width: 1024px) {
-  .wrap{
-    .content{
+  .wrap {
+    .content {
       width: 100%;
     }
 
-    .sidebar-wrap{
+    .sidebar-wrap {
       display: none;
     }
   }

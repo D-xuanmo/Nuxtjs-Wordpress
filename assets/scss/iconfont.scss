@@ -104,16 +104,16 @@ $iconMap         : (
 
 @each $key, $value in $iconMap {
   @if $key == "loading" {
-    .icon-#{$key}{
+    .icon-#{$key} {
       display: inline-block;
       animation: rotating 2s linear infinite;
-      &:before{
+      &:before {
         content: "#{$value}";
       }
     }
   }
   @else {
-    .icon-#{$key}:before{
+    .icon-#{$key}:before {
       content: "#{$value}";
     }
   }

@@ -260,47 +260,47 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.section{
+.section {
   margin-top: $container-margin;
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
 }
 
-.article{
+.article {
   margin-top: 0;
 
-  .title{
+  .title {
     padding: 10px 0;
     font-size: 20px;
     text-align: center;
   }
 
-  .other-info{
+  .other-info {
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
     text-align: center;
     color: $color-sub-text;
 
-    .iconfont{
+    .iconfont {
       vertical-align: baseline;
     }
   }
 
   // 正文
-  .content-details{
+  .content-details {
     line-height: 2;
     word-break: break-all;
 
-    /deep/ a{
+    /deep/ a {
       color: $color-theme;
     }
 
     /deep/ h2{
       margin-top: 10px;
 
-      .iconfont{
+      .iconfont {
         vertical-align: bottom;
       }
     }
@@ -316,39 +316,39 @@ export default {
       font-size: $font-size-small;
     }
 
-    /deep/ img{
+    /deep/ img {
       height: auto !important;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }
 }
 
-.opinion{
+.opinion {
   display: flex;
   justify-content: center;
   margin-bottom: $container-margin;
   text-align: center;
 
-  .list{
+  .list {
     width: 50px;
     margin: 0 20px;
     cursor: pointer;
   }
 
-  .total{
+  .total {
     font-size: $font-size-small;
   }
 
-  .icon-loading{
+  .icon-loading {
     vertical-align: baseline;
   }
 }
 
 // 分享按钮
-.share{
+.share {
   margin-bottom: $container-margin;
 
-  .iconfont-colour{
+  .iconfont-colour {
     width: 25px;
     height: 25px;
     vertical-align: bottom;
@@ -357,33 +357,33 @@ export default {
 }
 
 // 文章标签
-.tag-wrap{
+.tag-wrap {
   margin-bottom: $container-margin;
 
-  .iconfont{
+  .iconfont {
     margin-right: 3px;
     font-size: 20px;
   }
 }
 
 // 上一篇、下一篇
-.relative-link-wrap{
-  .next{
+.relative-link-wrap {
+  .next {
     margin-top: 10px;
   }
 }
 
 // 作者信息
-.author-introduct{
+.author-introduct {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  .right{
+  .right {
     flex: 1;
   }
 
-  .header{
+  .header {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
@@ -400,22 +400,22 @@ export default {
     }
   }
 
-  .name{
+  .name {
     font-size: $font-size-large;
   }
 
-  img{
+  img {
     margin-right: 10px;
     border-radius: $border-radius;
   }
 }
 
-.author-link{
+.author-link {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
 
-  .list{
+  .list {
     box-sizing: border-box;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -425,14 +425,14 @@ export default {
     font-size: $font-size-small;
   }
 
-  .iconfont-colour{
+  .iconfont-colour {
     width: 20px;
     height: 20px;
     vertical-align: middle;
   }
 }
 
-.comment-title{
+.comment-title {
   margin-bottom: 10px;
   padding: 10px 0;
   border-radius: $border-radius;
@@ -442,14 +442,14 @@ export default {
 }
 
 // 代码高亮
-/deep/ div.code-toolbar{
+/deep/ div.code-toolbar {
   overflow: hidden;
   width: 100%;
   margin: 20px 0;
   padding-top: 30px;
   border-radius: $border-radius;
 
-  pre{
+  pre {
     margin: 0;
     border: {
       width: 0 1px 1px;
@@ -458,18 +458,18 @@ export default {
     }
   }
 
-  code{
+  code {
     border: 0;
     box-shadow: none;
     background-size: 4em 4em;
     line-height: 2;
   }
 
-  .line-numbers .line-numbers-rows{
+  .line-numbers .line-numbers-rows {
     border-color: $color-main-background;
   }
 
-  .toolbar{
+  .toolbar {
     position: absolute;
     top: 0;
     left: 0;
@@ -478,7 +478,7 @@ export default {
     background: #358ccb;
     opacity: 1;
 
-    span{
+    span {
       background: none;
       box-shadow: none;
       border-radius: 0;
@@ -486,14 +486,14 @@ export default {
     }
   }
 
-  .toolbar-item{
+  .toolbar-item {
     padding-left: 20px;
 
-    span:hover{
+    span:hover {
       color: $color-white;
     }
 
-    &:before{
+    &:before {
       content: "\e7ae";
       font-family: "iconfont";
       color: $color-white;
@@ -502,10 +502,10 @@ export default {
 }
 
 @media screen and (max-width:767px) {
-  .opinion{
+  .opinion {
     justify-content: space-between;
 
-    .list{
+    .list {
       margin: 0;
     }
   }

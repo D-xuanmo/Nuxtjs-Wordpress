@@ -99,30 +99,30 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.sidebar-list{
+.sidebar-list {
   margin-top: $container-margin;
   padding: 10px;
   border-radius: $border-radius;
   background: $color-white;
 
-  &:first-of-type{
+  &:first-of-type {
     margin-top: 0;
   }
 
-  .header{
+  .header {
     margin-bottom: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
 
-    p{
+    p {
       position: relative;
       display: inline-block;
 
-      .iconfont{
+      .iconfont {
         font-size: $font-size-large;
       }
 
-      &:after{
+      &:after {
         content: "";
         position: absolute;
         bottom: -6px;
@@ -134,21 +134,21 @@ export default {
     }
   }
 
-  &.notice{
-    .content{
+  &.notice {
+    .content {
       line-height: 2;
     }
   }
 
   // 评论列表
-  &.comment{
-    .list{
+  &.comment {
+    .list {
       display: flex;
       // align-items: center;
       padding: 8px 0;
       border-bottom: 1px dashed $color-main-background;
 
-      &:last-of-type{
+      &:last-of-type {
         border: 0;
       }
 
@@ -160,16 +160,16 @@ export default {
       }
     }
 
-    .right{
+    .right {
       width: 200px;
     }
 
-    .thumbnail{
+    .thumbnail {
       margin-right: 10px;
       border-radius: 50%;
     }
 
-    .thumbnail-text{
+    .thumbnail-text {
       width: 50px;
       height: 50px;
       margin-right: 10px;
@@ -181,93 +181,93 @@ export default {
       color: #fff;
     }
 
-    .author{
+    .author {
       height: 20px;
       color: $color-theme;
     }
 
-    .comment-text{
+    .comment-text {
       max-height: 34px;
       font-size: $font-size-small;
       @include ellipsisMultiline(2);
     }
 
-    .title{
+    .title {
       @include ellipsisMultiline(2);
       color: $color-theme;
     }
   }
 
   // 站点统计
-  &.count{
-    .content{
+  &.count {
+    .content {
       display: flex;
       flex-wrap: wrap;
     }
 
-    .list{
+    .list {
       margin-top: 10px;
 
-      &:nth-of-type(odd){
+      &:nth-of-type(odd) {
         width: 38%;
       }
 
-      &:nth-of-type(even){
+      &:nth-of-type(even) {
         width: 60%;
       }
     }
   }
 
   // 标签云
-  &.tag-cloud{
-      .header{
+  &.tag-cloud {
+      .header {
         display: flex;
         justify-content: space-between;
       }
 
-    .content{
+    .content {
       display: flex;
       flex-wrap: wrap;
     }
 
-    .list{
+    .list {
       margin: 10px 5px 0 0;
       padding: 3px 6px;
       border-radius: $border-radius;
 
-      a{
+      a {
         color: $color-white;
       }
 
-      &.color-1{
+      &.color-1 {
         background: #f3a683;
       }
 
-      &.color-2{
+      &.color-2 {
         background: #778beb;
       }
 
-      &.color-3{
+      &.color-3 {
         background: #e77f67;
       }
 
-      &.color-4{
+      &.color-4 {
         background: #f5cd79;
       }
 
-      &.color-5{
+      &.color-5 {
         background: #0fb9b1;
       }
 
-      &.color-6{
+      &.color-6 {
         background: #f8a5c2;
       }
 
-      &.color-7{
+      &.color-7 {
         background: #596275;
       }
 
-      &.color-8{
+      &.color-8 {
         background: #20bf6b;
       }
     }

@@ -101,23 +101,23 @@ export default {
 
 <style lang="scss" scoped>
 // banner
-.banner-wrap{
+.banner-wrap {
   display: flex;
   justify-content: space-between;
   height: 320px;
 
-  img{
+  img {
     vertical-align: top;
     width: 100%;
     height: 100%;
   }
 
-  .list{
+  .list {
     overflow: hidden;
     position: relative;
     border-radius: $border-radius;
 
-    .title{
+    .title {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -131,22 +131,22 @@ export default {
     }
   }
 
-  .big-banner{
+  .big-banner {
     width: 710px;
 
-    img{
+    img {
       height: 320px;
     }
   }
 
-  .small-banner{
+  .small-banner {
     width: 180px;
 
-    .list{
+    .list {
       height: 100px;
       margin-bottom: 10px;
 
-      &:last-of-type{
+      &:last-of-type {
         margin-bottom: 0;
       }
     }
@@ -154,31 +154,31 @@ export default {
 }
 
 @media screen and (max-width: 1024px) {
-  .banner-wrap{
+  .banner-wrap {
     flex-wrap: wrap;
     height: auto;
 
-    .big-banner{
+    .big-banner {
       width: 100%;
 
-      img{
+      img {
         height: auto;
       }
     }
 
-    .small-banner{
+    .small-banner {
       display: flex;
       justify-content: space-between;
       width: 100%;
       margin-top: $container-margin;
 
-      .list{
+      .list {
         width: 32%;
         height: auto;
         margin-bottom: 0;
       }
 
-      img{
+      img {
         height: auto;
       }
     }
@@ -193,31 +193,31 @@ export default {
     text-indent: 8px;
   }
   // 文章列表
-  .article-list-wrap{
-    .article-list{
+  .article-list-wrap {
+    .article-list {
       flex-wrap: wrap;
       height: auto;
 
-      .title{
+      .title {
         margin-top: 15px;
         font-size: $font-size-large;
       }
 
-      .summary{
+      .summary {
         height: auto;
       }
 
-      .list-content{
+      .list-content {
         height: auto;
       }
 
-      .opeartion{
+      .opeartion {
         position: static;
         display: block;
         margin-top: 10px;
       }
 
-      .details-btn{
+      .details-btn {
         display: block;
         margin-top: 10px;
         padding: 10px 0;
@@ -225,12 +225,12 @@ export default {
       }
     }
 
-    .thumbnail-wrap{
+    .thumbnail-wrap {
       width: 100%;
       margin-right: 0;
       text-align: center;
 
-      .thumbnail{
+      .thumbnail {
         width: auto;
         height: auto;
         max-height: 150px;
@@ -239,8 +239,8 @@ export default {
   }
 
   // 翻页
-  /deep/ .el-pagination{
-    .el-pagination__jump{
+  /deep/ .el-pagination {
+    .el-pagination__jump {
       display: none;
     }
   }

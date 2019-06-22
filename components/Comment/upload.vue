@@ -214,7 +214,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 评论上传图片
-.upload-img-wrap{
+.upload-img-wrap {
   position: fixed;
   top: 0;
   left: 0;
@@ -222,7 +222,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  .model{
+  .model {
     position: absolute;
     top: 0;
     left: 0;
@@ -232,7 +232,7 @@ export default {
     background: rgba(0,0,0,.7);
   }
 
-  .sub-upload-wrap{
+  .sub-upload-wrap {
     box-sizing: border-box;
     position: absolute;
     top: 50%;
@@ -246,18 +246,18 @@ export default {
   }
 
   // 拖拽上传容器
-  .drag-wrap{
+  .drag-wrap {
     height: 200px;
     border: 2px dashed $color-sub-background;
     line-height: 200px;
   }
 
-  .title{
+  .title {
     font-size: 20px;
     font-weight: lighter;
   }
 
-  .icon-close{
+  .icon-close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -265,15 +265,15 @@ export default {
   }
 
   // 进度条
-  .progress-wrap{
+  .progress-wrap {
     display: flex;
     align-items: center;
   }
 
-  .current-pro{
+  .current-pro {
     width: 80%;
 
-    .current{
+    .current {
       width: 0px;
       height: 5px;
       border-radius: $border-radius;
@@ -283,7 +283,7 @@ export default {
   }
 
   // 选择图片
-  .select-img{
+  .select-img {
     position: relative;
     height: 50px;
     margin: 10px 0;
@@ -291,32 +291,32 @@ export default {
     line-height: 50px;
 
     .mask,
-    .iconfont{
+    .iconfont {
       font-size: 18px;
     }
 
-    .mask{
+    .mask {
 
-      span{
+      span {
         overflow: hidden;
         display: block;
         text-overflow: ellipsis;
         white-space: nowrap;
 
-        &.inline-block{
+        &.inline-block {
           display: inline-block;
           vertical-align: middle;
         }
       }
 
-      img{
+      img {
         max-width: 70px;
         max-height: 50px;
         vertical-align: middle;
       }
     }
 
-    input{
+    input {
       opacity: 0;
       position: absolute;
       top: 0;
@@ -327,19 +327,19 @@ export default {
     }
   }
 
-  .result-img{
-    img{
+  .result-img {
+    img {
       max-width: 300px;
       max-height: 350px;
     }
   }
 
-  .btn-wrap{
+  .btn-wrap {
     display: flex;
     justify-content: space-between;
     width: 300px;
     margin: 0 auto;
-    .btn{
+    .btn {
       width: 100px;
       margin: 15px auto;
       border-radius: $border-radius;
@@ -350,31 +350,31 @@ export default {
   }
 }
 @media screen and (max-width: 767px) {
-  .upload-img-wrap{
-    .sub-upload-wrap{
+  .upload-img-wrap {
+    .sub-upload-wrap {
       width: 90%;
     }
-    .progress-wrap{
+    .progress-wrap {
       flex-wrap: wrap;
-      .text{
+      .text {
         width: 100%;
         text-align: left;
       }
-      .current-pro{
+      .current-pro {
         width: 90%;
       }
     }
-    .result-img{
-      img{
+    .result-img {
+      img {
         max-width: 200px;
       }
     }
   }
 }
 @media screen and (max-height: 500px) {
-  .upload-img-wrap{
-    .result-img{
-      img{
+  .upload-img-wrap {
+    .result-img {
+      img {
         max-width: 100px;
       }
     }

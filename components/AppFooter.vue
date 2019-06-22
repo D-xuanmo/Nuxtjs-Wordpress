@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.footer{
+.footer {
   margin-top: $container-margin;
   padding: 30px 0;
   background: #2d3237;
@@ -80,7 +80,7 @@ export default {
   }
 }
 
-.link-wrap{
+.link-wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -89,61 +89,61 @@ export default {
   border-bottom: 1px solid #3b424a;
   line-height: 2;
 
-  &:after{
+  &:after {
     content: "";
     flex: auto;
   }
 
-  /deep/ a{
+  /deep/ a {
     display: block;
     margin-right: $container-margin;
     font-size: $font-size-large;
     color: #9295a2;
 
-    &:hover{
+    &:hover {
       color: $color-theme;
     }
   }
 }
 
-.copyright{
+.copyright {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: $font-size-small;
 
-  .footer-menu{
+  .footer-menu {
     display: flex;
     flex-wrap: wrap;
 
-    .list{
+    .list {
       margin-right: 15px;
       line-height: 1.8;
 
-      a{
+      a {
         padding-right: 15px;
         border-right: 1px solid #666;
         font-size: $font-size-base;
       }
 
-      &:last-child{
-        a{
+      &:last-child {
+        a {
           border: 0;
         }
       }
     }
   }
 
-  img{
+  img {
     vertical-align: baseline;
   }
 
-  .right{
+  .right {
     align-self: flex-end;
   }
 }
 
-.back-top{
+.back-top {
   position: fixed;
   z-index: 99;
   right: 30px;
@@ -152,26 +152,26 @@ export default {
   transform: translateX(100px);
   cursor: pointer;
 
-  &.show{
+  &.show {
     transform: translateX(0px);
   }
 
-  .iconfont{
+  .iconfont {
     font-size: 40px;
     color: $color-theme;
   }
 }
 
 @media screen and (max-width:1024px) {
-  .copyright{
+  .copyright {
     flex-wrap: wrap;
   }
 
-  .left{
+  .left {
     width: 100%;
   }
 
-  .right{
+  .right {
     width: 100%;
     margin-top: $container-margin;
     text-align: right;

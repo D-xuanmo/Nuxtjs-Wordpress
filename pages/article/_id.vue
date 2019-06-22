@@ -66,12 +66,12 @@ export default {
 
 <style lang="scss" scoped>
 // 文章列表
-.container{
+.container {
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
 
-  .header{
+  .header {
     padding-bottom: $container-padding;
     border-bottom: 1px solid $color-main-background;
     font-size: $font-size-large;
@@ -80,31 +80,31 @@ export default {
 
 @media screen and (max-width:767px) {
   // 文章列表
-  .container{
-    .article-list{
+  .container {
+    .article-list {
       flex-wrap: wrap;
       height: auto;
 
-      .title{
+      .title {
         margin-top: 15px;
         font-size: $font-size-large;
       }
 
-      .summary{
+      .summary {
         height: auto;
       }
 
-      .list-content{
+      .list-content {
         height: auto;
       }
 
-      .opeartion{
+      .opeartion {
         position: static;
         display: block;
         margin-top: 10px;
       }
 
-      .details-btn{
+      .details-btn {
         display: block;
         margin-top: 10px;
         padding: 10px 0;
@@ -112,12 +112,12 @@ export default {
       }
     }
 
-    .thumbnail-wrap{
+    .thumbnail-wrap {
       width: 100%;
       margin-right: 0;
       text-align: center;
 
-      .thumbnail{
+      .thumbnail {
         width: auto;
         height: auto;
         max-height: 150px;
@@ -126,8 +126,8 @@ export default {
   }
 
   // 翻页
-  /deep/ .el-pagination{
-    .el-pagination__jump{
+  /deep/ .el-pagination {
+    .el-pagination__jump {
       display: none;
     }
   }

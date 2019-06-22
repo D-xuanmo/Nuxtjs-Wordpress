@@ -25,12 +25,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   display: flex;
   justify-content: space-between;
   margin-top: $container-margin;
 
-  .content{
+  .content {
     width: 100%;
   }
 }

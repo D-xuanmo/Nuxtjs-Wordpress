@@ -50,21 +50,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article{
+.article {
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
 
-  .title{
+  .title {
     margin-bottom: 30px;
     font-size: 20px;
     text-align: center;
 
-    span{
+    span {
       display: inline-block;
       color: #333;
 
-      &:after{
+      &:after {
         content: "";
         display: block;
         width: 20px;
@@ -76,17 +76,17 @@ export default {
   }
 
   // 正文
-  .content-details{
+  .content-details {
     line-height: 2;
 
-    /deep/ a{
+    /deep/ a {
       color: $color-theme;
     }
 
     /deep/ h2{
       margin-top: 10px;
 
-      .iconfont{
+      .iconfont {
         vertical-align: bottom;
       }
     }
@@ -102,20 +102,20 @@ export default {
       font-size: $font-size-small;
     }
 
-    /deep/ img{
+    /deep/ img {
       height: auto !important;
       box-shadow: 0 0 10px #d2d2d2;
     }
   }
 }
 
-.comment{
+.comment {
   margin-top: $container-margin;
   padding: $container-padding;
   background: $color-white;
   border-radius: $border-radius;
 
-  .comment-title{
+  .comment-title {
     margin-bottom: 10px;
     padding: 10px 0;
     border-radius: $border-radius;
