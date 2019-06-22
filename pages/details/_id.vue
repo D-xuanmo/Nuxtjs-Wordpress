@@ -95,18 +95,18 @@
               <svg-icon iconName="#icon-icon-test"></svg-icon>
             </nuxt-link>
           </li>
-          <li class="list" v-for="(item, key) in authorOtherInfo" :key="item.key" @click="_showWechatNum(item.url)">
-            <template v-if="key === 'wechatNum'">
+          <template v-for="(item, key) in authorOtherInfo">
+            <li v-if="key === 'wechatNum'" class="list" :key="item.key" @click="_showWechatNum(item.url)">
               <a href="javascript:;">
                 <svg-icon :iconName="item.icon"></svg-icon>
               </a>
-            </template>
-            <template v-else>
-              <a :href="key == 'email' ? `mailto:${item.url}` : item.url">
+            </li>
+            <li v-else :key="item.key" class="list">
+              <a :href="key == 'email' ? `mailto:${item.url}` : item.url" target="_blank">
                 <svg-icon :iconName="item.icon"></svg-icon>
               </a>
-            </template>
-          </li>
+            </li>
+          </template>
         </ul>
       </div>
     </div>
