@@ -69,7 +69,7 @@ export default {
     // }
   },
 
-  // 将此处3个地址改为自己的地址
+  // 将此处2个地址改为自己的地址
   proxy: {
     '/api': {
       target: 'https://www.xuanmo.xin',
@@ -85,7 +85,6 @@ export default {
   },
 
   env: {
-    baseUrl: 'https://www.xuanmo.xin'
-    // baseUrl: 'http://localhost:8888'
+    baseUrl: '/api'
   }
 }

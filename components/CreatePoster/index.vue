@@ -123,7 +123,9 @@ export default {
       formData.append('name', `poster-${this.content.id}`)
       formData.append('url', '/wp-content')
       formData.append('mark', 'upload')
-      let data = await this.uploadImage(formData)
+      let data = await this.uploadImage({
+        requestData: formData
+      })
       this.$emit('on-change', data)
       this.poster = this.$store.state.info.baseUrl + data.path
       this.isFirstCreate = false

@@ -128,7 +128,7 @@ export const actions = {
   // 发表意见
   async updateOpinion ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`/api/wp-json/xm-blog/v1/like`, requestData, {
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/like`, requestData, {
         headers: {
           progress: false
         }
