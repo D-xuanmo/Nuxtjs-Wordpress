@@ -77,13 +77,14 @@ export const mutations = {
 
 export const actions = {
   // 获取文章列表
-  async getArticleList ({ commit }, requestData) {
+  async getArticleList ({ rootState, commit }, requestData) {
     try {
       let { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: requestData,
         data: { progress: false }
       })
       data.map(item => {
+        item.articleInfor.thumbnail = item.articleInfor.thumbnail ? item.articleInfor.thumbnail.replace(/https?:\/\/(\w+\.)+\w+(:\d+)?/, '') : rootState.info.thumbnail
         item.date = item.date.replace('T', ' ')
       })
       commit(UPDATE_ARTICLE_LIST, data)
@@ -100,6 +101,7 @@ export const actions = {
       let { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${id}`, {
         data: { progress: false }
       })
+      data.date = data.date.replace('T', ' ')
       commit(SET_ARTICLE_DETAIL, data)
       commit(UPDATE_OPINION, data.articleInfor.xmLike)
       return Promise.resolve(data)

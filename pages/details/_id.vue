@@ -6,7 +6,7 @@
       <div class="other-info">
         <span class="author">{{ detail.articleInfor.author }}</span>
         <span class="text">&nbsp;发表于：</span>
-        <time class="time"><x-icon type="icon-date"></x-icon>{{ detail.date.replace('T', ' ') }}</time>
+        <time class="time"><x-icon type="icon-date"></x-icon>{{ detail.date }}</time>
         <span class="text">&nbsp;分类：</span>
         <span
           class="classify"
