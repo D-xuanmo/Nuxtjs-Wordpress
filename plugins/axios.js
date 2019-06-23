@@ -15,6 +15,9 @@ export default function ({ $axios, redirect }) {
         config.progress = config.headers.progress
         delete config.headers.progress
       }
+    } else {
+      config.progress = config.headers.progress
+      delete config.headers.progress
     }
     return config
   })

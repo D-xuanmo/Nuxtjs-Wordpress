@@ -204,7 +204,7 @@ export default {
       imgUrl: this.info.thumbnail,
       title: this.detail.title.rendered,
       summary: this.detail.articleInfor.summary,
-      time: this.detail.date.replace(/T.*/, ' '),
+      time: this.detail.date.replace(/\s.*/, ' '),
       qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.info.baseUrl}$4`),
       qrcodeText: this.info.blogName,
       id: this.$route.params.id
