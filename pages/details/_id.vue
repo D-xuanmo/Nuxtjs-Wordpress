@@ -19,7 +19,12 @@
       </div>
       <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
+    <div class="section copyright">
+      <p><strong>版权声明: </strong> 本站文章除特别声明外，均为本站原创或翻译。转载请注明出处，尊重他人劳动成果，谢谢。</p>
+      <p class="m-t-10px"><strong>转载请注明出处链接: </strong><a :href="fullPath">{{ detail.title.rendered }}</a></p>
+    </div>
     <!-- 文章内容结束 -->
+
     <div class="section operation">
 
       <!-- 点赞开始 -->
@@ -37,13 +42,13 @@
       <!-- 分享开始 -->
       <div class="share text-center">
         <span class="text">分享到：</span>
-        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.baseUrl}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`" target="_blank">
+        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`" target="_blank">
           <svg-icon iconName="#icon-QQ"></svg-icon>
         </a>
-        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.baseUrl}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`" target="_blank">
+        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`" target="_blank">
           <svg-icon iconName="#icon-Qzone"></svg-icon>
         </a>
-        <a :href="`https://service.weibo.com/share/share.php?url=${info.baseUrl}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+        <a :href="`https://service.weibo.com/share/share.php?url=${info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
           <svg-icon iconName="#icon-xinlang"></svg-icon>
         </a>
         <a href="javascript:;" class="create-poster-btn" @click="isShowPoster = true">
@@ -143,6 +148,7 @@ export default {
     return {
       isShowReward: false,
       isShowPoster: false,
+      fullPath: '',
       rewardContent: {},
       posterContent: {},
       authorOtherInfo: {
@@ -183,6 +189,7 @@ export default {
     }
   },
   created () {
+    this.fullPath = `${this.info.domain.replace(/\/$/, '')}${this.$route.path}`
     let other = this.detail.articleInfor.other
 
     // 合并作者数据
@@ -205,7 +212,7 @@ export default {
       title: this.detail.title.rendered,
       summary: this.detail.articleInfor.summary,
       time: this.detail.date.replace(/\s.*/, ' '),
-      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.info.baseUrl}$4`),
+      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.info.domain}$4`),
       qrcodeText: this.info.blogName,
       id: this.$route.params.id
     }

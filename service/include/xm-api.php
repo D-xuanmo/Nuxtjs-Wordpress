@@ -134,7 +134,7 @@ function add_get_blog_info () {
 
   $xm_options = get_option('xm_vue_options');
   $result = array(
-    'baseUrl' => get_option('xm_vue_options')['domain'],
+    'domain' => get_option('xm_vue_options')['domain'],
     'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'isOpenCommentUpload' => get_option('xm_vue_options')['is_open_comment_upload'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
