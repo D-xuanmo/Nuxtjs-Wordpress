@@ -10,11 +10,11 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { hid: 'prism', rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
+      { hid: 'prism', rel: 'stylesheet', href: '/css/prism.css' }
     ],
     script: [
       { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },
-      { src: 'https://upyun.xuanmo.xin/js/prism.js' },
+      { src: '/js/prism.js' },
       // 百度主推文章收录用
       { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
       // 加入百度统计js，使用时自行添加为自己的
