@@ -137,6 +137,7 @@ function add_get_blog_info () {
     'domain' => get_option('xm_vue_options')['domain'],
     'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'isOpenCommentUpload' => get_option('xm_vue_options')['is_open_comment_upload'],
+    'isOpenArticleCopyright' => get_option('xm_vue_options')['article_copyright'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
     'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'contentUrl' => '/wp-content',

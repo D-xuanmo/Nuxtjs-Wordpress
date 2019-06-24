@@ -19,7 +19,7 @@
       </div>
       <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
-    <div class="section copyright">
+    <div v-if="info.isOpenArticleCopyright === 'on'" class="section copyright">
       <p><strong>版权声明: </strong> 本站文章除特别声明外，均为本站原创。转载请注明出处，谢谢。</p>
       <p class="m-t-10px"><strong>本文地址: </strong><a :href="fullPath">{{ fullPath }}</a></p>
     </div>

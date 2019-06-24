@@ -91,12 +91,32 @@ function themeoptions_page() {
                 name="is-open-text-picture"
                 value="on" <?php if($xm_options['text_pic'] == 'on') echo 'checked'; ?>
               >
-              <label for="open-text-picture-off-off">关</label>
+              <label for="open-text-picture-off">关</label>
               <input
                 type="radio"
-                id="open-text-picture-off-off"
+                id="open-text-picture-off"
                 name="is-open-text-picture"
                 value="off" <?php if($xm_options['text_pic'] == 'off' || $xm_options['text_pic'] == '') echo 'checked'; ?>
+              >
+            </div>
+          </div>
+
+          <div class="form-item">
+            <p class="form-item-title">是否开启文章版权描述：</p>
+            <div class="form-item-content">
+              <label for="open-article-copyright-on">开</label>
+              <input
+                type="radio"
+                id="open-article-copyright-on"
+                name="is-open-article-copyright"
+                value="on" <?php if($xm_options['article_copyright'] == 'on') echo 'checked'; ?>
+              >
+              <label for="open-article-copyright-off-off">关</label>
+              <input
+                type="radio"
+                id="open-article-copyright-off"
+                name="is-open-article-copyright"
+                value="off" <?php if($xm_options['article_copyright'] == 'off' || $xm_options['article_copyright'] == '') echo 'checked'; ?>
               >
             </div>
           </div>
@@ -368,6 +388,7 @@ function themeoptions_page() {
       'aside_count'            => $_POST['aside-count'],
       'is_open_comment_upload' => $_POST['open-comment-upload'],
       'text_pic'               => $_POST['is-open-text-picture'],
+      'article_copyright'      => $_POST['is-open-article-copyright'],
       'logo'                   => $_POST['logo'],
       'thumbnail'              => $_POST['thumbnail-img'],
       'domain'                 => $_POST['domain'],
