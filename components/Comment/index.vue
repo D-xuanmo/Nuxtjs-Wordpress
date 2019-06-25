@@ -415,7 +415,7 @@ export default {
       if (this.expression.clickState) {
         this.$refs.expression.style.display = 'block'
         if (this.expression.state) {
-          await this.getExpression(this.info.templeteUrl)
+          await this.getExpression()
           this.expression.state = false
         }
       } else {
