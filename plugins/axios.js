@@ -2,6 +2,7 @@ export default function ({ $axios, redirect }) {
   $axios.onRequest(config => {
     if (config.method === 'get') {
       config.data && (config.progress = config.data.progress)
+      config.data = null
     } else {
       let contentType = config.headers['Content-Type']
       if (contentType && contentType.indexOf('multipart/form-data') === -1) {

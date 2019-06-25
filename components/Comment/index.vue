@@ -7,7 +7,7 @@
       <!-- 评论其他功能 -->
       <div class="comment-other">
         <ul class="list-wrap">
-          <li v-if="isOpenCommentUpload === 'on'" class="list" @click="_showChartlet">
+          <li v-if="isOpenCommentUpload" class="list" @click="_showChartlet">
             <x-icon type="icon-upload-img2"></x-icon>贴图
           </li>
           <li class="list" @click.stop="_getExpression">

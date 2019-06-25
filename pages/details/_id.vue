@@ -19,14 +19,13 @@
       </div>
       <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
-    <div v-if="info.isOpenArticleCopyright === 'on'" class="section copyright">
+    <div v-if="info.isOpenArticleCopyright" class="section copyright">
       <p><strong>版权声明: </strong> 本站文章除特别声明外，均为本站原创。转载请注明出处，谢谢。</p>
       <p class="m-t-10px"><strong>本文地址: </strong><a :href="fullPath">{{ fullPath }}</a></p>
     </div>
     <!-- 文章内容结束 -->
 
     <div class="section operation">
-
       <!-- 点赞开始 -->
       <ul class="opinion">
         <li class="list" v-for="(item, key) in opinion" :key="key" @click="_updateOpinion(key)">
@@ -87,7 +86,9 @@
           <p class="inline-block name">
             作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
-          <div class="reward" @click="isShowReward = true"><svg-icon iconName="#icon-dashang"></svg-icon>打赏</div>
+          <div v-if="info.isOpenReward" class="reward" @click="isShowReward = true">
+            <svg-icon iconName="#icon-dashang"></svg-icon>打赏
+          </div>
           <!-- 打赏详情 -->
           <reward v-model="isShowReward" :content="rewardContent"></reward>
         </div>

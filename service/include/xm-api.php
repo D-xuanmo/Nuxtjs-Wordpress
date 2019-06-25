@@ -135,21 +135,23 @@ function add_get_blog_info () {
   $xm_options = get_option('xm_vue_options');
   $result = array(
     'domain' => get_option('xm_vue_options')['domain'],
+    'isOpenAsideCount' => (bool) $xm_options['aside_count'],
+    'isOpenCommentUpload' => (bool) $xm_options['is_open_comment_upload'],
+    'isOpenTextThumbnail' => (bool) $xm_options['text_pic'],
+    'isOpenArticleCopyright' => (bool) $xm_options['article_copyright'],
+    'isOpenReward' => (bool) $xm_options['is_open_reward'],
+    'rewardText' => $xm_options['reward_text'],
+    'alipay' => $xm_options['alipay'],
+    'wechatpay' => $xm_options['wechatpay'],
     'contentUrl' => '/wp-content',
     'themeDir' => get_option('template'),
-    'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
-    'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
-    'isOpenCommentUpload' => get_option('xm_vue_options')['is_open_comment_upload'],
-    'isOpenArticleCopyright' => get_option('xm_vue_options')['article_copyright'],
-    'detailsCss' => get_option('xm_vue_options')['details_css'],
+    'templeteUrl' => $xm_options['domain'] . '/wp-content/themes/' . get_option('template'),
+    'detailsCss' => $xm_options['details_css'],
     'blogName' => get_bloginfo('name'),
     'blogDescription' => get_bloginfo('description'),
-    'rewardText' => get_option('xm_vue_options')['reward_text'],
-    'alipay' => get_option('xm_vue_options')['alipay'],
-    'wechatpay' => get_option('xm_vue_options')['wechatpay'],
     'adminPic' => local_avatar_url(),
-    'banner' => get_option('xm_vue_options')['banner'],
-    'logo' => get_option('xm_vue_options')['logo'],
+    'banner' => $xm_options['banner'],
+    'logo' => $xm_options['logo'],
     'tagCloud' => get_tags(array('orderby' => 'count', 'order' => 'DESC')),
     'getAllCountArticle' => wp_count_posts() -> publish,
     'getAllCountCat' => wp_count_terms('category'),
@@ -157,12 +159,11 @@ function add_get_blog_info () {
     'getAllCountPage' => wp_count_posts('page') -> publish,
     'getAllCountComment' => $wpdb -> get_var("SELECT COUNT(*) FROM $wpdb->comments"),
     'lastUpDate' => $last,
-    'getSidebarCount' => get_option('xm_vue_options')['aside_count'],
-    'link' => get_option('xm_vue_options')['link'],
+    'link' => $xm_options['link'],
     'newArticle' => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
     'newComment' => $newComment
   );
-  return array_merge($result, $xm_options);
+  return $result;
 }
 add_action('rest_api_init', function () {
   register_rest_route('xm-blog/v1', '/info', array('methods' => 'GET', 'callback' => 'add_get_blog_info'));

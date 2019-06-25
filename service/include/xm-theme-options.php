@@ -3,6 +3,7 @@ function themeoptions_admin_menu() {
 	// 在控制面板的侧边栏添加设置选项页链接
 	add_theme_page('xuan主题设置', 'xuan主题设置','edit_themes', basename(__FILE__), 'themeoptions_page');
 }
+
 if ( isset($_POST['update_themeoptions']) && $_POST['update_themeoptions'] == 'true' ) themeoptions_update();
 function themeoptions_page() {
   // 获取提交的数据
@@ -38,6 +39,7 @@ function themeoptions_page() {
 								id="domain"
 								value="<?php echo $xm_options['domain']; ?>"
 							>
+							<span>示例：https://www.xuanmo.xin</span>
 						</div>
 					</div>
 
@@ -49,14 +51,14 @@ function themeoptions_page() {
                 type="radio"
                 id="aside-count-on"
                 name="aside-count"
-                value="on" <?php if($xm_options['aside_count'] == 'on') echo 'checked'; ?>
+                value="1" <?php if((bool) $xm_options['aside_count']) echo 'checked'; ?>
               >
               <label for="aside-count-off">关</label>
               <input
                 type="radio"
                 id="aside-count-off"
                 name="aside-count"
-                value="off" <?php if($xm_options['aside_count'] == 'off' || $xm_options['aside_count'] == '') echo 'checked'; ?>
+                value="0" <?php if((bool) !$xm_options['aside_count'] || !$xm_options['aside_count']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -69,14 +71,14 @@ function themeoptions_page() {
                 type="radio"
                 id="comment-upload-on"
                 name="open-comment-upload"
-                value="on" <?php if($xm_options['is_open_comment_upload'] == 'on') echo 'checked'; ?>
+                value="1" <?php if((bool) $xm_options['is_open_comment_upload']) echo 'checked'; ?>
               >
               <label for="comment-upload-off">关</label>
               <input
                 type="radio"
                 id="comment-upload-off"
                 name="open-comment-upload"
-                value="off" <?php if($xm_options['is_open_comment_upload'] == 'off' || $xm_options['is_open_comment_upload'] == '') echo 'checked'; ?>
+                value="0" <?php if((bool) !$xm_options['is_open_comment_upload'] || !$xm_options['is_open_comment_upload']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -89,14 +91,14 @@ function themeoptions_page() {
                 type="radio"
                 id="open-text-picture-on"
                 name="is-open-text-picture"
-                value="on" <?php if($xm_options['text_pic'] == 'on') echo 'checked'; ?>
+                value="1" <?php if((bool) $xm_options['text_pic']) echo 'checked'; ?>
               >
               <label for="open-text-picture-off">关</label>
               <input
                 type="radio"
                 id="open-text-picture-off"
                 name="is-open-text-picture"
-                value="off" <?php if($xm_options['text_pic'] == 'off' || $xm_options['text_pic'] == '') echo 'checked'; ?>
+                value="0" <?php if((bool) !$xm_options['text_pic'] || !$xm_options['text_pic']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -109,14 +111,14 @@ function themeoptions_page() {
                 type="radio"
                 id="open-article-copyright-on"
                 name="is-open-article-copyright"
-                value="on" <?php if($xm_options['article_copyright'] == 'on') echo 'checked'; ?>
+                value="1" <?php if((bool) $xm_options['article_copyright']) echo 'checked'; ?>
               >
               <label for="open-article-copyright-off-off">关</label>
               <input
                 type="radio"
                 id="open-article-copyright-off"
                 name="is-open-article-copyright"
-                value="off" <?php if($xm_options['article_copyright'] == 'off' || $xm_options['article_copyright'] == '') echo 'checked'; ?>
+                value="0" <?php if((bool) !$xm_options['article_copyright'] || !$xm_options['article_copyright']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -306,6 +308,26 @@ function themeoptions_page() {
         <!-- 内容四 社交 -->
         <li class="content-item content4">
           <div class="form-item">
+            <p class="form-item-title">是否开启打赏：</p>
+            <div class="form-item-content">
+              <label for="is-open-reward-on">开</label>
+              <input
+                type="radio"
+                id="is-open-reward-on"
+                name="is-open-reward"
+                value="1" <?php if((bool) $xm_options['is_open_reward']) echo 'checked'; ?>
+              >
+              <label for="is-open-reward-off">关</label>
+              <input
+                type="radio"
+                id="is-open-reward-off"
+                name="is-open-reward"
+                value="0" <?php if((bool) !$xm_options['is_open_reward'] || !$xm_options['is_open_reward']) echo 'checked'; ?>
+              >
+            </div>
+          </div>
+
+          <div class="form-item">
             <p class="form-item-title">打赏欢迎语：</p>
             <div class="form-item-content">
               <input
@@ -401,6 +423,7 @@ function themeoptions_page() {
       'link'                   => $_POST['link'],
       'vip_style'              => $_POST['vip-style'],
       'reward_text'            => $_POST['reward-text'],
+      'is_open_reward'         => $_POST['is-open-reward'],
       'alipay'                 => $_POST['alipay'],
       'wechatpay'              => $_POST['wechatpay'],
 			'banner'                 => array(

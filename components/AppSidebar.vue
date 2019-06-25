@@ -19,19 +19,10 @@
       <ul class="content">
         <li class="list" v-for="item in sidebar.newComment" :key="item.key">
           <template>
-            <img
-              v-if="sidebar.isTextThumbnail === 'off'"
-              :src="item.avatar"
-              class="thumbnail"
-              width="50"
-              height="50">
-            <p
-              v-else-if="sidebar.isTextThumbnail === 'on'"
-              class="thumbnail-text"
-              :style="{ background: item.background }"
-            >
+            <p v-if="sidebar.isOpenTextThumbnail" class="thumbnail-text" :style="{ background: item.background }">
               {{ item.comment_author.substr(0, 1) }}
             </p>
+            <img v-else :src="item.avatar" class="thumbnail" width="50" height="50">
           </template>
           <div class="right">
             <h3 class="author">{{ item.comment_author }}</h3>
@@ -42,7 +33,7 @@
       </ul>
     </div>
     <!-- 站点统计 -->
-    <div class="sidebar-list count" v-if="sidebar.isShowCount === 'on'">
+    <div v-if="sidebar.isOpenAsideCount" class="sidebar-list count">
       <div class="header">
         <p>
           <x-icon type="icon-count"></x-icon> 站点统计
@@ -84,8 +75,8 @@ export default {
       sidebar: state => ({
         notice: state.info.sidebar_notice,
         newComment: state.info.newComment,
-        isTextThumbnail: state.info.isTextThumbnail,
-        isShowCount: state.info.aside_count,
+        isOpenTextThumbnail: state.info.isOpenTextThumbnail,
+        isOpenAsideCount: state.info.isOpenAsideCount,
         getAllCountTag: state.info.getAllCountTag,
         getAllCountArticle: state.info.getAllCountArticle,
         getAllCountPage: state.info.getAllCountPage,
