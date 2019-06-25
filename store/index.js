@@ -41,9 +41,9 @@ export const actions = {
   },
 
   // 上传图片
-  async uploadImage ({ commit }, { requestData, config = {} }) {
+  async uploadImage ({ commit, rootState }, { requestData, config = {} }) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/xm-vue-theme/xm_upload.php`, requestData, {
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false
@@ -57,9 +57,9 @@ export const actions = {
   },
 
   // 删除图片
-  async deleteImage ({ commit }, requestData) {
+  async deleteImage ({ commit, rootState }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/xm-vue-theme/xm_upload.php`, requestData, {
+      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false

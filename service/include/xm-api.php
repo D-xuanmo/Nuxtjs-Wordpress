@@ -135,12 +135,13 @@ function add_get_blog_info () {
   $xm_options = get_option('xm_vue_options');
   $result = array(
     'domain' => get_option('xm_vue_options')['domain'],
+    'contentUrl' => '/wp-content',
+    'themeDir' => get_option('template'),
+    'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
     'isTextThumbnail' => get_option('xm_vue_options')['text_pic'],
     'isOpenCommentUpload' => get_option('xm_vue_options')['is_open_comment_upload'],
     'isOpenArticleCopyright' => get_option('xm_vue_options')['article_copyright'],
     'detailsCss' => get_option('xm_vue_options')['details_css'],
-    'templeteUrl' => get_option('xm_vue_options')['domain'] . '/wp-content/themes/' . get_option('template'),
-    'contentUrl' => '/wp-content',
     'blogName' => get_bloginfo('name'),
     'blogDescription' => get_bloginfo('description'),
     'rewardText' => get_option('xm_vue_options')['reward_text'],
