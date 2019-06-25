@@ -96,19 +96,19 @@
     <ul class="comment-list-wrap">
       <li class="comment-list" v-for="(item, index) in commentList" :key="item.key">
         <template>
+          <p
+            v-if="info.isOpenTextThumbnail"
+            class="list-gravatar-text"
+            :style="{ background: item.userAgentInfo.background }">
+            {{ item.author_name.substr(0, 1) }}
+          </p>
           <img
-            v-if="info.isTextThumbnail === 'off'"
+            v-else
             :src="item.userAgentInfo.author_avatar_urls"
             class="list-gravatar"
             width="60"
             height="60"
             alt="">
-          <p
-            v-else-if="info.isTextThumbnail === 'on'"
-            class="list-gravatar-text"
-            :style="{ background: item.userAgentInfo.background }">
-            {{ item.author_name.substr(0, 1) }}
-          </p>
         </template>
         <div class="list-header">
           <a :name="`comment-${item.id}`"></a>
