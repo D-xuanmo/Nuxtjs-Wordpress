@@ -153,6 +153,7 @@ function add_get_blog_info () {
     'banner' => $xm_options['banner'],
     'thumbnail' => $xm_options['thumbnail'],
     'copyright' => $xm_options['footer_copyright'],
+    'notice' => $xm_options['sidebar_notice'],
     'logo' => $xm_options['logo'],
     'tagCloud' => get_tags(array('orderby' => 'count', 'order' => 'DESC')),
     'getAllCountArticle' => wp_count_posts() -> publish,

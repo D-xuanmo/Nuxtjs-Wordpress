@@ -73,7 +73,7 @@ export default {
   computed: {
     ...mapState({
       sidebar: state => ({
-        notice: state.info.sidebar_notice,
+        notice: state.info.notice,
         newComment: state.info.newComment,
         isOpenTextThumbnail: state.info.isOpenTextThumbnail,
         isOpenAsideCount: state.info.isOpenAsideCount,
