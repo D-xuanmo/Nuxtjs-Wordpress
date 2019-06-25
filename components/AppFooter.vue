@@ -50,7 +50,7 @@ export default {
       errorInformation: state => state.errorInformation,
       link: state => state.info.link,
       subMenu: state => state.subMenu,
-      copyright: state => state.info.footer_copyright
+      copyright: state => state.info.copyright
     })
   },
   mounted () {
