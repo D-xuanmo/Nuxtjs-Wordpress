@@ -95,6 +95,10 @@ input[type=radio] {
   width: 500px;
 }
 
+.friendship-link {
+  width: 700px;
+}
+
 .preview-img {
   max-width: 200px;
 }

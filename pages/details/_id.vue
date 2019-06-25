@@ -177,7 +177,7 @@ export default {
   },
   head () {
     let keywords = []
-    this.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
+    this.detail.articleInfor.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
     return {
       title: `${this.detail.title.rendered} | ${this.info.blogName}`,
       meta: [

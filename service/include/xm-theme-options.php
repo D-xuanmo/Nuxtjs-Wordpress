@@ -20,6 +20,7 @@ function themeoptions_page() {
       <li class="item is-active">基本</li>
       <li class="item">SEO</li>
       <li class="item">图片</li>
+      <li class="item">打赏</li>
       <li class="item">社交</li>
       <li class="item">自定义代码</li>
       <li class="line"></li>
@@ -27,8 +28,8 @@ function themeoptions_page() {
     <form method="post" action="">
       <input type="hidden" name="update_themeoptions" value="true">
       <ul class="content-wrapper">
-        <!-- 内容一 基本 -->
-        <li class="content-item content1">
+        <!-- 基本设置开始 -->
+        <li class="content-item">
 					<div class="form-item">
 						<p class="form-item-title">站点前端域名：</p>
 						<div class="form-item-content">
@@ -137,9 +138,9 @@ function themeoptions_page() {
             </div>
           </div>
         </li>
-
-        <!-- 内容二 SEO -->
-        <li class="content-item content2">
+        <!-- 基本设置结束 -->
+        <!-- SEO开始 -->
+        <li class="content-item">
           <div class="form-item">
             <p class="form-item-title">首页关键词(keywords)：</p>
             <div class="form-item-content">
@@ -154,9 +155,9 @@ function themeoptions_page() {
             </div>
           </div>
         </li>
-
-  			<!-- 内容三 图片设置 -->
-        <li class="content-item content3">
+        <!-- SEO结束 -->
+  			<!-- 图片设置开始 -->
+        <li class="content-item">
           <div class="form-item">
             <p class="form-item-title">评论区vip等级样式：</p>
             <div class="form-item-content">
@@ -304,9 +305,9 @@ function themeoptions_page() {
   					}
   				?>
         </li>
-
-        <!-- 内容四 社交 -->
-        <li class="content-item content4">
+        <!-- 图片设置结束 -->
+        <!-- 打赏开始 -->
+        <li class="content-item">
           <div class="form-item">
             <p class="form-item-title">是否开启打赏：</p>
             <div class="form-item-content">
@@ -370,16 +371,20 @@ function themeoptions_page() {
               </p>
             </div>
           </div>
-
+        </li>
+        <!-- 打赏结束 -->
+        <!-- 友情链接开始 -->
+        <li class="content-item">
           <div class="form-item">
             <p class="form-item-title">友情链接：</p>
             <div class="form-item-content">
-              <textarea class="input-inner" name="link" rows="15" cols="100"><?php echo $xm_options['link']; ?></textarea>
+              <textarea class="input-inner friendship-link" name="link" rows="15" cols="100"><?php echo $xm_options['link']; ?></textarea>
             </div>
           </div>
         </li>
-        <!-- 内容五 自定义代码 -->
-        <li class="content-item content5">
+        <!-- 友情链接结束 -->
+        <!-- 自定义代码开始 -->
+        <li class="content-item">
           <div class="form-item">
             <p class="form-item-title">后台登录页面css（不需要style标签）：</p>
             <div class="form-item-content">
@@ -393,6 +398,7 @@ function themeoptions_page() {
             </div>
           </div>
         </li>
+        <!-- 自定义代码结束 -->
       </ul>
       <div class="btn-wrap">
         <input type="submit" class="btn-submit" name="btn-admin-options" value="保存更改">
