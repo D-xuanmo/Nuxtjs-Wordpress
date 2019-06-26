@@ -79,10 +79,11 @@
     <!-- 作者信息 -->
     <div class="section author-introduct">
       <!-- 头像 -->
-      <img :src="detail.articleInfor.other.authorPic" alt="" width="100">
+      <img :src="detail.articleInfor.other.authorPic" class="phone-hide" width="100">
       <div class="right">
         <!-- 昵称 -->
         <div class="header">
+          <img :src="detail.articleInfor.other.authorPic" class="phone-show" width="25">
           <p class="inline-block name">
             作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
@@ -385,7 +386,7 @@ export default {
 .author-introduct {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
   .right {
     flex: 1;
@@ -393,6 +394,7 @@ export default {
 
   .header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 5px;
     padding-bottom: 5px;

@@ -29,18 +29,22 @@ $color-error: #f5222d;
 // 遮罩层
 $color-mask: rgba(0, 0, 0, .5);
 
+$z-index: 999;
+
 $font-size-small: 12px;
 $font-size-base: 14px;
 $font-size-large: 16px;
 
 // 圆角
-$border-radius: 3px;
+$border-radius: 4px;
 
 // 容器之间的外间距
 $container-margin: 20px;
 
 // 容器的内边距
 $container-padding: 15px;
+
+$box-shadow: 0 0 10px rgba(0,0,0,.2);
 
 // 透明兼容写法
 @mixin opacity($number: 0.5) {

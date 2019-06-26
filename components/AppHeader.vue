@@ -1,69 +1,92 @@
 <template>
-  <header class="header">
-    <div v-if="isFloat" class="hide-header"></div>
-    <div class="header-content" :class="{ 'is-float': isFloat }" ref="header">
-      <div class="wrap">
-        <div class="left">
-          <div class="logo">
-            <h1>
-              <span class="hide">{{ info.blogName }}</span>
-              <no-ssr>
-                <nuxt-link :to="{ name: 'index' }" class="block">
-                  <img :src="info.logo" class="vertical-middle" width="130" height="40" alt="">
-                </nuxt-link>
-              </no-ssr>
-            </h1>
-          </div>
-          <nav class="nav-wrap" :class="{ show: isShowNavWrap }">
-            <no-ssr>
-              <ul class="box">
-                <li class="nav-list first">
-                  <nuxt-link :to="{ name: 'index' }"><x-icon type="icon-home2" @click.native="hideNavWrap"></x-icon>首页</nuxt-link>
-                </li>
-                <li class="nav-list" v-for="item in menu" :key="item.key">
-                  <nuxt-link
-                     v-if="item.type === 'category'"
-                    :to="{ name: `${item.type}-id`, params: { id: 1 }, query: { type: item.ID, title: item.title } }"
-                    :class="{ 'prohibit-event': item.children.length !== 0 }"
-                    @click.native="hideNavWrap">
-                    <x-icon :type="item.icon"></x-icon>{{ item.title }}
-                    <x-icon type="icon-arrow-bottom" v-if="item.children.length !== 0"></x-icon>
-                  </nuxt-link>
-                  <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
-                    <x-icon :type="item.icon"></x-icon> {{ item.title }}
-                  </nuxt-link>
-                  <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
-                    <x-icon :type="item.icon"></x-icon> {{ item.title }}
-                  </nuxt-link>
-                  <!-- 二级菜单 -->
-                  <div class="sub-nav-wrap" :class="{ not: item.children.length === 0 }">
-                    <ul class="list-view-wrap">
-                      <li class="sub-nav-list" v-for="child in item.children" :key="child.key" @click="hideNavWrap">
-                        <nuxt-link v-if="child.type === 'category'" :to="{ name: 'category-id', params: { id: 1 }, query: { type: child.ID, title: child.title } }">
-                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
-                        </nuxt-link>
-                        <nuxt-link v-else-if="child.type === 'page'" :to="{ name: 'page-id', params: { id: child.ID } }">
-                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
-                        </nuxt-link>
-                        <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
-                          <x-icon :type="child.icon"></x-icon> {{ child.title }}
-                        </nuxt-link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </no-ssr>
-          </nav>
+  <header :class="['header-container', menuStatus && 'is-show-menu']">
+    <div class="hide-header"></div>
+    <div class="header-content" ref="header">
+      <div class="wrap h-f-100">
+        <!-- logo 开始 -->
+        <div class="logo">
+          <h1>{{ info.blogName }}</h1>
+          <nuxt-link :to="{ name: 'index' }" class="block">
+            <img :src="info.logo" class="vertical-middle" width="130" height="40">
+          </nuxt-link>
         </div>
-        <div class="right">
-          <div class="search-wrap">
-            <input type="text" class="desktop-show" :class="{ show: isShowSearch }" v-model="searchText" placeholder="请输入关键字" @keyup.enter="search">
-            <x-icon type="icon-search" @click.native="showSearch"></x-icon>
-            <x-icon type="icon-menu phone-show" @click.native="showNavWrap"></x-icon>
-            <x-icon type="icon-close phone-show" :class="{ show: isShowNavWrap }" @click.native="hideNavWrap"></x-icon>
-          </div>
+        <!-- logo结束 -->
+        <!-- 导航开始 -->
+        <div :class="['nav-wrapper', 'h-f-100', menuStatus && 'is-show']">
+          <ul class="nav-view h-f-100">
+            <li class="nav-item first h-f-100">
+              <nuxt-link :to="{ name: 'index' }" class="first-link"><x-icon type="icon-home2"></x-icon>首页</nuxt-link>
+            </li>
+            <li class="nav-item h-f-100" v-for="item in menu" :key="item.key">
+              <nuxt-link
+                v-if="item.type === 'category'"
+                :to="{
+                  name: `${item.type}-id`,
+                  params: { id: 1 },
+                  query: { type: item.ID, title: item.title }
+                }"
+                :class="['first-link', item.children.length !== 0 && 'prohibit-event']"
+              >
+                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
+              </nuxt-link>
+              <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
+                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+              </nuxt-link>
+              <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
+                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+              </nuxt-link>
+              <!-- 二级菜单 -->
+              <div :class="['sub-nav-wrapper', item.children.length === 0 && 'not']">
+                <ul class="sub-nav-view">
+                  <li v-for="child in item.children" :key="child.key" class="sub-item">
+                    <nuxt-link
+                      v-if="child.type === 'category'"
+                      :to="{
+                        name: 'category-id',
+                        params: { id: 1 },
+                        query: { type: child.ID, title: child.title }
+                      }"
+                    >
+                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                    </nuxt-link>
+                    <nuxt-link
+                      v-else-if="child.type === 'page'"
+                      :to="{
+                        name: 'page-id',
+                        params: { id: child.ID }
+                      }"
+                    >
+                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                    </nuxt-link>
+                    <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
+                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                    </nuxt-link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
         </div>
+        <!-- 导航结束 -->
+        <!-- 右侧搜索开始 -->
+        <div class="controller">
+          <div :class="['search-wrapper', isShowSearch && 'is-show']">
+            <div class="search-content">
+              <input
+                v-model="searchText"
+                type="text"
+                placeholder="请输入关键字"
+                @keyup.enter="_search"
+              >
+              <x-icon type="icon-search" @click.native="_search"></x-icon>
+              <x-icon type="icon-close hide"  @click.native="isShowSearch = false"></x-icon>
+            </div>
+          </div>
+          <x-icon type="icon-search tablet-show" @click.native="isShowSearch = true"></x-icon>
+          <x-icon type="icon-menu phone-show" @click.native="_showNavWrap"></x-icon>
+        </div>
+        <!-- 右侧搜索结束 -->
       </div>
     </div>
   </header>
@@ -76,23 +99,24 @@ export default {
   data () {
     return {
       searchText: '',
-      isShowNavWrap: false,
       isShowSearch: false,
-      isFloat: false
+      mark: true
     }
   },
   computed: {
-    ...mapState(['info', 'menu'])
+    ...mapState(['info', 'menu', 'menuStatus']),
+    height () {
+      return this.menuStatus ? `${window.innerHeight}px` : '100%'
+    }
   },
-  mounted () {
-    let self = this
-    window.addEventListener('scroll', function () {
-      self.isFloat = this.scrollY > 500
-    }, false)
+  watch: {
+    menuStatus (v) {
+      this.mark = !v
+    }
   },
   methods: {
     // 搜索
-    search () {
+    _search () {
       this.$router.push({
         name: 'search',
         query: {
@@ -104,182 +128,89 @@ export default {
       this.isShowSearch = false
     },
 
-    // 显示搜索框
-    showSearch () {
-      if (window.innerWidth > 1024) {
-        this.search()
-      } else {
-        this.isShowSearch = !this.isShowSearch
-      }
-    },
-
     // 显示菜单
-    showNavWrap () {
-      this.isShowNavWrap = true
+    _showNavWrap () {
+      this.$store.commit('UPDATE_MENU_STATUS', this.mark)
+      this.mark = !this.mark
     },
 
-    // 隐藏菜单
-    hideNavWrap () {
-      this.isShowNavWrap = false
+    _closeMenu () {
+      this.$store.commit('UPDATE_MENU_STATUS', false)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 $headerHeight: 60px;
-.header {
+.header-container {
   position: relative;
   width: 100%;
-  height: 60px;
-}
+  height: $headerHeight;
+  background: #fff;
 
-.hide-header {
-  height: 60px;
-}
+  .hide-header {
+    height: $headerHeight;
+  }
 
-.header-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-  height: 100%;
-  background: $color-white;
-
-  &.is-float {
+  .header-content {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: $z-index + 999;
+    width: 100%;
     height: 60px;
-    box-shadow: 0 0 15px rgba(0,0,0,.2);
+    background: #fff;
+    box-shadow: $box-shadow;
   }
-}
 
-.wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: $headerHeight;
-
-  .left,
-  .right {
+  .wrap {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   .logo {
-    max-width: 150px;
-    margin-right: 20px;
-
     h1 {
-      display: flex;
-      align-items: center;
-      height: 60px;
+      position: fixed;
+      top: -500%;
+      left: 0;
     }
   }
 
   // 导航
-  .nav-wrap {
-    width: 700px;
-
-    .box {
+  .nav-wrapper {
+    flex: 1;
+    margin: 0 30px 0 20px;
+    .nav-view {
       display: flex;
-    }
-  }
-
-  // 一级菜单
-  .nav-list {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: $headerHeight;
-    margin-right: 30px;
-
-    &:last-of-type {
-      margin-right: 0;
+      justify-content: space-between;
     }
 
-    &:hover {
-      .sub-nav-wrap {
+    .nav-item {
+      position: relative;
+      .first-link {
         display: block;
+        line-height: $headerHeight;
       }
-    }
 
-    .iconfont {
-      vertical-align: bottom;
-      margin-right: 2px;
-    }
-
-    .icon-arrow-bottom {
-      font-size: $font-size-small;
-    }
-
-    .nuxt-link-exact-active {
-      color: $color-theme;
-    }
-  }
-
-  // 二级菜单
-  .sub-nav-wrap {
-    display: none;
-    position: absolute;
-    z-index: 99;
-    top: 60px;
-    left: 50%;
-    width: 150px;
-    transform: translateX(-50%);
-
-    &.not {
-      display: none !important;
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      top: 1px;
-      left: 50%;
-      border: {
-        width: 5px;
-        style: solid;
-        color: transparent transparent $color-white transparent;
-      }
-      transform: translateX(-50%);
-    }
-
-    .list-view-wrap {
-      overflow: hidden;
-      margin-top: 10px;
-      border: 1px solid $color-sub-background;
-      box-shadow: 0 2px 20px 0 rgba(0,0,0,.3);
-      border-radius: $border-radius;
-      background: $color-white;
-    }
-  }
-
-  .sub-nav-list {
-    a {
-      display: block;
-      padding: 10px;
-      transition: 0s;
-    }
-
-    &:hover {
-      background: $color-theme;
-
-      a {
-        color: $color-white;
+      &:hover {
+        .sub-nav-wrapper {
+          display: block;
+        }
       }
     }
   }
 
   // 搜索框
-  .search-wrap{
-    display: flex;
-    align-items: center;
+  .search-wrapper {
     width: 200px;
-    border: 1px solid $color-main-background;
-    border-radius: $border-radius;
+
+    .search-content {
+      display: flex;
+      align-items: center;
+      border: 1px solid $color-main-background;
+      border-radius: $border-radius;
+    }
 
     input[type="text"] {
       -webkit-appearance: none;
@@ -299,141 +230,152 @@ $headerHeight: 60px;
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .wrap {
-    .search-wrap {
-      width: initial;
-      border: 0;
+@media screen and (min-width:1024px) {
+  .header-container {
+    .sub-nav-wrapper {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      z-index: $z-index;
+      width: 180px;
+      transform: translateX(-50%);
+    }
 
-      input[type="text"] {
-        display: block;
-        box-sizing: border-box;
-        position: fixed;
-        z-index: 99;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        height: 50px;
-        padding: 0 5%;
-        border-top: 1px solid $color-main-background;
-        border-radius: 0;
-        box-shadow: 0 2px 5px $color-main-background;
-        background: $color-white;
-        transition: .7s;
-        transform: translateX(100%);
+    .sub-nav-view {
+      position: relative;
+      top: 10px;
+      background: #fff;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
 
-        &.show {
-          transform: translateX(0);
+      &:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border: {
+          width: 5px;
+          style: solid;
+          color: transparent transparent #fff transparent;
         }
       }
+    }
 
-      .iconfont {
-        width: initial;
-        background: none;
+    .sub-item {
+      a {
+        display: block;
+        padding: 10px 15px;
+
+        &:hover {
+          background-color: $color-theme;
+          color: #fff;
+          transform: scaleX(1.05);
+        }
       }
     }
   }
 }
+@media screen and (max-width: 1200px) {
+  .header-container {
+    .search-wrapper {
+      display: none;
 
-@media screen and (max-width:768px) {
-  .wrap {
-    .search-wrap {
-      .iconfont {
-        font-size: 20px;
-      }
-
-      .icon-menu {
-        margin-left: 20px;
-      }
-
-      // 关闭按钮
-      .icon-close {
-        position: absolute;
-        z-index: -1;
+      &.is-show {
+        position: fixed;
         top: 0;
-        right: 0;
-        width: 60px;
-        height: 60px;
-        opacity: 0;
-        background: $color-theme;
-        font-size: 20px;
-        line-height: 60px;
-        text-align: center;
-        color: $color-white;
-        transition: .5s;
+        left: 0;
+        z-index: $z-index + 999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background: #fff;
 
-        &.show {
-          z-index: 99;
-          right: 60%;
-          opacity: 1;
-          transform: translateX(-15px);
+        .search-content {
+          position: relative;
+          width: 80%;
+          height: 50px;
+        }
+
+        input[type="text"] {
+          width: 100%;
+          height: 100%;
+          font-size: 14px;
+        }
+
+        .icon-search {
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+          line-height: 50px;
+        }
+
+        .icon-close {
+          position: absolute;
+          top: -60px;
+          right: 0;
+          display: block;
+          background: none;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:768px) {
+  .header-container {
+    .nav-wrapper {
+      position: fixed;
+      top: 60px;
+      right: 0;
+      z-index: $z-index + 200;
+      width: 200px;
+      height: calc(100% - 60px);
+      margin: 0;
+      padding: 0 20px;
+      overflow-y: scroll;
+      background: $color-theme;
+      transition: .5s;
+      transform: translateX(100%);
+
+      &.is-show {
+        transform: translateX(0);
+      }
+
+      a {
+        color: #fff;
+      }
+
+      .nav-view {
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .nav-item {
+        height: auto;
+
+        .first-link {
+          line-height: 40px;
+        }
+      }
+
+      .sub-item {
+        a {
+          display: block;
+          padding: 10px 10px 10px 25px;
         }
       }
     }
 
-    // 导航
-    .nav-wrap {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      position: fixed;
-      z-index: 999;
-      top: 0;
-      right: 0;
-      width: 60%;
-      height: 100%;
-      padding-left: $container-padding;
-      opacity: 0;
-      background: $color-theme;
-      color: $color-white;
-      transition: .5s;
-      transform: translateX(100%);
+    .controller {
+      display: flex;
 
-      &.show {
-        opacity: 1;
-        transform: translateX(0px);
-      }
-
-      .box {
-        display: block;
-        height: 100%;
-      }
-
-      a {
-        color: $color-white !important;
-      }
-    }
-
-    .nav-list {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: 0;
-
-      > a {
-        display: block;
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-      }
-    }
-
-    // 二级导航
-    .sub-nav-wrap {
-      display: block !important;
-      box-sizing: border-box;
-      position: static;
-      width: 100%;
-      padding-left: 10px;
-      transform: translateX(0);
-
-      &:after {
-        display: none;
-      }
-
-      .list-view-wrap {
-        background: none;
-        border: 0;
-        box-shadow: none;
+      .icon-menu {
+        margin-left: 10px;
       }
     }
   }

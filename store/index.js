@@ -1,4 +1,4 @@
-import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE } from './mutations-types'
+import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS } from './mutations-types'
 
 export const state = () => ({
   info: {},
@@ -7,7 +7,8 @@ export const state = () => ({
   errorInformation: {
     code: '',
     message: ''
-  }
+  },
+  menuStatus: false
 })
 
 export const mutations = {
@@ -19,6 +20,10 @@ export const mutations = {
 
   [UPDATE_ERROR_MESSAGE] (state, data) {
     state.errorInformation = data
+  },
+
+  [UPDATE_MENU_STATUS] (state, flag) {
+    state.menuStatus = flag
   }
 }
 
