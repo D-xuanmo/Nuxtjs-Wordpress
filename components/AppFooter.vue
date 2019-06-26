@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer" :class="{ 'is-error': errorInformation.code }">
+  <footer :class="['footer', errorInformation.code && 'is-error', menuStatus && 'is-show-menu']">
     <div class="wrap">
       <div class="link-wrap" v-if="$route.name === 'index'" v-html="link"></div>
       <div class="copyright">
@@ -46,6 +46,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['menuStatus']),
     ...mapState({
       errorInformation: state => state.errorInformation,
       link: state => state.info.link,
@@ -71,6 +72,11 @@ export default {
   margin-top: $container-margin;
   padding: 30px 0;
   background: #2d3237;
+  transition: .5s;
+
+  &.is-show-menu {
+    transform: translateX(-200px);
+  }
 
   &.is-error {
     position: absolute;

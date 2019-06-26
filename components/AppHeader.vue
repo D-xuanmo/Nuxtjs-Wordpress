@@ -112,13 +112,9 @@ export default {
   },
   watch: {
     menuStatus (v) {
+      this.mark = !v
       $('body').css('height', this.height)
-      if (v) {
-        this.mark = !v
-        $('body').addClass('h-f-100')
-      } else {
-        $('body').removeClass('h-f-100')
-      }
+      v ? $('body').addClass('h-f-100') : $('body').removeClass('h-f-100')
     }
   },
   methods: {
