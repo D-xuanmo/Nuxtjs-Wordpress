@@ -40,7 +40,7 @@
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
               </nuxt-link>
               <!-- 二级菜单 -->
-              <div v-if="item.children.length" class="sub-nav-wrapper">
+              <div v-if="item.children.length !== 0" class="sub-nav-wrapper">
                 <ul class="sub-nav-view">
                   <li v-for="child in item.children" :key="child.key" class="sub-item">
                     <nuxt-link
