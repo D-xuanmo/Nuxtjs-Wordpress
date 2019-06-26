@@ -46,7 +46,8 @@ add_theme_support('post-thumbnails');
 function xm_get_post_excerpt($length, $str)
 {
   $post_content = wp_strip_all_tags(get_post()->post_content, true);
-  return (bool) get_option('xm_vue_options')['article_auto_summary'] ? wp_trim_words($post_content, $length, $str) : get_post()->post_excerpt;
+  $post_excerpt = get_post()->post_excerpt;
+  return (bool) get_option('xm_vue_options')['article_auto_summary'] || $post_excerpt == '' ? wp_trim_words($post_content, $length, $str) : $post_excerpt;
 }
 
 /*
