@@ -52,14 +52,16 @@ function themeoptions_page() {
                 type="radio"
                 id="aside-count-on"
                 name="aside-count"
-                value="1" <?php if((bool) $xm_options['aside_count']) echo 'checked'; ?>
+                value="1"
+                <?php if((bool) $xm_options['aside_count']) echo 'checked'; ?>
               >
               <label for="aside-count-off">关</label>
               <input
                 type="radio"
                 id="aside-count-off"
                 name="aside-count"
-                value="0" <?php if((bool) !$xm_options['aside_count'] || !$xm_options['aside_count']) echo 'checked'; ?>
+                value="0"
+                <?php if((bool) !$xm_options['aside_count'] || !$xm_options['aside_count']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -72,14 +74,16 @@ function themeoptions_page() {
                 type="radio"
                 id="comment-upload-on"
                 name="open-comment-upload"
-                value="1" <?php if((bool) $xm_options['is_open_comment_upload']) echo 'checked'; ?>
+                value="1"
+                <?php if((bool) $xm_options['is_open_comment_upload']) echo 'checked'; ?>
               >
               <label for="comment-upload-off">关</label>
               <input
                 type="radio"
                 id="comment-upload-off"
                 name="open-comment-upload"
-                value="0" <?php if((bool) !$xm_options['is_open_comment_upload'] || !$xm_options['is_open_comment_upload']) echo 'checked'; ?>
+                value="0"
+                <?php if((bool) !$xm_options['is_open_comment_upload'] || !$xm_options['is_open_comment_upload']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -92,15 +96,42 @@ function themeoptions_page() {
                 type="radio"
                 id="open-text-picture-on"
                 name="is-open-text-picture"
-                value="1" <?php if((bool) $xm_options['text_pic']) echo 'checked'; ?>
+                value="1"
+                <?php if((bool) $xm_options['text_pic']) echo 'checked'; ?>
               >
               <label for="open-text-picture-off">关</label>
               <input
                 type="radio"
                 id="open-text-picture-off"
                 name="is-open-text-picture"
-                value="0" <?php if((bool) !$xm_options['text_pic'] || !$xm_options['text_pic']) echo 'checked'; ?>
+                value="0"
+                <?php if((bool) !$xm_options['text_pic'] || !$xm_options['text_pic']) echo 'checked'; ?>
               >
+            </div>
+          </div>
+
+          <div class="form-item">
+            <p class="form-item-title">是否开启文章自动摘要：</p>
+            <div class="form-item-content">
+              <div class="input-inner">
+                <label for="open-article-auto-summary-on">开</label>
+                <input
+                  type="radio"
+                  id="open-article-auto-summary-on"
+                  name="is-open-article-auto-summary"
+                  value="1"
+                  <?php if((bool) $xm_options['article_auto_summary']) echo 'checked'; ?>
+                >
+                <label for="open-article-auto-summary-off-off">关</label>
+                <input
+                  type="radio"
+                  id="open-article-auto-summary-off"
+                  name="is-open-article-auto-summary"
+                  value="0"
+                  <?php if((bool) !$xm_options['article_auto_summary'] || !$xm_options['article_auto_summary']) echo 'checked'; ?>
+                >
+              </div>
+              <span>文章发布时如果不设置摘要，默认摘取文字正文的前160字</span>
             </div>
           </div>
 
@@ -112,14 +143,16 @@ function themeoptions_page() {
                 type="radio"
                 id="open-article-copyright-on"
                 name="is-open-article-copyright"
-                value="1" <?php if((bool) $xm_options['article_copyright']) echo 'checked'; ?>
+                value="1"
+                <?php if((bool) $xm_options['article_copyright']) echo 'checked'; ?>
               >
               <label for="open-article-copyright-off-off">关</label>
               <input
                 type="radio"
                 id="open-article-copyright-off"
                 name="is-open-article-copyright"
-                value="0" <?php if((bool) !$xm_options['article_copyright'] || !$xm_options['article_copyright']) echo 'checked'; ?>
+                value="0"
+                <?php if((bool) !$xm_options['article_copyright'] || !$xm_options['article_copyright']) echo 'checked'; ?>
               >
             </div>
           </div>
@@ -416,6 +449,7 @@ function themeoptions_page() {
       'aside_count'            => $_POST['aside-count'],
       'is_open_comment_upload' => $_POST['open-comment-upload'],
       'text_pic'               => $_POST['is-open-text-picture'],
+      'article_auto_summary'   => $_POST['is-open-article-auto-summary'],
       'article_copyright'      => $_POST['is-open-article-copyright'],
       'logo'                   => $_POST['logo'],
       'thumbnail'              => $_POST['thumbnail-img'],

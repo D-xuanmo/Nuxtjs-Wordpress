@@ -30,14 +30,17 @@
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
                 <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
               </nuxt-link>
-              <nuxt-link v-else-if="item.type === 'page'" :to="{ name: 'page-id', params: { id: item.ID } }">
+              <nuxt-link
+                v-else-if="item.type === 'page'"
+                :to="{ name: 'page-id', params: { id: item.ID } }"
+                class="first-link">
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
               </nuxt-link>
-              <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }">
+              <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }" class="first-link">
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
               </nuxt-link>
               <!-- 二级菜单 -->
-              <div :class="['sub-nav-wrapper', item.children.length === 0 && 'not']">
+              <div v-if="item.children.length" class="sub-nav-wrapper">
                 <ul class="sub-nav-view">
                   <li v-for="child in item.children" :key="child.key" class="sub-item">
                     <nuxt-link
@@ -187,6 +190,10 @@ $headerHeight: 60px;
     .nav-view {
       display: flex;
       justify-content: space-between;
+      // &:after {
+      //   content: "";
+      //   margin: auto;
+      // }
     }
 
     .nav-item {
