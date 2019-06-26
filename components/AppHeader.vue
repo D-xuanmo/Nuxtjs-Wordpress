@@ -93,6 +93,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import $ from '@/utils/operationDOM'
 export default {
   watchQuery: ['type'],
   name: 'AppHeader',
@@ -111,7 +112,13 @@ export default {
   },
   watch: {
     menuStatus (v) {
-      this.mark = !v
+      $('body').css('height', this.height)
+      if (v) {
+        this.mark = !v
+        $('body').addClass('h-f-100')
+      } else {
+        $('body').removeClass('h-f-100')
+      }
     }
   },
   methods: {
@@ -338,6 +345,7 @@ $headerHeight: 60px;
       margin: 0;
       padding: 0 20px;
       overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
       background: $color-theme;
       transition: .5s;
       transform: translateX(100%);
@@ -373,6 +381,11 @@ $headerHeight: 60px;
 
     .controller {
       display: flex;
+
+      .icon-search,
+      .icon-menu {
+        font-size: 20px;
+      }
 
       .icon-menu {
         margin-left: 10px;
