@@ -81,7 +81,6 @@ input[type=radio] {
 
 .form-item-content {
   flex: 1;
-  display: flex;
 }
 
 .form-item-content input {
