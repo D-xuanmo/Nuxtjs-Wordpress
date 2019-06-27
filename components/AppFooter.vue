@@ -75,7 +75,7 @@ export default {
   transition: .5s;
 
   &.is-show-menu {
-    transform: translateX(-200px);
+    transform: translateX(-240px);
   }
 
   &.is-error {

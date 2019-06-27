@@ -4,18 +4,29 @@
     <article class="section article">
       <h2 class="title" v-html="detail.title.rendered"></h2>
       <div class="other-info">
-        <span class="author">{{ detail.articleInfor.author }}</span>
-        <span class="text">&nbsp;发表于：</span>
-        <time class="time"><x-icon type="icon-date"></x-icon>{{ detail.date }}</time>
-        <span class="text">&nbsp;分类：</span>
-        <span
-          class="classify"
-          v-for="(item, index) in detail.articleInfor.classify"
-          :key="item.key"
-          v-html="index === detail.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
-        </span>&nbsp;
-        <span><x-icon type="icon-hot1"></x-icon>{{ viewCount }}</span>&nbsp;
-        <span><x-icon type="icon-message-f"></x-icon>{{ detail.articleInfor.commentCount }}</span>
+        <p>
+          <span class="author">
+            <x-icon type="icon-about"></x-icon>{{ detail.articleInfor.author }}
+          </span>
+          <time class="time m-l-5px">
+            <x-icon type="icon-date"></x-icon>{{ detail.date }}
+          </time>
+        </p>
+        <p>
+          <span class="text m-l-10px">分类：</span>
+          <span
+            class="classify"
+            v-for="(item, index) in detail.articleInfor.classify"
+            :key="item.key"
+            v-html="index === detail.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
+          </span>
+          <span class="m-l-5px">
+            <x-icon type="icon-hot1"></x-icon>{{ viewCount }}
+          </span>
+          <span class="m-l-5px">
+            <x-icon type="icon-message-f"></x-icon>{{ detail.articleInfor.commentCount }}
+          </span>
+        </p>
       </div>
       <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
@@ -286,6 +297,10 @@ export default {
   }
 
   .other-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px solid $color-border;
