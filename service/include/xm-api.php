@@ -72,7 +72,7 @@ function xm_get_article_infor ($object) {
     'viewCount' => get_post_meta($postID, 'post_views_count', true) === '' ? 0 : get_post_meta($postID, 'post_views_count', true),
     'commentCount' => get_comments_number(),
     'xmLike' => get_post_meta($postID, 'xm_post_link', true),
-    'summary' => xm_get_post_excerpt(300, ''),
+    'summary' => xm_get_post_excerpt(160, ''),
     'classify' => get_the_category(),
     'tags' => get_the_tags($postID),
     'prevLink' => get_previous_post($current_category, ''),
