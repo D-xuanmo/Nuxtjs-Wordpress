@@ -149,6 +149,8 @@ function add_get_blog_info () {
     'detailsCss' => $xm_options['details_css'],
     'blogName' => get_bloginfo('name'),
     'blogDescription' => get_bloginfo('description'),
+    'keywords' => $xm_options['keywords'],
+    'description' => $xm_options['description'],
     'adminPic' => local_avatar_url(),
     'banner' => $xm_options['banner'],
     'thumbnail' => $xm_options['thumbnail'],
