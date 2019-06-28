@@ -25,7 +25,7 @@
                   params: { id: 1 },
                   query: { type: item.ID, title: item.title }
                 }"
-                :class="['first-link', item.children.length !== 0 && 'prohibit-event']"
+                :class="['first-link', item.children.length !== 0 && 'prohibit-event__none']"
               >
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
                 <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>

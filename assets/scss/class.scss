@@ -152,10 +152,10 @@ code:not([class*="lang"]),
 }
 
 // 禁止点击
-.prohibit-event {
+.prohibit-event__none {
   pointer-events: none;
 }
 
 .box-shadow__hide {
-  box-shadow: none;
+  box-shadow: none !important;
 }
