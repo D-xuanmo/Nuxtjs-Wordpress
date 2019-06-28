@@ -155,3 +155,7 @@ code:not([class*="lang"]),
 .prohibit-event {
   pointer-events: none;
 }
+
+.box-shadow__hide {
+  box-shadow: none;
+}
