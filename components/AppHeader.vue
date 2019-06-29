@@ -19,11 +19,11 @@
             </li>
             <li class="nav-item h-f-100" v-for="item in menu" :key="item.key">
               <nuxt-link
-                v-if="item.type === 'category'"
+                v-if="item.object === 'category'"
                 :to="{
-                  name: `${item.type}-id`,
+                  name: `${item.object}-id`,
                   params: { id: 1 },
-                  query: { type: item.ID, title: item.title }
+                  query: { type: item.object_id, title: item.title }
                 }"
                 :class="['first-link', item.children.length !== 0 && 'prohibit-event__none']"
               >
@@ -31,12 +31,12 @@
                 <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
               </nuxt-link>
               <nuxt-link
-                v-else-if="item.type === 'page'"
-                :to="{ name: 'page-id', params: { id: item.ID } }"
+                v-else-if="item.object === 'page'"
+                :to="{ name: 'page-id', params: { id: item.object_id } }"
                 class="first-link">
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
               </nuxt-link>
-              <nuxt-link v-else-if="item.type === 'custom'" :to="{ name: 'tags' }" class="first-link">
+              <nuxt-link v-else-if="item.object === 'custom'" :to="{ name: 'tags' }" class="first-link">
                 <x-icon :type="item.icon"></x-icon> {{ item.title }}
               </nuxt-link>
               <!-- 二级菜单 -->
@@ -44,25 +44,25 @@
                 <ul class="sub-nav-view">
                   <li v-for="child in item.children" :key="child.key" class="sub-item">
                     <nuxt-link
-                      v-if="child.type === 'category'"
+                      v-if="child.object === 'category'"
                       :to="{
                         name: 'category-id',
                         params: { id: 1 },
-                        query: { type: child.ID, title: child.title }
+                        query: { type: child.object_id, title: child.title }
                       }"
                     >
                       <x-icon :type="child.icon"></x-icon> {{ child.title }}
                     </nuxt-link>
                     <nuxt-link
-                      v-else-if="child.type === 'page'"
+                      v-else-if="child.object === 'page'"
                       :to="{
                         name: 'page-id',
-                        params: { id: child.ID }
+                        params: { id: child.object_id }
                       }"
                     >
                       <x-icon :type="child.icon"></x-icon> {{ child.title }}
                     </nuxt-link>
-                    <nuxt-link v-else-if="child.type === 'custom'" :to="{ name: 'tags' }">
+                    <nuxt-link v-else-if="child.object === 'custom'" :to="{ name: 'tags' }">
                       <x-icon :type="child.icon"></x-icon> {{ child.title }}
                     </nuxt-link>
                   </li>
