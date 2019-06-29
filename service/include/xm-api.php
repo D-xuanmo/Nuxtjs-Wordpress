@@ -219,6 +219,7 @@ function xm_get_menu () {
   $sourceMenu = wp_get_nav_menu_items("Home");
   foreach ($sourceMenu as $value) {
     $value->children = [];
+    $value->classes = $value->classes[0];
     for ($i = 0; $i < count($sourceMenu); $i++) {
       if ($sourceMenu[$i]->menu_item_parent == $value->ID) {
         array_push($value->children, array_splice($sourceMenu, $i, 1, "")[0]);

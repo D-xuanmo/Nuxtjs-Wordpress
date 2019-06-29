@@ -27,17 +27,17 @@
                 }"
                 :class="['first-link', item.children.length !== 0 && 'prohibit-event__none']"
               >
-                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes"></x-icon> {{ item.title }}
                 <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
               </nuxt-link>
               <nuxt-link
                 v-else-if="item.object === 'page'"
                 :to="{ name: 'page-id', params: { id: item.object_id } }"
                 class="first-link">
-                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes"></x-icon> {{ item.title }}
               </nuxt-link>
               <nuxt-link v-else-if="item.object === 'custom'" :to="{ name: 'tags' }" class="first-link">
-                <x-icon :type="item.icon"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes"></x-icon> {{ item.title }}
               </nuxt-link>
               <!-- 二级菜单 -->
               <div v-if="item.children.length !== 0" class="sub-nav-wrapper">
@@ -51,7 +51,7 @@
                         query: { type: child.object_id, title: child.title }
                       }"
                     >
-                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
                     </nuxt-link>
                     <nuxt-link
                       v-else-if="child.object === 'page'"
@@ -60,10 +60,10 @@
                         params: { id: child.object_id }
                       }"
                     >
-                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
                     </nuxt-link>
                     <nuxt-link v-else-if="child.object === 'custom'" :to="{ name: 'tags' }">
-                      <x-icon :type="child.icon"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
                     </nuxt-link>
                   </li>
                 </ul>
