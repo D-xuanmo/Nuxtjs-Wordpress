@@ -219,7 +219,7 @@ if (!isset($wpsmiliestrans)) {
   $wpsmiliestrans = array(
     "[hashiqi]" => "hashiqi.png",
     "[huaji]" => "huaji.png",
-    "[doge1]" => "doge1.png",
+    "[doge1]" => "doge.png",
     "[weixiao]" => "weixiao.gif",
     "[nanguo]" => "nanguo.gif",
     "[qiudale]" => "qiudale.gif",
