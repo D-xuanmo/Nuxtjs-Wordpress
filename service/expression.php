@@ -2,6 +2,18 @@
   header('Access-Control-Allow-Origin:*');
   header('Content-type:text/json');
   $array = array(
+    'hashiqi'   => array(
+      'url'     => '/images/smilies/hashiqi.png',
+      'title'   => '二哈'
+    ),
+    'huaji'   => array(
+      'url'     => '/images/smilies/huaji.png',
+      'title'   => '滑稽'
+    ),
+    'doge1'   => array(
+      'url'     => '/images/smilies/doge.png',
+      'title'   => 'doge'
+    ),
     'weixiao'   => array(
       'url'     => '/images/smilies/weixiao.gif',
       'title'   => '微笑'

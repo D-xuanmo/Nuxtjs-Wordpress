@@ -217,6 +217,9 @@ function custom_smilies_src($src, $img)
 add_filter('smilies_src', 'custom_smilies_src', 10, 2);
 if (!isset($wpsmiliestrans)) {
   $wpsmiliestrans = array(
+    "[hashiqi]" => "hashiqi.png",
+    "[huaji]" => "huaji.png",
+    "[doge1]" => "doge1.png",
     "[weixiao]" => "weixiao.gif",
     "[nanguo]" => "nanguo.gif",
     "[qiudale]" => "qiudale.gif",
