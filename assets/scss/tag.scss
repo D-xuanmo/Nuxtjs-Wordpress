@@ -76,11 +76,12 @@ tr {
 }
 
 blockquote {
+  margin-top: 10px;
   padding: 10px;
   background: #f8f8f8;
   border-radius: 5px;
 
   p {
-    margin: 0;
+    margin: 0 !important;
   }
 }
