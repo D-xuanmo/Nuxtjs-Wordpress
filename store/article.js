@@ -96,12 +96,13 @@ export const actions = {
   },
 
   // 获取文章详情
-  async getArticleDetail ({ state, commit }, id) {
+  async getArticleDetail ({ commit, rootState }, id) {
     try {
       let { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${id}`, {
         data: { progress: false }
       })
       data.date = data.date.replace('T', ' ')
+      data.articleInfor.thumbnail = data.articleInfor.thumbnail ? data.articleInfor.thumbnail : rootState.info.thumbnail
       commit(SET_ARTICLE_DETAIL, data)
       commit(UPDATE_OPINION, data.articleInfor.xmLike)
       return Promise.resolve(data)

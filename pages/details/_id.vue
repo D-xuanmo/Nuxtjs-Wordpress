@@ -221,7 +221,7 @@ export default {
   mounted () {
     // 海报内容
     this.posterContent = {
-      imgUrl: this.info.thumbnail,
+      imgUrl: this.detail.articleInfor.thumbnail,
       title: this.detail.title.rendered,
       summary: this.detail.articleInfor.summary,
       time: this.detail.date.replace(/\s.*/, ' '),
