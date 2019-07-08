@@ -74,3 +74,13 @@ tr {
     }
   }
 }
+
+blockquote {
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 5px;
+
+  p {
+    margin: 0;
+  }
+}
