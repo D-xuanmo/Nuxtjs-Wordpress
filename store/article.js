@@ -102,8 +102,7 @@ export const actions = {
         data: { progress: false }
       })
       data.date = data.date.replace('T', ' ')
-      data.articleInfor.thumbnail
-        = data.articleInfor.thumbnail
+      data.articleInfor.thumbnail = data.articleInfor.thumbnail
         ? data.articleInfor.thumbnail.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${rootState.info.domain}$4`)
         : rootState.info.thumbnail
       commit(SET_ARTICLE_DETAIL, data)
