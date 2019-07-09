@@ -232,7 +232,7 @@ $padding: 10px;
     }
 
     .summary {
-      height: 80px;
+      max-height: 60px;
       padding: 0 $padding;
       overflow: hidden;
     }
