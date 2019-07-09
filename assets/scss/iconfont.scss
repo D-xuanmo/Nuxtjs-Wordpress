@@ -1,13 +1,14 @@
 // 字体图标
 @font-face {
-  font-family: 'iconfont';  /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.eot');
-  src: url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_9ttkr17w8l4.svg#iconfont') format('svg');
+  font-family: 'iconfont'; /* project id 552040 */
+  src: url('//at.alicdn.com/t/font_552040_ro426ew84r.eot');
+  src: url('//at.alicdn.com/t/font_552040_ro426ew84r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_552040_ro426ew84r.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_ro426ew84r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_552040_ro426ew84r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_552040_ro426ew84r.svg#iconfont') format('svg');
 }
+
 .iconfont{
   vertical-align: bottom;
   font-family: "iconfont" !important;
@@ -95,11 +96,14 @@ $iconMap         : (
   "twitter-f"    : "\e603",
   "apple-f"      : "\e76a",
   "android-f"    : "\e623",
+  "linux"        : "\e69b",
+  "databases"    : "\e63a",
+  "server"       : "\e60d",
   "qq-f"         : "\e624",
   "wechat-f"     : "\e63d",
   "sina"         : "\e620",
   "github"       : "\e7ab",
-  "github-f"     : "\e691",
+  "github-f"     : "\e691"
 );
 
 @each $key, $value in $iconMap {
