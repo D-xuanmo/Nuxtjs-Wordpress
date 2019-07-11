@@ -3,12 +3,12 @@
     <div class="mask" @click="$emit('input', false)"></div>
     <div class="poster-content">
       <x-icon type="icon-close" @click.native="$emit('input', false)"></x-icon>
-      <div v-if="JSON.stringify(content) !== '{}'" ref="poster" class="poster-wrap" :class="{ 'is-border': !isCompleted }">
+      <div v-if="JSON.stringify(content) !== '{}'" class="poster-wrap is-border">
         <!-- 最终海报图片 -->
         <img v-if="isCompleted" :src="posterUrl">
 
         <!-- 用于生成海报 -->
-        <template v-else>
+        <div v-else ref="poster" class="create">
           <div class="poster-loading" data-html2canvas-ignore>
             <x-icon type="icon-loading"></x-icon>
             <p>&nbsp;海报生成中...</p>
@@ -32,7 +32,7 @@
             </div>
             <img :src="QRCodeUrl" width="70" height="70" class="qrcode-img">
           </div>
-        </template>
+        </div>
       </div>
       <!-- 右边分享 -->
       <div class="poster-share text-center">
@@ -184,6 +184,12 @@ $padding: 10px;
       border: 1px solid $color-border;
     }
 
+    .create {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
     .poster-loading {
       position: absolute;
       top: 0;
@@ -224,15 +230,14 @@ $padding: 10px;
 
     .title {
       max-height: 50px;
-      margin: 20px 0 10px;
-      padding: 0 $padding;
+      padding: 20px $padding 10px;
       overflow: hidden;
       font-size: 18px;
       color: #333;
     }
 
     .summary {
-      max-height: 60px;
+      height: 80px;
       padding: 0 $padding;
       overflow: hidden;
     }
@@ -240,10 +245,10 @@ $padding: 10px;
 
   .qrcode {
     display: flex;
-    flex: 1;
     align-items: center;
+    height: 70px;
     margin-top: 10px;
-    padding: 0 $padding;
+    padding: 10px $padding;
     border-top: 1px dashed $color-border;
 
     .left {
