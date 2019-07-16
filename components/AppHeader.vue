@@ -336,7 +336,7 @@ $headerHeight: 60px;
     }
   }
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width:1023px) {
   .header-container {
     .nav-wrapper {
       position: fixed;
