@@ -210,7 +210,7 @@ add_action('admin_print_footer_scripts', 'appthemes_add_quicktags');
  * 自定义表情路径和名称
  */
 function xm_custom_smilies_src($img_src, $img) {
-  return '/images/smilies/' . $img;
+  return get_option("xm_vue_options")["domain"] . '/images/smilies/' . $img;
 }
 add_filter('smilies_src', 'xm_custom_smilies_src', 10, 2);
 
