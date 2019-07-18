@@ -124,12 +124,16 @@ function add_get_blog_info () {
     "user_id" => 0,
     "post_type" => "post"
   ));
+  $latestComment = array();
   for ($i = 0; $i < count($newComment); $i++) {
-    $newComment[$i] -> avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($newComment[$i] -> comment_author_email))) . "?s=200";
-    $newComment[$i] -> background = "#" . substr(md5(strtolower(trim($newComment[$i] -> comment_author_email))), 0, 6);
-    $newComment[$i] -> countCom = get_comments_number($newComment[$i] -> comment_post_ID);
-    $newComment[$i] -> link = get_post_meta($newComment[$i] -> comment_post_ID, "xm_post_link", true)["very_good"];
-    $newComment[$i] -> title = get_the_title($newComment[$i] -> comment_post_ID);
+    $latestComment[$i]->avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200";
+    $latestComment[$i]->background = "#" . substr(md5(strtolower(trim($newComment[$i]->comment_author_email))), 0, 6);
+    $latestComment[$i]->countCom = get_comments_number($newComment[$i]->comment_post_ID);
+    $latestComment[$i]->link = get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"];
+    $latestComment[$i]->title = get_the_title($newComment[$i]->comment_post_ID);
+    $latestComment[$i]->author = $newComment[$i]->comment_author;
+    $latestComment[$i]->content = $newComment[$i]->comment_content;
+    $latestComment[$i]->id = $newComment[$i]->comment_post_ID;
   }
 
   $xm_options = get_option("xm_vue_options");
@@ -166,7 +170,7 @@ function add_get_blog_info () {
     "lastUpDate" => $last,
     "link" => $xm_options["link"],
     "newArticle" => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
-    "newComment" => $newComment
+    "newComment" => $latestComment
   );
   return $result;
 }
@@ -239,7 +243,7 @@ add_action("rest_api_init", function () {
 });
 
 /**
- * [评论列表增加点赞]
+ * 评论列表增加点赞
  */
 function add_api_comment_metadata ($request) {
   $postID = $request -> get_params()["id"];

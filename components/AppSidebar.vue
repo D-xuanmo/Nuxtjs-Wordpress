@@ -20,14 +20,14 @@
         <li class="list" v-for="item in sidebar.newComment" :key="item.key">
           <template>
             <p v-if="sidebar.isOpenTextThumbnail" class="thumbnail-text" :style="{ background: item.background }">
-              {{ item.comment_author.substr(0, 1) }}
+              {{ item.author.substr(0, 1) }}
             </p>
             <img v-else :src="item.avatar" class="thumbnail" width="50" height="50">
           </template>
           <div class="right">
-            <h3 class="author">{{ item.comment_author }}</h3>
-            <p class="comment-text" v-html="item.comment_content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
-            <nuxt-link :to="{ name: 'details-id', params: { id: item.comment_post_ID } }" class="block title">评：{{ item.title }}</nuxt-link>
+            <h3 class="author">{{ item.author }}</h3>
+            <p class="comment-text" v-html="item.content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
+            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
           </div>
         </li>
       </ul>
