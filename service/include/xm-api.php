@@ -149,7 +149,7 @@ function add_get_blog_info () {
     "wechatpay" => $xm_options["wechatpay"],
     "contentUrl" => "/wp-content",
     "themeDir" => get_option("template"),
-    "templeteUrl" => $xm_options["domain"] . "/wp-content/themes/" . get_option("template"),
+    "templeteUrl" => "/wp-content/themes/" . get_option("template"),
     "detailsCss" => $xm_options["details_css"],
     "blogName" => get_bloginfo("name"),
     "blogDescription" => get_bloginfo("description"),
