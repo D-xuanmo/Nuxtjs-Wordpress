@@ -14,9 +14,6 @@
         <!-- 导航开始 -->
         <div :class="['nav-wrapper', 'h-f-100', menuStatus && 'is-show']">
           <ul class="nav-view h-f-100">
-            <li class="nav-item first h-f-100">
-              <nuxt-link :to="{ name: 'index' }" class="first-link"><x-icon type="icon-home2"></x-icon>首页</nuxt-link>
-            </li>
             <li class="nav-item h-f-100" v-for="item in menu" :key="item.key">
               <nuxt-link
                 v-if="item.object === 'category'"
@@ -36,9 +33,15 @@
                 class="first-link">
                 <x-icon :type="item.classes"></x-icon> {{ item.title }}
               </nuxt-link>
-              <nuxt-link v-else-if="item.object === 'custom'" :to="{ name: 'tags' }" class="first-link">
+              <nuxt-link
+                v-else-if="item.object === 'post_tag'"
+                :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }"
+                class="first-link">
                 <x-icon :type="item.classes"></x-icon> {{ item.title }}
               </nuxt-link>
+              <a v-else-if="item.object === 'custom'" :href="item.url" class="first-link">
+                <x-icon :type="item.classes"></x-icon> {{ item.title }}
+              </a>
               <!-- 二级菜单 -->
               <div v-if="item.children.length !== 0" class="sub-nav-wrapper">
                 <ul class="sub-nav-view">
@@ -62,9 +65,14 @@
                     >
                       <x-icon :type="child.classes"></x-icon> {{ child.title }}
                     </nuxt-link>
-                    <nuxt-link v-else-if="child.object === 'custom'" :to="{ name: 'tags' }">
+                    <nuxt-link
+                      v-else-if="child.object === 'post_tag'"
+                      :to="{ name: 'tags-id', params: { id: 1 }, query: { type: child.object_id, title: child.title } }">
                       <x-icon :type="child.classes"></x-icon> {{ child.title }}
                     </nuxt-link>
+                    <a v-else-if="child.object === 'custom'" :href="child.url">
+                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -193,20 +201,16 @@ $headerHeight: 60px;
   // 导航
   .nav-wrapper {
     flex: 1;
-    margin: 0 30px 0 20px;
+    margin: 0 20px;
     .nav-view {
       display: flex;
-      justify-content: space-between;
-      // &:after {
-      //   content: "";
-      //   margin: auto;
-      // }
     }
 
     .nav-item {
       position: relative;
       .first-link {
         display: block;
+        padding: 0 10px;
         line-height: $headerHeight;
       }
 
@@ -377,6 +381,7 @@ $headerHeight: 60px;
         height: auto;
 
         .first-link {
+          padding: 0;
           line-height: 40px;
         }
       }
