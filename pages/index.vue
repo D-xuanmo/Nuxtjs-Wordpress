@@ -23,6 +23,14 @@
       </ul>
     </div>
     <!-- banner end -->
+    <div v-if="info.notice" class="sidebar-list notice tablet-show">
+      <div class="header">
+        <p>
+          <x-icon type="icon-notice2"></x-icon> 公告
+        </p>
+      </div>
+      <div class="content" v-html="info.notice"></div>
+    </div>
     <!-- article list start -->
     <div class="article-list-wrap">
       <ul class="header">
