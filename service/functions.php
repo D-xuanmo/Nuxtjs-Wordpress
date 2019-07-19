@@ -10,6 +10,53 @@ function remove_redirects()
 
 add_action('init', 'remove_redirects');
 
+// 移除后台左上角logo信息
+function xm_admin_bar_remove() {
+  global $wp_admin_bar;
+  $wp_admin_bar->remove_menu('wp-logo');
+}
+add_action('wp_before_admin_bar_render', 'xm_admin_bar_remove', 0);
+
+// 顶部添加自定义菜单
+function toolbar_link_to_mypage($wp_admin_bar)
+{
+  $wp_admin_bar->add_node(array(
+    'id'    => 'my_page',
+    'title' => '🎉查看站点',
+    'href'  => get_option("xm_vue_options")["domain"],
+    'meta'  => array(
+      'target' => '_blank'
+    )
+  ));
+  $wp_admin_bar->add_node(array(
+    'id'    => 'instructions',
+    'title' => '👉主题使用说明',
+    'href'  => 'https://www.xuanmo.xin/details/2987',
+    'meta'  => array(
+      'target' => '_blank'
+    )
+  ));
+  $wp_admin_bar->add_node(array(
+    'id'    => 'issues',
+    'title' => '👨‍💻‍意见反馈',
+    'href'  => 'https://github.com/xuanmos/xm-nuxtjs-wordpress/issues',
+    'meta'  => array(
+      'target' => '_blank'
+    )
+  ));
+}
+add_action('admin_bar_menu', 'toolbar_link_to_mypage', 999);
+
+/**
+ * 删出查看站点等菜单
+ */
+function my_prefix_remove_admin_bar_item($wp_admin_bar)
+{
+  $wp_admin_bar->remove_node('site-name');
+}
+add_action('admin_bar_menu', 'my_prefix_remove_admin_bar_item', 999);
+
+
 /**
  * 自定义上传头像
  */
