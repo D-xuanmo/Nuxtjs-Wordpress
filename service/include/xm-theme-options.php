@@ -40,7 +40,7 @@ function themeoptions_page() {
 								id="domain"
 								value="<?php echo $xm_options['domain']; ?>"
 							>
-							<span>示例：https://www.xuanmo.xin</span>
+							<span>示例<sup>必须加上http或者https协议</sup>：https://www.xuanmo.xin</span>
 						</div>
 					</div>
 
@@ -419,13 +419,19 @@ function themeoptions_page() {
         <!-- 自定义代码开始 -->
         <li class="content-item">
           <div class="form-item">
-            <p class="form-item-title">后台登录页面css（不需要style标签）：</p>
+            <p class="form-item-title">后台登录页面css<br/>(不需要style标签):</p>
             <div class="form-item-content">
               <textarea class="input-inner" name="login-css" rows="8" cols="100"><?php echo $xm_options['login_css']; ?></textarea>
             </div>
           </div>
           <div class="form-item">
-            <p class="form-item-title">文章详情页css（不需要style标签）：</p>
+            <p class="form-item-title">全局公用css<br/>(不需要style标签):</p>
+            <div class="form-item-content">
+              <textarea class="input-inner" name="global-css" rows="8" cols="100"><?php echo $xm_options['global_css']; ?></textarea>
+            </div>
+          </div>
+          <div class="form-item">
+            <p class="form-item-title">文章详情页css<br/>(不需要style标签):</p>
             <div class="form-item-content">
               <textarea class="input-inner" name="details-css" rows="8" cols="100"><?php echo $xm_options['details_css']; ?></textarea>
             </div>
@@ -458,6 +464,7 @@ function themeoptions_page() {
       'footer_copyright'       => $_POST['footer-copyright'],
       'login_css'              => $_POST['login-css'],
       'details_css'            => $_POST['details-css'],
+      'global_css'            => $_POST['global-css'],
       'keywords'               => $_POST['keywords'],
       'description'            => $_POST['description'],
       'link'                   => $_POST['link'],

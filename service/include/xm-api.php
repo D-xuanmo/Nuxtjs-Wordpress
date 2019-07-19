@@ -151,6 +151,7 @@ function add_get_blog_info () {
     "themeDir" => get_option("template"),
     "templeteUrl" => "/wp-content/themes/" . get_option("template"),
     "detailsCss" => $xm_options["details_css"],
+    "globalCss" => $xm_options["global_css"],
     "blogName" => get_bloginfo("name"),
     "blogDescription" => get_bloginfo("description"),
     "keywords" => $xm_options["keywords"],

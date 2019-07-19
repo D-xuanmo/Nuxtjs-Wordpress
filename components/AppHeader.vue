@@ -107,6 +107,13 @@ export default {
       mark: true
     }
   },
+  head () {
+    return {
+      style: [
+        { cssText: this.info.globalCss, type: 'text/css' }
+      ]
+    }
+  },
   computed: {
     ...mapState(['info', 'menu', 'menuStatus']),
     height () {
