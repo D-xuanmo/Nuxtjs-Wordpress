@@ -499,6 +499,9 @@ function themeoptions_page() {
 			)
     );
     update_option('xm_vue_options', stripslashes_deep($options));
+
+    // 修改站点域名
+    update_option('home', get_option("xm_vue_options")["domain"] ? get_option("xm_vue_options")["domain"] : get_option("siteurl"));
 	}
 	add_action('admin_menu', 'themeoptions_admin_menu');
 ?>

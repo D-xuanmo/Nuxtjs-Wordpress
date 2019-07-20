@@ -50,12 +50,11 @@ add_action('admin_bar_menu', 'toolbar_link_to_mypage', 999);
 /**
  * 删出查看站点等菜单
  */
-function my_prefix_remove_admin_bar_item($wp_admin_bar)
-{
-  $wp_admin_bar->remove_node('site-name');
-}
-add_action('admin_bar_menu', 'my_prefix_remove_admin_bar_item', 999);
-
+// function my_prefix_remove_admin_bar_item($wp_admin_bar)
+// {
+//   $wp_admin_bar->remove_node('site-name');
+// }
+// add_action('admin_bar_menu', 'my_prefix_remove_admin_bar_item', 999);
 
 /**
  * 自定义上传头像
