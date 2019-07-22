@@ -1,4 +1,21 @@
 <?php
+/**
+ * 自定义上传头像
+ */
+require_once(TEMPLATEPATH . '/include/author-avatars.php');
+
+/**
+ * 主题扩展设置
+ */
+require_once(TEMPLATEPATH . '/include/xm-theme-options.php');
+
+/**
+ * 添加自定义接口
+ */
+require_once(TEMPLATEPATH . '/include/xm-api.php');
+
+require_once(TEMPLATEPATH . '/utils.php');
+
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
 
@@ -11,7 +28,8 @@ function remove_redirects()
 add_action('init', 'remove_redirects');
 
 // 移除后台左上角logo信息
-function xm_admin_bar_remove() {
+function xm_admin_bar_remove()
+{
   global $wp_admin_bar;
   $wp_admin_bar->remove_menu('wp-logo');
 }
@@ -55,21 +73,6 @@ add_action('admin_bar_menu', 'toolbar_link_to_mypage', 999);
 //   $wp_admin_bar->remove_node('site-name');
 // }
 // add_action('admin_bar_menu', 'my_prefix_remove_admin_bar_item', 999);
-
-/**
- * 自定义上传头像
- */
-require_once(TEMPLATEPATH . '/include/author-avatars.php');
-
-/**
- * 主题扩展设置
- */
-require_once(TEMPLATEPATH . '/include/xm-theme-options.php');
-
-/**
- * 添加自定义接口
- */
-require_once(TEMPLATEPATH . '/include/xm-api.php');
 
 /**
  * 关闭自动更新
@@ -459,9 +462,9 @@ function ludou_comment_mail_notify($comment_id, $comment_status)
           <p><strong>' . $parent_comment->comment_author . '</strong> 您好!</p>
           <p>您在 [' . get_option('blogname') . '] 的文章<strong style="color:#2ebef3;">《' . get_the_title($comment->comment_post_ID) . '》</strong>上发表的评论有新回复啦，快来看看吧 ^_^:</p>
           <p>这是你的评论:</p>
-          <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . comments_embed_img($parent_comment->comment_content) . '</p>
+          <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . xm_output_smiley(trim($parent_comment->comment_content)) . '</p>
           <p><strong>' . trim($comment->comment_author) . '</strong> 给你的回复是:<br />
-          <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . trim($comment->comment_content) . '</p>
+          <p style="margin: 15px 0; padding: 20px; border-radius: 5px; background-color: #eee;">' . xm_output_smiley(trim($comment->comment_content)) . '</p>
           <p>您也可移步到文章<a style="text-decoration:none; color:#2ebef3" href="' . get_option('xm_vue_options')['domain'] . '/details/' . $comment->comment_post_ID . '"> 《' . get_the_title($comment->comment_post_ID) . '》 </a>查看完整回复内容</p>
           <p style="padding-bottom: 10px; border-bottom: 1px dashed #ccc;">欢迎再次光临 <a style="text-decoration:none; color:#2ebef3" href="' . get_option('xm_vue_options')['domain'] . '">' . get_option('blogname') . '</a></p>
           <p style="color: f00;">(此邮件由系统自动发出, 请勿回复。)</p>
@@ -489,7 +492,7 @@ function xm_new_comment($comment_id) {
             .'<p class="comment-content">作者：'. $comment->comment_author .'</p>'
             .'<p class="comment-content">电子邮箱：'. $comment->comment_author_email .'</p>'
             .'<p class="comment-content">URL：'. $comment->comment_author_url .'</p>'
-            .'<p class="comment-content">评论：'. $comment->comment_content .'</p>';
+            .'<p class="comment-content">评论：'. xm_output_smiley($comment->comment_content) .'</p>';
   $message_headers = "Content-Type: text/html; charset=utf-8;";
   // 为新评论时才发送邮件
   if ($comment->comment_approved == 0 && $to != '') wp_mail($to, $title, $message, $message_headers);

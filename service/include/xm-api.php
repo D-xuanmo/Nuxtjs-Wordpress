@@ -1,8 +1,8 @@
 <?php
-// 删除网址
-function replace_domain ($url) {
-  return preg_replace("/https?:\/\/(\w+\.)+\w+(:\d+)?/", "", $url);
-}
+// 引入浏览器和系统正则
+require_once(TEMPLATEPATH."/include/xm-comment-extra.php");
+
+require_once(TEMPLATEPATH."/utils.php");
 
 // 获取头像
 function local_avatar_url () {
@@ -132,7 +132,7 @@ function add_get_blog_info () {
     $latestComment[$i]->link = get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"];
     $latestComment[$i]->title = get_the_title($newComment[$i]->comment_post_ID);
     $latestComment[$i]->author = $newComment[$i]->comment_author;
-    $latestComment[$i]->content = $newComment[$i]->comment_content;
+    $latestComment[$i]->content = xm_output_smiley($newComment[$i]->comment_content);
     $latestComment[$i]->id = $newComment[$i]->comment_post_ID;
   }
 
@@ -260,11 +260,10 @@ add_action("rest_api_init", function () {
 });
 
 /**
- * 评论添加字段
+ * wordpress接口增加字段
  */
-require_once(TEMPLATEPATH . "/include/xm-comment-extra.php");
-
 function add_api_comment_meta_field () {
+  // 评论添加字段
   register_rest_field("comment", "userAgentInfo", array(
     "get_callback" => function ($object) {
       $array = array(
@@ -285,6 +284,16 @@ function add_api_comment_meta_field () {
       }
       return array(
         "opinion" => get_metadata("comment", $object[id], "opinion", true)
+      );
+    },
+    "schema" => null
+  ));
+
+  // 文章格式化
+  register_rest_field(["post", "page"], "content", array(
+    "get_callback" => function ($object) {
+      return array(
+        "rendered" => xm_output_smiley($object[content][rendered])
       );
     },
     "schema" => null
