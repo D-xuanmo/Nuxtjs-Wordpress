@@ -45,8 +45,8 @@ body {
 .wp-smiley {
   width: 20px !important;
   height: auto !important;
-  max-width: initial;
-  max-height: initial;
+  max-width: none !important;
+  max-height: none !important;
 }
 
 .menu-mask {
