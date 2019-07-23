@@ -4,6 +4,9 @@ require_once(TEMPLATEPATH."/include/xm-comment-extra.php");
 
 require_once(TEMPLATEPATH."/utils.php");
 
+global $colors;
+$colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
+
 // 获取头像
 function local_avatar_url () {
   if (get_the_author_meta("simple_local_avatar") === "") {
@@ -111,6 +114,7 @@ add_action("rest_api_init", "add_api_user_meta_field");
  */
 function add_get_blog_info () {
   global $wpdb;
+  global $colors;
 
   // 获取最后更新时间
   $last = $wpdb -> get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
@@ -126,8 +130,9 @@ function add_get_blog_info () {
   ));
   $latestComment = array();
   for ($i = 0; $i < count($newComment); $i++) {
+    preg_match("/\d/", md5($newComment[$i]->comment_author_email), $matches);
     $latestComment[$i]->avatar = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200";
-    $latestComment[$i]->background = "#" . substr(md5(strtolower(trim($newComment[$i]->comment_author_email))), 0, 6);
+    $latestComment[$i]->background = $colors[$matches[0]]; // 根据邮箱md5后获取第一个数字生成颜色
     $latestComment[$i]->countCom = get_comments_number($newComment[$i]->comment_post_ID);
     $latestComment[$i]->link = get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"];
     $latestComment[$i]->title = get_the_title($newComment[$i]->comment_post_ID);
@@ -266,7 +271,7 @@ function add_api_comment_meta_field () {
   // 评论添加字段
   register_rest_field("comment", "userAgentInfo", array(
     "get_callback" => function ($object) {
-      $colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
+      global $colors;
       preg_match("/\d/", md5($object[author_email]), $matches);
       $array = array(
         "userAgent" => get_browser_name($object[author_user_agent]),

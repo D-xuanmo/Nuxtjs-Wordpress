@@ -7,7 +7,7 @@
  */
 function xm_output_smiley($str = "")
 {
-  return preg_replace_callback("/\[\w+\]/", function ($matchs) {
+  return preg_replace_callback("/\[(?!img)\w+\]/", function ($matchs) {
     global $wpsmiliestrans;
     $smilies_dir = get_option("xm_vue_options")["domain"] . '/images/smilies/';
     return '<img src="'.$smilies_dir.$wpsmiliestrans[$matchs[0]].'" width="20" style="vertical-align:baseline;box-shadow:none;">';
