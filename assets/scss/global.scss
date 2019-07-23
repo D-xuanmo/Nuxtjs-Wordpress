@@ -41,6 +41,14 @@ body {
   color: $color-main-text;
 }
 
+// 表情
+.wp-smiley {
+  width: 20px !important;
+  height: auto !important;
+  max-width: initial;
+  max-height: initial;
+}
+
 .menu-mask {
   position: fixed;
   top: 60px;
