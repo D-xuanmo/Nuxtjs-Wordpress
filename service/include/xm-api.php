@@ -290,14 +290,14 @@ function add_api_comment_meta_field () {
   ));
 
   // 文章格式化
-  register_rest_field(["post", "page"], "content", array(
-    "get_callback" => function ($object) {
-      return array(
-        "rendered" => xm_output_smiley($object[content][rendered])
-      );
-    },
-    "schema" => null
-  ));
+  // register_rest_field(["post", "page", "comment"], "content", array(
+  //   "get_callback" => function ($object) {
+  //     return array(
+  //       "rendered" => xm_output_smiley($object[content][rendered])
+  //     );
+  //   },
+  //   "schema" => null
+  // ));
 }
 add_action("rest_api_init", "add_api_comment_meta_field");
 ?>

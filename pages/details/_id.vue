@@ -344,6 +344,11 @@ export default {
       height: auto !important;
       box-shadow: 0 0 10px #d2d2d2;
     }
+
+    /deep/ .wp-smiley {
+      width: 20px !important;
+      height: auto !important;
+    }
   }
 }
 
