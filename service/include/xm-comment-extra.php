@@ -13,7 +13,7 @@ function get_browser_name ($str) {
     $matches['system'] = $match[0]['system'] . ' ' . $match[0]['version'];
   } else if (preg_match('/Android/', $str)) {
     // Android
-    preg_match_all('/(?P<system>Android\s\d+\.\d+)/i', $str, $match, PREG_SET_ORDER);
+    preg_match_all('/(?P<system>Android\s\d+(\.\d+)?)/i', $str, $match, PREG_SET_ORDER);
     $matches['system'] = $match[0]['system'];
   } else if (preg_match('/Wind/', $str)) {
     // windows
