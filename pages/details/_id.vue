@@ -131,8 +131,8 @@
     <!-- 评论列表 -->
     <div class="section comment">
       <h2 class="comment-title" v-html="`共 ${detail.articleInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
-      <no-ssr placeholder="Loading...">
-        <comments/>
+      <no-ssr>
+        <comments :comment-status="detail.comment_status"/>
       </no-ssr>
     </div>
     <!-- 生成海报 -->

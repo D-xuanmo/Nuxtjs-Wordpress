@@ -1,7 +1,8 @@
 <template>
   <div class="comments-wrap">
     <!-- 发表评论 -->
-    <div class="comment-from">
+    <div v-if="commentStatus === 'closed'" class="comment-closed text-center f-s-large">评论已关闭</div>
+    <div v-else-if="commentStatus === 'open'" class="comment-from">
       <h3 class="comment-title">发表评论</h3>
       <p class="comment-sub-title">电子邮件地址不会被公开。 必填项已用<i class="c-red">*</i>标注</p>
       <!-- 评论其他功能 -->
@@ -163,6 +164,12 @@ export default {
   components: {
     uploadImg
   },
+  props: {
+    commentStatus: {
+      type: String,
+      default: 'open'
+    }
+  },
   data () {
     return {
       author: {
@@ -212,33 +219,10 @@ export default {
     }),
     ...mapState('comment', ['commentList', 'totalPage', 'expressionList'])
   },
-  async created () {
-    if (localStorage.getItem('authorInfo')) {
-      const authorInfo = JSON.parse(localStorage.getItem('authorInfo'))
-      this.author.value = authorInfo.author
-      this.email.value = authorInfo.email
-      this.url.value = authorInfo.url
-    }
-
-    // 获取评论列表
-    await this.getCommentList({
-      post: this.$route.params.id,
-      page: this.currentCommentPage
-    })
-    this.bMoreList = false
-    this.sMoreBtnText = '下一页'
-    if (this.currentCommentPage === this.totalPage) {
-      this.sMoreBtnText = '最后一页！'
-      this.bClick = false
-    }
-    if (this.totalPage === 0) {
-      this.sMoreBtnText = '暂无数据！'
-      this.bClick = false
-    }
+  created () {
+    this.init()
   },
   mounted () {
-    this._randomCode()
-
     document.body.addEventListener('click', this._closeExpression, false)
   },
   beforeDestroy () {
@@ -247,6 +231,32 @@ export default {
   },
   methods: {
     ...mapActions('comment', ['getCommentList', 'updateComment', 'getExpression', 'updateCommentOpinion']),
+
+    async init () {
+      if (localStorage.getItem('authorInfo')) {
+        const authorInfo = JSON.parse(localStorage.getItem('authorInfo'))
+        this.author.value = authorInfo.author
+        this.email.value = authorInfo.email
+        this.url.value = authorInfo.url
+      }
+
+      // 获取评论列表
+      await this.getCommentList({
+        post: this.$route.params.id,
+        page: this.currentCommentPage
+      })
+      this.bMoreList = false
+      this.sMoreBtnText = '下一页'
+      if (this.currentCommentPage === this.totalPage) {
+        this.sMoreBtnText = '最后一页！'
+        this.bClick = false
+      }
+      if (this.totalPage === 0) {
+        this.sMoreBtnText = '暂无数据！'
+        this.bClick = false
+      }
+      this.commentStatus === 'open' && this.$nextTick(() => this._randomCode())
+    },
 
     // 关闭表情显示
     _closeExpression () {

@@ -27,7 +27,8 @@
           <div class="right">
             <h3 class="author">{{ item.author }}</h3>
             <p class="comment-text" v-html="item.content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
-            <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
+            <nuxt-link v-if="item.postType === 'post'" :to="{ name: 'details-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
+            <nuxt-link v-else-if="item.postType === 'page'" :to="{ name: 'page-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
           </div>
         </li>
       </ul>

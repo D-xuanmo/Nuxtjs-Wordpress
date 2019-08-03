@@ -10,7 +10,7 @@
     <div class="comment">
       <h2 class="comment-title" v-html="`共 ${detail.pageInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
       <no-ssr>
-        <comments/>
+        <comments :comment-status="detail.comment_status"/>
       </no-ssr>
     </div>
   </div>
