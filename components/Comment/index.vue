@@ -15,19 +15,9 @@
             <x-icon type="icon-expression"></x-icon>表情
           </li>
         </ul>
-        <upload-img v-show="showChart" @showChart="_getShowChart" @updateContent="_getContent" :showChart="showChart"></upload-img>
-        <!-- 表情容器 -->
-        <div class="expression-wrap" ref="expression">
-          <a
-            href="javascript:;"
-            v-for="(item, key) in expressionList"
-            :key="item.key"
-            :title="item.title"
-            :data-title="`[${key}]`"
-            @click.stop="_editExpression($event)">
-            <img :src="item.url" :alt="item.title" width="20">
-          </a>
-        </div>
+        <upload v-show="showChart" @showChart="_getShowChart" @updateContent="_getContent" :showChart="showChart"></upload>
+        <!-- 表情 -->
+        <expression :is-show="expression.isShow" @on-change="_insertExpression" />
       </div>
       <!-- 评论输入框 -->
       <div class="comment-form-content">
@@ -158,11 +148,13 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import uploadImg from './upload'
+import Upload from './upload'
+import Expression from './expression'
 export default {
   name: 'Comments',
   components: {
-    uploadImg
+    Upload,
+    Expression
   },
   props: {
     commentStatus: {
@@ -199,7 +191,8 @@ export default {
       },
       random: {},
       expression: {
-        state: true,
+        isFirstRequest: true,
+        isShow: false,
         clickState: true
       },
       currentCommentPage: 1,
@@ -217,17 +210,13 @@ export default {
       isOpenCommentUpload: state => state.info.isOpenCommentUpload,
       templeteUrl: state => state.info.templeteUrl
     }),
-    ...mapState('comment', ['commentList', 'totalPage', 'expressionList'])
+    ...mapState('comment', ['commentList', 'totalPage'])
   },
   created () {
     this.init()
   },
-  mounted () {
-    document.body.addEventListener('click', this._closeExpression, false)
-  },
   beforeDestroy () {
     this.$store.commit('comment/RESET_COMMENT')
-    document.body.removeEventListener('click', this._closeExpression, false)
   },
   methods: {
     ...mapActions('comment', ['getCommentList', 'updateComment', 'getExpression', 'updateCommentOpinion']),
@@ -256,14 +245,6 @@ export default {
         this.bClick = false
       }
       this.commentStatus === 'open' && this.$nextTick(() => this._randomCode())
-    },
-
-    // 关闭表情显示
-    _closeExpression () {
-      if (this.$refs.expression) {
-        this.expression.clickState = true
-        this.$refs.expression.style.display = 'none'
-      }
     },
 
     // 评论列表下一页
@@ -423,22 +404,22 @@ export default {
     // 获取表情
     async _getExpression () {
       if (this.expression.clickState) {
-        this.$refs.expression.style.display = 'block'
-        if (this.expression.state) {
+        this.expression.isShow = true
+        if (this.expression.isFirstRequest) {
           await this.getExpression()
-          this.expression.state = false
+          this.expression.isFirstRequest = false
         }
       } else {
-        this.$refs.expression.style.display = 'none'
+        this.expression.isShow = false
       }
       this.expression.clickState = !this.expression.clickState
     },
 
-    // 添加表情
-    _editExpression (event) {
+    // 插入表情
+    _insertExpression (data) {
+      if (data.type === 'insert') this.content.value += ` ${data.value} `
       this.expression.clickState = true
-      this.$refs.expression.style.display = 'none'
-      this.content.value += ` ${event.currentTarget.getAttribute('data-title')} `
+      this.expression.isShow = false
     },
 
     // 显示上传图片控件
