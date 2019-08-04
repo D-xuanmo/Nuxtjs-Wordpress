@@ -33,6 +33,11 @@ export const actions = {
     try {
       let { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
       let { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
+      if (globalInfo.banner.style === '1') {
+        globalInfo.banner.big = globalInfo.banner.list[0]
+        let [, banner1, banner2, banner3] = globalInfo.banner.list
+        globalInfo.banner.small = [banner1, banner2, banner3]
+      }
       let result = {
         info: globalInfo,
         menu: menu.mainMenu,

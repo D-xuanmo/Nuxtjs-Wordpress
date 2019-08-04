@@ -1,26 +1,45 @@
 <template>
   <div class="container">
     <!-- banner start -->
-    <div class="banner-wrap">
-      <div class="big-banner">
-        <a class="list block" :href="info.banner.big_banner.link">
-          <img :src="info.banner.big_banner.path" alt="">
-          <span
-            class="title"
-            :title="info.banner.big_banner.text"
-            v-show="info.banner.big_banner.text">
-            {{ info.banner.big_banner.text }}
-          </span>
-        </a>
-      </div>
-      <ul class="small-banner">
-        <li class="list" v-for="item in info.banner.small_banner" :key="item.key">
-          <a class="block" :href="item.link">
-            <img :src="item.path" alt="">
-            <span v-show="item.text" class="title" :title="item.text">{{ item.text }}</span>
+    <div
+      ref="bannerWrapper"
+      :class="[
+        'banner-wrap',
+        info.banner.style === '1' && 'style-1',
+        info.banner.style === '2' && 'style-2'
+      ]"
+    >
+      <template v-if="info.banner.style === '1'">
+        <div class="big-banner">
+          <a class="list block" :href="info.banner.big.link">
+            <img :src="info.banner.big.path" alt="">
+            <span
+              class="title"
+              :title="info.banner.big.text"
+              v-show="info.banner.big.text">
+              {{ info.banner.big.text }}
+            </span>
           </a>
-        </li>
-      </ul>
+        </div>
+        <ul class="small-banner">
+          <li class="list" v-for="item in info.banner.small" :key="item.key">
+            <a class="block" :href="item.link">
+              <img :src="item.path" alt="">
+              <span v-show="item.text" class="title" :title="item.text">{{ item.text }}</span>
+            </a>
+          </li>
+        </ul>
+      </template>
+      <template v-else-if="info.banner.style === '2'">
+        <el-carousel trigger="click" :height="bannerHeight" :autoplay="false">
+          <el-carousel-item v-for="(item, i) in info.banner.list" :key="i">
+            <a :href="item.link" class="block">
+              <img :src="item.path" alt="">
+              <h3 class="title">{{ item.text }}</h3>
+            </a>
+          </el-carousel-item>
+        </el-carousel>
+      </template>
     </div>
     <!-- banner end -->
     <div v-if="info.notice" class="sidebar-list notice tablet-show">
@@ -96,6 +115,17 @@ export default {
       ]
     }
   },
+  data () {
+    return {
+      bannerHeight: '405px'
+    }
+  },
+  mounted () {
+    this.bannerHeight = `${this.$refs.bannerWrapper.offsetWidth / (900 / 405)}px`
+    window.addEventListener('resize', e => {
+      this.bannerHeight = `${this.$refs.bannerWrapper.offsetWidth / (900 / 405)}px`
+    })
+  },
   methods: {
     _changePagination (id) {
       this.$router.push({
@@ -110,9 +140,52 @@ export default {
 <style lang="scss" scoped>
 // banner
 .banner-wrap {
-  display: flex;
-  justify-content: space-between;
-  height: 320px;
+  position: relative;
+
+  &.style-1 {
+    display: flex;
+    justify-content: space-between;
+    height: 320px;
+  }
+
+  &.style-2 {
+    background-color: #fff;
+    .banner-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      min-width: 200px;
+      max-width: 100%;
+      padding: 5px 15px;
+      box-sizing: border-box;
+      background: rgba(0,0,0,.3);
+      opacity: .9;
+      @extend %ellipsis;
+      color: #fff;
+    }
+
+    /deep/ .el-carousel__arrow {
+      background-color: transparent;
+      font-size: 30px;
+    }
+
+    /deep/ .el-carousel__indicators--horizontal {
+      bottom: 20px;
+    }
+  }
+
+  .title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: rgba(0,0,0,.3);
+    text-indent: $font-size-base;
+    line-height: 30px;
+    color: $color-white;
+    @extend %ellipsis;
+  }
 
   img {
     vertical-align: top;
@@ -124,19 +197,6 @@ export default {
     overflow: hidden;
     position: relative;
     border-radius: $border-radius;
-
-    .title {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 30px;
-      background: rgba(0,0,0,.3);
-      text-indent: $font-size-base;
-      line-height: 30px;
-      color: $color-white;
-      @extend %ellipsis;
-    }
   }
 
   .big-banner {
@@ -163,31 +223,39 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .banner-wrap {
-    flex-wrap: wrap;
-    height: auto;
+    &.style-1 {
+      flex-wrap: wrap;
+      height: auto;
 
-    .big-banner {
-      width: 100%;
+      .big-banner {
+        width: 100%;
 
-      img {
-        height: auto;
+        img {
+          height: auto;
+        }
+      }
+
+      .small-banner {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: $container-margin;
+
+        .list {
+          width: 32%;
+          height: auto;
+          margin-bottom: 0;
+        }
+
+        img {
+          height: auto;
+        }
       }
     }
 
-    .small-banner {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-top: $container-margin;
-
-      .list {
-        width: 32%;
-        height: auto;
-        margin-bottom: 0;
-      }
-
-      img {
-        height: auto;
+    &.style-2 {
+      /deep/ .el-carousel__arrow {
+        display: block !important;
       }
     }
   }

@@ -8,6 +8,7 @@ function themeoptions_admin_menu()
 if (isset($_POST['update_themeoptions']) && $_POST['update_themeoptions'] == 'true') {
     themeoptions_update();
 }
+
 function themeoptions_page()
 {
     // 获取提交的数据
@@ -22,7 +23,8 @@ function themeoptions_page()
 	    <ul class="tab-wrapper">
 			<li class="item is-active">基本</li>
 			<li class="item">SEO</li>
-			<li class="item">图片</li>
+            <li class="item">Banner</li>
+			<li class="item">其他图片</li>
 			<li class="item">打赏</li>
 			<li class="item">社交</li>
 			<li class="item">自定义代码</li>
@@ -46,6 +48,24 @@ function themeoptions_page()
 							<span>示例<sup>必须加上http或者https协议</sup>：https://www.xuanmo.xin</span>
 						</div>
 					</div>
+
+		          	<div class="form-item">
+			            <p class="form-item-title">评论区vip等级样式：</p>
+			            <div class="form-item-content">
+			              	<label for="vip-style-1" class="vip-style" style="display: inline-block; width: 15px; height: 15px; background: url(<?php bloginfo('template_url'); ?>/static/images/vip.png) -147px -70px;"></label>
+			              	<input
+				                type="radio"
+				                id="vip-style-1"
+				                name="vip-style"
+				                value="vip-style-1"
+								<?php
+								if ($xm_options['vip_style'] == 'vip-style-1' || $xm_options['vip_style'] == '') {
+							        echo 'checked';
+							    }
+								?>
+			              	>
+			            </div>
+		          	</div>
 
           			<div class="form-item">
 			            <p class="form-item-title">侧边栏统计功能：</p>
@@ -228,26 +248,89 @@ function themeoptions_page()
 		          	</div>
 		        </li>
 		        <!-- SEO结束 -->
+                <!-- Banner开始 -->
+                <li class="content-item">
+		            <div class="form-item">
+                        <p class="form-item-title">Banner样式：</p>
+			            <div class="form-item-content">
+			              	<div class="input-inner">
+                                <label for="banner-style-1" class="vip-style" style="display: inline-block; width: 200px; height: 90px; background: url(<?php bloginfo('template_url'); ?>/static/images/banner-style-1.png) no-repeat 0 0/100% 100%;"></label>
+    			              	<input
+    				                type="radio"
+    				                id="banner-style-1"
+    				                name="banner-style"
+    				                value="1"
+    								<?php
+    								if ($xm_options['banner']['style'] == '1' || $xm_options['banner']['style'] == '') {
+    							        echo 'checked';
+    							    }
+    								?>
+    			              	>
+    			              	<label for="banner-style-2" class="vip-style" style="display: inline-block; width: 200px; height: 90px; background: url(<?php bloginfo('template_url'); ?>/static/images/banner-style-2.png) no-repeat 0 0/100% 100%;"></label>
+    			              	<input
+    				                type="radio"
+    				                id="banner-style-2"
+    				                name="banner-style"
+    				                value="2"
+    								<?php
+    								if ($xm_options['banner']['style'] == '2') {
+    							        echo 'checked';
+    							    }
+    								?>
+    			              	>
+                            </div>
+                            <p>提示：大图片比列：900*300px，小图片比列：180px*100px</p>
+			            </div>
+                    </div>
+	  				<?php
+	                for ($i = 0; $i <= 3; $i++) {
+	                ?>
+	          		<div class="form-item-group">
+			            <div class="form-item">
+			              	<p class="form-item-title">banner<?php echo $i + 1; ?>：</p>
+			              	<div class="form-item-content">
+				                <input
+				                  	type="text"
+				                  	class="input-inner"
+				                  	name="banner-<?php echo $i; ?>"
+				                  	value="<?php echo $xm_options['banner']['list'][$i]['path']; ?>"
+				                >
+				                <input type="button" name="img-upload" value="选择文件" class="choose-image">
+				                <p>
+				                  	<img src="<?php echo $xm_options['banner']['list'][$i]['path']; ?>" class="preview-img">
+				                </p>
+			              	</div>
+			            </div>
+			            <div class="form-item">
+			              	<p class="form-item-title">banner<?php echo $i + 1; ?>标题：</p>
+			              	<div class="form-item-content">
+			                	<input
+			                  		type="text"
+			                  		class="input-inner"
+			                  		name="banner-text-<?php echo $i; ?>"
+			                  		value="<?php echo $xm_options['banner']['list'][$i]['text']; ?>"
+			                	>
+			              	</div>
+			            </div>
+			            <div class="form-item">
+			              	<p class="form-item-title">banner<?php echo $i + 1; ?>链接：</p>
+			              	<div class="form-item-content">
+			                	<input
+			                  		type="text"
+			                  		class="input-inner"
+			                  		name="banner-link-<?php echo $i; ?>"
+			                  		value="<?php echo $xm_options['banner']['list'][$i]['link']; ?>"
+			                	>
+			              	</div>
+			            </div>
+	          		</div>
+	  				<?php
+	                }
+					?>
+                </li>
+                <!-- Banner结束 -->
   				<!-- 图片设置开始 -->
         		<li class="content-item">
-		          	<div class="form-item">
-			            <p class="form-item-title">评论区vip等级样式：</p>
-			            <div class="form-item-content">
-			              	<label for="vip-style-1" class="vip-style" style="display: inline-block; width: 15px; height: 15px; background: url(<?php bloginfo('template_url'); ?>/static/images/vip.png) -147px -70px;"></label>
-			              	<input
-				                type="radio"
-				                id="vip-style-1"
-				                name="vip-style"
-				                value="vip-style-1"
-								<?php
-								if ($xm_options['vip_style'] == 'vip-style-1' || $xm_options['vip_style'] == '') {
-							        echo 'checked';
-							    }
-								?>
-			              	>
-			            </div>
-		          	</div>
-
 		          	<div class="form-item">
 			            <p class="form-item-title">后台登录logo：</p>
 			            <div class="form-item-content">
@@ -297,91 +380,6 @@ function themeoptions_page()
 			              	</p>
 			            </div>
 		          	</div>
-
-	          		<div class="form-item-group">
-			            <div class="form-item">
-			              	<p class="form-item-title">banner大图：</p>
-			              	<div class="form-item-content">
-				                <input
-				                  	type="text"
-				                  	class="input-inner"
-				                  	name="big-banner"
-				                  	value="<?php echo $xm_options['banner']['big_banner']['path']; ?>"
-				                >
-				                <input type="button" name="img-upload" value="选择文件" class="choose-image">
-				                <p>
-				                  	<img src="<?php echo $xm_options['banner']['big_banner']['path']; ?>" class="preview-img">
-				                </p>
-			              	</div>
-			            </div>
-			            <div class="form-item">
-			              	<p class="form-item-title">banner大图标题：</p>
-			              	<div class="form-item-content">
-			                	<input
-				                  	type="text"
-				                  	class="input-inner"
-				                  	name="big-banner-text"
-				                  	value="<?php echo $xm_options['banner']['big_banner']['text']; ?>"
-			                	>
-			              </div>
-			            </div>
-			            <div class="form-item">
-			              	<p class="form-item-title">banner大图链接：</p>
-			              	<div class="form-item-content">
-			                	<input
-				                  	type="text"
-				                  	class="input-inner"
-				                  	name="big-banner-link"
-				                  	value="<?php echo $xm_options['banner']['big_banner']['link']; ?>"
-			                	>
-			              	</div>
-			            </div>
-	          		</div>
-	  				<?php
-	                for ($i = 1; $i < 4; $i++) {
-	                ?>
-	          		<div class="form-item-group">
-			            <div class="form-item">
-			              	<p class="form-item-title">banner<?php echo $i; ?>：</p>
-			              	<div class="form-item-content">
-				                <input
-				                  	type="text"
-				                  	class="input-inner"
-				                  	name="small-banner-<?php echo $i; ?>"
-				                  	value="<?php echo $xm_options['banner']['small_banner']['banner'. $i]['path']; ?>"
-				                >
-				                <input type="button" name="img-upload" value="选择文件" class="choose-image">
-				                <p>
-				                  	<img src="<?php echo $xm_options['banner']['small_banner']['banner'. $i]['path']; ?>" class="preview-img">
-				                </p>
-			              	</div>
-			            </div>
-			            <div class="form-item">
-			              	<p class="form-item-title">banner<?php echo $i; ?>标题：</p>
-			              	<div class="form-item-content">
-			                	<input
-			                  		type="text"
-			                  		class="input-inner"
-			                  		name="small-banner-text-<?php echo $i; ?>"
-			                  		value="<?php echo $xm_options['banner']['small_banner']['banner'. $i]['text']; ?>"
-			                	>
-			              	</div>
-			            </div>
-			            <div class="form-item">
-			              	<p class="form-item-title">banner<?php echo $i; ?>链接：</p>
-			              	<div class="form-item-content">
-			                	<input
-			                  		type="text"
-			                  		class="input-inner"
-			                  		name="small-banner-link-<?php echo $i; ?>"
-			                  		value="<?php echo $xm_options['banner']['small_banner']['banner'. $i]['link']; ?>"
-			                	>
-			              	</div>
-			            </div>
-	          		</div>
-	  				<?php
-	                }
-					?>
         		</li>
 		        <!-- 图片设置结束 -->
 		        <!-- 打赏开始 -->
@@ -525,28 +523,29 @@ function themeoptions_page()
 			'alipay'                 => $_POST['alipay'],
 			'wechatpay'              => $_POST['wechatpay'],
 	        'banner'                 => array(
-	            'big_banner'           => array(
-	                'path'               => $_POST['big-banner'],
-	                'text'               => $_POST['big-banner-text'],
-	                'link'               => $_POST['big-banner-link'],
-	            ),
-	            'small_banner'         => array(
-	                'banner1'            => array(
-	                    'path'             => $_POST['small-banner-1'],
-	                    'text'             => $_POST['small-banner-text-1'],
-	                    'link'             => $_POST['small-banner-link-1'],
+                'style'              => $_POST['banner-style'],
+                'list'               => array(
+                    array(
+                        'path'             => $_POST['banner-0'],
+                        'text'             => $_POST['banner-text-0'],
+                        'link'             => $_POST['banner-link-0'],
+                    ),
+                    array(
+	                    'path'             => $_POST['banner-1'],
+	                    'text'             => $_POST['banner-text-1'],
+	                    'link'             => $_POST['banner-link-1'],
 	                ),
-	                'banner2'            => array(
-	                    'path'             => $_POST['small-banner-2'],
-	                    'text'             => $_POST['small-banner-text-2'],
-	                    'link'             => $_POST['small-banner-link-2'],
+                    array(
+	                    'path'             => $_POST['banner-2'],
+	                    'text'             => $_POST['banner-text-2'],
+	                    'link'             => $_POST['banner-link-2'],
 	                ),
-	                'banner3'            => array(
-	                    'path'             => $_POST['small-banner-3'],
-	                    'text'             => $_POST['small-banner-text-3'],
-	                    'link'             => $_POST['small-banner-link-3'],
+                    array(
+	                    'path'             => $_POST['banner-3'],
+	                    'text'             => $_POST['banner-text-3'],
+	                    'link'             => $_POST['banner-link-3'],
 	                )
-	            )
+                )
 	        )
 	    );
         update_option('xm_vue_options', stripslashes_deep($options));
