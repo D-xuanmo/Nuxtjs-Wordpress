@@ -237,6 +237,10 @@
     .list-content {
       margin: 10px 0;
 
+      /deep/ a {
+        color: $color-theme;
+      }
+
       /deep/ img {
         max-width: 40%;
         height: initial !important;

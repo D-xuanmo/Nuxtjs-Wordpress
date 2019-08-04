@@ -11,11 +11,6 @@
                     "code"    => "hashiqi"
                 ),
                 array(
-                    "url"     => "/images/smilies/qq/huaji.png",
-                    "title"   => "滑稽",
-                    "code"    => "huaji"
-                ),
-                array(
                     "url"     => "/images/smilies/qq/doge.png",
                     "title"   => "doge",
                     "code"    => "doge1"

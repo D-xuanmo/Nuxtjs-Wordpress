@@ -1,27 +1,33 @@
 <template>
   <div v-show="isShow" class="expression-wrapper" ref="expression">
-    <ul class="expression-list">
-      <li v-for="(tabs, index) in expressionList" :key="index" v-show="active === index" class="item">
-        <a
-          href="javascript:;"
-          v-for="(item, index) in tabs.list"
+    <div v-if="!expressionList.length" class="loading">
+      <x-icon type="icon-loading"></x-icon>
+      <p>加载中...</p>
+    </div>
+    <template v-else>
+      <ul class="expression-list">
+        <li v-for="(tabs, index) in expressionList" :key="index" v-show="active === index" class="item">
+          <a
+            href="javascript:;"
+            v-for="(item, index) in tabs.list"
+            :key="index"
+            :title="item.title"
+            @click.stop="choose(`[${item.code}]`)">
+            <img :src="item.url" :alt="item.title" width="20">
+          </a>
+        </li>
+      </ul>
+      <ul class="tabs-wrapper">
+        <li
+          v-for="(tabs, index) in expressionList"
           :key="index"
-          :title="item.title"
-          @click.stop="choose(`[${item.code}]`)">
-          <img :src="item.url" :alt="item.title" width="20">
-        </a>
-      </li>
-    </ul>
-    <ul class="tabs-wrapper">
-      <li
-        v-for="(tabs, index) in expressionList"
-        :key="index"
-        :class="['tabs-item', active === index && 'is-active']"
-        @click.stop="active = index"
-      >
-        {{ tabs.text }}
-      </li>
-    </ul>
+          :class="['tabs-item', active === index && 'is-active']"
+          @click.stop="active = index"
+        >
+          {{ tabs.text }}
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 <script>
@@ -79,6 +85,15 @@ export default {
     content: "";
     display: inline-block;
     width: 100%;
+  }
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    color: $color-theme;
+    transform: translate(-50%, -50%);
   }
 
   .expression-list {
