@@ -121,12 +121,16 @@ export default {
     }
   },
   mounted () {
-    this.bannerHeight = `${this.$refs.bannerWrapper.offsetWidth / (900 / 405)}px`
-    window.addEventListener('resize', e => {
-      this.bannerHeight = `${this.$refs.bannerWrapper.offsetWidth / (900 / 405)}px`
-    })
+    this._bannerClacHeight()
+    window.addEventListener('resize', this._bannerClacHeight)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this._bannerClacHeight)
   },
   methods: {
+    _bannerClacHeight () {
+      this.bannerHeight = `${this.$refs.bannerWrapper.offsetWidth / (900 / 405)}px`
+    },
     _changePagination (id) {
       this.$router.push({
         name: 'article-id-title',
