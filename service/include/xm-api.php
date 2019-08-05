@@ -269,15 +269,12 @@ add_action("rest_api_init", function () {
  */
 function add_api_get_phrase ()
 {
-    $list = query_posts(array(
-        "post_type" => "phrase",
-        "post_status" => "publish",
-        "orderby" => "date"
-    ));
+    global $wpdb;
+    $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish' ORDER BY post_date DESC");
     $result = [];
     for ($i = 0; $i < count($list); $i++) {
         $result[$i]->date = $list[$i]->post_date;
-        $result[$i]->title = $list[$i]->post_title;
+        // $result[$i]->title = $list[$i]->post_title;
         $result[$i]->content = xm_output_smiley($list[$i]->post_content);
         $result[$i]->link = $list[$i]->post_excerpt;
         $result[$i]->avatar = replace_domain(get_the_author_meta("simple_local_avatar", $list[$i]->post_author)[full]);
