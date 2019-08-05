@@ -7,16 +7,6 @@ require_once(TEMPLATEPATH."/utils.php");
 global $colors;
 $colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
 
-// 获取头像
-function local_avatar_url()
-{
-    if (get_the_author_meta("simple_local_avatar") === "") {
-        return "https://www.gravatar.com/avatar/" . md5(strtolower(trim(get_the_author_meta("email")))) . "?s=200";
-    } else {
-        return get_the_author_meta("simple_local_avatar")[full];
-    }
-}
-
 /**
  * 删除不需要的字段
  */
@@ -66,7 +56,7 @@ function xm_get_article_infor($object)
     $array = array(
     "author" => get_the_author(),
     "other" => array(
-        "authorPic" => local_avatar_url(),
+        "authorPic" => get_the_author_meta("simple_local_avatar")[full],
         "authorTro" => get_the_author_meta("description"),
         "github" => get_the_author_meta("github_url"),
         "qq" => get_the_author_meta("qq"),
@@ -149,7 +139,7 @@ function add_get_blog_info()
 
     $xm_options = get_option("xm_vue_options");
     $result = array(
-        "adminPic" => local_avatar_url(),
+        "adminPic" => get_the_author_meta("simple_local_avatar")[full],
         "alipay" => $xm_options["alipay"],
         "banner" => $xm_options["banner"],
         "blogDescription" => get_bloginfo("description"),
@@ -267,12 +257,35 @@ function add_api_comment_metadata($request)
     $key = $request -> get_params()["type"];
     $result = get_metadata("comment", $postID, "opinion", true);
     return array(
-    "success" => update_metadata("comment", $postID, "opinion", array_merge($result, array($key => $result[$key] + 1))),
-    "data" => get_metadata("comment", $postID, "opinion", true)
-  );
+        "success" => update_metadata("comment", $postID, "opinion", array_merge($result, array($key => $result[$key] + 1))),
+        "data" => get_metadata("comment", $postID, "opinion", true)
+    );
 }
 add_action("rest_api_init", function () {
     register_rest_route("xm-blog/v1", "/update-comment-meta", array("methods" => "POST", "callback" => "add_api_comment_metadata"));
+});
+
+/**
+ * 获取说说列表
+ */
+function add_api_get_phrase ()
+{
+    global $wpdb;
+    $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish'");
+    $result = [];
+    for ($i = 0; $i < count($list); $i++) {
+        $result[$i]->date = $list[$i]->post_date;
+        $result[$i]->title = $list[$i]->post_title;
+        $result[$i]->content = xm_output_smiley($list[$i]->post_content);
+        $result[$i]->link = $list[$i]->post_excerpt;
+    }
+    return array(
+        'success' => true,
+        "data" => $result
+    );
+}
+add_action("rest_api_init", function () {
+    register_rest_route("xm-blog/v1", "/get-phrase", array("methods" => "get", "callback" => "add_api_get_phrase"));
 });
 
 /**

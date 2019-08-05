@@ -48,5 +48,7 @@ export const UPDATE_VIEW_COUNT = 'UPDATE_VIEW_COUNT'
 
 // 文章发表意见
 export const UPDATE_OPINION = 'UPDATE_OPINION'
-
 export const UPDATE_OPINION_LOADING = 'UPDATE_OPINION_LOADING'
+
+// 获取说说
+export const SET_PHRASE_LIST = 'SET_PHRASE_LIST'
