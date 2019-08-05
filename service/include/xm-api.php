@@ -269,8 +269,11 @@ add_action("rest_api_init", function () {
  */
 function add_api_get_phrase ()
 {
-    global $wpdb;
-    $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish'");
+    $list = query_posts(array(
+        "post_type" => "phrase",
+        "post_status" => "publish",
+        "orderby" => "date"
+    ));
     $result = [];
     for ($i = 0; $i < count($list); $i++) {
         $result[$i]->date = $list[$i]->post_date;
