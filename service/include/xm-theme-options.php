@@ -332,7 +332,7 @@ function themeoptions_page()
   				<!-- 其他设置开始 -->
         		<li class="content-item">
 		          	<div class="form-item">
-			            <p class="form-item-title">前端标签页logo：</p>
+			            <p class="form-item-title">favicon：</p>
 			            <div class="form-item-content">
 			              	<input
 				                type="text"
@@ -341,7 +341,7 @@ function themeoptions_page()
 				                value="<?php echo $xm_options['favicon']; ?>"
 			              	>
 			              	<input type="button" name="img-upload" value="选择文件" class="choose-image">
-                            <span>比列最好为32px*32px</span>
+                            <span>浏览器标签页小图标，比列最好为32px*32px</span>
 			              	<p>
 			                	<img src="<?php echo $xm_options['favicon']; ?>" class="preview-img">
 			              	</p>
