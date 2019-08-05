@@ -139,7 +139,6 @@ function add_get_blog_info()
 
     $xm_options = get_option("xm_vue_options");
     $result = array(
-        "adminPic" => get_the_author_meta("simple_local_avatar")[full],
         "alipay" => $xm_options["alipay"],
         "banner" => $xm_options["banner"],
         "blogDescription" => get_bloginfo("description"),
@@ -278,6 +277,7 @@ function add_api_get_phrase ()
         $result[$i]->title = $list[$i]->post_title;
         $result[$i]->content = xm_output_smiley($list[$i]->post_content);
         $result[$i]->link = $list[$i]->post_excerpt;
+        $result[$i]->avatar = replace_domain(get_the_author_meta("simple_local_avatar", $list[$i]->post_author)[full]);
     }
     return array(
         'success' => true,

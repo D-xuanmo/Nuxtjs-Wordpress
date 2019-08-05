@@ -2,7 +2,7 @@
   <div class="container">
     <ul>
       <li v-for="(item, index) in list" :key="index" class="item">
-        <img :src="info.adminPic" width="50" height="50" class="avatar">
+        <img :src="item.avatar" width="50" height="50" class="avatar">
         <template v-if="item.link">
           <a :href="item.link" class="block content">
             <div class="text" v-html="item.content"></div>
@@ -25,7 +25,6 @@ export default {
   name: 'Phrase',
   layout: 'page',
   computed: {
-    ...mapState(['info']),
     ...mapState('phrase', ['list'])
   },
   created () {
