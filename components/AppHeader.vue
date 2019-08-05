@@ -117,6 +117,9 @@ export default {
   },
   head () {
     return {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: this.info.favicon }
+      ],
       style: [
         { cssText: this.info.globalCss, type: 'text/css' }
       ]

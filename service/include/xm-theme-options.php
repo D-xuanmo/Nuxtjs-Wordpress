@@ -329,8 +329,25 @@ function themeoptions_page()
 					?>
                 </li>
                 <!-- Banner结束 -->
-  				<!-- 图片设置开始 -->
+  				<!-- 其他设置开始 -->
         		<li class="content-item">
+		          	<div class="form-item">
+			            <p class="form-item-title">前端标签页logo：</p>
+			            <div class="form-item-content">
+			              	<input
+				                type="text"
+				                class="input-inner"
+				                name="favicon"
+				                value="<?php echo $xm_options['favicon']; ?>"
+			              	>
+			              	<input type="button" name="img-upload" value="选择文件" class="choose-image">
+                            <span>比列最好为32px*32px</span>
+			              	<p>
+			                	<img src="<?php echo $xm_options['favicon']; ?>" class="preview-img">
+			              	</p>
+			            </div>
+		          	</div>
+
 		          	<div class="form-item">
 			            <p class="form-item-title">后台登录logo：</p>
 			            <div class="form-item-content">
@@ -381,7 +398,7 @@ function themeoptions_page()
 			            </div>
 		          	</div>
         		</li>
-		        <!-- 图片设置结束 -->
+		        <!-- 其他设置结束 -->
 		        <!-- 打赏开始 -->
         		<li class="content-item">
 		          	<div class="form-item">
@@ -500,6 +517,7 @@ function themeoptions_page()
         // 数据提交
         $options                   = array(
 			'update_themeoptions'    => 'true',
+			'favicon'                => $_POST['favicon'],
 			'login_logo'             => $_POST['login-logo'],
 			'aside_count'            => $_POST['aside-count'],
 			'is_open_comment_upload' => $_POST['open-comment-upload'],
