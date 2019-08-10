@@ -26,7 +26,6 @@ function themeoptions_page()
             <li class="item">Banner</li>
 			<li class="item">其他图片</li>
 			<li class="item">打赏</li>
-			<li class="item">社交</li>
 			<li class="item">自定义代码</li>
 			<li class="line"></li>
 	    </ul>
@@ -471,16 +470,6 @@ function themeoptions_page()
 		          	</div>
 		        </li>
 		        <!-- 打赏结束 -->
-		        <!-- 友情链接开始 -->
-		        <li class="content-item">
-		          	<div class="form-item">
-		            	<p class="form-item-title">友情链接：</p>
-		            	<div class="form-item-content">
-		              		<textarea class="input-inner friendship-link" name="link" rows="15" cols="100"><?php echo $xm_options['link']; ?></textarea>
-		            	</div>
-		          	</div>
-		        </li>
-		        <!-- 友情链接结束 -->
 		        <!-- 自定义代码开始 -->
         		<li class="content-item">
 		          	<div class="form-item">
@@ -534,7 +523,6 @@ function themeoptions_page()
 			'global_css'             => $_POST['global-css'],
 			'keywords'               => $_POST['keywords'],
 			'description'            => $_POST['description'],
-			'link'                   => $_POST['link'],
 			'vip_style'              => $_POST['vip-style'],
 			'reward_text'            => $_POST['reward-text'],
 			'is_open_reward'         => $_POST['is-open-reward'],

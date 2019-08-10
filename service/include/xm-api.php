@@ -162,7 +162,6 @@ function add_get_blog_info()
         "isOpenTextThumbnail" => (bool) $xm_options["text_pic"],
         "keywords" => $xm_options["keywords"],
         "lastUpDate" => $last,
-        "link" => $xm_options["link"],
         "logo" => $xm_options["logo"],
         "newComment" => $latestComment,
         "notice" => $xm_options["sidebar_notice"],
@@ -280,13 +279,40 @@ function add_api_get_phrase ()
         $result[$i]->avatar = replace_domain(get_the_author_meta("simple_local_avatar", $list[$i]->post_author)[full]);
     }
     return array(
-        'success' => true,
+        "success" => true,
         "data" => $result
     );
 }
 add_action("rest_api_init", function () {
     register_rest_route("xm-blog/v1", "/get-phrase", array("methods" => "get", "callback" => "add_api_get_phrase"));
 });
+
+function add_api_get_links ($request)
+{
+    $type = $request->get_params()["type"];
+    $arg = array(
+        "orderby" => "link_id",
+        "order" => "ASC",
+        "category_name" => $type === "home" ? "首页" : ""
+    );
+    $list = get_bookmarks($arg);
+    $result = [];
+    for ($i = 0; $i < count($list); $i++) {
+        $result[$i]->text = $list[$i]->link_name;
+        $result[$i]->url = $list[$i]->link_url;
+        $result[$i]->target = $list[$i]->link_target;
+        $result[$i]->image = $list[$i]->link_image;
+        $result[$i]->description = $list[$i]->link_description;
+        $result[$i]->notes = $list[$i]->link_notes;
+        $result[$i]->rss = $list[$i]->link_rss;
+        // $result[$i]->list = $list;
+    }
+    return $result;
+}
+add_action("rest_api_init", function () {
+    register_rest_route("xm-blog/v1", "/get-links", array("methods" => "get", "callback" => "add_api_get_links"));
+});
+
 
 /**
  * wordpress接口增加字段
@@ -320,15 +346,6 @@ function add_api_comment_meta_field()
         },
         "schema" => null
     ));
-
-    // 文章格式化
-    // register_rest_field(["post", "page", "comment"], "content", array(
-    //   "get_callback" => function ($object) {
-    //     return array(
-    //       "rendered" => xm_output_smiley($object[content][rendered])
-    //     );
-    //   },
-    //   "schema" => null
-    // ));
 }
 add_action("rest_api_init", "add_api_comment_meta_field");
+?>

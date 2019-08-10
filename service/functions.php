@@ -113,6 +113,44 @@ function disable_emojis_tinymce($plugins)
 }
 add_action('init', 'disable_emojis');
 
+// 添加发布说说功能
+function add_phrase()
+{
+    $labels = array(
+        'name' => '说说',
+        'singular_name' => 'singularname',
+        'add_new' => '发表说说',
+        'add_new_item' => '发表说说',
+        'edit_item' => '编辑说说',
+        'new_item' => '新说说',
+        'view_item' => '查看说说',
+        'search_items' => '搜索说说',
+        'not_found' => '暂无说说',
+        'not_found_in_trash' => '没有已遗弃的说说',
+        'parent_item_colon' => '',
+        'menu_name' => '说说'
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'description' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => true,
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => null,
+        'supports' => array('title','editor','author', 'excerpt')
+    );
+    register_post_type('phrase', $args);
+}
+add_action('init', 'add_phrase');
+
+// 启用wordpress链接管理模块
+add_filter('pre_option_link_manager_enabled', '__return_true');
 
 /**
  * 设置摘要
@@ -679,39 +717,4 @@ function xm_targeted_link_rel_remove_noopener($rel_values)
     return preg_replace('/noopener\s*/i', '', $rel_values);
 }
 add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noopener', 999);
-
-function add_phrase()
-{
-    $labels = array(
-        'name' => '说说',
-        'singular_name' => 'singularname',
-        'add_new' => '发表说说',
-        'add_new_item' => '发表说说',
-        'edit_item' => '编辑说说',
-        'new_item' => '新说说',
-        'view_item' => '查看说说',
-        'search_items' => '搜索说说',
-        'not_found' => '暂无说说',
-        'not_found_in_trash' => '没有已遗弃的说说',
-        'parent_item_colon' => '',
-        'menu_name' => '说说'
-    );
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'publicly_queryable' => true,
-        'show_ui' => true,
-        'description' => true,
-        'show_in_menu' => true,
-        'query_var' => true,
-        'rewrite' => true,
-        'capability_type' => 'post',
-        'has_archive' => true,
-        'hierarchical' => false,
-        'menu_position' => null,
-        'supports' => array('title','editor','author', 'excerpt')
-    );
-    register_post_type('phrase', $args);
-}
-add_action('init', 'add_phrase');
 ?>

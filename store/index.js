@@ -4,6 +4,7 @@ export const state = () => ({
   info: {},
   menu: {},
   subMenu: {},
+  links: [],
   errorInformation: {
     code: '',
     message: ''
@@ -12,10 +13,11 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [UPDATE_GLOBAL_INFO] (state, { info, menu, subMenu }) {
+  [UPDATE_GLOBAL_INFO] (state, { info, menu, subMenu, links }) {
     state.info = info
     state.menu = menu
     state.subMenu = subMenu
+    state.links = links
   },
 
   [UPDATE_ERROR_MESSAGE] (state, data) {
@@ -33,6 +35,8 @@ export const actions = {
     try {
       let { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
       let { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
+      let { data: links } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-links?type=home`)
+      // 判断banner类型
       if (globalInfo.banner.style === '1') {
         globalInfo.banner.big = globalInfo.banner.list[0]
         let [, banner1, banner2, banner3] = globalInfo.banner.list
@@ -41,7 +45,8 @@ export const actions = {
       let result = {
         info: globalInfo,
         menu: menu.mainMenu,
-        subMenu: menu.subMenu
+        subMenu: menu.subMenu,
+        links
       }
       commit(UPDATE_GLOBAL_INFO, result)
       return Promise.resolve(result)

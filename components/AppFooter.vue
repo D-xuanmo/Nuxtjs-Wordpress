@@ -1,7 +1,17 @@
 <template>
   <footer :class="['footer', errorInformation.code && 'is-error', menuStatus && 'is-show-menu']">
     <div class="wrap">
-      <div class="link-wrap" v-if="$route.name === 'index'" v-html="link"></div>
+      <div class="link-wrap" v-if="$route.name === 'index'">
+        <a
+          v-for="(item, index) in links"
+          :key="index"
+          :href="item.url"
+          :target="item.target"
+          :title="item.description"
+        >
+          {{ item.text }}
+        </a>
+      </div>
       <div class="copyright">
         <div class="left">
           <ul class="footer-menu">
@@ -46,11 +56,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['menuStatus']),
+    ...mapState(['menuStatus', 'links', 'subMenu', 'errorInformation']),
     ...mapState({
-      errorInformation: state => state.errorInformation,
-      link: state => state.info.link,
-      subMenu: state => state.subMenu,
       copyright: state => state.info.copyright
     })
   },
