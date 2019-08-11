@@ -38,7 +38,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   position: relative;
-  min-height: 400px;
   padding: $container-padding;
   border-radius: $border-radius;
 

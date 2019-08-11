@@ -153,7 +153,10 @@ export default {
   }
 
   &.style-2 {
+    overflow: hidden;
     background-color: #fff;
+    border-radius: $border-radius;
+
     .banner-title {
       position: absolute;
       bottom: 0;

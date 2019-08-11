@@ -38,6 +38,7 @@ body {
   width: 100%;
   background-color: $color-main-background;
   font: $font-size-base "play", PingFangSC-Regular,Microsoft Yahei;
+  line-height: $line-height;
   color: $color-main-text;
 }
 
@@ -102,12 +103,6 @@ body {
     }
   }
 
-  &.notice {
-    .content {
-      line-height: 2;
-    }
-  }
-
   // 评论列表
   &.comment {
     .list {
@@ -156,8 +151,9 @@ body {
 
     .comment-text {
       max-height: 34px;
+      margin: 3px 0;
       font-size: $font-size-small;
-      @include ellipsisMultiline(2);
+      @include ellipsisMultiline(2, $line-height, $font-size-small);
     }
 
     .title {
@@ -360,13 +356,7 @@ body {
   }
 
   .summary {
-    display: -webkit-box;
-    overflow: hidden;
-    height: 80px;
-    -webkit-box-orient: vertical;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
+    @include ellipsisMultiline(3, 1.8);
     line-height: 1.8;
   }
 

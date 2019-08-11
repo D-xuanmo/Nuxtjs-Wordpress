@@ -31,9 +31,13 @@ $color-mask: rgba(0, 0, 0, .5);
 
 $z-index: 999;
 
+// 文字大小
 $font-size-small: 12px;
 $font-size-base: 14px;
 $font-size-large: 16px;
+
+// 行高
+$line-height: 1.5;
 
 // 圆角
 $border-radius: 4px;
@@ -92,8 +96,9 @@ $box-shadow: 0 0 10px rgba(0,0,0,.2);
 }
 
 // 多行文字超出显示省略号
-@mixin ellipsisMultiline($number: 1) {
+@mixin ellipsisMultiline($number: 1, $line-height: $line-height, $font-size: $font-size-base) {
   display: -webkit-box;
+  max-height: $font-size * $line-height * $number;
   overflow: hidden;
   -webkit-box-orient: vertical;
   word-break: break-all;

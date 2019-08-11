@@ -287,6 +287,9 @@ add_action("rest_api_init", function () {
     register_rest_route("xm-blog/v1", "/get-phrase", array("methods" => "get", "callback" => "add_api_get_phrase"));
 });
 
+/**
+ * 获取链接列表
+ */
 function add_api_get_links ($request)
 {
     $type = $request->get_params()["type"];
@@ -305,7 +308,6 @@ function add_api_get_links ($request)
         $result[$i]->description = $list[$i]->link_description;
         $result[$i]->notes = $list[$i]->link_notes;
         $result[$i]->rss = $list[$i]->link_rss;
-        // $result[$i]->list = $list;
     }
     return $result;
 }
