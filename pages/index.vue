@@ -61,7 +61,7 @@
         </nuxt-link>
         <div class="list-content">
           <h2 class="title">
-            <span class="classify">{{ item.articleInfor.classify[0].name }}</span>
+            <span class="classify" v-html="item.articleInfor.classify[0].name"></span>
             <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="vertical-middle" v-html="item.title.rendered"></nuxt-link>
           </h2>
           <p class="summary">{{ item.articleInfor.summary }}</p>

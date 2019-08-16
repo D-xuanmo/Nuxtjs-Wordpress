@@ -1,12 +1,12 @@
 // 字体图标
 @font-face {
-  font-family: 'iconfont'; /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_ro426ew84r.eot');
-  src: url('//at.alicdn.com/t/font_552040_ro426ew84r.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_ro426ew84r.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_ro426ew84r.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_ro426ew84r.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_ro426ew84r.svg#iconfont') format('svg');
+  font-family: 'iconfont';  /* project id 552040 */
+  src: url('//at.alicdn.com/t/font_552040_mn5ksqxugi.eot');
+  src: url('//at.alicdn.com/t/font_552040_mn5ksqxugi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.svg#iconfont') format('svg');
 }
 
 .iconfont{
@@ -65,6 +65,7 @@ $iconMap         : (
   "case"         : "\e678",
   "tool"         : "\e627",
   "life1"        : "\e65a",
+  "book"         : "\e63e",
   "software"     : "\e612",
   "download1"    : "\e71e",
   "download2"    : "\e637",
@@ -85,8 +86,11 @@ $iconMap         : (
   "sass"         : "\e616",
   "less"         : "\e66a",
   "php"          : "\e787",
+  "java"         : "\e60b",
+  "python"       : "\e613",
   "mongodb"      : "\e60a",
   "mysql"        : "\e7f4",
+  "redis"        : "\e6ba",
   "webpack"      : "\e65c",
   "gulp"         : "\e958",
   "git"          : "\eaf5",
