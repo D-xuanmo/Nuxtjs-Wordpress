@@ -16,7 +16,7 @@
             <span
               class="title"
               :title="info.banner.big.text"
-              v-show="info.banner.big.text">
+              v-if="info.banner.big.text">
               {{ info.banner.big.text }}
             </span>
           </a>
@@ -25,7 +25,7 @@
           <li class="list" v-for="item in info.banner.small" :key="item.key">
             <a class="block" :href="item.link">
               <img :src="item.path" alt="">
-              <span v-show="item.text" class="title" :title="item.text">{{ item.text }}</span>
+              <span v-if="item.text" class="title" :title="item.text">{{ item.text }}</span>
             </a>
           </li>
         </ul>
@@ -188,8 +188,9 @@ export default {
     left: 0;
     width: 100%;
     height: 30px;
+    padding: 0 10px;
+    box-sizing: border-box;
     background: rgba(0,0,0,.3);
-    text-indent: $font-size-base;
     line-height: 30px;
     color: $color-white;
     @extend %ellipsis;
