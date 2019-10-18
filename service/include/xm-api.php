@@ -170,7 +170,9 @@ function add_get_blog_info()
         "templeteUrl" => "/wp-content/themes/" . get_option("template"),
         "themeDir" => get_option("template"),
         "thumbnail" => $xm_options["thumbnail"],
-        "wechatpay" => $xm_options["wechatpay"]
+        "wechatpay" => $xm_options["wechatpay"],
+        "wpVersion" => get_bloginfo('version'),
+        "wp" => get_option('siteurl')
         // "newArticle" => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
     );
     return $result;

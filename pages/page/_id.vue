@@ -9,9 +9,9 @@
     <!-- 评论列表 -->
     <div class="comment">
       <h2 class="comment-title" v-html="`共 ${detail.pageInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
-      <no-ssr>
+      <client-only>
         <comments :comment-status="detail.comment_status"/>
-      </no-ssr>
+      </client-only>
     </div>
   </div>
 </template>
