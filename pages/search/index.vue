@@ -43,7 +43,7 @@ export default {
   name: 'Search',
   watchQuery: ['page', 's'],
   fetch ({ params, query, store }) {
-    store.commit('article/SET_CURRENT_PAGE', 1)
+    store.commit('article/SET_CURRENT_PAGE', +query.page)
     return store.dispatch('article/getArticleList', {
       search: query.s,
       page: query.page,
