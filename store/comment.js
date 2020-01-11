@@ -1,3 +1,4 @@
+import getBrowserInfo from '@xuanmo/browser-info'
 import {
   SET_COMMENT_LIST,
   SET_COMMENT_TOTAL,
@@ -47,6 +48,9 @@ export const actions = {
       let { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/comments`, {
         params: requestData,
         data: { progress: false }
+      })
+      data.map(item => {
+        item.userAgent = getBrowserInfo(item.userAgentInfo.userAgent)
       })
       commit(SET_COMMENT_LIST, data)
       commit(SET_COMMENT_TOTAL, +headers['x-wp-totalpages'])

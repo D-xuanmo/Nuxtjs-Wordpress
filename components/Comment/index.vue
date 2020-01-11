@@ -113,14 +113,11 @@
           <img v-if="item.userAgentInfo.vipStyle.title === '博主'" src="../../assets/images/icon-admin.png" width="20" class="icon-admin">
           <p class="inline-block system-wrap">
             <!-- 浏览器logo -->
-            <span
-              v-if="item.userAgentInfo.userAgent.browserName"
-              class="browser-info" :class="item.userAgentInfo.userAgent.browserName.toLowerCase()">
-                {{ item.userAgentInfo.userAgent.browserName.replace('-', ' ') }} {{ item.userAgentInfo.userAgent.browserVersion }}
+            <span :class="['browser-info', item.userAgent.browserName.toLowerCase()]">
+              {{ item.userAgent.browserName }} {{ item.userAgent.browserVersion }}
             </span>
-            <span v-else class="browser-info">Unkonw</span>
             <!-- 系统logo -->
-            <span class="system-info">{{ item.userAgentInfo.userAgent.system && item.userAgentInfo.userAgent.system.replace(/_/g, '.') }}</span>
+            <span class="system-info">{{ item.userAgent.systemName }} {{ item.userAgent.systemVersion }}</span>
           </p>
           <span v-if="item.status === 'hold'">您的评论正在审核中...</span>
         </div>

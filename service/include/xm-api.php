@@ -329,7 +329,7 @@ function add_api_comment_meta_field()
             global $colors;
             preg_match("/\d/", md5($object[author_email]), $matches);
             $array = array(
-                "userAgent" => get_browser_name($object[author_user_agent]),
+                "userAgent" => $object[author_user_agent],
                 "vipStyle" => get_author_class($object[author_email]),
                 "author_avatar_urls" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($object[author_email]))) . "?s=200",
                 "background" => $colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
