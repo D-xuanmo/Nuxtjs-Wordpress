@@ -25,13 +25,7 @@ export default {
   loading: './components/Loading',
 
   router: {
-    middleware: 'global',
-    scrollBehavior (to, from, savedPosition) {
-      return {
-        x: 0,
-        y: 0
-      }
-    }
+    middleware: 'global'
   },
 
   css: [
