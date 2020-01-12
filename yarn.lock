@@ -1295,6 +1295,12 @@
   dependencies:
     ms "^2.0.0"
 
+"@xuanmo/browser-info@https://github.com/xuanmos/browser-info":
+  version "1.0.4"
+  resolved "https://github.com/xuanmos/browser-info#08281e2e043acfbf2be4450ed9bd728ddaaa3b86"
+  dependencies:
+    ms "^2.0.0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/abbrev/download/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
