@@ -340,6 +340,8 @@ body {
   // 列表内容
   .list-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     position: relative;
     margin-left: 15px;
   }
@@ -383,6 +385,7 @@ body {
   }
 
   .summary {
+    flex: 1;
     @include ellipsisMultiline(3, 1.8);
     line-height: 1.8;
   }

@@ -188,7 +188,7 @@ export default {
     ...mapState('article', ['detail', 'viewCount', 'opinion'])
   },
   head () {
-    let keywords = []
+    const keywords = []
     this.detail.articleInfor.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
     return {
       title: `${this.detail.title.rendered} | ${this.info.blogName}`,
@@ -203,10 +203,10 @@ export default {
   },
   created () {
     this.fullPath = `${this.info.domain.replace(/\/$/, '')}${this.$route.path}`
-    let other = this.detail.articleInfor.other
+    const other = this.detail.articleInfor.other
 
     // 合并作者数据
-    for (let key in this.authorOtherInfo) {
+    for (const key in this.authorOtherInfo) {
       this.authorOtherInfo[key].url = other[key]
     }
 

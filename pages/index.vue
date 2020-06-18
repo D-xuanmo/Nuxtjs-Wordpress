@@ -206,6 +206,7 @@ export default {
     overflow: hidden;
     position: relative;
     border-radius: $border-radius;
+    background-color: #fff;
   }
 
   .big-banner {
@@ -275,7 +276,6 @@ export default {
     height: 20px;
     font-size: 10px;
     line-height: 20px;
-    text-indent: 8px;
   }
   // 文章列表
   .article-list-wrap {
