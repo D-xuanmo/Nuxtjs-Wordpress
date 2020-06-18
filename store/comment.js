@@ -45,7 +45,7 @@ export const actions = {
   // 获取评论列表
   async getCommentList ({ commit }, requestData) {
     try {
-      let { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/comments`, {
+      const { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/comments`, {
         params: requestData,
         data: { progress: false }
       })
@@ -63,7 +63,7 @@ export const actions = {
   // 提交评论
   async updateComment ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/wp/v2/comments`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/wp/v2/comments`, requestData, {
         headers: {
           progress: false
         }
@@ -77,7 +77,7 @@ export const actions = {
   // 获取表情列表
   async getExpression ({ commit, rootState }) {
     try {
-      let { data } = await this.$axios.$get(`${rootState.info.templeteUrl}/expression.php`, {
+      const { data } = await this.$axios.$get(`${rootState.info.tempconsteUrl}/expression.php`, {
         data: { progress: false }
       })
       commit(SET_EXPRESSION, data)
@@ -90,7 +90,7 @@ export const actions = {
   // 评论列表点赞
   async updateCommentOpinion ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`, requestData, {
         headers: {
           progress: false
         }

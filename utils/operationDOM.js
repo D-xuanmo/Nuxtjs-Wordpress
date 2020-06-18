@@ -104,7 +104,7 @@ class OpeartionDOM {
 
   css (attr, value) {
     if (typeof attr === 'object') {
-      for (let [_key, _value] of Object.entries(attr)) {
+      for (const [_key, _value] of Object.entries(attr)) {
         this.$el.style[_key] = _value
       }
     } else {

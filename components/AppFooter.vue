@@ -62,7 +62,7 @@ export default {
     })
   },
   mounted () {
-    let self = this
+    const self = this
     window.addEventListener('scroll', function () {
       self.isShowBackTop = this.scrollY > 300
     })

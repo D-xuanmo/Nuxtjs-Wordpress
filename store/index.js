@@ -33,16 +33,16 @@ export const actions = {
   // 获取公用信息
   async nuxtServerInit ({ commit }) {
     try {
-      let { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
-      let { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
-      let { data: links } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-links?type=home`)
+      const { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
+      const { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
+      const { data: links } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-links?type=home`)
       // 判断banner类型
       if (globalInfo.banner.style === '1') {
         globalInfo.banner.big = globalInfo.banner.list[0]
-        let [, banner1, banner2, banner3] = globalInfo.banner.list
+        const [, banner1, banner2, banner3] = globalInfo.banner.list
         globalInfo.banner.small = [banner1, banner2, banner3]
       }
-      let result = {
+      const result = {
         info: globalInfo,
         menu: menu.mainMenu,
         subMenu: menu.subMenu,
@@ -58,7 +58,7 @@ export const actions = {
   // 上传图片
   async uploadImage ({ commit, rootState }, { requestData, config = {} }) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false
@@ -74,7 +74,7 @@ export const actions = {
   // 删除图片
   async deleteImage ({ commit, rootState }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false

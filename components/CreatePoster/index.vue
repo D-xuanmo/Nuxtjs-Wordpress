@@ -112,17 +112,17 @@ export default {
     ...mapActions(['uploadImage']),
     async _createPoster () {
       // 生成海报
-      let canvas = await html2canvas(this.$refs.poster, {
+      const canvas = await html2canvas(this.$refs.poster, {
         useCORS: true,
         logging: false
       })
-      let formData = new FormData()
+      const formData = new FormData()
       formData.append('file', canvas.toDataURL('image/png'))
       formData.append('postID', this.content.id)
       formData.append('name', `poster-${this.content.id}`)
       formData.append('url', '/wp-content')
       formData.append('mark', 'upload')
-      let data = await this.uploadImage({
+      const data = await this.uploadImage({
         requestData: formData
       })
       this.$emit('on-change', data)

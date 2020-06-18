@@ -13,7 +13,7 @@ export const mutations = {
 export const actions = {
   async getPhraseList ({ commit }) {
     try {
-      let { data } = await this.$axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-phrase`)
+      const { data } = await this.$axios.get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-phrase`)
       commit(SET_PHRASE_LIST, data.data.data)
       return Promise.resolve(data.data.data)
     } catch (error) {

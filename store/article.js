@@ -79,7 +79,7 @@ export const actions = {
   // 获取文章列表
   async getArticleList ({ rootState, commit }, requestData) {
     try {
-      let { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
+      const { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
         params: requestData,
         data: { progress: false }
       })
@@ -99,7 +99,7 @@ export const actions = {
   async getArticleDetail ({ commit, rootState }, id) {
     try {
       const domainRegexp = /(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi
-      let { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${id}`, {
+      const { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${id}`, {
         data: { progress: false }
       })
       data.date = data.date.replace('T', ' ')
@@ -118,7 +118,7 @@ export const actions = {
   // 更新阅读量
   async updateArticleViewCount ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/view-count`, requestData, {
         headers: {
           progress: false
         }
@@ -133,7 +133,7 @@ export const actions = {
   // 发表意见
   async updateOpinion ({ commit }, requestData) {
     try {
-      let { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/like`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/like`, requestData, {
         headers: {
           progress: false
         }

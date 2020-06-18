@@ -4,10 +4,10 @@ export default function ({ $axios, redirect }) {
       config.data && (config.progress = config.data.progress)
       config.data = null
     } else {
-      let contentType = config.headers['Content-Type']
+      const contentType = config.headers['Content-Type']
       if (contentType && contentType.indexOf('multipart/form-data') === -1) {
-        let data = {}
-        for (let [key, value] of Object.entries(config.data)) {
+        const data = {}
+        for (const [key, value] of Object.entries(config.data)) {
           key !== 'progress' && (data[key] = value)
         }
         config.data = data

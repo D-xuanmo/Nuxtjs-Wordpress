@@ -57,7 +57,7 @@ export default {
   },
   mounted () {
     // 拖拽上传文件
-    let oUploadWrap = document.querySelector('.sub-upload-wrap')
+    const oUploadWrap = document.querySelector('.sub-upload-wrap')
     oUploadWrap.ondragenter = (e) => {
       e.preventDefault()
       this.bShowDragWrap = true
@@ -67,8 +67,8 @@ export default {
     }
     oUploadWrap.ondrop = (e) => {
       e.preventDefault()
-      let oReader = new FileReader()
-      let oFile = e.dataTransfer.files[0]
+      const oReader = new FileReader()
+      const oFile = e.dataTransfer.files[0]
       this.bShowDragWrap = false
       // 判断文件是会否为图片格式
       if (oFile.type.indexOf('image') === -1) {
@@ -80,7 +80,7 @@ export default {
       } else {
         oReader.readAsDataURL(oFile)
         oReader.onload = async () => {
-          let data = new FormData()
+          const data = new FormData()
           this.previewUrl = oReader.result
           this.bFileMark = false
           data.append('postID', this.$route.params.id)
@@ -89,10 +89,10 @@ export default {
           data.append('mark', 'upload')
           try {
             // 上传实时进度
-            let config = {
+            const config = {
               onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
             }
-            let response = await this.uploadImage({
+            const response = await this.uploadImage({
               requestData: data,
               config
             })
@@ -120,7 +120,7 @@ export default {
   methods: {
     ...mapActions(['uploadImage', 'deleteImage']),
     _preview (event) {
-      let oReader = new FileReader()
+      const oReader = new FileReader()
       oReader.readAsDataURL(event.target.files[0])
       oReader.onload = () => (this.previewUrl = oReader.result)
       this.bFileMark = false
@@ -128,9 +128,9 @@ export default {
 
     // 上传图片
     async _uploadImg () {
-      let _file = this.$refs.inpFile
+      const _file = this.$refs.inpFile
       if (_file.value) {
-        let data = new FormData()
+        const data = new FormData()
         if (_file.files[0].size / 1024 > 2048) {
           this.$message({
             title: '请上传小于2M的图片！',
@@ -143,10 +143,10 @@ export default {
           data.append('mark', 'upload')
           try {
             // 上传实时进度
-            let config = {
+            const config = {
               onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
             }
-            let response = await this.uploadImage({
+            const response = await this.uploadImage({
               requestData: data,
               config
             })
@@ -174,7 +174,7 @@ export default {
 
     // 隐藏上传控件
     async _hideUpload () {
-      let data = new FormData()
+      const data = new FormData()
       data.append('mark', 'close')
       data.append('url', this.contentUrl)
       data.append('postID', this.$route.params.id)

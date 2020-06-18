@@ -4,7 +4,7 @@ const VueMessage = Vue.extend(msgConponent)
 let message = null
 const Message = {
   install (Vue, opt) {
-    let messageFn = (opt) => {
+    const messageFn = (opt) => {
       message = new VueMessage().$mount()
       document.querySelector('body').appendChild(message.$el)
       message.show(opt, true)
