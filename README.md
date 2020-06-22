@@ -10,6 +10,12 @@
 
 > 原创不易，希望能够保留右下角的主题作者，谢谢
 
+> 微信小程序版：[https://github.com/xuanmos/blog-miniprogram-wordpress](https://github.com/xuanmos/blog-miniprogram-wordpress)
+
+## 微信小程序版
+
+![](https://upyun.xuanmo.xin/3490/20200622175708.jpg)
+
 ## 主题设置截图
 
 ![](https://upyun.xuanmo.xin/blog/xm-nuxt-wordpress-1.png)
