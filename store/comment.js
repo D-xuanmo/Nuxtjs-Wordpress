@@ -77,7 +77,7 @@ export const actions = {
   // 获取表情列表
   async getExpression ({ commit, rootState }) {
     try {
-      const { data } = await this.$axios.$get(`${rootState.info.tempconsteUrl}/expression.php`, {
+      const { data } = await this.$axios.$get(`${rootState.info.templeteUrl}/expression.php`, {
         data: { progress: false }
       })
       commit(SET_EXPRESSION, data)
