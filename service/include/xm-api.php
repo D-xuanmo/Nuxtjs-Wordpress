@@ -327,11 +327,14 @@ function add_api_comment_meta_field()
     register_rest_field("comment", "userAgentInfo", array(
         "get_callback" => function ($object) {
             global $colors;
+            global $wpdb;
+            $result = $wpdb -> get_results("SELECT * FROM $wpdb->comments WHERE comment_ID = $object[id]");
+            $author_email = $object[author_email] ? $object[author_email] : $result[0]->comment_author_email;
             preg_match("/\d/", md5($object[author_email]), $matches);
             $array = array(
-                "userAgent" => $object[author_user_agent],
-                "vipStyle" => get_author_class($object[author_email]),
-                "author_avatar_urls" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($object[author_email]))) . "?s=200",
+                "userAgent" => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
+                "vipStyle" => get_author_class($author_email),
+                "author_avatar_urls" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author_email))) . "?s=200",
                 "background" => $colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
             );
             return $array;
