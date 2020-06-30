@@ -41,4 +41,8 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+## 使用主题的站点
+> 欢迎已经使用本主题的朋友提pr
+
+- [花开陌上](https://moshanghua.net)
+- [黄良钵博客](https://huangliangbo.com)
