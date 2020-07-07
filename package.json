@@ -16,7 +16,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@xuanmo/browser-info": "https://github.com/xuanmos/browser-info",
+    "@xuanmo/browser-info": "^1.0.5",
     "element-ui": "^2.13.2",
     "html2canvas": "1.0.0-alpha.12",
     "nuxt": "^2.12.2",

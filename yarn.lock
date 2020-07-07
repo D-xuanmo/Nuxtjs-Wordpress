@@ -1420,9 +1420,10 @@
   resolved "https://registry.npm.taobao.org/@xtuc/long/download/@xtuc/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha1-0pHGpOl5ibXGHZrPOWrk/hM6cY0=
 
-"@xuanmo/browser-info@https://github.com/xuanmos/browser-info":
-  version "1.0.4"
-  resolved "https://github.com/xuanmos/browser-info#08281e2e043acfbf2be4450ed9bd728ddaaa3b86"
+"@xuanmo/browser-info@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@xuanmo/browser-info/-/browser-info-1.0.5.tgz#aea63335704c0ec5fe0e4314d11d12fd6076fedb"
+  integrity sha512-bAWUq3LY9c5q4xwQIYKw4y+na1bLMjbZZBMS/H1HV+X7KkmKMgjgk9Tt1b8lkDlOWIepEAawSBlT+7rS9qqvFQ==
   dependencies:
     ms "^2.0.0"
 
