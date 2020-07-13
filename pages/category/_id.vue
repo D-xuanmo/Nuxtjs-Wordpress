@@ -5,7 +5,7 @@
     </ul>
     <div v-if="articleList.length === 0" class="not">暂无数据！</div>
     <article v-else class="article-list" v-for="item in articleList" :key="item.key">
-      <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
+      <nuxt-link v-if="item.articleInfor.thumbnail" :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
         <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">

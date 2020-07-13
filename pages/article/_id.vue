@@ -4,7 +4,7 @@
       <li class="list">所有文章</li>
     </ul>
     <article class="article-list" v-for="item in articleList" :key="item.key">
-      <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
+      <nuxt-link v-if="item.articleInfor.thumbnail" :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
         <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
