@@ -29,6 +29,7 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
+    data.userAgent = getBrowserInfo(data.userAgentInfo.userAgent)
     state.commentList.unshift(data)
   },
 
