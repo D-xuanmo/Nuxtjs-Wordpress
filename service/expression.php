@@ -6,6 +6,16 @@
             "text" => "QQ",
             "list" => array(
                 array(
+                    "url"     => "/images/smilies/qq/wangwang.png",
+                    "title"   => "汪汪",
+                    "code"    => "wangwang"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/wosuanliao.png",
+                    "title"   => "我酸了",
+                    "code"    => "wosuanliao"
+                ),
+                array(
                     "url"     => "/images/smilies/qq/hashiqi.png",
                     "title"   => "二哈",
                     "code"    => "hashiqi"
@@ -454,6 +464,81 @@
                     "url"     => "/images/smilies/qq/youling.gif",
                     "title"   => "幽灵",
                     "code"    => "youling"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/jiayoubisheng.gif",
+                    "title"   => "加油必胜",
+                    "code"    => "jiayoubisheng"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/jiayoubaobao.gif",
+                    "title"   => "加油抱抱",
+                    "code"    => "jiayoubaobao"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/kouzhaohuti.gif",
+                    "title"   => "口罩护体",
+                    "code"    => "kouzhaohuti"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/banzhuanzhong.gif",
+                    "title"   => "搬砖中",
+                    "code"    => "banzhuanzhong"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/naokuoteng.gif",
+                    "title"   => "脑阔疼",
+                    "code"    => "naokuoteng"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/cangsang.gif",
+                    "title"   => "沧桑",
+                    "code"    => "cangsang"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/wulian.gif",
+                    "title"   => "捂脸",
+                    "code"    => "wulian"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/layanjing.gif",
+                    "title"   => "辣眼睛",
+                    "code"    => "layanjing"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/oyo.gif",
+                    "title"   => "哦哟",
+                    "code"    => "oyo"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/toutu.gif",
+                    "title"   => "头秃",
+                    "code"    => "toutu"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/wenhaolian.gif",
+                    "title"   => "问号脸",
+                    "code"    => "wenhaolian"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/anzhongguancha.gif",
+                    "title"   => "暗中观察",
+                    "code"    => "anzhongguancha"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/emm.gif",
+                    "title"   => "emm",
+                    "code"    => "emm"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/chigua.gif",
+                    "title"   => "吃瓜",
+                    "code"    => "chigua"
+                ),
+                array(
+                    "url"     => "/images/smilies/qq/heheda.gif",
+                    "title"   => "呵呵哒",
+                    "code"    => "heheda"
                 )
             )
         ),
