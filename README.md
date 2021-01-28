@@ -47,3 +47,4 @@ $ yarn generate
 - [花开陌上](https://moshanghua.net)
 - [黄良钵博客](https://huangliangbo.com)
 - [Sufen Blog](https://blog.cm320.com)
+- [Caid Blog](https://caidhome.cn)
