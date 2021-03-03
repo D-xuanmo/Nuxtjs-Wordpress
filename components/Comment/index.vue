@@ -123,7 +123,7 @@
         </div>
         <div class="list-content" v-html="item.content.rendered"></div>
         <div class="list-footer">
-          <time>{{ item.date.replace('T', ' ') }}</time>
+          <time class="keep-all">{{ item.date.replace('T', ' ') }}</time>
           <div class="opinion">
             <span class="opinion-btn" @click="_updateCommentOpinion(item.id, 'good', index)">
               <x-icon type="icon-good"></x-icon> {{ item.meta.opinion.good }}

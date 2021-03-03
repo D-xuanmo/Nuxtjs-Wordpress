@@ -8,7 +8,7 @@
           <span class="author">
             <x-icon type="icon-about"></x-icon>{{ detail.articleInfor.author }}
           </span>
-          <time class="time m-l-5px">
+          <time class="time m-l-5px keep-all">
             <x-icon type="icon-date"></x-icon>{{ detail.date }}
           </time>
         </p>

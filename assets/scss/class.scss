@@ -159,3 +159,7 @@ code:not([class*="lang"]),
 .box-shadow__hide {
   box-shadow: none !important;
 }
+
+.keep-all {
+  word-break: keep-all;
+}
