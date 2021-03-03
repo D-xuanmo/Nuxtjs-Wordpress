@@ -330,7 +330,7 @@ function add_api_comment_meta_field()
             global $wpdb;
             $result = $wpdb -> get_results("SELECT * FROM $wpdb->comments WHERE comment_ID = $object[id]");
             $author_email = $object[author_email] ? $object[author_email] : $result[0]->comment_author_email;
-            preg_match("/\d/", md5($object[author_email]), $matches);
+            preg_match("/\d/", md5($author_email), $matches);
             $array = array(
                 "userAgent" => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
                 "vipStyle" => get_author_class($author_email),
