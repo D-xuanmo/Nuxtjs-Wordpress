@@ -42,6 +42,10 @@ body {
   color: $color-main-text;
 }
 
+.nuxt-link-exact-active {
+  color: $color-theme;
+}
+
 // 表情
 .wp-smiley {
   width: 20px !important;
