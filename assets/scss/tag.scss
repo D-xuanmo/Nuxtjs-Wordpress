@@ -25,7 +25,13 @@ textarea {
   background: none;
 }
 
-li {
+ul,
+ol {
+  list-style-position: inside;
+}
+
+// 过滤文章正文中的 li 元素
+li:not(.content-details li) {
   list-style: none;
 }
 
