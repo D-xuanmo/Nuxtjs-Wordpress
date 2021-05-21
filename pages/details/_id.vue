@@ -283,7 +283,7 @@ export default {
 .section {
   margin-top: $container-margin;
   padding: $container-padding;
-  background: $color-white;
+  background: var(--color-sub-background);
   border-radius: $border-radius;
 }
 
@@ -303,9 +303,9 @@ export default {
     align-items: center;
     margin-bottom: 10px;
     padding-bottom: 5px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
     text-align: center;
-    color: $color-sub-text;
+    color: var(--color-sub-text);
 
     .iconfont {
       vertical-align: baseline;
@@ -413,7 +413,7 @@ export default {
     align-items: center;
     margin-bottom: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .reward {
@@ -446,7 +446,7 @@ export default {
     margin-bottom: 5px;
     padding: 5px;
     border-radius: $border-radius;
-    background: $color-sub-background;
+    background: var(--color-sub-background);
     font-size: $font-size-small;
   }
 
@@ -461,7 +461,7 @@ export default {
   margin-bottom: 10px;
   padding: 10px 0;
   border-radius: $border-radius;
-  background: $color-sub-background;
+  background: var(--color-sub-background);
   font-size: $font-size-large;
   text-align: center;
 }
@@ -479,7 +479,7 @@ export default {
     border: {
       width: 0 1px 1px;
       style: solid;
-      color: $color-main-background;
+      color: var(--color-main-background);
     }
   }
 
@@ -491,7 +491,7 @@ export default {
   }
 
   .line-numbers .line-numbers-rows {
-    border-color: $color-main-background;
+    border-color: var(--color-border);
   }
 
   .toolbar {

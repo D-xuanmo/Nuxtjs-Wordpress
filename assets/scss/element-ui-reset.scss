@@ -1,0 +1,21 @@
+// element-ui
+.el-radio__inner {
+  width: 14px;
+  height: 14px;
+}
+
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+  border-color: $color-theme !important;
+}
+
+.el-pagination {
+  button,
+  li {
+    background: none !important;
+    color: var(--color-main-text);
+  }
+  .el-input__inner {
+    background: none;
+  }
+}

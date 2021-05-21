@@ -77,7 +77,7 @@ export default {
   width: 410px;
   max-width: 100%;
   height: 300px;
-  background: $color-white;
+  background: var(--color-main-background);
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
@@ -113,12 +113,12 @@ export default {
     height: 40px;
     padding: 0 10px;
     box-sizing: border-box;
-    border-top: 2px solid $color-border;
+    border-top: 2px solid var(--color-border);
     line-height: 40px;
 
     .tabs-item {
       padding: 0 10px;
-      border-right: 2px solid $color-border;
+      border-right: 2px solid var(--color-border);
       cursor: pointer;
 
       &.is-active {
@@ -133,7 +133,7 @@ export default {
     height: 40px;
     margin: 4px;
     border-radius: $border-radius;
-    background: $color-sub-background;
+    background: var(--color-sub-background);
     text-align: center;
     line-height: 40px;
   }

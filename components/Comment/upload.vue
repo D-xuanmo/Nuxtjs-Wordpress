@@ -241,14 +241,14 @@ export default {
     min-height: 220px;
     padding: 10px;
     border-radius: $border-radius;
-    background: $color-white;
+    background: var(--color-main-background);
     transform: translate(-50%,-50%);
   }
 
   // 拖拽上传容器
   .drag-wrap {
     height: 200px;
-    border: 2px dashed $color-sub-background;
+    border: 2px dashed var(--color-border);
     line-height: 200px;
   }
 
@@ -287,7 +287,7 @@ export default {
     position: relative;
     height: 50px;
     margin: 10px 0;
-    border: 2px dashed $color-sub-background;
+    border: 2px dashed var(--color-border);
     line-height: 50px;
 
     .mask,

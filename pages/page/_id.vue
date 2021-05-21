@@ -52,7 +52,7 @@ export default {
 <style lang="scss" scoped>
 .article {
   padding: $container-padding;
-  background: $color-white;
+  background: var(--color-sub-background);
   border-radius: $border-radius;
 
   .title {
@@ -62,7 +62,7 @@ export default {
 
     span {
       display: inline-block;
-      color: #333;
+      color: var(--color-main-text);
 
       &:after {
         content: "";
@@ -70,7 +70,7 @@ export default {
         width: 20px;
         height: 2px;
         margin: 5px auto 0;
-        background: $color-main-text;
+        background: var(--color-main-text);
       }
     }
   }
@@ -112,14 +112,14 @@ export default {
 .comment {
   margin-top: $container-margin;
   padding: $container-padding;
-  background: $color-white;
+  background: var(--color-sub-background);
   border-radius: $border-radius;
 
   .comment-title {
     margin-bottom: 10px;
     padding: 10px 0;
     border-radius: $border-radius;
-    background: $color-sub-background;
+    background: var(--color-main-background);
     font-size: $font-size-large;
     text-align: center;
   }

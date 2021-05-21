@@ -1,5 +1,4 @@
 // 设置标签默认样式
-
 * {
   margin: 0;
   padding: 0;
@@ -45,7 +44,7 @@ img {
 a {
   text-decoration: none;
   transition: 0.5s;
-  color: $color-main-text;
+  color: var(--color-main-text);
 
   &:hover {
     color: $color-theme;

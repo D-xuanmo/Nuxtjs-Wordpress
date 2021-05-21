@@ -1,0 +1,136 @@
+// 文章列表
+.article-list-wrap {
+  margin-top: $container-margin;
+  padding: $container-padding;
+  border-radius: $border-radius;
+  background: var(--color-sub-background);
+
+  .header {
+    padding-bottom: $container-padding;
+    border-bottom: 1px solid var(--color-border);
+    font-size: $font-size-large;
+  }
+}
+
+.article-list {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 145px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border);
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0px;
+    height: 1px;
+    background: $color-theme;
+    transition: .4s;
+  }
+
+  &:hover {
+    .thumbnail {
+      transform: scale(1.1);
+    }
+
+    &:after {
+      width: 100%;
+    }
+  }
+
+  .thumbnail-wrap {
+    overflow: hidden;
+  }
+
+  // 缩略图
+  .thumbnail {
+    width: 260px;
+    height: 145px;
+    border-radius: $border-radius;
+    transition: 0.5s;
+  }
+
+  // 列表内容
+  .list-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-left: 15px;
+  }
+
+  // 标题
+  .title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    @extend %ellipsis;
+
+    a {
+      color: var(--color-main-text);
+
+      &:hover {
+        color: $color-theme;
+      }
+    }
+
+    .classify {
+      position: relative;
+      margin-right: 10px;
+      padding: 3px 5px;
+      background-color: $color-theme;
+      border-radius: 3px;
+      font-size: $font-size-small;
+      color: #fff;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        border: {
+          width: 5px;
+          style: solid;
+          color: transparent transparent transparent $color-theme;
+        }
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .summary {
+    flex: 1;
+    @include ellipsisMultiline(3, 1.8);
+    line-height: 1.8;
+  }
+
+  // 文章信息
+  .opeartion {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 10px;
+    font-size: $font-size-small;
+    color: $color-golden;
+  }
+
+  .information {
+    span {
+      margin-right: 10px;
+    }
+
+    .iconfont {
+      margin-right: 2px;
+    }
+  }
+
+  .details-btn {
+    padding: 5px 10px;
+    background: $color-theme;
+    border-radius: $border-radius;
+    color: $color-white;
+  }
+}

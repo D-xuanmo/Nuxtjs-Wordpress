@@ -1,0 +1,11 @@
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-theme: #{$color-theme};
+    --color-main-text: #{$color-main-text};
+    --color-sub-text: #{$color-sub-text};
+    --color-main-background: #{$color-main-background};
+    --color-sub-background: #fff;
+    --color-white: #{$color-white};
+    --color-border: #{$color-border};
+  }
+}

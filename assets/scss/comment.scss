@@ -1,3 +1,4 @@
+// 评论
 .comments-wrap {
   padding: 10px 0;
 
@@ -43,7 +44,7 @@
     margin-bottom: 20px;
     padding: 10px;
     border-radius: $border-radius;
-    background: $color-sub-background;
+    background: var(--color-main-background);
 
     .comment-tips:not(p) {
       font-size: $font-size-small;
@@ -55,7 +56,7 @@
       margin-bottom: 20px;
       padding: 5px;
       border-radius: $border-radius;
-      background: $color-white;
+      background: var(--color-sub-background);
     }
 
     textarea {
@@ -77,7 +78,7 @@
       width: 49%;
       padding: 5px;
       border-radius: $border-radius;
-      background: $color-white;
+      background: var(--color-sub-background);
 
       &:nth-of-type(1),
       &:nth-of-type(2) {
@@ -138,7 +139,7 @@
     margin: 0 0 20px 5%;
     padding: 10px 10px 10px 50px;
     border-radius: $border-radius;
-    background: $color-sub-background;
+    background: var(--color-main-background);
 
     &:last-of-type {
       margin-bottom: 0;

@@ -58,16 +58,26 @@
   overflow: hidden;
 }
 
-.m-l-5px {
-  margin-left: 5px;
-}
-
-.m-l-10px {
-  margin-left: 10px;
-}
-
-.m-t-10px {
-  margin-top: 10px;
+// 内外边距；使用：m-t-5px 或 p-t-5px
+$margin: (
+  top: 0 5 10 15 20,
+  right: 0 5 10 15 20,
+  bottom: 0 5 10 15 20,
+  left: 0 5 10 15 20
+);
+$marginDirection: margin, padding;
+@each $direction, $value in $margin {
+  @each $num in $value {
+    @each $d in $marginDirection {
+      .#{str-slice($d, 1, 1)}-#{str-slice($direction, 1, 1)}-#{$num}px {
+        @if ($num == 0) {
+          #{$d}-#{$direction}: #{$num}px !important;
+        } @else {
+          #{$d}-#{$direction}: #{$num}px;
+        }
+      }
+    }
+  }
 }
 
 // 字体大小
@@ -127,7 +137,7 @@ code:not([class*="lang"]),
 
 .btn {
   padding: 10px 15px;
-  border: 1px solid $color-theme;
+  border: 1px solid var(--color-border);
   border-radius: $border-radius;
   color: $color-theme;
   cursor: pointer;

@@ -163,7 +163,7 @@ $padding: 10px;
     width: 650px;
     height: 500px;
     padding: 20px;
-    background: #fff;
+    background: var(--color-main-background);
     border-radius: $border-radius;
   }
 
@@ -181,7 +181,7 @@ $padding: 10px;
     width: 60%;
 
     &.is-border {
-      border: 1px solid $color-border;
+      border: 1px solid var(--color-border);
     }
 
     .create {
@@ -200,7 +200,7 @@ $padding: 10px;
       align-items: center;
       width: 100%;
       height: 100%;
-      background: #fff;
+      background: var(--color-sub-background);
       font-size: 18px;
 
       /deep/ .iconfont {
@@ -222,7 +222,7 @@ $padding: 10px;
       }
 
       .day {
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid var(--color-border);
         font-size: 30px;
         letter-spacing: 4px;
       }
@@ -233,7 +233,7 @@ $padding: 10px;
       padding: 20px $padding 10px;
       overflow: hidden;
       font-size: 18px;
-      color: #333;
+      color: var(--color-main-text);
     }
 
     .summary {
@@ -249,7 +249,7 @@ $padding: 10px;
     height: 70px;
     margin-top: 10px;
     padding: 10px $padding;
-    border-top: 1px dashed $color-border;
+    border-top: 1px dashed var(--color-border);
 
     .left {
       flex: 1;

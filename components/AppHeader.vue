@@ -170,7 +170,7 @@ $headerHeight: 60px;
   position: relative;
   width: 100%;
   height: $headerHeight;
-  background: #fff;
+  background: var(--color-sub-background);
 
   .hide-header {
     height: $headerHeight;
@@ -183,7 +183,7 @@ $headerHeight: 60px;
     z-index: $z-index + 999;
     width: 100%;
     height: 60px;
-    background: #fff;
+    background: var(--color-sub-background);
     box-shadow: $box-shadow;
   }
 
@@ -269,7 +269,7 @@ $headerHeight: 60px;
     .sub-nav-view {
       position: relative;
       top: 10px;
-      background: #fff;
+      background: var(--color-sub-background);
       border-radius: $border-radius;
       box-shadow: $box-shadow;
 
@@ -283,7 +283,7 @@ $headerHeight: 60px;
         border: {
           width: 5px;
           style: solid;
-          color: transparent transparent #fff transparent;
+          color: transparent transparent var(--color-sub-background) transparent;
         }
       }
     }
