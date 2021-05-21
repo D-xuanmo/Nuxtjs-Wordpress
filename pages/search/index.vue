@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container article-list-wrap m-t-0px">
     <ul class="header">
       <li class="list">共<span class="mark">{{ totalPage }}</span>条关于“<span class="mark">{{ $route.query.s }}</span>”的文章</li>
     </ul>
@@ -74,77 +74,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// 文章列表
-.container {
-  padding: $container-padding;
-  background: $color-white;
-  border-radius: $border-radius;
-
-  .header {
-    padding-bottom: $container-padding;
-    border-bottom: 1px solid $color-main-background;
-    font-size: $font-size-large;
-
-    .mark {
-      color: $color-theme;
-    }
-  }
-}
-
-@media screen and (max-width:767px) {
-  // 文章列表
-  .container {
-    .article-list {
-      flex-wrap: wrap;
-      height: auto;
-
-      .title {
-        margin-top: 15px;
-        font-size: $font-size-large;
-      }
-
-      .summary {
-        height: auto;
-      }
-
-      .list-content {
-        height: auto;
-      }
-
-      .opeartion {
-        position: static;
-        display: block;
-        margin-top: 10px;
-      }
-
-      .details-btn {
-        display: block;
-        margin-top: 10px;
-        padding: 10px 0;
-        text-align: center;
-      }
-    }
-
-    .thumbnail-wrap {
-      width: 100%;
-      margin-right: 0;
-      text-align: center;
-
-      .thumbnail {
-        width: auto;
-        height: auto;
-        max-height: 150px;
-      }
-    }
-  }
-
-  // 翻页
-  /deep/ .el-pagination {
-    .el-pagination__jump {
-      display: none;
-    }
-  }
-}
-</style>

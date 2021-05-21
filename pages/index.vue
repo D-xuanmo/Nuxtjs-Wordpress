@@ -277,57 +277,5 @@ export default {
     font-size: 10px;
     line-height: 20px;
   }
-  // 文章列表
-  .article-list-wrap {
-    .article-list {
-      flex-wrap: wrap;
-      height: auto;
-
-      .title {
-        margin-top: 15px;
-        font-size: $font-size-large;
-      }
-
-      .summary {
-        height: auto;
-      }
-
-      .list-content {
-        height: auto;
-      }
-
-      .opeartion {
-        position: static;
-        display: block;
-        margin-top: 10px;
-      }
-
-      .details-btn {
-        display: block;
-        margin-top: 10px;
-        padding: 10px 0;
-        text-align: center;
-      }
-    }
-
-    .thumbnail-wrap {
-      width: 100%;
-      margin-right: 0;
-      text-align: center;
-
-      .thumbnail {
-        width: auto;
-        height: auto;
-        max-height: 150px;
-      }
-    }
-  }
-
-  // 翻页
-  /deep/ .el-pagination {
-    .el-pagination__jump {
-      display: none;
-    }
-  }
 }
 </style>

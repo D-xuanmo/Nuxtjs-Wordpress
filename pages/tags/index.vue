@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .container{
   padding: $container-padding;
-  background: $color-white;
+  background: var(--color-sub-background);
   border-radius: $border-radius;
 
   .title{
@@ -36,7 +36,7 @@ export default {
 
     span{
       display: inline-block;
-      color: #333;
+      color: var(--color-main-text);
 
       &:after{
         content: "";
@@ -44,7 +44,7 @@ export default {
         width: 20px;
         height: 2px;
         margin: 5px auto 0;
-        background: $color-main-text;
+        background: var(--color-main-text);
       }
     }
   }
