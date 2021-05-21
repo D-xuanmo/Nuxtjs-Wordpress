@@ -169,14 +169,12 @@
     }
 
     .thumbnail-wrap {
-      width: 100%;
-      margin-right: 0;
-      text-align: center;
+      width: 100% !important;
+      margin-right: 0 !important;
 
       .thumbnail {
-        width: auto;
+        width: 100%;
         height: auto;
-        max-height: 150px;
       }
     }
   }
