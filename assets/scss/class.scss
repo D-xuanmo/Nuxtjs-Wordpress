@@ -20,25 +20,16 @@
   height: 100%;
 }
 
-// 文本对齐
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
 .vertical-middle {
   vertical-align: middle;
+}
+
+// 文字对齐；使用：align-left
+$align: left, center, right, justify;
+@each $str in $align {
+  .align-#{$str} {
+    text-align: $str;
+  }
 }
 
 // 状态显示

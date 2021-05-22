@@ -3,7 +3,7 @@
     <ul class="header">
       <li class="list">当前频道：{{ $route.query.title }}</li>
     </ul>
-    <div v-if="articleList.length === 0" class="not">暂无数据！</div>
+    <div v-if="articleList.length === 0" class="article-empty align-center m-t-20px">暂无数据！</div>
     <article v-else class="article-list" v-for="item in articleList" :key="item.key">
       <nuxt-link v-if="item.articleInfor.thumbnail" :to="{ name: 'details-id', params: { id: item.id } }" class="thumbnail-wrap">
         <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">

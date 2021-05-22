@@ -6,7 +6,7 @@
           <x-icon :type="icon"></x-icon> {{ msg }}
           <x-icon v-if="showClose" type="icon-close" class="fr" @click.native="leave"></x-icon>
         </p>
-        <p v-if="showImg && imgUrl" class="text-center msg-img">
+        <p v-if="showImg && imgUrl" class="align-center msg-img">
           <img :src="imgUrl" width="100" height="100" alt="">
         </p>
       </div>

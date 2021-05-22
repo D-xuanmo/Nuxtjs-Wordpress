@@ -1,6 +1,6 @@
 <template>
   <div class="upload-img-wrap">
-    <div class="sub-upload-wrap text-center">
+    <div class="sub-upload-wrap align-center">
       <template v-if="!bShowDragWrap">
         <h2 class="title">插入图片</h2>
         <x-icon type="icon-close" @click.native.stop="_hideUpload"></x-icon>

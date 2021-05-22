@@ -1,7 +1,7 @@
 <template>
   <div class="error-container">
-    <h2 class="error-code text-center">{{ error.statusCode }}</h2>
-    <p class="error-text text-center">{{ error.message }}</p>
+    <h2 class="error-code align-center">{{ error.statusCode }}</h2>
+    <p class="error-text align-center">{{ error.message }}</p>
   </div>
 </template>
 <script>

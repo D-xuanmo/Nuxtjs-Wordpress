@@ -1,7 +1,7 @@
 <template>
   <div class="comments-wrap">
     <!-- 发表评论 -->
-    <div v-if="commentStatus === 'closed'" class="comment-closed text-center f-s-large">评论已关闭</div>
+    <div v-if="commentStatus === 'closed'" class="comment-closed align-center f-s-large">评论已关闭</div>
     <div v-else-if="commentStatus === 'open'" class="comment-from">
       <h3 class="comment-title">发表评论</h3>
       <p class="comment-sub-title">电子邮件地址不会被公开。 必填项已用<i class="c-red">*</i>标注</p>

@@ -1,7 +1,7 @@
 <template>
   <div v-show="isShow" class="reward-toast">
     <div class="mask" @click="$emit('input', false)"></div>
-    <div class="reward-toast-inner text-center">
+    <div class="reward-toast-inner align-center">
       <x-icon type="icon-close" @click.native.stop="$emit('input', false)"></x-icon>
       <p class="thumbnail"><img :src="content.thumbnail" alt="" width="80"></p>
       <p class="summary">{{ content.text }}</p>

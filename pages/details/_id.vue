@@ -50,7 +50,7 @@
       <!-- 点赞结束 -->
 
       <!-- 分享开始 -->
-      <div class="share text-center">
+      <div class="share align-center">
         <span class="text">分享到：</span>
         <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`" target="_blank">
           <svg-icon iconName="#icon-QQ"></svg-icon>
@@ -68,7 +68,7 @@
       <!-- 分享结束 -->
 
       <!-- 标签开始 -->
-      <div class="tag-wrap text-center">
+      <div class="tag-wrap align-center">
         <x-icon type="icon-tag" v-show="detail.articleInfor.tags.length"></x-icon>
         <span v-for="(item, index) in detail.articleInfor.tags" :key="item.key" v-html="index === detail.articleInfor.tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
