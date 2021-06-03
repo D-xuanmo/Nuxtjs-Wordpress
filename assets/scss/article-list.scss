@@ -19,6 +19,7 @@
   height: 145px;
   padding: 20px 0;
   border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
 
   &:after {
     content: "";
@@ -43,6 +44,7 @@
 
   .thumbnail-wrap {
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   // 缩略图
@@ -60,6 +62,7 @@
     flex-direction: column;
     position: relative;
     margin-left: 15px;
+    overflow: hidden;
   }
 
   // 标题
