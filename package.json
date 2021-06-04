@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue .",
     "precommit": "npm run lint",
-    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch"
+    "pm2": "pm2 start npm --name 'nuxt' -- run build --watch",
+    "git:push": "git push origin master && git push gitee master"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
