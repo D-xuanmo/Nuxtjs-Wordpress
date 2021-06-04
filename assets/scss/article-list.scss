@@ -141,7 +141,7 @@
 @media screen and (max-width:767px) {
   .article-list-wrap {
     .article-list {
-      flex-wrap: wrap;
+      flex-direction: column;
       height: auto;
 
       .title {
