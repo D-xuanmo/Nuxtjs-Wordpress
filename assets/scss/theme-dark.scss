@@ -18,7 +18,8 @@
     background: var(--color-main-background);
   }
   img {
-    box-shadow: none;
+    box-shadow: none !important;
+    filter: opacity(.8);
   }
   .nuxt-loading-container {
     background: rgba(0, 0, 0, .8);
@@ -35,5 +36,14 @@
     border: 0;
     background: none;
     color: var(--color-main-text);
+  }
+
+  .banner-wrap {
+    .list {
+      background: none !important;
+    }
+    .title {
+      background: rgba(0, 0, 0, .6) !important;
+    }
   }
 }

@@ -192,7 +192,7 @@ export default {
     box-sizing: border-box;
     background: rgba(0,0,0,.3);
     line-height: 30px;
-    color: $color-white;
+    color: var(--color-main-text);
     @extend %ellipsis;
   }
 

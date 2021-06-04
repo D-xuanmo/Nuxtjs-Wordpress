@@ -451,7 +451,7 @@ export default {
     margin-bottom: 5px;
     padding: 5px;
     border-radius: $border-radius;
-    background: var(--color-sub-background);
+    background: var(--color-main-background);
     font-size: $font-size-small;
   }
 
