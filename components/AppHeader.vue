@@ -95,7 +95,7 @@
             </div>
           </div>
           <x-icon type="icon-search tablet-show" @click.native="isShowSearch = true"></x-icon>
-          <x-icon type="icon-menu phone-show" @click.native="_showNavWrap"></x-icon>
+          <x-icon type="icon-menu hide" @click.native="_showNavWrap"></x-icon>
         </div>
         <!-- 右侧搜索结束 -->
       </div>
@@ -350,7 +350,7 @@ $headerHeight: 60px;
     }
   }
 }
-@media screen and (max-width:1023px) {
+@media screen and (max-width:1024px) {
   .header-container {
     .nav-wrapper {
       position: fixed;
@@ -406,6 +406,7 @@ $headerHeight: 60px;
       }
 
       .icon-menu {
+        display: block;
         margin-left: 10px;
       }
     }

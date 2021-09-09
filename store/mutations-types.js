@@ -52,3 +52,6 @@ export const UPDATE_OPINION_LOADING = 'UPDATE_OPINION_LOADING'
 
 // 获取说说
 export const SET_PHRASE_LIST = 'SET_PHRASE_LIST'
+
+// 切换阅读模式
+export const TOGGLE_READING_MODE = 'TOGGLE_READING_MODE'

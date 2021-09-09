@@ -1,5 +1,12 @@
 <template>
   <section class="container">
+    <x-icon
+      type="icon-arrow-right-d"
+      :class="['toggle-reading-mode', isReadingMode && 'is-active']"
+      :title="`${!isReadingMode ? '打开' : '关闭'}阅读模式`"
+      @click.native="toggleReadingMode"
+    />
+
     <!-- 文章内容开始 -->
     <article class="section article">
       <h2 class="title" v-html="detail.title.rendered"></h2>
@@ -120,7 +127,7 @@
               </a>
             </li>
             <li v-else :key="item.key" class="list">
-              <a :href="key == 'email' ? `mailto:${item.url}` : item.url" target="_blank">
+              <a :href="key === 'email' ? `mailto:${item.url}` : item.url" target="_blank">
                 <svg-icon :iconName="item.icon"></svg-icon>
               </a>
             </li>
@@ -142,10 +149,11 @@
   </section>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import Comments from '~/components/Comment'
 import Reward from '~/components/Reward'
 import CreatePoster from '~/components/CreatePoster'
+import XIcon from '../../components/Icon/main'
 export default {
   name: 'Details',
   fetch ({ params, error, store }) {
@@ -153,12 +161,14 @@ export default {
     return store.dispatch('article/getArticleDetail', params.id)
   },
   components: {
+    XIcon,
     Comments,
     Reward,
     CreatePoster
   },
   data () {
     return {
+      isReadingMode: false,
       isShowReward: false,
       isShowPoster: false,
       fullPath: '',
@@ -237,7 +247,13 @@ export default {
     document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
   },
   methods: {
+    ...mapMutations(['TOGGLE_READING_MODE']),
     ...mapActions('article', ['updateOpinion']),
+
+    toggleReadingMode () {
+      this.isReadingMode = !this.isReadingMode
+      this.TOGGLE_READING_MODE()
+    },
 
     // 发表意见
     async _updateOpinion (key) {
@@ -259,7 +275,7 @@ export default {
           key,
           flag: false
         })
-        localStorage.setItem(`xm_link_${this.$route.params.id}`, true)
+        localStorage.setItem(`xm_link_${this.$route.params.id}`, 'true')
       }
     },
 
@@ -280,6 +296,24 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.container {
+  position: relative;
+
+  .toggle-reading-mode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px;
+    background: var(--color-sub-background);
+    transition: .3s;
+    cursor: pointer;
+
+    &.is-active {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
 .section {
   margin-top: $container-margin;
   padding: $container-padding;
@@ -528,6 +562,12 @@ export default {
       font-family: "iconfont";
       color: $color-white;
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .toggle-reading-mode {
+    display: none;
   }
 }
 

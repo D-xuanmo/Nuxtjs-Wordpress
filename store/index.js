@@ -1,4 +1,4 @@
-import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS } from './mutations-types'
+import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS, TOGGLE_READING_MODE } from './mutations-types'
 
 export const state = () => ({
   info: {},
@@ -9,7 +9,8 @@ export const state = () => ({
     code: '',
     message: ''
   },
-  menuStatus: false
+  menuStatus: false,
+  isReadingMode: false
 })
 
 export const mutations = {
@@ -26,6 +27,10 @@ export const mutations = {
 
   [UPDATE_MENU_STATUS] (state, flag) {
     state.menuStatus = flag
+  },
+
+  [TOGGLE_READING_MODE] (state) {
+    state.isReadingMode = !state.isReadingMode
   }
 }
 
