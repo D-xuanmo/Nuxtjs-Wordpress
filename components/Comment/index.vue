@@ -113,11 +113,11 @@
           <img v-if="item.userAgentInfo.vipStyle.title === '博主'" src="../../assets/images/icon-admin.png" width="20" class="icon-admin">
           <p class="inline-block system-wrap">
             <!-- 浏览器logo -->
-            <span :class="['browser-info', item.userAgent.browserEnName && item.userAgent.browserEnName.toLowerCase()]">
-              {{ item.userAgent.browserName }} {{ item.userAgent.browserVersion }}
+            <span :class="['browser-info', item.userAgent.browser && item.userAgent.browser.toLowerCase()]">
+              {{ item.userAgent.browserZH }} {{ item.userAgent.browserVersion }}
             </span>
             <!-- 系统logo -->
-            <span class="system-info">{{ item.userAgent.systemName }} {{ item.userAgent.systemVersion }}</span>
+            <span class="system-info">{{ item.userAgent.os }} {{ item.userAgent.osVersion }}</span>
           </p>
           <span v-if="item.status === 'hold'">您的评论正在审核中...</span>
         </div>

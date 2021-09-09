@@ -1,4 +1,4 @@
-import getBrowserInfo from '@xuanmo/browser-info'
+import { ua } from '@xuanmo/javascript-utils'
 import {
   SET_COMMENT_LIST,
   SET_COMMENT_TOTAL,
@@ -29,7 +29,7 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
-    data.userAgent = getBrowserInfo(data.userAgentInfo.userAgent)
+    data.userAgent = ua(data.userAgentInfo.userAgent).info
     state.commentList.unshift(data)
   },
 
@@ -51,7 +51,8 @@ export const actions = {
         data: { progress: false }
       })
       data.map(item => {
-        item.userAgent = getBrowserInfo(item.userAgentInfo.userAgent)
+        item.userAgent = ua(item.userAgentInfo.userAgent).info
+        return item
       })
       commit(SET_COMMENT_LIST, data)
       commit(SET_COMMENT_TOTAL, +headers['x-wp-totalpages'])
