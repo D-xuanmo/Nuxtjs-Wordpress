@@ -1,4 +1,4 @@
-import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS, TOGGLE_READING_MODE } from './mutations-types'
+import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS, TOGGLE_READING_MODE, CLOSE_READING_MODE } from './mutations-types'
 
 export const state = () => ({
   info: {},
@@ -31,6 +31,10 @@ export const mutations = {
 
   [TOGGLE_READING_MODE] (state) {
     state.isReadingMode = !state.isReadingMode
+  },
+
+  [CLOSE_READING_MODE](state) {
+    state.isReadingMode = false
   }
 }
 
