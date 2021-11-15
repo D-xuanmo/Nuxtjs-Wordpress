@@ -114,12 +114,30 @@ export default {
   }
 }
 
-::v-deep pre[class*=language-]:after,
-::v-deep pre[class*=language-]:before {
-  display: none;
-}
-::v-deep pre[class*=language-] > code {
+::v-deep .code-toolbar {
+  border: 1px solid var(--color-border);
   border-left: 5px solid $color-theme;
+  border-radius: 5px;
+  overflow: hidden;
+
+  pre {
+    margin: 0;
+
+    &:after,
+    &:before {
+      display: none;
+    }
+
+    > code {
+      border-left: 0;
+      box-shadow: none;
+    }
+  }
+
+  :not(pre) > code[class*=language-],
+  pre[class*=language-] {
+    background: none;
+  }
 }
 
 .comment {
