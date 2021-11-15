@@ -238,11 +238,11 @@
     .list-content {
       margin: 10px 0;
 
-      /deep/ a {
+      ::v-deep a {
         color: $color-theme;
       }
 
-      /deep/ img {
+      ::v-deep img {
         max-width: 40%;
         height: initial !important;
         max-height: initial !important;

@@ -38,9 +38,9 @@
     "eslint-plugin-vue": "^6.2.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4",
-    "sass-loader": "^8.0.2"
+    "sass": "^1.43.4",
+    "sass-loader": "10.0.0"
   },
   "gitHooks": {
     "pre-commit": "npm run lint"
