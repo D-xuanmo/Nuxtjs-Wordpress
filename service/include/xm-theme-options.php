@@ -13,7 +13,7 @@ function themeoptions_page()
 {
     // 获取提交的数据
     $xm_options = get_option('xm_vue_options');
-    //加载上传图片的js(wp自带)
+    // 加载上传图片的js(wp自带)
     wp_enqueue_script('thickbox');
     //加载css(wp自带)
     wp_enqueue_style('thickbox'); ?>

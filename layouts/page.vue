@@ -5,7 +5,7 @@
     <div :class="['main', menuStatus && 'is-show-menu']">
       <div class="wrap">
         <div class="content">
-          <nuxt/>
+          <nuxt />
         </div>
       </div>
     </div>
