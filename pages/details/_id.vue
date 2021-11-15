@@ -506,63 +506,12 @@ export default {
 }
 
 // 代码高亮
-::v-deep div.code-toolbar {
-  overflow: hidden;
-  width: 100%;
-  margin: 20px 0;
-  padding-top: 30px;
-  border-radius: $border-radius;
-
-  pre {
-    margin: 0;
-    border: {
-      width: 0 1px 1px;
-      style: solid;
-      color: var(--color-main-background);
-    }
-  }
-
-  code {
-    border: 0;
-    box-shadow: none;
-    background-size: 4em 4em;
-    line-height: 2;
-  }
-
-  .line-numbers .line-numbers-rows {
-    border-color: var(--color-border);
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    background: #358ccb;
-    opacity: 1;
-
-    span {
-      background: none;
-      box-shadow: none;
-      border-radius: 0;
-      color: #fff;
-    }
-  }
-
-  .toolbar-item {
-    padding-left: 20px;
-
-    span:hover {
-      color: $color-white;
-    }
-
-    &:before {
-      content: "\e7ae";
-      font-family: "iconfont";
-      color: $color-white;
-    }
-  }
+::v-deep pre[class*=language-]:after,
+::v-deep pre[class*=language-]:before {
+  display: none;
+}
+::v-deep pre[class*=language-] > code {
+  border-left: 5px solid $color-theme;
 }
 
 @media screen and (max-width: 1024px) {

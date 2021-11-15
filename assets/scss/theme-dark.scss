@@ -47,4 +47,11 @@
       color: var(--color-main-text);
     }
   }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .token.variable {
+    background: none;
+  }
 }

@@ -114,6 +114,14 @@ export default {
   }
 }
 
+::v-deep pre[class*=language-]:after,
+::v-deep pre[class*=language-]:before {
+  display: none;
+}
+::v-deep pre[class*=language-] > code {
+  border-left: 5px solid $color-theme;
+}
+
 .comment {
   margin-top: $container-margin;
   padding: $container-padding;
