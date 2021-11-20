@@ -69,7 +69,7 @@
 
       <!-- 标签开始 -->
       <div class="tag-wrap align-center">
-        <x-icon type="icon-tag" v-show="detail.articleInfor.tags.length"></x-icon>
+        <x-icon type="icon-tag" class="vertical-middle" v-show="detail.articleInfor.tags.length"></x-icon>
         <span v-for="(item, index) in detail.articleInfor.tags" :key="item.key" v-html="index === detail.articleInfor.tags.length - 1 ? item.name : `${item.name}、`"></span>
       </div>
       <!-- 标签结束 -->
@@ -96,10 +96,10 @@
         <div class="header">
           <img :src="detail.articleInfor.other.authorPic" class="phone-show" width="25">
           <p class="inline-block name">
-            作者简介：<x-icon type="icon-about-f"></x-icon><span class="f-s-14px">{{ detail.articleInfor.author }}</span>
+            作者简介：<x-icon type="icon-about-f" /> <span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
           <div v-if="info.isOpenReward" class="reward" @click="isShowReward = true">
-            <svg-icon iconName="#icon-dashang"></svg-icon>打赏
+            <svg-icon iconName="#icon-dashang" /> 打赏
           </div>
           <!-- 打赏详情 -->
           <reward v-model="isShowReward" :content="rewardContent"></reward>
@@ -110,7 +110,7 @@
         <ul class="author-link">
           <li class="list">
             <nuxt-link :to="{ name: 'index' }">
-              <svg-icon iconName="#icon-icon-test"></svg-icon>
+              <svg-icon iconName="#icon-shouye"></svg-icon>
             </nuxt-link>
           </li>
           <template v-for="(item, key) in authorOtherInfo">
@@ -182,7 +182,7 @@ export default {
           icon: '#icon-xinlang1'
         },
         email: {
-          icon: '#icon-youxiang'
+          icon: '#icon-youxiang1'
         }
       }
     }

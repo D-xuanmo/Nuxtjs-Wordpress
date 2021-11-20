@@ -73,7 +73,7 @@ export default {
     left: 50%;
     width: 400px;
     height: 400px;
-    background: var(--color-main-background);
+    background: var(--color-sub-background);
     border-radius: 5px;
     transform: translate(-50%, -50%);
   }

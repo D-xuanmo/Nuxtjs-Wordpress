@@ -13,7 +13,8 @@ export default {
       { hid: 'prism', rel: 'stylesheet', href: '/css/prism.css' }
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_556506_8c5mvyqjye4.js' },
+      // 彩色图标
+      { src: 'https://at.alicdn.com/t/font_556506_p9s079i01ii.js' },
       { src: '/js/prism.js' },
       // 百度主推文章收录用
       { src: 'https://zz.bdstatic.com/linksubmit/push.js' },
