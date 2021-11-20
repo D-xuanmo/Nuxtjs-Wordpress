@@ -28,7 +28,6 @@
           </template>
           <div class="right">
             <h3 class="author">{{ item.author }}</h3>
-            <p class="comment-text" v-html="item.content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
             <nuxt-link
               v-if="item.postType === 'post'"
               :to="{ name: 'details-id', params: { id: item.id } }"
@@ -43,6 +42,7 @@
               :title="item.title"
             >评：{{ item.title }}
             </nuxt-link>
+            <p class="comment-text" v-html="item.content.replace(/\[img\].*\[\/img\]/, '[图片]')"></p>
           </div>
         </li>
       </ul>
