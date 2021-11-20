@@ -90,7 +90,7 @@
     }
 
     .title {
-      @include ellipsisMultiline(2);
+      @include ellipsisMultiline(1);
       color: $color-theme;
     }
   }
@@ -100,17 +100,19 @@
     .content {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
+      font-size: 12px;
     }
 
     .list {
       margin-top: 10px;
 
       &:nth-of-type(odd) {
-        width: 38%;
+        width: 40%;
       }
 
       &:nth-of-type(even) {
-        width: 60%;
+        width: 58%;
       }
     }
   }

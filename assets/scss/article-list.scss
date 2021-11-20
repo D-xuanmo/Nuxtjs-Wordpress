@@ -147,6 +147,10 @@
       .title {
         margin-top: 15px;
         font-size: $font-size-large;
+
+        &.no-thumbnail {
+          margin-top: 0;
+        }
       }
 
       .summary {

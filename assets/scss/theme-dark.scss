@@ -7,6 +7,7 @@
     --color-sub-background: #293238;
     --color-white: #{$color-white};
     --color-border: rgba(233, 234, 237, .3);
+    --color-menu-background-m: var(--color-sub-background);
   }
   code:not([class*="lang"]),
   .code {
@@ -55,9 +56,14 @@
     background: none;
   }
 
+  .header-container .nav-wrapper a,
   .el-pagination .btn-next,
   .el-pagination .btn-prev,
   .btn-quicknext {
-    color: var(--color-white) !important;
+    color: var(--color-main-text) !important;
+  }
+
+  .header-container .search-wrapper.is-show {
+    background: var(--color-main-background) !important;
   }
 }

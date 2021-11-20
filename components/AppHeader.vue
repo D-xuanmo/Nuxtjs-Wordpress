@@ -7,7 +7,7 @@
         <div class="logo">
           <h1>{{ info.blogName }}</h1>
           <nuxt-link :to="{ name: 'index' }" class="block">
-            <img :src="info.logo" class="vertical-middle" width="130" height="40">
+            <img :src="info.logo" class="vertical-middle" width="120" height="40">
           </nuxt-link>
         </div>
         <!-- logo结束 -->
@@ -363,7 +363,7 @@ $headerHeight: 60px;
       padding: 0 20px;
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
-      background: $color-theme;
+      background: var(--color-menu-background-m);
       transition: .5s;
       transform: translateX(100%);
 

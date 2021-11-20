@@ -7,7 +7,7 @@
           :key="index"
           :href="item.url"
           :target="item.target"
-          :title="item.description"
+          :title="item.text"
         >
           {{ item.text }}
         </a>
@@ -188,6 +188,24 @@ export default {
     width: 100%;
     margin-top: $container-margin;
     text-align: right;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .link-wrap {
+    display: flex;
+    justify-content: flex-start;
+
+    a {
+      box-sizing: border-box;
+      width: 32%;
+      margin-right: 0;
+
+      &:nth-of-type(3n+2) {
+        width: 34%;
+        padding: 0 10px;
+      }
+    }
   }
 }
 </style>

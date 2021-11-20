@@ -4,7 +4,8 @@
     <div v-if="sidebar.notice" class="sidebar-list notice">
       <div class="header">
         <p>
-          <x-icon type="icon-notice2"></x-icon> 公告
+          <x-icon type="icon-notice2"></x-icon>
+          公告
         </p>
       </div>
       <div class="content" v-html="sidebar.notice"></div>
@@ -13,7 +14,8 @@
     <div class="sidebar-list comment">
       <div class="header">
         <p>
-          <x-icon type="icon-hot1"></x-icon> 最新评论
+          <x-icon type="icon-hot1"></x-icon>
+          最新评论
         </p>
       </div>
       <ul class="content">
@@ -27,8 +29,20 @@
           <div class="right">
             <h3 class="author">{{ item.author }}</h3>
             <p class="comment-text" v-html="item.content.replace(/\[img\]\S+\[\/img\]/, '[图片]')"></p>
-            <nuxt-link v-if="item.postType === 'post'" :to="{ name: 'details-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
-            <nuxt-link v-else-if="item.postType === 'page'" :to="{ name: 'page-id', params: { id: item.id } }" class="block title">评：{{ item.title }}</nuxt-link>
+            <nuxt-link
+              v-if="item.postType === 'post'"
+              :to="{ name: 'details-id', params: { id: item.id } }"
+              class="block title"
+              :title="item.title"
+            >评：{{ item.title }}
+            </nuxt-link>
+            <nuxt-link
+              v-else-if="item.postType === 'page'"
+              :to="{ name: 'page-id', params: { id: item.id } }"
+              class="block title"
+              :title="item.title"
+            >评：{{ item.title }}
+            </nuxt-link>
           </div>
         </li>
       </ul>
@@ -37,7 +51,8 @@
     <div v-if="sidebar.isOpenAsideCount" class="sidebar-list count">
       <div class="header">
         <p>
-          <x-icon type="icon-count"></x-icon> 站点统计
+          <x-icon type="icon-count"></x-icon>
+          站点统计
         </p>
       </div>
       <ul class="content">
@@ -53,14 +68,17 @@
     <div class="sidebar-list tag-cloud">
       <div class="header">
         <p>
-          <x-icon type="icon-tag1"></x-icon> 标签云
+          <x-icon type="icon-tag1"></x-icon>
+          标签云
         </p>
         <router-link :to="{ name: 'tags' }">更多</router-link>
       </div>
       <ul class="content">
         <template v-for="(item, index) in sidebar.tagCloud">
           <li :key="item.key" v-if="index < 20" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
-            <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}</router-link>
+            <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">
+              {{ item.name }}
+            </router-link>
           </li>
         </template>
       </ul>
@@ -69,6 +87,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+
 export default {
   name: 'AppSidebar',
   computed: {
