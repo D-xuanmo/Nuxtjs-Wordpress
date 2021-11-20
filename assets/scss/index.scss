@@ -49,7 +49,7 @@ body {
 }
 
 .nuxt-link-exact-active {
-  color: var(--color-theme);
+  color: var(--color-theme) !important;
 }
 
 // 表情

@@ -9,7 +9,7 @@
         <img :src="item.articleInfor.thumbnail" class="thumbnail" alt="">
       </nuxt-link>
       <div class="list-content">
-        <h2 class="title">
+        <h2 class="title" :class="!item.articleInfor.thumbnail && 'no-thumbnail'">
           <span class="classify" v-html="item.articleInfor.classify[0].name"></span>
           <nuxt-link :to="{ name: 'details-id', params: { id: item.id } }" class="vertical-middle" v-html="item.title.rendered"></nuxt-link>
         </h2>

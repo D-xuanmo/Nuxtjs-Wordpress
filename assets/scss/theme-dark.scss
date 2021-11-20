@@ -56,11 +56,14 @@
     background: none;
   }
 
-  .header-container .nav-wrapper a,
   .el-pagination .btn-next,
   .el-pagination .btn-prev,
   .btn-quicknext {
     color: var(--color-main-text) !important;
+  }
+
+  .header-container .nav-wrapper a {
+    color: var(--color-main-text);
   }
 
   .header-container .search-wrapper.is-show {

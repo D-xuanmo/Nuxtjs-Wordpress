@@ -371,10 +371,6 @@ $headerHeight: 60px;
         transform: translateX(0);
       }
 
-      a {
-        color: #fff;
-      }
-
       .nav-view {
         flex-direction: column;
         justify-content: flex-start;
