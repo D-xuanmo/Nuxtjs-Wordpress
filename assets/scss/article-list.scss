@@ -69,7 +69,7 @@
   .title {
     margin-bottom: 10px;
     font-size: 18px;
-    @include ellipsisMultiline(2);
+    @include ellipsisMultiline(2, 1.5, 16px);
 
     a {
       color: var(--color-main-text);
