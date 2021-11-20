@@ -165,8 +165,12 @@ function xm_get_post_excerpt($length, $str)
 /*
  * 自定义登录页面的LOGO链接为首页链接,LOGO提示为网站名称
  */
-add_filter('login_headerurl', create_function(false, "return get_bloginfo('url');"));
-add_filter('login_headertitle', create_function(false, "return get_bloginfo('name');"));
+add_filter('login_headerurl', function () {
+    return get_bloginfo('url');
+});
+add_filter('login_headertext', function () {
+	return get_bloginfo('name');
+});
 
 /*
  * 自定义登录页面的LOGO图片

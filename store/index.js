@@ -1,4 +1,8 @@
-import { UPDATE_GLOBAL_INFO, UPDATE_ERROR_MESSAGE, UPDATE_MENU_STATUS, TOGGLE_READING_MODE, CLOSE_READING_MODE } from './mutations-types'
+import {
+  UPDATE_GLOBAL_INFO,
+  UPDATE_ERROR_MESSAGE,
+  UPDATE_MENU_STATUS
+} from './mutations-types'
 
 export const state = () => ({
   info: {},
@@ -14,33 +18,25 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [UPDATE_GLOBAL_INFO] (state, { info, menu, subMenu, links }) {
+  [UPDATE_GLOBAL_INFO](state, { info, menu, subMenu, links }) {
     state.info = info
     state.menu = menu
     state.subMenu = subMenu
     state.links = links
   },
 
-  [UPDATE_ERROR_MESSAGE] (state, data) {
+  [UPDATE_ERROR_MESSAGE](state, data) {
     state.errorInformation = data
   },
 
-  [UPDATE_MENU_STATUS] (state, flag) {
+  [UPDATE_MENU_STATUS](state, flag) {
     state.menuStatus = flag
-  },
-
-  [TOGGLE_READING_MODE] (state) {
-    state.isReadingMode = !state.isReadingMode
-  },
-
-  [CLOSE_READING_MODE](state) {
-    state.isReadingMode = false
   }
 }
 
 export const actions = {
   // 获取公用信息
-  async nuxtServerInit ({ commit }) {
+  async nuxtServerInit({ commit }) {
     try {
       const { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
       const { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
@@ -65,7 +61,7 @@ export const actions = {
   },
 
   // 上传图片
-  async uploadImage ({ commit, rootState }, { requestData, config = {} }) {
+  async uploadImage({ commit, rootState }, { requestData, config = {} }) {
     try {
       const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {
@@ -81,7 +77,7 @@ export const actions = {
   },
 
   // 删除图片
-  async deleteImage ({ commit, rootState }, requestData) {
+  async deleteImage({ commit, rootState }, requestData) {
     try {
       const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
         headers: {

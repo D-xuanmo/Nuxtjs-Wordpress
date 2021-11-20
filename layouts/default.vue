@@ -3,7 +3,7 @@
     <div :class="['menu-mask', menuStatus && 'is-show-menu']" @click="_closeMenu"></div>
     <app-header/>
     <div :class="['main', menuStatus && 'is-show-menu']">
-      <div id="content" :class="['wrap', isReadingMode && 'is-reading-mode']">
+      <div id="content" :class="['wrap']">
         <div class="content">
           <nuxt />
         </div>
@@ -38,15 +38,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['menuStatus', 'isReadingMode'])
-  },
-
-  watch: {
-    isReadingMode(status) {
-      setTimeout(() => {
-        this.isHideSidebar = status
-      }, 300)
-    }
+    ...mapState(['menuStatus'])
   },
 
   methods: {
@@ -76,19 +68,6 @@ export default {
 
     &.is-hide {
       display: none;
-    }
-  }
-}
-
-#content {
-  &.is-reading-mode {
-    .content {
-      width: 100%;
-    }
-
-    .sidebar-wrap {
-      width: 0;
-      visibility: hidden;
     }
   }
 }

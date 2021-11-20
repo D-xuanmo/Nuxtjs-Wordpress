@@ -1,12 +1,5 @@
 <template>
   <section class="container">
-    <x-icon
-      type="icon-arrow-right-d"
-      :class="['toggle-reading-mode', isReadingMode && 'is-active']"
-      :title="`${!isReadingMode ? '打开' : '关闭'}阅读模式`"
-      @click.native="toggleReadingMode"
-    />
-
     <!-- 文章内容开始 -->
     <article class="section article">
       <h2 class="title" v-html="detail.title.rendered"></h2>
@@ -156,6 +149,7 @@ import CreatePoster from '~/components/CreatePoster'
 import XIcon from '../../components/Icon/main'
 export default {
   name: 'Details',
+  layout: 'page',
   fetch ({ params, error, store }) {
     store.dispatch('article/updateArticleViewCount', { id: params.id })
     return store.dispatch('article/getArticleDetail', params.id)
@@ -249,11 +243,6 @@ export default {
   methods: {
     ...mapMutations(['TOGGLE_READING_MODE']),
     ...mapActions('article', ['updateOpinion']),
-
-    toggleReadingMode () {
-      this.isReadingMode = !this.isReadingMode
-      this.TOGGLE_READING_MODE()
-    },
 
     // 发表意见
     async _updateOpinion (key) {
@@ -529,12 +518,6 @@ export default {
   :not(pre) > code[class*=language-],
   pre[class*=language-] {
     background: none;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .toggle-reading-mode {
-    display: none;
   }
 }
 
