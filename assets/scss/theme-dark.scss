@@ -54,4 +54,10 @@
   .token.variable {
     background: none;
   }
+
+  .el-pagination .btn-next,
+  .el-pagination .btn-prev,
+  .btn-quicknext {
+    color: var(--color-white) !important;
+  }
 }
