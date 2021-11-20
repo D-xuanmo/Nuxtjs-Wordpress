@@ -89,7 +89,7 @@
     }
 
     .title {
-      @include ellipsisMultiline(1);
+      @include ellipsisMultiline(2);
       color: $color-theme;
     }
   }
