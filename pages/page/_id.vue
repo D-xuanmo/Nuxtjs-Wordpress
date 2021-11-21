@@ -115,6 +115,7 @@ export default {
 }
 
 ::v-deep .code-toolbar {
+  margin-bottom: 20px;
   border: 1px solid var(--color-border);
   border-left: 5px solid $color-theme;
   border-radius: 5px;
