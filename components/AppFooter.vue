@@ -34,6 +34,9 @@
               </nuxt-link>
               <a v-else-if="item.object === 'custom'" :href="item.url">{{ item.title }}</a>
             </li>
+            <li class="list">
+              <nuxt-link to="/sitemap">站点地图</nuxt-link>
+            </li>
           </ul>
           <!-- 版权文字 -->
           <div class="copyright-text" v-html="copyright"></div>

@@ -19,11 +19,15 @@ export default function ({ $axios, redirect }) {
   })
 
   $axios.onResponse(response => {
-    response.data = {
-      data: response.data,
-      status: response.status,
-      headers: response.headers,
-      statusText: response.statusText
+    if (response.config.url.indexOf('xm/v2') !== -1) {
+      response.data = response.data.data
+    } else {
+      response.data = {
+        data: response.data,
+        status: response.status,
+        headers: response.headers,
+        statusText: response.statusText
+      }
     }
     return response
   })

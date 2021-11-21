@@ -46,6 +46,10 @@ body {
   font: $font-size-base "play", PingFangSC-Regular,Microsoft Yahei;
   line-height: $line-height;
   color: var(--color-main-text);
+
+  &.blank-page {
+    background-color: var(--color-sub-background);
+  }
 }
 
 .nuxt-link-exact-active {

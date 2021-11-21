@@ -10,17 +10,18 @@ function get_all_list() {
     $response = new Response();
 
     // 查出所有的文章
-    $article = $wpdb->get_results("SELECT id, post_title AS title FROM $wpdb->posts WHERE (post_status = 'publish' OR post_status = 'private') AND post_type='post' ORDER BY post_date DESC");
+    $article = $wpdb->get_results("SELECT id, post_title AS title, post_date AS createTime FROM $wpdb->posts WHERE (post_status = 'publish' OR post_status = 'private') AND post_type='post' ORDER BY post_date DESC");
 
     // 查出所有的页面
-    $pages = $wpdb->get_results("SELECT id, post_title AS title FROM $wpdb->posts WHERE (post_status = 'publish' OR post_status = 'private') AND post_type='page' ORDER BY post_date DESC");
+    $pages = $wpdb->get_results("SELECT id, post_title AS title, post_date AS createTime FROM $wpdb->posts WHERE (post_status = 'publish' OR post_status = 'private') AND post_type='page' ORDER BY post_date DESC");
 
     // 所有的标签
     $tags = get_tags(array("orderby" => "count", "order" => "DESC"));
     foreach ($tags as $key => $value) {
         $tags[$key] = array(
             'id'    => $value->term_id,
-            'title' => $value->name
+            'title' => $value->name,
+            'count' => $value->count
         );
     }
 
@@ -28,14 +29,14 @@ function get_all_list() {
     $categorys = wp_get_nav_menu_items("Home");
     foreach ($categorys as $key => $value) {
         $categorys[$key] = array(
-            'id'    => $value->ID,
+            'id'    => $value->object_id,
             'title' => $value->title
         );
     }
 
     $response->setResponse(array(
-        'article'  => $article,
-        'page'     => $pages,
+        'articles' => $article,
+        'pages'    => $pages,
         'tags'     => $tags,
         'category' => $categorys
     ));
