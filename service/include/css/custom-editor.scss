@@ -1,0 +1,63 @@
+#custom-code-editor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+  }
+
+  .custom-code-editor--content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+    padding: 10px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 5px;
+  }
+
+  form {
+    &:before {
+      content: "代码语言：";
+      vertical-align: middle;
+    }
+  }
+
+  .custom-code-inner {
+    flex: 1;
+    border: 1px solid #e9eaed;
+  }
+
+  .custom-code-footer {
+    margin-top: 10px;
+    text-align: center;
+
+    button {
+      margin: 0 5px;
+      float: none;
+      cursor: pointer;
+    }
+  }
+
+  .custom-code-hide {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: -2;
+  }
+}

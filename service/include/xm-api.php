@@ -1,8 +1,8 @@
 <?php
 // 引入浏览器和系统正则
-require_once(TEMPLATEPATH."/include/xm-comment-extra.php");
+require_once(TEMPLATEPATH . "/include/xm-comment-extra.php");
 
-require_once(TEMPLATEPATH."/utils.php");
+require_once(TEMPLATEPATH . "/utils.php");
 
 global $colors;
 $colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
@@ -12,14 +12,15 @@ $colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f
  */
 function xm_rest_prepare_post($data, $post, $request)
 {
-    $_data = $data -> data;
-    $params = $request -> get_params();
+    $_data = $data->data;
+    $params = $request->get_params();
     unset($_data["template"]);
     unset($_data["categories"]);
     unset($_data["excerpt"]);
-    $data -> data = $_data;
+    $data->data = $_data;
     return $data;
 }
+
 add_filter("rest_prepare_post", "xm_rest_prepare_post", 10, 3);
 
 /**
@@ -28,12 +29,13 @@ add_filter("rest_prepare_post", "xm_rest_prepare_post", 10, 3);
 function add_api_page_meta_field()
 {
     register_rest_field("page", "pageInfor", array(
-    "get_callback" => function () {
-        return array("commentCount" => get_comments_number());
-    },
-    "schema" => null,
-  ));
+        "get_callback" => function () {
+            return array("commentCount" => get_comments_number());
+        },
+        "schema"       => null,
+    ));
 }
+
 add_action("rest_api_init", "add_api_page_meta_field");
 
 /**
@@ -46,37 +48,38 @@ function xm_get_article_infor($object)
     if (get_post_meta($postID, "xm_post_link", true) === "") {
         add_post_meta($postID, "xm_post_link", array(
             "very_good" => 0,
-            "good" => 0,
-            "commonly" => 0,
-            "bad" => 0,
-            "very_bad" => 0
+            "good"      => 0,
+            "commonly"  => 0,
+            "bad"       => 0,
+            "very_bad"  => 0
         ));
     }
     $current_category = get_the_category($postID);
-    $array = array(
-    "author" => get_the_author(),
-    "other" => array(
-        "authorPic" => get_the_author_meta("simple_local_avatar")[full],
-        "authorTro" => get_the_author_meta("description"),
-        "github" => get_the_author_meta("github_url"),
-        "qq" => get_the_author_meta("qq"),
-        "wechatNum" => get_the_author_meta("wechat_num"),
-        "wechatPic" => get_the_author_meta("wechat_img"),
-        "sina" => get_the_author_meta("sina_url"),
-        "email" => get_the_author_meta("user_email"),
-    ),
-    "thumbnail" => wp_get_attachment_image_src(get_post_thumbnail_id($postID), "Full")[0],
-    "viewCount" => get_post_meta($postID, "post_views_count", true) === "" ? 0 : get_post_meta($postID, "post_views_count", true),
-    "commentCount" => get_comments_number(),
-    "xmLike" => get_post_meta($postID, "xm_post_link", true),
-    "summary" => xm_get_post_excerpt(160, ""),
-    "classify" => get_the_category(),
-    "tags" => get_the_tags($postID),
-    "prevLink" => get_previous_post($current_category, ""),
-    "nextLink" => get_next_post($current_category, "")
-  );
-    return $array;
+
+    return array(
+        "author"       => get_the_author(),
+        "other"        => array(
+            "authorPic" => get_the_author_meta("simple_local_avatar")["full"],
+            "authorTro" => get_the_author_meta("description"),
+            "github"    => get_the_author_meta("github_url"),
+            "qq"        => get_the_author_meta("qq"),
+            "wechatNum" => get_the_author_meta("wechat_num"),
+            "wechatPic" => get_the_author_meta("wechat_img"),
+            "sina"      => get_the_author_meta("sina_url"),
+            "email"     => get_the_author_meta("user_email"),
+        ),
+        "thumbnail"    => wp_get_attachment_image_src(get_post_thumbnail_id($postID), "Full")[0],
+        "viewCount"    => get_post_meta($postID, "post_views_count", true) === "" ? 0 : get_post_meta($postID, "post_views_count", true),
+        "commentCount" => get_comments_number(),
+        "xmLike"       => get_post_meta($postID, "xm_post_link", true),
+        "summary"      => xm_get_post_excerpt(160, ""),
+        "classify"     => get_the_category(),
+        "tags"         => get_the_tags($postID),
+        "prevLink"     => get_previous_post($current_category, ""),
+        "nextLink"     => get_next_post($current_category, "")
+    );
 }
+
 add_action("rest_api_init", function () {
     register_rest_field("post", "articleInfor", array("get_callback" => "xm_get_article_infor", "schema" => null,));
 });
@@ -87,21 +90,21 @@ add_action("rest_api_init", function () {
 function add_api_user_meta_field()
 {
     register_rest_field("user", "meta", array(
-    "get_callback" => function () {
-        $id = intval($_GET["id"]);
-        $array = array(
-            "qq" => get_the_author_meta("qq", $id),
-            "github" => get_the_author_meta("github_url", $id),
-            "wechat_num" => get_the_author_meta("wechat_num", $id),
-            "wechat_img" => get_the_author_meta("wechat_img", $id),
-            "sina_url" => get_the_author_meta("sina_url", $id),
-            "sex" => get_the_author_meta("sex", $id)
-        );
-        return $array;
-    },
-    "schema" => null,
-  ));
+        "get_callback" => function () {
+            $id = intval($_GET["id"]);
+            return array(
+                "qq"         => get_the_author_meta("qq", $id),
+                "github"     => get_the_author_meta("github_url", $id),
+                "wechat_num" => get_the_author_meta("wechat_num", $id),
+                "wechat_img" => get_the_author_meta("wechat_img", $id),
+                "sina_url"   => get_the_author_meta("sina_url", $id),
+                "sex"        => get_the_author_meta("sex", $id)
+            );
+        },
+        "schema"       => null,
+    ));
 }
+
 add_action("rest_api_init", "add_api_user_meta_field");
 
 /**
@@ -113,14 +116,14 @@ function add_get_blog_info()
     global $colors;
 
     // 获取最后更新时间
-    $last = $wpdb -> get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
-    $last = date('Y-n-j', strtotime($last[0] -> MAX_m));
+    $last = $wpdb->get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
+    $last = date('Y-n-j', strtotime($last[0]->MAX_m));
 
     // 获取最新评论
     $newComment = get_comments(array(
-        "number" => 10,
-        "status" => "approve",
-        "type" => "comment",
+        "number"  => 10,
+        "status"  => "approve",
+        "type"    => "comment",
         "user_id" => 0
     ));
     $latestComment = array();
@@ -138,47 +141,52 @@ function add_get_blog_info()
     }
 
     $xm_options = get_option("xm_vue_options");
-    $result = array(
-        "alipay" => $xm_options["alipay"],
-        "banner" => $xm_options["banner"],
-        "blogDescription" => get_bloginfo("description"),
-        "blogName" => get_bloginfo("name"),
-        "contentUrl" => "/wp-content",
-        "copyright" => $xm_options["footer_copyright"],
-        "description" => $xm_options["description"],
-        "detailsCss" => $xm_options["details_css"],
-        "domain" => get_option("xm_vue_options")["domain"],
-        "favicon" => $xm_options["favicon"],
-        "getAllCountArticle" => wp_count_posts() -> publish,
-        "getAllCountCat" => wp_count_terms("category"),
-        "getAllCountComment" => $wpdb -> get_var("SELECT COUNT(*) FROM $wpdb->comments"),
-        "getAllCountPage" => wp_count_posts("page") -> publish,
-        "getAllCountTag" => wp_count_terms("post_tag"),
-        "globalCss" => $xm_options["global_css"],
-        "isOpenArticleCopyright" => (bool) $xm_options["article_copyright"],
-        "isOpenAsideCount" => (bool) $xm_options["aside_count"],
-        "isOpenCommentUpload" => (bool) $xm_options["is_open_comment_upload"],
-        "isOpenReward" => (bool) $xm_options["is_open_reward"],
-        "isOpenTextThumbnail" => (bool) $xm_options["text_pic"],
-        "keywords" => $xm_options["keywords"],
-        "lastUpDate" => $last,
-        "logo" => $xm_options["logo"],
-        "newComment" => $latestComment,
-        "notice" => $xm_options["sidebar_notice"],
-        "rewardText" => $xm_options["reward_text"],
-        "tagCloud" => get_tags(array("orderby" => "count", "order" => "DESC")),
-        "templeteUrl" => "/wp-content/themes/" . get_option("template"),
-        "themeDir" => get_option("template"),
-        "thumbnail" => $xm_options["thumbnail"],
-        "wechatpay" => $xm_options["wechatpay"],
-        "wpVersion" => get_bloginfo('version'),
-        "wp" => get_option('siteurl')
+
+    return array(
+        "alipay"                 => $xm_options["alipay"],
+        "banner"                 => $xm_options["banner"],
+        "blogDescription"        => get_bloginfo("description"),
+        "blogName"               => get_bloginfo("name"),
+        "contentUrl"             => "/wp-content",
+        "copyright"              => $xm_options["footer_copyright"],
+        "description"            => $xm_options["description"],
+        "detailsCss"             => $xm_options["details_css"],
+        "domain"                 => get_option("xm_vue_options")["domain"],
+        "favicon"                => $xm_options["favicon"],
+        "getAllCountArticle"     => wp_count_posts()->publish,
+        "getAllCountCat"         => wp_count_terms("category"),
+        "getAllCountComment"     => $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments"),
+        "getAllCountPage"        => wp_count_posts("page")->publish,
+        "getAllCountTag"         => wp_count_terms("post_tag"),
+        "globalCss"              => $xm_options["global_css"],
+        "isOpenArticleCopyright" => (bool)$xm_options["article_copyright"],
+        "isOpenAsideCount"       => (bool)$xm_options["aside_count"],
+        "isOpenCommentUpload"    => (bool)$xm_options["is_open_comment_upload"],
+        "isOpenReward"           => (bool)$xm_options["is_open_reward"],
+        "isOpenTextThumbnail"    => (bool)$xm_options["text_pic"],
+        "keywords"               => $xm_options["keywords"],
+        "lastUpDate"             => $last,
+        "logo"                   => $xm_options["logo"],
+        "newComment"             => $latestComment,
+        "notice"                 => $xm_options["sidebar_notice"],
+        "rewardText"             => $xm_options["reward_text"],
+        "tagCloud"               => get_tags(array("orderby" => "count", "order" => "DESC")),
+        "templeteUrl"            => "/wp-content/themes/" . get_option("template"),
+        "themeDir"               => get_option("template"),
+        "thumbnail"              => $xm_options["thumbnail"],
+        "wechatpay"              => $xm_options["wechatpay"],
+        "wpVersion"              => get_bloginfo('version'),
+        "wp"                     => get_option('siteurl')
         // "newArticle" => $wpdb -> get_results("SELECT ID,post_title FROM $wpdb->posts where post_status='publish' and post_type='post' ORDER BY ID DESC LIMIT 0 , 10"),
     );
-    return $result;
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/info", array("methods" => "GET", "callback" => "add_get_blog_info"));
+    register_rest_route("xm-blog/v1", "/info", array(
+        "methods"             => "GET",
+        "callback"            => "add_get_blog_info",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
@@ -186,7 +194,7 @@ add_action("rest_api_init", function () {
  */
 function xm_opinion($request)
 {
-    $data = $request -> get_params();
+    $data = $request->get_params();
     $count_key = "xm_post_link";
     $id = $data["id"];
     $key = $data["key"];
@@ -194,8 +202,13 @@ function xm_opinion($request)
     update_post_meta($id, $count_key, array_merge($count, array($key => $count[$key] + 1)));
     return get_post_meta($id, $count_key, true);
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/like", array("methods" => "POST", "callback" => "xm_opinion"));
+    register_rest_route("xm-blog/v1", "/like", array(
+        "methods"             => "POST",
+        "callback"            => "xm_opinion",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
@@ -203,7 +216,7 @@ add_action("rest_api_init", function () {
  */
 function xm_get_view_count($request)
 {
-    $postID = $request -> get_params()["id"];
+    $postID = $request->get_params()["id"];
     $count_key = "post_views_count";
     $count = get_post_meta($postID, $count_key, true);
     if ($count == "") {
@@ -216,8 +229,13 @@ function xm_get_view_count($request)
     }
     return $count;
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/view-count", array("methods" => "POST", "callback" => "xm_get_view_count",));
+    register_rest_route("xm-blog/v1", "/view-count", array(
+        "methods"             => "POST",
+        "callback"            => "xm_get_view_count",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
@@ -241,11 +259,16 @@ function xm_get_menu()
     }
     return array(
         "mainMenu" => $mainMenu,
-        "subMenu" => wp_get_nav_menu_items("SubMenu")
+        "subMenu"  => wp_get_nav_menu_items("SubMenu")
     );
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/menu", array("methods" => "GET", "callback" => "xm_get_menu"));
+    register_rest_route("xm-blog/v1", "/menu", array(
+        "methods"             => "GET",
+        "callback"            => "xm_get_menu",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
@@ -253,22 +276,27 @@ add_action("rest_api_init", function () {
  */
 function add_api_comment_metadata($request)
 {
-    $postID = $request -> get_params()["id"];
-    $key = $request -> get_params()["type"];
+    $postID = $request->get_params()["id"];
+    $key = $request->get_params()["type"];
     $result = get_metadata("comment", $postID, "opinion", true);
     return array(
         "success" => update_metadata("comment", $postID, "opinion", array_merge($result, array($key => $result[$key] + 1))),
-        "data" => get_metadata("comment", $postID, "opinion", true)
+        "data"    => get_metadata("comment", $postID, "opinion", true)
     );
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/update-comment-meta", array("methods" => "POST", "callback" => "add_api_comment_metadata"));
+    register_rest_route("xm-blog/v1", "/update-comment-meta", array(
+        "methods"             => "POST",
+        "callback"            => "add_api_comment_metadata",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
  * 获取说说列表
  */
-function add_api_get_phrase ()
+function add_api_get_phrase()
 {
     global $wpdb;
     $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish' ORDER BY post_date DESC");
@@ -282,22 +310,27 @@ function add_api_get_phrase ()
     }
     return array(
         "success" => true,
-        "data" => $result
+        "data"    => $result
     );
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/get-phrase", array("methods" => "get", "callback" => "add_api_get_phrase"));
+    register_rest_route("xm-blog/v1", "/get-phrase", array(
+        "methods"             => "get",
+        "callback"            => "add_api_get_phrase",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 /**
  * 获取链接列表
  */
-function add_api_get_links ($request)
+function add_api_get_links($request)
 {
     $type = $request->get_params()["type"];
     $arg = array(
-        "orderby" => "link_id",
-        "order" => "ASC",
+        "orderby"       => "link_id",
+        "order"         => "ASC",
         "category_name" => $type === "home" ? "首页" : ""
     );
     $list = get_bookmarks($arg);
@@ -313,8 +346,13 @@ function add_api_get_links ($request)
     }
     return $result;
 }
+
 add_action("rest_api_init", function () {
-    register_rest_route("xm-blog/v1", "/get-links", array("methods" => "get", "callback" => "add_api_get_links"));
+    register_rest_route("xm-blog/v1", "/get-links", array(
+        "methods"             => "get",
+        "callback"            => "add_api_get_links",
+        "permission_callback" => "__return_true"
+    ));
 });
 
 
@@ -328,18 +366,18 @@ function add_api_comment_meta_field()
         "get_callback" => function ($object) {
             global $colors;
             global $wpdb;
-            $result = $wpdb -> get_results("SELECT * FROM $wpdb->comments WHERE comment_ID = $object[id]");
+            $result = $wpdb->get_results("SELECT * FROM $wpdb->comments WHERE comment_ID = $object[id]");
             $author_email = $object[author_email] ? $object[author_email] : $result[0]->comment_author_email;
             preg_match("/\d/", md5($author_email), $matches);
-            $array = array(
-                "userAgent" => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
-                "vipStyle" => get_author_class($author_email),
+
+            return array(
+                "userAgent"          => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
+                "vipStyle"           => get_author_class($author_email),
                 "author_avatar_urls" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author_email))) . "?s=200",
-                "background" => $colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
+                "background"         => $colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
             );
-            return $array;
         },
-        "schema" => null
+        "schema"       => null
     ));
 
     register_rest_field("comment", "meta", array(
@@ -351,8 +389,9 @@ function add_api_comment_meta_field()
                 "opinion" => get_metadata("comment", $object[id], "opinion", true)
             );
         },
-        "schema" => null
+        "schema"       => null
     ));
 }
+
 add_action("rest_api_init", "add_api_comment_meta_field");
-?>
+
