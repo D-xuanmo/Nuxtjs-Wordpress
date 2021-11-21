@@ -30,6 +30,9 @@
   background: #fff;
   border-radius: 5px;
 }
+#custom-code-editor form {
+  margin-bottom: 10px;
+}
 #custom-code-editor form:before {
   content: "代码语言：";
   vertical-align: middle;

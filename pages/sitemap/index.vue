@@ -9,7 +9,7 @@
         <li v-for="item in articles" :key="item.id">
           <x-icon type="icon-arrow-right-f" />
           <a :href="`${blogInfo.domain}/details/${item.id}`" target="_blank">{{ item.title }}</a>
-          <span class="fr create-time">{{ item.createTime }}</span>
+          <time class="fr create-time">{{ item.createTime }}</time>
         </li>
       </ul>
     </section>
@@ -20,7 +20,7 @@
         <li v-for="item in pages" :key="item.id">
           <x-icon type="icon-arrow-right-f" />
           <a :href="`${blogInfo.domain}/page/${item.id}`" target="_blank">{{ item.title }}</a>
-          <span class="fr create-time">{{ item.createTime }}</span>
+          <time class="fr create-time">{{ item.createTime }}</time>
         </li>
       </ul>
     </section>
