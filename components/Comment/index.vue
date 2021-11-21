@@ -277,7 +277,7 @@ export default {
       const aOperator = ['+', '-', '*']
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.font = '40px Microsoft Yahei'
-      ctx.fillStyle = '#333'
+      ctx.fillStyle = '#000'
       ctx.textAlign = 'center'
       ctx.fillText(`${nRandom1} ${aOperator[nRandomResult]} ${nRandom2} = ?`, 120, 50)
       this.random = {
