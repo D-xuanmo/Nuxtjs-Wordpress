@@ -4,7 +4,7 @@
     <div class="breadcrumb-nav">当前位置：<nuxt-link to="/">{{ blogInfo.blogName }}</nuxt-link> > 站点地图</div>
 
     <section>
-      <header>最新文章</header>
+      <header>文章</header>
       <ul>
         <li v-for="item in articles" :key="item.id">
           <x-icon type="icon-arrow-right-f" />
@@ -15,33 +15,30 @@
     </section>
 
     <section>
-      <header>单页面</header>
-      <ul>
-        <li v-for="item in pages" :key="item.id">
-          <x-icon type="icon-arrow-right-f" />
+      <header>页面</header>
+      <ul class="list-wrap inline">
+        <li v-for="item in pages" :key="item.id" class="list-item">
           <a :href="`${blogInfo.domain}/page/${item.id}`" target="_blank">{{ item.title }}</a>
-          <time class="fr create-time">{{ item.createTime }}</time>
         </li>
       </ul>
     </section>
 
     <section>
       <header>文章分类</header>
-      <ul>
-        <li v-for="item in category" :key="item.id">
-          <x-icon type="icon-arrow-right-f" />
+      <ul class="list-wrap inline">
+        <li v-for="item in category" :key="item.id" class="list-item">
           <a :href="`${blogInfo.domain}/category/1?type=${item.id}&title=${item.title}`" target="_blank">{{ item.title }}</a>
         </li>
       </ul>
     </section>
 
     <section>
-      <header>所有标签</header>
+      <header>标签</header>
       <ul class="list-wrap inline">
         <li v-for="item in tags" :key="item.id" class="tag-item">
           <a :href="`${blogInfo.domain}/tags/1?type=${item.id}&title=${item.title}`" target="_blank">
             {{ item.title }}
-            <span>（{{ item.count }}）</span>
+            <span class="tag-item__count">({{ item.count }})</span>
           </a>
         </li>
       </ul>
@@ -118,11 +115,19 @@ section {
       flex-wrap: wrap;
     }
 
+    .list-item {
+      margin-right: 10px;
+    }
+
     .tag-item {
       margin: 0 8px 8px 0;
-      padding: 2px 5px;
+      padding: 0 5px;
       border: 1px solid var(--color-border);
       border-radius: 3px;
+
+      &__count {
+        font-family: "play";
+      }
     }
   }
 
