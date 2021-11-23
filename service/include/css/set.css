@@ -1,121 +1,143 @@
 :root {
-  --theme: #1890ff;
-  --borderColor: #ccc;
+    --theme: #1890ff;
+    --borderColor: #ccc;
 }
 
 *,
 input[type=checkbox],
 input[type=radio] {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .fl {
-  float: left;
+    float: left;
 }
 
 .fr {
-  float: right;
+    float: right;
 }
 
 .clearfix:after {
-  content: "";
-  display: block;
-  height: 0;
-  clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
 }
 
 .container {
-  padding: 10px;
+    padding: 10px;
 }
 
 /* tab切换 */
 .tab-wrapper {
-  position: relative;
-  display: flex;
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--borderColor);
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .tab-wrapper .line {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 46px;
-  height: 2px;
-  margin-bottom: 0;
-  background: var(--theme);
-  transition: .5s;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 46px;
+    height: 2px;
+    margin-bottom: 0;
+    background: var(--theme);
+    transition: .5s;
 }
 
 .tab-wrapper .item {
-  margin-bottom: 0;
-  padding: 5px 10px;
-  cursor: pointer;
+    margin-bottom: 0;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .tab-wrapper .item.is-active {
-  color: var(--theme);
+    color: var(--theme);
 }
 
 /* 表单 */
 .form-item {
-  display: flex;
-  margin-bottom: 10px;
-  padding: 10px 0;
-  border-bottom: 1px dashed var(--borderColor);
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--borderColor);
 }
 
 .form-item-group {
-  border-bottom: 1px dashed var(--borderColor);
+    border-bottom: 1px dashed var(--borderColor);
 }
+
 .form-item-group .form-item {
-  border-bottom: 0;
+    border-bottom: 0;
 }
 
 .form-item-title {
-  width: 150px;
-  margin: 0 10px 0 0;
-  text-align: right;
+    width: 150px;
+    margin: 0 10px 0 0;
+    text-align: right;
 }
 
 .form-item-content {
-  flex: 1;
+    flex: 1;
 }
 
 .form-item-content input {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .content-item {
-  display: none;
+    display: none;
 }
 
 .content-item:first-of-type {
-  display: block;
+    display: block;
 }
 
 .input-inner {
-  width: 500px;
+    width: 500px;
+}
+
+.input-inner--textarea {
+    width: 90%;
 }
 
 .friendship-link {
-  width: 700px;
+    width: 700px;
 }
 
 .preview-img {
-  max-width: 200px;
+    max-width: 200px;
 }
 
 .btn-submit {
-  display: block;
-  width: 200px;
-  height: 40px;
-  margin-top: 20px;
-  border: 0;
-  outline: 0;
-  background: var(--theme);
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin-top: 20px;
+    border: 0;
+    outline: 0;
+    background: var(--theme);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn {
+    margin-left: 4px;
+    padding: 4px 8px;
+    position: relative;
+    top: -3px;
+    text-decoration: none;
+    border: 1px solid #2271b1;
+    border-radius: 2px;
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: normal;
+    color: #2271b1;
+    background: #f6f7f7;
+    cursor: pointer;
 }

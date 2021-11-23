@@ -14,20 +14,24 @@ require_once(TEMPLATEPATH . '/utils.php');
 // 编辑器扩展功能
 require_once(TEMPLATEPATH . '/include/insert-code.php');
 
+// 邮件通知功能
+require_once(TEMPLATEPATH . '/include/email_notify.php');
+
+// 企业微信通知功能
+require_once(TEMPLATEPATH . '/include/qywx_notify.php');
+
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
 
 // Redirect all requests to index.php so the Vue app is loaded and 404s aren't thrown
-function remove_redirects()
-{
+function remove_redirects() {
     add_rewrite_rule('^/(.+)/?', 'index.php', 'top');
 }
 
 add_action('init', 'remove_redirects');
 
 // 移除后台左上角logo信息
-function xm_admin_bar_remove()
-{
+function xm_admin_bar_remove() {
     global $wp_admin_bar;
     $wp_admin_bar->remove_menu('wp-logo');
 }
@@ -35,8 +39,7 @@ function xm_admin_bar_remove()
 add_action('wp_before_admin_bar_render', 'xm_admin_bar_remove', 0);
 
 // 顶部添加自定义菜单
-function toolbar_link_to_mypage($wp_admin_bar)
-{
+function toolbar_link_to_mypage($wp_admin_bar) {
     $wp_admin_bar->add_node(array(
         'id'    => 'my_page',
         'title' => '🎉查看站点',
@@ -68,8 +71,7 @@ add_action('admin_bar_menu', 'toolbar_link_to_mypage', 999);
 /**
  * 删出查看站点等菜单
  */
-function my_prefix_remove_admin_bar_item($wp_admin_bar)
-{
+function my_prefix_remove_admin_bar_item($wp_admin_bar) {
     $wp_admin_bar->remove_node('site-name');
 }
 
@@ -93,8 +95,7 @@ add_theme_support('post-thumbnails');
 /**
  * 禁止emoji表情
  */
-function disable_emojis()
-{
+function disable_emojis() {
     remove_action('wp_head', 'print_emoji_detection_script', 7);
     remove_action('admin_print_scripts', 'print_emoji_detection_script');
     remove_action('wp_print_styles', 'print_emoji_styles');
@@ -105,8 +106,7 @@ function disable_emojis()
     add_filter('tiny_mce_plugins', 'disable_emojis_tinymce');
 }
 
-function disable_emojis_tinymce($plugins)
-{
+function disable_emojis_tinymce($plugins): array {
     if (is_array($plugins)) {
         return array_diff($plugins, array('wpemoji'));
     } else {
@@ -117,8 +117,7 @@ function disable_emojis_tinymce($plugins)
 add_action('init', 'disable_emojis');
 
 // 添加发布说说功能
-function add_phrase()
-{
+function add_phrase() {
     $labels = array(
         'name'               => '说说',
         'singular_name'      => 'singularname',
@@ -159,8 +158,7 @@ add_filter('pre_option_link_manager_enabled', '__return_true');
 /**
  * 设置摘要
  */
-function xm_get_post_excerpt($length, $str)
-{
+function xm_get_post_excerpt($length, $str) {
     $post_content = wp_strip_all_tags(get_post()->post_content, true);
     $post_excerpt = get_post()->post_excerpt;
     return (bool)get_option('xm_vue_options')['article_auto_summary'] || $post_excerpt == '' ? wp_trim_words($post_content, $length, $str) : $post_excerpt;
@@ -179,8 +177,7 @@ add_filter('login_headertext', function () {
 /*
  * 自定义登录页面的LOGO图片
  */
-function my_custom_login_logo()
-{
+function my_custom_login_logo() {
     echo '
         <style>
         .login h1 a {
@@ -197,8 +194,7 @@ add_action('login_head', 'my_custom_login_logo');
 /**
  * 给用户添加自定义字段
  */
-function xm_user_contact($user_contactmethods)
-{
+function xm_user_contact($user_contactmethods) {
     unset($user_contactmethods['aim']);
     unset($user_contactmethods['yim']);
     unset($user_contactmethods['jabber']);
@@ -217,8 +213,7 @@ add_filter('user_contactmethods', 'xm_user_contact');
  * 解决php添加分号斜杠问题
  */
 if (get_magic_quotes_gpc()) {
-    function stripslashes_deep($value)
-    {
+    function stripslashes_deep($value) {
         $value = is_array($value) ?
             array_map('stripslashes_deep', $value) :
             stripslashes($value);
@@ -238,8 +233,7 @@ add_filter('rest_allow_anonymous_comments', '__return_true');
 /*
  * 自定义表情路径和名称
  */
-function xm_custom_smilies_src($img_src, $img)
-{
+function xm_custom_smilies_src($img_src, $img) {
     return get_option("xm_vue_options")["domain"] . '/images/smilies/' . $img;
 }
 
@@ -248,8 +242,7 @@ add_filter('smilies_src', 'xm_custom_smilies_src', 10, 2);
 // 关闭自带表情
 // add_filter('option_use_smilies', '__return_false');
 
-function xm_custom_smilies_conversion()
-{
+function xm_custom_smilies_conversion() {
     global $wpsmiliestrans;
     if (!isset($wpsmiliestrans)) {
         $wpsmiliestrans = array(
@@ -458,8 +451,7 @@ add_action('init', 'xm_custom_smilies_conversion', 3);
 /*
  * 评论区@功能
  */
-function comment_add_at($comment_text, $comment = '')
-{
+function comment_add_at($comment_text, $comment = '') {
     if ($comment->comment_parent > 0) {
         $comment_text = '@<a href="#comment-' . $comment->comment_parent . '" class="c-theme">' . get_comment_author($comment->comment_parent) . '</a> ' . $comment_text;
     }
@@ -471,176 +463,14 @@ add_filter('comment_text', 'comment_add_at', 20, 2);
 /**
  * 非管理员上传图片
  */
-function comments_embed_img($comment)
-{
-    $comment = preg_replace('/(\[img\]\s*(\S+)\s*\[\/img\])+/', '<img src="$2" style="vertical-align: bottom; max-width: 40%; max-height: 250px;" />', $comment);
-    return $comment;
+function comments_embed_img($comment) {
+    return preg_replace('/(\[img\]\s*(\S+)\s*\[\/img\])+/', '<img src="$2" style="vertical-align: bottom; max-width: 40%; max-height: 250px;" />', $comment);
 }
 
 add_action('comment_text', 'comments_embed_img');
 
-/**
- * 邮件回复
- */
-function ludou_comment_mail_notify($comment_id, $comment_status)
-{
-    // 评论必须经过审核才会发送通知邮件
-    if ($comment_status !== 'approve' && $comment_status !== 1) {
-        return;
-    }
-    $comment = get_comment($comment_id);
-    if ($comment->comment_parent != '0') {
-        $parent_comment = get_comment($comment->comment_parent);
-        // 邮件接收者email
-        $to = trim($parent_comment->comment_author_email);
-
-        // 邮件标题
-        $subject = '您在[' . get_option("blogname") . ']的留言有了新的回复!';
-
-        // 页面类型
-        $pageType = '';
-        if (get_post($comment->comment_post_ID)->post_type === 'post') {
-            $pageType = 'details';
-        } elseif (get_post($comment->comment_post_ID)->post_type === 'page') {
-            $pageType = 'page';
-        }
-
-        // 邮件内容，自行修改，支持HTML
-        $message = '
-            <style>
-            #container {
-              width: 90%;
-              margin: 20px auto;
-              border: 1px solid #e9eaed;
-              border-radius: 10px;
-              box-shadow: 0 0 10px rgba(0,0,0,.2);
-              overflow: hidden;
-            }
-            #container * {
-                font-size: PingFangSC-Regular,Microsoft Yahei;
-            }
-            #container a {
-              color: #ffffff;
-            }
-            .header {
-              height: 60px;
-              padding: 0 15px;
-              background: #ff7a8a;
-              background: -webkit-linear-gradient(to right, #00dbde, #ff7a8a);
-              background: linear-gradient(to right, #00dbde, #ff7a8a);
-              color: #ffffff;
-              line-height: 60px;
-            }
-            .comment-content {
-              padding: 15px;
-              background-color: #f9f6f2;
-              border-radius: 5px;
-            }
-          </style>
-          <div id="container">
-            <div class="header">您在 <a href="' . get_option('xm_vue_options')['domain'] . '">' . get_option('blogname') . ' </a> 的留言有新回复啦！</div>
-            <div style="width:90%; margin:0 auto">
-              <p><strong>' . $parent_comment->comment_author . '</strong> 您好!</p>
-
-              <p>您在 [' . get_option('blogname') . '] 的文章<strong>《' . get_the_title($comment->comment_post_ID) . '》</strong>上发表的评论有新回复啦，快来看看吧 ^_^:</p>
-
-              <p>这是您的评论:</p>
-
-              <div class="comment-content">' . xm_output_smiley($parent_comment->comment_content) . '</div>
-
-              <p><strong>' . $comment->comment_author . '</strong> 给您的回复是:</p>
-
-              <div class="comment-content">' . xm_output_smiley($comment->comment_content) . '</div>
-
-              <p>您也可移步到文章<a style="text-decoration:none; color:#1890ff" href="' . get_option('xm_vue_options')['domain'] . '/' . $pageType . '/' . $comment->comment_post_ID . '"> 《' . get_the_title($comment->comment_post_ID) . '》 </a>查看完整回复内容</p>
-
-              <p style="padding-bottom: 10px; border-bottom: 1px dashed #ccc;">欢迎再次光临 <a style="text-decoration:none; color:#1890ff" href="' . get_option('xm_vue_options')['domain'] . '">' . get_option('blogname') . '</a></p>
-
-              <p style="font-size: 12px;color: #f00;">(注：此邮件由系统自动发出, 请勿回复。)</p>
-            </div>
-          </div>
-        ';
-        $message_headers = "Content-Type: text/html; charset=\"" . get_option('blog_charset') . "\"\n";
-        // 不用给不填email的评论者和管理员发提醒邮件
-        if ($to != '' && $to != get_bloginfo('admin_email')) {
-            wp_mail($to, $subject, $message, $message_headers);
-        }
-    }
-}
-
-// 编辑和管理员的回复直接发送提醒邮件，因为编辑和管理员的评论不需要审核
-add_action('comment_post', 'ludou_comment_mail_notify', 20, 2);
-// 普通访客发表的评论，等博主审核后再发送提醒邮件
-add_action('wp_set_comment_status', 'ludou_comment_mail_notify', 20, 2);
-
-// 修改发件人名字为博客名字
-function xm_new_from_name($email)
-{
-    return get_option('blogname');
-}
-
-add_filter('wp_mail_from_name', 'xm_new_from_name');
-
-// 有人评论时通知管理员
-function xm_new_comment($comment_id)
-{
-    $to = get_bloginfo('admin_email');
-    $comment = get_comment($comment_id);
-    $title = '[' . get_option('blogname') . '] 新评论："' . get_the_title($comment->comment_post_ID) . '"';
-    $message = '
-        <style>
-        #container {
-          width: 90%;
-          margin: 20px auto;
-          border: 1px solid #e9eaed;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0,0,0,.2);
-          overflow: hidden;
-        }
-        #container * {
-            font-size: PingFangSC-Regular,Microsoft Yahei;
-        }
-        .header {
-          height: 60px;
-          padding: 0 15px;
-          background: #ff7a8a;
-          background: -webkit-linear-gradient(to right, #00dbde, #ff7a8a);
-          background: linear-gradient(to right, #00dbde, #ff7a8a);
-          color: #ffffff;
-          line-height: 60px;
-        }
-        .header a {
-          color: #ffffff;
-        }
-        .comment-content {
-          padding: 15px;
-          background-color: #f9f6f2;
-          border-radius: 5px;
-        }
-      </style>
-      <div id="container">
-        <div class="header">您的文章：《' . get_the_title($comment->comment_post_ID) . '》有新评论啦！</div>
-        <div style="width:90%; margin:0 auto">
-          <p>作者：' . $comment->comment_author . '</p>
-          <p>电子邮箱：' . $comment->comment_author_email . '</p>
-          <p>URL：' . $comment->comment_author_url . '</p>
-          <p>评论内容：</p>
-          <p class="comment-content">' . xm_output_smiley($comment->comment_content) . '</p>
-        </div>
-      </div>
-    ';
-    $message_headers = "Content-Type: text/html; charset=utf-8;";
-    // 为新评论时才发送邮件
-    if ($comment->comment_approved == 0 && $to != '') {
-        wp_mail($to, $title, $message, $message_headers);
-    }
-}
-
-add_action('wp_insert_comment', 'xm_new_comment');
-
 // 添加svg文件上传
-function xm_upload_mimes($mimes = array())
-{
+function xm_upload_mimes($mimes = array()) {
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
 }
@@ -648,18 +478,16 @@ function xm_upload_mimes($mimes = array())
 add_filter('upload_mimes', 'xm_upload_mimes');
 
 //新建或更新文章时移除 noreferrer
-function xm_targeted_link_rel_remove_noreferrer($rel_values)
-{
+function xm_targeted_link_rel_remove_noreferrer($rel_values) {
     return preg_replace('/noreferrer\s*/i', '', $rel_values);
 }
 
 add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noreferrer', 999);
 
 //新建或更新文章时移除 noopener
-function xm_targeted_link_rel_remove_noopener($rel_values)
-{
+function xm_targeted_link_rel_remove_noopener($rel_values) {
     return preg_replace('/noopener\s*/i', '', $rel_values);
 }
 
 add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noopener', 999);
-?>
+
