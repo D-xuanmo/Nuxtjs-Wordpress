@@ -579,11 +579,6 @@ function themeoptions_page() {
                                 value="<?php echo $xm_qywx_secret['qywx_user_id']; ?>"
                         >
                     </div>
-
-                    <div class="form-item">
-                        <p class="form-item-title"></p>
-                        <button id="qywx-test" class="btn">测试推送</button>
-                    </div>
                 </li>
             </ul>
             <div class="btn-wrap">

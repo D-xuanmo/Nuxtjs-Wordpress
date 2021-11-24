@@ -53,6 +53,8 @@ function qywx_notify($content) {
 
     // token 过期重新获取
     if (json_decode($output)->errcode == 42001) {
-        get_access_token(true);
+        curl_setopt($ch, CURLOPT_URL, "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" . get_access_token(true));
+        curl_exec($ch);
+        curl_close($ch);
     }
 }
