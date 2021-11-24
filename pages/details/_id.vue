@@ -9,7 +9,8 @@
             <x-icon type="icon-about"></x-icon>{{ detail.articleInfor.author }}
           </span>
           <time class="time m-l-5px keep-all">
-            <x-icon type="icon-date"></x-icon>{{ detail.date }}
+            <x-icon type="icon-date"></x-icon>
+            {{ detail.date }}
           </time>
         </p>
         <p>
@@ -18,7 +19,8 @@
             class="classify"
             v-for="(item, index) in detail.articleInfor.classify"
             :key="item.key"
-            v-html="index === detail.articleInfor.classify.length - 1 ? item.name : `${item.name}、`">
+            v-html="index === detail.articleInfor.classify.length - 1 ? item.name : `${item.name}、`"
+          >
           </span>
           <span class="m-l-5px">
             <x-icon type="icon-hot1"></x-icon>{{ viewCount }}
@@ -52,13 +54,22 @@
       <!-- 分享开始 -->
       <div class="share align-center">
         <span class="text">分享到：</span>
-        <a :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`" target="_blank">
+        <a
+          :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`"
+          target="_blank"
+        >
           <svg-icon iconName="#icon-QQ"></svg-icon>
         </a>
-        <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`" target="_blank">
+        <a
+          :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`"
+          target="_blank"
+        >
           <svg-icon iconName="#icon-Qzone"></svg-icon>
         </a>
-        <a :href="`https://service.weibo.com/share/share.php?url=${info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`" target="_blank">
+        <a
+          :href="`https://service.weibo.com/share/share.php?url=${info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`"
+          target="_blank"
+        >
           <svg-icon iconName="#icon-xinlang"></svg-icon>
         </a>
         <a href="javascript:;" class="create-poster-btn" @click="isShowPoster = true">
@@ -70,7 +81,10 @@
       <!-- 标签开始 -->
       <div class="tag-wrap align-center">
         <x-icon type="icon-tag" class="vertical-middle" v-show="detail.articleInfor.tags.length"></x-icon>
-        <span v-for="(item, index) in detail.articleInfor.tags" :key="item.key" v-html="index === detail.articleInfor.tags.length - 1 ? item.name : `${item.name}、`"></span>
+        <span
+          v-for="(item, index) in detail.articleInfor.tags" :key="item.key"
+          v-html="index === detail.articleInfor.tags.length - 1 ? item.name : `${item.name}、`"
+        ></span>
       </div>
       <!-- 标签结束 -->
 
@@ -78,11 +92,19 @@
       <div class="relative-link-wrap">
         <div class="prev">
           <p v-if="detail.articleInfor.prevLink === ''">已是第一篇文章！</p>
-          <p v-else>上一篇：<nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.prevLink.ID } }">{{ detail.articleInfor.prevLink.post_title }}</nuxt-link></p>
+          <p v-else>上一篇：
+            <nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.prevLink.ID } }">
+              {{ detail.articleInfor.prevLink.post_title }}
+            </nuxt-link>
+          </p>
         </div>
         <div class="next">
           <p v-if="detail.articleInfor.nextLink === ''">已是最后一篇文章！</p>
-          <p v-else>下一篇：<nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.nextLink.ID } }">{{ detail.articleInfor.nextLink.post_title }}</nuxt-link></p>
+          <p v-else>下一篇：
+            <nuxt-link :to="{ name: 'details-id', params: { id: detail.articleInfor.nextLink.ID } }">
+              {{ detail.articleInfor.nextLink.post_title }}
+            </nuxt-link>
+          </p>
         </div>
       </div>
       <!-- 切换结束 -->
@@ -96,10 +118,13 @@
         <div class="header">
           <img :src="detail.articleInfor.other.authorPic" class="phone-show" width="25">
           <p class="inline-block name">
-            作者简介：<x-icon type="icon-about-f" /> <span class="f-s-14px">{{ detail.articleInfor.author }}</span>
+            作者简介：
+            <x-icon type="icon-about-f" />
+            <span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
           <div v-if="info.isOpenReward" class="reward" @click="isShowReward = true">
-            <svg-icon iconName="#icon-dashang" /> 打赏
+            <svg-icon iconName="#icon-dashang" />
+            打赏
           </div>
           <!-- 打赏详情 -->
           <reward v-model="isShowReward" :content="rewardContent"></reward>
@@ -132,12 +157,12 @@
     <div class="section comment">
       <h2 class="comment-title" v-html="`共 ${detail.articleInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
       <client-only>
-        <comments :comment-status="detail.comment_status"/>
+        <comments :comment-status="detail.comment_status" />
       </client-only>
     </div>
     <!-- 生成海报 -->
     <client-only placeholder="Loading...">
-      <create-poster v-model="isShowPoster" :content="posterContent"/>
+      <create-poster v-model="isShowPoster" :content="posterContent" />
     </client-only>
   </section>
 </template>
@@ -147,10 +172,11 @@ import Comments from '~/components/Comment'
 import Reward from '~/components/Reward'
 import CreatePoster from '~/components/CreatePoster'
 import XIcon from '../../components/Icon/main'
+
 export default {
   name: 'Details',
   layout: 'page',
-  fetch ({ params, error, store }) {
+  fetch({ params, error, store }) {
     store.dispatch('article/updateArticleViewCount', { id: params.id })
     return store.dispatch('article/getArticleDetail', params.id)
   },
@@ -160,7 +186,7 @@ export default {
     Reward,
     CreatePoster
   },
-  data () {
+  data() {
     return {
       isReadingMode: false,
       isShowReward: false,
@@ -191,7 +217,7 @@ export default {
     ...mapState(['info']),
     ...mapState('article', ['detail', 'viewCount', 'opinion'])
   },
-  head () {
+  head() {
     const keywords = []
     this.detail.articleInfor.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
     return {
@@ -205,7 +231,7 @@ export default {
       ]
     }
   },
-  created () {
+  created() {
     this.fullPath = `${this.info.domain.replace(/\/$/, '')}${this.$route.path}`
     const other = this.detail.articleInfor.other
 
@@ -222,7 +248,7 @@ export default {
       wechatpay: this.info.wechatpay
     }
   },
-  mounted () {
+  mounted() {
     // 海报内容
     this.posterContent = {
       imgUrl: this.detail.articleInfor.thumbnail,
@@ -237,7 +263,7 @@ export default {
     // eslint-disable-next-line
     process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
   },
-  beforeDestroy () {
+  beforeDestroy() {
     document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
   },
   methods: {
@@ -245,7 +271,7 @@ export default {
     ...mapActions('article', ['updateOpinion']),
 
     // 发表意见
-    async _updateOpinion (key) {
+    async _updateOpinion(key) {
       if (localStorage.getItem(`xm_link_${this.$route.params.id}`)) {
         this.$message({
           title: '您已经发表过意见了！',
@@ -269,7 +295,7 @@ export default {
     },
 
     // 显示微信号码
-    _showWechatNum (num) {
+    _showWechatNum(num) {
       this.$message({
         title: `微信号：${num}`,
         showClose: true,
@@ -344,7 +370,7 @@ export default {
       color: $color-theme;
     }
 
-    ::v-deep h2{
+    ::v-deep h2 {
       margin-top: 10px;
 
       .iconfont {
@@ -353,13 +379,13 @@ export default {
     }
 
     ::v-deep h1,
-    ::v-deep h2{
+    ::v-deep h2 {
       font-size: $font-size-large;
     }
 
     ::v-deep h4,
     ::v-deep h5,
-    ::v-deep h6{
+    ::v-deep h6 {
       font-size: $font-size-small;
     }
 
@@ -522,7 +548,7 @@ export default {
   }
 }
 
-@media screen and (max-width:767px) {
+@media screen and (max-width: 767px) {
   .opinion {
     justify-content: space-between;
 
