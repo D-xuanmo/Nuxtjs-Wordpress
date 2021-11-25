@@ -491,8 +491,12 @@ function xm_targeted_link_rel_remove_noopener($rel_values) {
 
 add_filter('wp_targeted_link_rel', 'xm_targeted_link_rel_remove_noopener', 999);
 
-function custom_preview_link() {
-    return get_option("xm_vue_options")["domain"] . "/detail/" . get_the_ID() . "?preview=true";
+/**
+ * 修改预览链接地址
+ * @return string
+ */
+function xm_custom_preview_link() {
+    return get_option("xm_vue_options")["domain"] . "/details/" . get_the_ID() . "?preview=true";
 }
 
-add_filter('preview_post_link', 'custom_preview_link');
+add_filter('preview_post_link', 'xm_custom_preview_link');
