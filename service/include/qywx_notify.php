@@ -8,14 +8,15 @@ function get_access_token($reload) {
 
     if (!$secret) return null;
 
-    $token = get_option('xm_qywx_access_token');
-    if ($reload) $token = '';
-    if (!$token) {
+    $token = $reload ? "" : get_option('xm_qywx_access_token');
+
+    // 如果为空重新请求 token
+    if (empty($token)) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=" . $secret['qywx_id'] . "&corpsecret=" . $secret['qywx_secret']);
-        $response = json_decode(json_encode(curl_exec($ch)));
+        $response = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($response);
         update_option('xm_qywx_access_token', $data->access_token);
@@ -49,12 +50,11 @@ function qywx_notify($content) {
 
     $output = curl_exec($ch);
 
-    curl_close($ch);
-
     // token 过期重新获取
     if (json_decode($output)->errcode == 42001) {
         curl_setopt($ch, CURLOPT_URL, "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" . get_access_token(true));
         curl_exec($ch);
-        curl_close($ch);
     }
+
+    curl_close($ch);
 }
