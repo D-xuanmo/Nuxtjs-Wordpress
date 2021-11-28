@@ -299,7 +299,7 @@ export default {
       }
 
       img {
-        height: 46px;
+        height: 50px;
         vertical-align: top;
       }
     }
@@ -316,6 +316,7 @@ export default {
   }
 
   .result-img {
+    margin-top: var(--base-gap);
     img {
       max-width: 300px;
       max-height: 350px;

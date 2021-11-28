@@ -7,7 +7,7 @@ chmod(__FILE__, 0777);
 
 // 拼接当前图片的路径
 $id = $_POST["postID"];
-$uploadFilePath = dirname(__FILE__, 3);
+$uploadFilePath = dirname(__FILE__, 4);
 $currentPath = "/uploads/comments/$id/";
 $fullPath = $uploadFilePath . $currentPath;
 
@@ -19,7 +19,7 @@ $response = new Response();
 
 if ($is_empyt_file) {
     if ($_POST["mark"] === "close") {
-        $file_path = dirname(__FILE__, 3) . $currentPath . $_POST["fileName"];
+        $file_path = dirname(__FILE__, 4) . $currentPath . $_POST["fileName"];
         if (!file_exists($file_path)) {
             $response->setResponse(array(
                 "deleted" => false
