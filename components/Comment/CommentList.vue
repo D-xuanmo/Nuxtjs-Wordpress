@@ -43,14 +43,16 @@
             <div v-html="item.content" />
             <p v-if="!item.isApproved" class="comment-list-item--approved">您的评论正在等待审核</p>
             <div class="comment-list-item--footer">
-              <p style="display: flex">
+              <p class="comment-list-item__app">
                 <span class="comment-list-item--app-icon">
                   <svg-icon :iconName="APP_ICONS[item.userAgent.os]" />
-                  <span>{{ item.userAgent.os }} {{ item.userAgent.osVersion }}</span>
+                  <span class="desktop-show">{{ item.userAgent.os }}&nbsp;</span>
+                  <span>{{ item.userAgent.osVersion }}</span>
                 </span>
                 <span class="comment-list-item--app-icon">
                   <svg-icon :iconName="APP_ICONS[item.userAgent.browser]" />
-                  <span>{{ item.userAgent.browserZH }} {{ item.userAgent.browserVersion }}</span>
+                  <span class="desktop-show">{{ item.userAgent.browserZH }}&nbsp;</span>
+                  <span>{{ item.userAgent.browserVersion.replace(/(\d+\.\d+).*/, '$1') }}</span>
                 </span>
               </p>
               <p></p>
@@ -184,6 +186,10 @@ export default {
       margin-top: var(--base-gap);
     }
 
+    &__app {
+      display: flex;
+    }
+
     &--app-icon {
       display: flex;
       align-items: center;
@@ -199,6 +205,18 @@ export default {
         vertical-align: middle;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .comment-list-wrapper {
+    &.is-child {
+      padding-left: 40px;
+    }
+  }
+
+  .comment-list-item__avatar {
+    display: none;
   }
 }
 </style>
