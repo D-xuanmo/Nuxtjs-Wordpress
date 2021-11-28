@@ -312,7 +312,7 @@ export default {
       margin-bottom: var(--small-gap);
 
       &-wrapper {
-        width: calc((100% - 200px) / 4 - var(--large-gap));
+        width: calc((100% - 250px) / 3 - var(--large-gap));
 
         & + .comment-form-input-wrapper {
           margin-left: var(--base-gap);
@@ -371,7 +371,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .comment {
     &-form {
       &-input {

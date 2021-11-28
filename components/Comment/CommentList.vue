@@ -33,13 +33,28 @@
 
             <div class="comment-list-item--reply">
               <time>{{ item.createTime }}</time>
-              <a class="comment-list-item--reply-btn" @click="() => SET_COMMENT_CURRENT_FORM_ID(item.id)">回复</a>
+              <a class="comment-list-item--reply-btn" @click="() => SET_COMMENT_CURRENT_FORM_ID(item.id)">
+                <x-icon type="icon-send" /> 回复
+              </a>
             </div>
           </header>
 
           <div class="comment-list-item--content">
             <div v-html="item.content" />
             <p v-if="!item.isApproved" class="comment-list-item--approved">您的评论正在等待审核</p>
+            <div class="comment-list-item--footer">
+              <p style="display: flex">
+                <span class="comment-list-item--app-icon">
+                  <svg-icon :iconName="APP_ICONS[item.userAgent.os]" />
+                  <span>{{ item.userAgent.os }} {{ item.userAgent.osVersion }}</span>
+                </span>
+                <span class="comment-list-item--app-icon">
+                  <svg-icon :iconName="APP_ICONS[item.userAgent.browser]" />
+                  <span>{{ item.userAgent.browserZH }} {{ item.userAgent.browserVersion }}</span>
+                </span>
+              </p>
+              <p></p>
+            </div>
           </div>
 
           <comment-form
@@ -48,7 +63,7 @@
             :parent-id="isChild ? item.parentId : item.id"
             is-child
           />
-          <comment-list :list="item.children" is-child />
+          <comment-list v-if="item.children" :list="item.children" is-child />
         </div>
       </li>
     </ul>
@@ -58,6 +73,7 @@
 <script>
 import { mapMutations } from 'vuex'
 import CommentForm from './CommentForm'
+import { APP_ICONS } from '../../constants'
 
 export default {
   name: 'CommentList',
@@ -76,6 +92,12 @@ export default {
     isChild: {
       type: Boolean,
       default: false
+    }
+  },
+
+  data() {
+    return {
+      APP_ICONS
     }
   },
 
@@ -156,6 +178,26 @@ export default {
     &--approved {
       margin-top: var(--small-gap);
       font-size: 12px;
+    }
+
+    &--footer {
+      margin-top: var(--base-gap);
+    }
+
+    &--app-icon {
+      display: flex;
+      align-items: center;
+
+      & + .comment-list-item--app-icon {
+        margin-left: var(--base-gap);
+      }
+
+      svg {
+        width: 15px;
+        height: 15px;
+        margin-right: var(--small-gap);
+        vertical-align: middle;
+      }
     }
   }
 }

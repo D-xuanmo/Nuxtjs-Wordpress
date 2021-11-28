@@ -30,8 +30,10 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
-    data.userAgent = ua(data.ua).info
-    state.commentList.unshift(data)
+    state.commentList.unshift({
+      ...data,
+      userAgent: ua(data.ua)
+    })
   },
 
   [UPDATE_COMMENT_OPINION] (state, { index, data }) {
@@ -60,7 +62,11 @@ export const actions = {
       })
       commit(SET_COMMENT_LIST, data.map(item => ({
         ...item,
-        userAgent: ua(item.ua).info
+        userAgent: ua(item.ua),
+        children: item.children.map(child => ({
+          ...child,
+          userAgent: ua(child.ua)
+        }))
       })))
       commit(SET_COMMENT_TOTAL, totalPage)
       return Promise.resolve(data)

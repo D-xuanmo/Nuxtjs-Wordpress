@@ -14,7 +14,7 @@ export default {
     ],
     script: [
       // 彩色图标
-      { src: 'https://at.alicdn.com/t/font_556506_p9s079i01ii.js' },
+      { src: 'https://at.alicdn.com/t/font_556506_hul5i323p3s.js' },
       { src: '/js/prism.js' },
       // 百度主推文章收录用
       { src: 'https://zz.bdstatic.com/linksubmit/push.js' },

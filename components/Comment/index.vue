@@ -132,6 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 .comment-list-more-btn {
+  margin-top: var(--large-gap);
   .iconfont {
     font-size: 16px;
   }

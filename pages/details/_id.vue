@@ -58,22 +58,22 @@
           :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`"
           target="_blank"
         >
-          <svg-icon iconName="#icon-QQ"></svg-icon>
+          <svg-icon iconName="icon-QQ"></svg-icon>
         </a>
         <a
           :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`"
           target="_blank"
         >
-          <svg-icon iconName="#icon-Qzone"></svg-icon>
+          <svg-icon iconName="icon-Qzone"></svg-icon>
         </a>
         <a
           :href="`https://service.weibo.com/share/share.php?url=${info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`"
           target="_blank"
         >
-          <svg-icon iconName="#icon-xinlang"></svg-icon>
+          <svg-icon iconName="icon-xinlang"></svg-icon>
         </a>
         <a href="javascript:;" class="create-poster-btn" @click="isShowPoster = true">
-          <svg-icon iconName="#icon-shengchengerweima"></svg-icon>
+          <svg-icon iconName="icon-shengchengerweima"></svg-icon>
         </a>
       </div>
       <!-- 分享结束 -->
@@ -135,7 +135,7 @@
         <ul class="author-link">
           <li class="list">
             <nuxt-link :to="{ name: 'index' }">
-              <svg-icon iconName="#icon-shouye"></svg-icon>
+              <svg-icon iconName="icon-shouye"></svg-icon>
             </nuxt-link>
           </li>
           <template v-for="(item, key) in authorOtherInfo">
@@ -196,19 +196,19 @@ export default {
       posterContent: {},
       authorOtherInfo: {
         github: {
-          icon: '#icon-GitHub'
+          icon: 'icon-GitHub'
         },
         qq: {
-          icon: '#icon-qq1'
+          icon: 'icon-qq1'
         },
         wechatNum: {
-          icon: '#icon-weixin5'
+          icon: 'icon-weixin5'
         },
         sina: {
-          icon: '#icon-xinlang1'
+          icon: 'icon-xinlang1'
         },
         email: {
-          icon: '#icon-youxiang1'
+          icon: 'icon-youxiang1'
         }
       }
     }
