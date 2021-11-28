@@ -1,11 +1,11 @@
 <?php
-require_once(TEMPLATEPATH . '/include/v2/Response.php');
+require_once(TEMPLATEPATH . '/v2/Response.php');
 
 /**
  * 获取全站的文章、分类、标签、页面
  * @return array
  */
-function get_all_list() {
+function get_all_list(): array {
     global $wpdb;
     $response = new Response();
 
@@ -55,53 +55,54 @@ add_action('rest_api_init', function () {
  * 查询评论列表
  * @return array
  */
-function get_comment_list() {
+function get_comment_list(): array {
     $response = new Response();
 
-    /** 格式化返回的数据
-     * @param $obj
-     * @return array
-     */
-    function format($obj) {
-        return array(
-            'id'         => $obj->comment_ID,
-            'postId'     => $obj->comment_post_ID,
-            'ahutor'     => $obj->comment_author,
-            'authorUrl'  => $obj->comment_author_url,
-            'createTime' => $obj->comment_date,
-            'content'    => $obj->comment_content,
-            'ua'         => $obj->comment_agent,
-            'opinion'    => get_metadata('comment', $obj->comment_ID, 'opinion', true)
-        );
-    }
+    $page = empty($_GET['page']) ? 1 : $_GET['page'];
+    $page_size = empty($_GET['pageSize']) ? 8 : $_GET['pageSize'];
 
-    // 查询子级数据
     $comment_list = get_comments(array(
-        'post_id'  => $_GET['postId'],
-        'parent'   => 0,
-        'number'   => 10,
-        'paged'    => 2,
-        'meta_key' => 'opinion'
+        'post_id' => $_GET['postId'],
+        'parent'  => 0,
+        'number'  => $page_size,
+        'paged'   => $page,
+        'status'  => 'approve'
     ));
 
     $result = array();
 
+    // 循环查询子数据
     foreach ($comment_list as $key => $list) {
         $children_response = get_comments(array(
             'post_id' => $_GET['postId'],
-            'parent'  => $list->comment_ID
+            'parent'  => $list->comment_ID,
+            'order'   => 'ASC',
+            'status'  => 'approve'
         ));
         $children = array();
 
         foreach ($children_response as $child_key => $child) {
-            $children[$child_key] = format($child);
+            $children[$child_key] = xm_format_comment_item($child);
         }
 
-        $result[$key] = format($list);
+        $result[$key] = xm_format_comment_item($list);
         $result[$key]['children'] = $children;
     }
 
-    $response->setResponse($result);
+    $totalCount = (int)get_comments(array(
+        'post_id' => $_GET['postId'],
+        'count'   => true,
+        'parent'  => 0,
+        'status'  => 'approve'
+    ));
+
+    $response->setPageData(array(
+        'page'      => (int)$page,
+        'pageSize'  => (int)$page_size,
+        'data'      => $result,
+        'total'     => $totalCount,
+        'totalPage' => ceil($totalCount / $page_size)
+    ));
 
     return $response->getResponse();
 }

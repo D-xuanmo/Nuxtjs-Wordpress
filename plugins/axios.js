@@ -20,21 +20,26 @@ export default function ({ $axios, redirect }) {
 
   $axios.onResponse(response => {
     if (response.config.url.indexOf('xm/v2') !== -1) {
-      response.data = response.data.data
-    } else {
-      response.data = {
-        data: response.data,
-        status: response.status,
+      return {
         headers: response.headers,
-        statusText: response.statusText
+        data: response.data
       }
+    }
+    response.data = {
+      data: response.data,
+      status: response.status,
+      headers: response.headers,
+      statusText: response.statusText
     }
     return response
   })
 
   $axios.onError(error => {
-    const code = parseInt(error.response && error.response.status)
-    code >= 400 && redirect(`/${code}`)
-    return Promise.reject(error)
+    const { data } = error.response.data
+    if ([500, 502, 404].includes(data.status)) {
+      redirect(`/${data.status}`)
+    } else {
+      return Promise.reject(error.response)
+    }
   })
 }

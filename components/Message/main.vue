@@ -1,9 +1,18 @@
 <template>
   <transition name="msg-show">
-    <div v-if="isShow" class="xm-message clearfix" :class="[`alert-${type === undefined ? 'content' : type}`, { 'align-center': center }, { 'box-center': wrapCenter }]">
+    <div
+      v-if="isShow"
+      class="xm-message clearfix"
+      :class="[
+        `alert-${type === undefined ? 'content' : type}`,
+        { 'align-center': center },
+        { 'box-center': wrapCenter }
+        ]"
+    >
       <div class="xm-message-content" :style="`width: ${width}`">
         <p class="text">
-          <x-icon :type="icon"></x-icon> {{ msg }}
+          <x-icon :type="icon" class="vertical-middle"></x-icon>
+          <span class="vertical-middle">{{ msg }}</span>
           <x-icon v-if="showClose" type="icon-close" class="fr" @click.native="leave"></x-icon>
         </p>
         <p v-if="showImg && imgUrl" class="align-center msg-img">
@@ -37,7 +46,17 @@ export default {
     },
 
     // 显示消息
-    show ({ title, type, center, wrapCenter, showImg, imgUrl, showClose, duration = 2000, width = 'initial' } = {}, mark) {
+    show ({
+      title,
+      type,
+      center,
+      wrapCenter,
+      showImg,
+      imgUrl,
+      showClose,
+      duration = 2000,
+      width = 'initial'
+    } = {}, mark) {
       this.isShow = mark
       this.msg = title
       this.type = type
@@ -74,15 +93,15 @@ export default {
   left: 50%;
   z-index: 2000;
   text-align: center;
-  transition: .7s;
+  transition: .5s;
   transform: translateX(-50%);
 
   .xm-message-content {
     display: inline-block;
     box-sizing: border-box;
     width: 100%;
-    padding: 10px 15px;
-    background: #fff;
+    padding: var(--small-gap) var(--base-gap);
+    background: var(--color-sub-background);
     border-radius: 5px;
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
   }
@@ -122,14 +141,14 @@ export default {
   }
 
   .msg-img {
-    margin-top: 10px;
+    margin-top: var(--base-gap);
   }
 
   .iconfont {
     font-size: 16px;
 
     &.icon-close {
-      margin-left: 20px;
+      margin-left: var(--base-gap);
       font-size: 14px;
       color: #ccc;
       cursor: pointer;

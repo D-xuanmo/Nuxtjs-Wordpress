@@ -1,13 +1,12 @@
 <?php
 // 访客等级
-function get_author_class($comment_author_email)
-{
+function get_author_level($comment_author_email) {
     global $wpdb;
     $adminEmail = get_bloginfo('admin_email');
     $styleClass = get_option('xm_vue_options')['vip_style'];
-    $author_count = count($wpdb -> get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email'"));
+    $author_count = count($wpdb->get_results("SELECT comment_ID as author_count FROM $wpdb->comments WHERE comment_author_email = '$comment_author_email'"));
     if ($comment_author_email == $adminEmail) {
-        return array('style' => $styleClass, 'level' => 'vip7', 'admin' => true, 'title' => '博主');
+        return array('style' => $styleClass, 'level' => 'vip7', 'isAdmin' => true, 'title' => '博主');
     } else {
         if ($author_count >= 1 && $author_count < 10) {
             return array('style' => $styleClass, 'level' => 'vip1', 'title' => 'LV.1');

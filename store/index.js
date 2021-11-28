@@ -63,7 +63,7 @@ export const actions = {
   // 上传图片
   async uploadImage({ commit, rootState }, { requestData, config = {} }) {
     try {
-      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/v2/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false
@@ -79,7 +79,7 @@ export const actions = {
   // 删除图片
   async deleteImage({ commit, rootState }, requestData) {
     try {
-      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/v2/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false

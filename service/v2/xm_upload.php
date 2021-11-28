@@ -1,5 +1,6 @@
 <?php
-header("Content-type:text/json");
+require_once(__DIR__ . '/Response.php');
+header("Content-type:application/json; charset=UTF-8");
 date_default_timezone_set("PRC");
 
 chmod(__FILE__, 0777);
@@ -9,24 +10,32 @@ $id = $_POST["postID"];
 $uploadFilePath = dirname(__FILE__, 3);
 $currentPath = "/uploads/comments/$id/";
 $fullPath = $uploadFilePath . $currentPath;
-$result = array();
 
 if (!is_dir($fullPath)) mkdir($fullPath, 0777, true);
 
 $is_empyt_file = empty($_FILES["file"]) && empty($_POST["file"]);
 
+$response = new Response();
+
 if ($is_empyt_file) {
     if ($_POST["mark"] === "close") {
-        $result = array(
-            "code" => unlink(dirname(__FILE__, 3) . $currentPath . $_POST["fileName"])
-        );
+        $file_path = dirname(__FILE__, 3) . $currentPath . $_POST["fileName"];
+        if (!file_exists($file_path)) {
+            $response->setResponse(array(
+                "deleted" => false
+            ));
+            $response->setMessage("文件不存在");
+        } else {
+            $response->setResponse(array(
+                "deleted" => unlink($file_path)
+            ));
+        }
     } else {
-        $result = array(
-            "message" => "上传失败，图片为空！",
-            "code"    => "4001"
-        );
+        $response->setCode("4001");
+        $response->setMessage("上传失败，图片为空");
     }
 } else {
+    $result = array();
     // 上传文件大小
     $fileSize = (empty($_FILES["file"]) ? 0 : ceil(filesize($_FILES["file"]["tmp_name"]) / 1024)) . "Kb";
 
@@ -60,5 +69,7 @@ if ($is_empyt_file) {
             "code" => $_POST["mark"]
         );
     }
+    $response->setResponse($result);
 }
-echo urldecode(json_encode($result));
+
+echo urldecode(json_encode($response->getResponse()));

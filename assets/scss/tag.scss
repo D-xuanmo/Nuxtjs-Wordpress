@@ -22,10 +22,21 @@ textarea {
   outline: 0;
   border: 0;
   background: none;
+  font-size: inherit;
+  font-family: inherit;
 }
 
-input[type=submit] {
-  font-family: inherit;
+input {
+  &[type=submit] {
+    font-family: inherit;
+  }
+}
+
+button {
+  word-break: keep-all;
+  white-space: nowrap;
+  color: inherit;
+  cursor: pointer;
 }
 
 ul,

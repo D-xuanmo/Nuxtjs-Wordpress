@@ -1,15 +1,12 @@
 // 字体图标
 @font-face {
-  font-family: 'iconfont';  /* project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_mn5ksqxugi.eot');
-  src: url('//at.alicdn.com/t/font_552040_mn5ksqxugi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_552040_mn5ksqxugi.svg#iconfont') format('svg');
+  font-family: 'iconfont';  /* Project id 552040 */
+  src: url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.woff2?t=1638004937328') format('woff2'),
+  url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.woff?t=1638004937328') format('woff'),
+  url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.ttf?t=1638004937328') format('truetype');
 }
 
-.iconfont{
+.iconfont {
   vertical-align: bottom;
   font-family: "iconfont" !important;
   font-size: 14px;
@@ -39,6 +36,7 @@ $iconMap         : (
   "tag"          : "\e636",
   "tag1"         : "\e611",
   "back-top"     : "\e6e7",
+  "send"         : "\e743",
   "menu"         : "\e605",
   "search"       : "\e607",
   "arrow-top"    : "\e65d",

@@ -1,6 +1,4 @@
 <?php
-//require_once(TEMPLATEPATH . '/include/qywx_notify.php');
-
 function themeoptions_admin_menu() {
     // 在控制面板的侧边栏添加设置选项页链接
     add_theme_page('Nuxtjs 主题设置', 'Nuxtjs 主题设置', 'edit_themes', basename(__FILE__), 'themeoptions_page');

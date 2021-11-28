@@ -1,8 +1,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-theme: #{$color-theme};
+    --color-theme-secondary: var(--color-sub-background);
     --color-main-text: #A3A3A3;
-    --color-sub-text: #888888;
+    --color-sub-text: #888;
     --color-main-background: #2d363c;
     --color-sub-background: #293238;
     --color-white: #{$color-white};

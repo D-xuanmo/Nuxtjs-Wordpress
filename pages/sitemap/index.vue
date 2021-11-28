@@ -58,7 +58,7 @@ export default {
 
   async asyncData({ $axios }) {
     const { data } = await $axios.get('/api/wp-json/xm/v2/site/list/all')
-    return data
+    return data.data
   },
 
   data() {

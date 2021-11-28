@@ -5,13 +5,14 @@ import {
   UPDATE_COMMENT,
   SET_EXPRESSION,
   UPDATE_COMMENT_OPINION,
-  RESET_COMMENT
+  RESET_COMMENT, SET_COMMENT_CURRENT_FORM_ID, UPDATE_SINGLE_COMMENT
 } from './mutations-types'
 
 export const state = () => ({
   commentList: [],
   totalPage: 0,
-  expressionList: []
+  expressionList: [],
+  commentFormId: '0'
 })
 
 export const mutations = {
@@ -29,7 +30,7 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
-    data.userAgent = ua(data.userAgentInfo.userAgent).info
+    data.userAgent = ua(data.ua).info
     state.commentList.unshift(data)
   },
 
@@ -39,6 +40,10 @@ export const mutations = {
 
   [SET_EXPRESSION] (state, data) {
     state.expressionList = data
+  },
+
+  [SET_COMMENT_CURRENT_FORM_ID](state, id) {
+    state.commentFormId = id
   }
 }
 
@@ -46,16 +51,18 @@ export const actions = {
   // 获取评论列表
   async getCommentList ({ commit }, requestData) {
     try {
-      const { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/comments`, {
+      const {
+        data,
+        totalPage
+      } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm/v2/comment/list`, {
         params: requestData,
         data: { progress: false }
       })
-      data.map(item => {
-        item.userAgent = ua(item.userAgentInfo.userAgent).info
-        return item
-      })
-      commit(SET_COMMENT_LIST, data)
-      commit(SET_COMMENT_TOTAL, +headers['x-wp-totalpages'])
+      commit(SET_COMMENT_LIST, data.map(item => ({
+        ...item,
+        userAgent: ua(item.ua).info
+      })))
+      commit(SET_COMMENT_TOTAL, totalPage)
       return Promise.resolve(data)
     } catch (error) {
       return Promise.reject(error)
@@ -70,6 +77,7 @@ export const actions = {
           progress: false
         }
       })
+      commit(UPDATE_COMMENT, data.newComment)
       return Promise.resolve(data)
     } catch (error) {
       return Promise.reject(error)

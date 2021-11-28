@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import msgConponent from './main'
-const VueMessage = Vue.extend(msgConponent)
+import Component from './main'
+const VueMessage = Vue.extend(Component)
 let message = null
 const Message = {
-  install (Vue, opt) {
+  install (Vue) {
     const messageFn = (opt) => {
       message = new VueMessage().$mount()
       document.querySelector('body').appendChild(message.$el)

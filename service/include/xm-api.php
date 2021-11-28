@@ -5,13 +5,11 @@ require_once(TEMPLATEPATH . "/include/xm-comment-extra.php");
 require_once(TEMPLATEPATH . "/utils.php");
 
 global $colors;
-$colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
 
 /**
  * 删除不需要的字段
  */
-function xm_rest_prepare_post($data, $post, $request)
-{
+function xm_rest_prepare_post($data, $post, $request) {
     $_data = $data->data;
     $params = $request->get_params();
     unset($_data["template"]);
@@ -26,8 +24,7 @@ add_filter("rest_prepare_post", "xm_rest_prepare_post", 10, 3);
 /**
  * 获取page添加自定义字段
  */
-function add_api_page_meta_field()
-{
+function add_api_page_meta_field() {
     register_rest_field("page", "pageInfor", array(
         "get_callback" => function () {
             return array("commentCount" => get_comments_number());
@@ -41,8 +38,7 @@ add_action("rest_api_init", "add_api_page_meta_field");
 /**
  * 文章添加自定义字段
  */
-function xm_get_article_infor($object)
-{
+function xm_get_article_infor($object) {
     $postID = $object["id"];
     // 添加发表意见默认值
     if (get_post_meta($postID, "xm_post_link", true) === "") {
@@ -87,8 +83,7 @@ add_action("rest_api_init", function () {
 /**
  * 获取用户添加自定义字段
  */
-function add_api_user_meta_field()
-{
+function add_api_user_meta_field() {
     register_rest_field("user", "meta", array(
         "get_callback" => function () {
             $id = intval($_GET["id"]);
@@ -110,8 +105,7 @@ add_action("rest_api_init", "add_api_user_meta_field");
 /**
  * 获取网站基本信息
  */
-function add_get_blog_info()
-{
+function add_get_blog_info() {
     global $wpdb;
     global $colors;
 
@@ -192,8 +186,7 @@ add_action("rest_api_init", function () {
 /**
  * 发表意见
  */
-function xm_opinion($request)
-{
+function xm_opinion($request) {
     $data = $request->get_params();
     $count_key = "xm_post_link";
     $id = $data["id"];
@@ -214,8 +207,7 @@ add_action("rest_api_init", function () {
 /**
  * 更新阅读量
  */
-function xm_get_view_count($request)
-{
+function xm_get_view_count($request) {
     $postID = $request->get_params()["id"];
     $count_key = "post_views_count";
     $count = get_post_meta($postID, $count_key, true);
@@ -241,8 +233,7 @@ add_action("rest_api_init", function () {
 /**
  * 获取主菜单
  */
-function xm_get_menu()
-{
+function xm_get_menu() {
     $mainMenu = [];
     $sourceMenu = wp_get_nav_menu_items("Home");
     foreach ($sourceMenu as $value) {
@@ -274,8 +265,7 @@ add_action("rest_api_init", function () {
 /**
  * 评论列表增加点赞
  */
-function add_api_comment_metadata($request)
-{
+function add_api_comment_metadata($request) {
     $postID = $request->get_params()["id"];
     $key = $request->get_params()["type"];
     $result = get_metadata("comment", $postID, "opinion", true);
@@ -296,8 +286,7 @@ add_action("rest_api_init", function () {
 /**
  * 获取说说列表
  */
-function add_api_get_phrase()
-{
+function add_api_get_phrase() {
     global $wpdb;
     $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish' ORDER BY post_date DESC");
     $result = [];
@@ -325,8 +314,7 @@ add_action("rest_api_init", function () {
 /**
  * 获取链接列表
  */
-function add_api_get_links($request)
-{
+function add_api_get_links($request) {
     $type = $request->get_params()["type"];
     $arg = array(
         "orderby"       => "link_id",
@@ -355,12 +343,10 @@ add_action("rest_api_init", function () {
     ));
 });
 
-
 /**
  * wordpress接口增加字段
  */
-function add_api_comment_meta_field()
-{
+function add_api_comment_meta_field() {
     // 评论添加字段
     register_rest_field("comment", "userAgentInfo", array(
         "get_callback" => function ($object) {
@@ -372,10 +358,23 @@ function add_api_comment_meta_field()
 
             return array(
                 "userAgent"          => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
-                "vipStyle"           => get_author_class($author_email),
+                "vipStyle"           => get_author_level($author_email),
                 "author_avatar_urls" => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($author_email))) . "?s=200",
                 "background"         => $colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
             );
+        },
+        "schema"       => null
+    ));
+
+    // 临时适配新的评论接口
+    register_rest_field("comment", "newComment", array(
+        "get_callback" => function ($object) {
+            $comment = get_comments(array(
+                'ID'      => $object[id],
+                'post_id' => $object->post,
+                'number'  => 1
+            ));
+            return xm_format_comment_item($comment[0]);
         },
         "schema"       => null
     ));
@@ -394,4 +393,3 @@ function add_api_comment_meta_field()
 }
 
 add_action("rest_api_init", "add_api_comment_meta_field");
-

@@ -6,13 +6,16 @@
         <x-icon type="icon-close" @click.native.stop="_hideUpload"></x-icon>
         <div class="progress-wrap">
           <p class="text">上传进度：</p>
-          <div class="current-pro">
+          <div class="current-progress">
             <div class="current" :style="`width:${currentProgress}%`"></div>
           </div>
           <div>{{ currentProgress }}%</div>
         </div>
         <div class="select-img">
-          <input type="file" name="file" value="" ref="inpFile" accept="image/png,image/gif,image/jpeg" @change.stop="_preview($event)">
+          <input
+            type="file" name="file" value="" ref="inpFile" accept="image/png,image/gif,image/jpeg"
+            @change.stop="_preview($event)"
+          >
           <p class="mask">
             <span v-if="bFileMark"><x-icon type="icon-upload-img2"></x-icon>点击选择图片或者拖动图片到此窗口内</span>
             <template v-else>
@@ -24,7 +27,7 @@
           <div v-show="!bFileMark" class="btn btn-upload" @click.stop="_uploadImg">上传文件</div>
           <div class="btn btn-insert" @click.stop="_insertImg">插入到文章</div>
         </div>
-        <div class="result-img">
+        <div v-if="resultImgUrl" class="result-img">
           <img :src="resultImgUrl">
         </div>
       </template>
@@ -38,8 +41,9 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'Upload',
+  name: 'CommentUpload',
   data: () => ({
     currentProgress: 0,
     resultImgUrl: '',
@@ -48,14 +52,13 @@ export default {
     bShowDragWrap: false,
     previewUrl: ''
   }),
-  props: ['showChart'],
   computed: {
     ...mapState({
       contentUrl: state => state.info.contentUrl,
-      templeteUrl: state => state.info.templeteUrl
+      templateUrl: state => state.info.templeteUrl
     })
   },
-  mounted () {
+  mounted() {
     // 拖拽上传文件
     const oUploadWrap = document.querySelector('.sub-upload-wrap')
     oUploadWrap.ondragenter = (e) => {
@@ -87,39 +90,45 @@ export default {
           data.append('file', oReader.result)
           data.append('url', this.contentUrl)
           data.append('mark', 'upload')
-          try {
-            // 上传实时进度
-            const config = {
-              onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
-            }
-            const response = await this.uploadImage({
-              requestData: data,
-              config
-            })
-            if (!response.code) {
-              this.$message({
-                title: '上传失败！',
-                type: 'error'
-              })
-            } else {
-              this.resultImgUrl = response.path
-              this.resFileName = response.name
-            }
-          } catch (error) {
-            if (error === 404) {
-              this.$message({
-                title: '上传失败(404)！',
-                type: 'error'
-              })
-            }
-          }
+          this.handleUpload(data)
         }
       }
     }
   },
   methods: {
     ...mapActions(['uploadImage', 'deleteImage']),
-    _preview (event) {
+
+    async handleUpload(requestData) {
+      try {
+        // 上传实时进度
+        const config = {
+          onUploadProgress: progressEvent => (this.currentProgress = progressEvent.loaded / progressEvent.total * 100)
+        }
+        const { data } = await this.uploadImage({
+          requestData,
+          config
+        })
+        if (!data.code) {
+          this.$message({
+            title: '上传失败！',
+            type: 'error'
+          })
+          this.currentProgress = 0
+        } else {
+          this.resultImgUrl = data.path
+          this.resFileName = data.name
+        }
+      } catch (error) {
+        if (error === 404) {
+          this.$message({
+            title: '上传失败(404)！',
+            type: 'error'
+          })
+        }
+      }
+    },
+
+    _preview(event) {
       const oReader = new FileReader()
       oReader.readAsDataURL(event.target.files[0])
       oReader.onload = () => (this.previewUrl = oReader.result)
@@ -127,7 +136,7 @@ export default {
     },
 
     // 上传图片
-    async _uploadImg () {
+    async _uploadImg() {
       const _file = this.$refs.inpFile
       if (_file.value) {
         const data = new FormData()
@@ -141,39 +150,17 @@ export default {
           data.append('file', _file.files[0])
           data.append('url', this.contentUrl)
           data.append('mark', 'upload')
-          try {
-            // 上传实时进度
-            const config = {
-              onUploadProgress: progressEvent => (this.currentProgress = parseInt(progressEvent.loaded / progressEvent.total * 100))
-            }
-            const response = await this.uploadImage({
-              requestData: data,
-              config
-            })
-            if (!response.code) {
-              this.$message({
-                title: '上传失败！',
-                type: 'error'
-              })
-            } else {
-              this.resultImgUrl = response.path
-              this.resFileName = response.name
-              _file.value = ''
-            }
-          } catch (error) {
-            if (error === 404) {
-              this.$message({
-                title: '上传失败(404)！',
-                type: 'error'
-              })
-            }
-          }
+          this.handleUpload(data)
         }
       }
     },
 
     // 隐藏上传控件
-    async _hideUpload () {
+    async _hideUpload() {
+      if (!this.resFileName) {
+        this.$emit('on-close')
+        return
+      }
       const data = new FormData()
       data.append('mark', 'close')
       data.append('url', this.contentUrl)
@@ -189,7 +176,7 @@ export default {
         })
       }
       // 关闭控件
-      this.$emit('showChart', {
+      this.$emit('on-close', {
         close: false,
         resFileName: this.resFileName
       })
@@ -199,9 +186,9 @@ export default {
     },
 
     // 插入到文章
-    _insertImg () {
-      this.$emit('updateContent', ` [img]${this.resultImgUrl}[/img] `)
-      this.$emit('showChart', {
+    _insertImg() {
+      this.$emit('on-confirm', ` [img]${this.resultImgUrl}[/img] `)
+      this.$emit('on-close', {
         close: false,
         resFileName: this.resFileName
       })
@@ -218,7 +205,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 2000;
   width: 100%;
   height: 100%;
 
@@ -229,7 +216,7 @@ export default {
     z-index: -1;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, .7);
   }
 
   .sub-upload-wrap {
@@ -238,11 +225,10 @@ export default {
     top: 50%;
     left: 50%;
     width: 70%;
-    min-height: 220px;
-    padding: 10px;
+    padding: var(--base-gap);
     border-radius: $border-radius;
-    background: var(--color-main-background);
-    transform: translate(-50%,-50%);
+    background: var(--color-sub-background);
+    transform: translate(-50%, -50%);
   }
 
   // 拖拽上传容器
@@ -270,13 +256,16 @@ export default {
     align-items: center;
   }
 
-  .current-pro {
-    width: 80%;
+  .current-progress {
+    flex: 1;
+    margin-right: var(--base-gap);
+    overflow: hidden;
+    background: var(--color-main-background);
+    border-radius: $border-radius;
 
     .current {
-      width: 0px;
+      width: 0;
       height: 5px;
-      border-radius: $border-radius;
       background-color: $color-theme;
       background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%, transparent 75%, transparent);
     }
@@ -286,7 +275,7 @@ export default {
   .select-img {
     position: relative;
     height: 50px;
-    margin: 10px 0;
+    margin: var(--base-gap) 0;
     border: 2px dashed var(--color-border);
     line-height: 50px;
 
@@ -310,9 +299,8 @@ export default {
       }
 
       img {
-        max-width: 70px;
-        max-height: 50px;
-        vertical-align: middle;
+        height: 46px;
+        vertical-align: top;
       }
     }
 
@@ -336,34 +324,38 @@ export default {
 
   .btn-wrap {
     display: flex;
-    justify-content: space-between;
-    width: 300px;
-    margin: 0 auto;
+    justify-content: center;
+    margin-top: var(--base-gap);
+
     .btn {
-      width: 100px;
-      margin: 15px auto;
+      border: 0;
       border-radius: $border-radius;
       background: $color-theme;
       color: $color-white;
       cursor: pointer;
+
+      & + .btn {
+        margin-left: var(--base-gap);
+      }
     }
   }
 }
+
 @media screen and (max-width: 767px) {
   .upload-img-wrap {
     .sub-upload-wrap {
       width: 90%;
     }
+
     .progress-wrap {
       flex-wrap: wrap;
+
       .text {
         width: 100%;
         text-align: left;
       }
-      .current-pro {
-        width: 90%;
-      }
     }
+
     .result-img {
       img {
         max-width: 200px;
@@ -371,6 +363,7 @@ export default {
     }
   }
 }
+
 @media screen and (max-height: 500px) {
   .upload-img-wrap {
     .result-img {

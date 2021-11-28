@@ -7,7 +7,7 @@ require_once(TEMPLATEPATH . '/include/xm-theme-options.php');
 
 // 添加自定义接口
 require_once(TEMPLATEPATH . '/include/xm-api.php');
-require_once(TEMPLATEPATH . '/include/v2/api.php');
+require_once(TEMPLATEPATH . '/v2/api.php');
 
 require_once(TEMPLATEPATH . '/utils.php');
 
@@ -19,6 +19,12 @@ require_once(TEMPLATEPATH . '/include/email_notify.php');
 
 // 企业微信通知功能
 require_once(TEMPLATEPATH . '/include/qywx_notify.php');
+
+// 轩陌主题所有配置项
+$xm_theme_options = get_option('xm_vue_options');
+
+// 头像全局色盘
+$avatar_colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
 
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
@@ -158,7 +164,7 @@ add_filter('pre_option_link_manager_enabled', '__return_true');
 /**
  * 设置摘要
  */
-function xm_get_post_excerpt($length, $str) {
+function xm_get_post_excerpt($length, $str): string {
     $post_content = wp_strip_all_tags(get_post()->post_content, true);
     $post_excerpt = get_post()->post_excerpt;
     return (bool)get_option('xm_vue_options')['article_auto_summary'] || $post_excerpt == '' ? wp_trim_words($post_content, $length, $str) : $post_excerpt;
@@ -174,7 +180,7 @@ add_filter('login_headertext', function () {
     return get_bloginfo('name');
 });
 
-/*
+/**
  * 自定义登录页面的LOGO图片
  */
 function my_custom_login_logo() {
@@ -214,10 +220,9 @@ add_filter('user_contactmethods', 'xm_user_contact');
  */
 if (get_magic_quotes_gpc()) {
     function stripslashes_deep($value) {
-        $value = is_array($value) ?
+        return is_array($value) ?
             array_map('stripslashes_deep', $value) :
             stripslashes($value);
-        return $value;
     }
 
     $_POST = array_map('stripslashes_deep', $_POST);
@@ -230,10 +235,13 @@ if (get_magic_quotes_gpc()) {
  */
 add_filter('rest_allow_anonymous_comments', '__return_true');
 
-/*
+/**
  * 自定义表情路径和名称
+ * @param $img_src
+ * @param $img
+ * @return string
  */
-function xm_custom_smilies_src($img_src, $img) {
+function xm_custom_smilies_src($img_src, $img): string {
     return get_option("xm_vue_options")["domain"] . '/images/smilies/' . $img;
 }
 

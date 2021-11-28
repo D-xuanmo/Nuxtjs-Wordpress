@@ -31,6 +31,19 @@
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
 }
 
+:root {
+  // 间隙
+  --small-gap: 8px;
+  --base-gap: calc(var(--small-gap) * 2);
+  --large-gap: calc(var(--base-gap) + var(--small-gap));
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --small-gap: 4px;
+  }
+}
+
 html,
 body {
   &.h-f-100 {

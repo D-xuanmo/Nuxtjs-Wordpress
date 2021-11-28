@@ -1,5 +1,5 @@
 <template>
-  <div v-show="isShow" class="expression-wrapper" ref="expression">
+  <div v-show="visible" ref="expression" class="expression-wrapper">
     <div v-if="!expressionList.length" class="loading">
       <x-icon type="icon-loading"></x-icon>
       <p>加载中...</p>
@@ -7,14 +7,14 @@
     <template v-else>
       <ul class="expression-list">
         <li v-for="(tabs, index) in expressionList" :key="index" v-show="active === index" class="item">
-          <a
-            href="javascript:;"
+          <span
             v-for="(item, index) in tabs.list"
             :key="index"
             :title="item.title"
-            @click.stop="choose(`[${item.code}]`)">
+            @click.stop="choose(`[${item.code}]`)"
+          >
             <img :src="item.url" :alt="item.title" width="20">
-          </a>
+          </span>
         </li>
       </ul>
       <ul class="tabs-wrapper">
@@ -31,37 +31,52 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+
 export default {
-  name: 'Expression',
+  name: 'CommentExpression',
+
   props: {
-    isShow: Boolean
+    visible: {
+      required: true,
+      type: Boolean,
+      defaults: false
+    }
   },
+
   computed: {
     ...mapState('comment', ['expressionList'])
   },
-  data () {
+
+  watch: {
+    visible(visible) {
+      if (visible && !this.expressionList.length) this.getExpression()
+    }
+  },
+
+  data() {
     return {
       active: 0
     }
   },
-  mounted () {
+
+  mounted() {
     document.body.addEventListener('click', this.close, false)
   },
-  beforeDestroy () {
+
+  beforeDestroy() {
     document.body.removeEventListener('click', this.close, false)
   },
+
   methods: {
-    choose (v) {
-      this.$emit('on-change', {
-        type: 'insert',
-        value: v
-      })
+    ...mapActions('comment', ['getExpression']),
+    choose(value) {
+      this.$emit('on-change', value)
+      this.$emit('update:visible', false)
     },
-    close () {
-      this.isShow && this.$emit('on-change', {
-        type: 'close'
-      })
+
+    close() {
+      this.visible && this.$emit('on-close')
     }
   }
 }
@@ -127,7 +142,7 @@ export default {
     }
   }
 
-  a {
+  span {
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -136,6 +151,7 @@ export default {
     background: var(--color-sub-background);
     text-align: center;
     line-height: 40px;
+    cursor: pointer;
   }
 
   img {
