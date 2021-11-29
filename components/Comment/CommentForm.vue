@@ -342,6 +342,7 @@ export default {
       }
 
       &--inner {
+        width: 100%;
         margin-left: var(--small-gap);
       }
     }
