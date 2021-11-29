@@ -9,7 +9,7 @@
             class="comment-list-item--text-avatar"
             :style="{ background: item.avatarColor }"
           >{{ item.ahutorName.substr(0, 1) }}</span>
-          <img v-else src="" alt="">
+          <img v-else :src="item.avatar" class="comment-list-item--image-avatar" />
         </div>
 
         <div class="comment-list-item__content">
@@ -168,11 +168,20 @@ export default {
       flex: 1;
     }
 
+    &__avatar {
+      margin-right: var(--base-gap);
+    }
+
+    &--image-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
     &--text-avatar {
       display: inline-block;
       width: 50px;
       height: 50px;
-      margin-right: var(--base-gap);
       border-radius: 5px;
       font-size: 22px;
       text-align: center;
