@@ -61,12 +61,12 @@ export default {
     ...mapState(['info']),
     ...mapState({
       isOpenCommentUpload: state => state.info.isOpenCommentUpload,
-      templeteUrl: state => state.info.templeteUrl
+      templateUrl: state => state.info.templeteUrl
     }),
     ...mapState('comment', ['commentList', 'totalPage']),
 
     isLastPage() {
-      return this.currentPage === this.totalPage
+      return this.totalPage === 0 || this.currentPage === this.totalPage
     }
   },
 
