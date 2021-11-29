@@ -64,7 +64,7 @@ function xm_format_comment_item($obj): array {
         'ua'           => $obj->comment_agent,
         'opinion'      => get_metadata('comment', $obj->comment_ID, 'opinion', true),
         'isTextAvatar' => (boolean)$xm_theme_options['text_pic'],
-        'avatar'       => "https://www.gravatar.com/avatar/" . md5(strtolower(trim($obj->comment_author_email))) . "?s=200",
+        'avatar'       => "https://gravatar.xuanmo.xin/avatar/" . md5(strtolower(trim($obj->comment_author_email))) . "?s=200",
         'avatarColor'  => xm_generate_user_avatar((boolean)$xm_theme_options['text_pic'], $obj->comment_author_email),
         'authorLevel'  => get_author_level($obj->comment_author_email)
     );
