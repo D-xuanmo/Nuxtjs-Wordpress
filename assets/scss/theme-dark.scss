@@ -63,8 +63,14 @@
     color: var(--color-main-text) !important;
   }
 
-  .header-container .nav-wrapper a {
-    color: var(--color-main-text);
+  .header-container .nav-wrapper {
+    a {
+      color: var(--color-main-text);
+    }
+
+    .nuxt-link-exact-active {
+      color: var(--color-theme);
+    }
   }
 
   .header-container .search-wrapper.is-show {

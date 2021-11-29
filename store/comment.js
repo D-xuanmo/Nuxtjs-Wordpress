@@ -31,14 +31,38 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
-    state.commentList.unshift({
+    const newData = {
       ...data,
       userAgent: ua(data.ua)
-    })
+    }
+    if (data.parentId === '0') {
+      state.commentList.unshift(newData)
+    } else {
+      let index = -1
+      state.commentList.find((item, i) => {
+        if (item.id === data.parentId) {
+          index = i
+          return true
+        }
+        return false
+      })
+      if (index >= 0) state.commentList[index].children.unshift(newData)
+    }
   },
 
-  [UPDATE_COMMENT_OPINION] (state, { index, data }) {
-    state.commentList[index].meta.opinion = data
+  [UPDATE_COMMENT_OPINION] (state, { id, data, parentId }) {
+    if (parentId === '0') {
+      const index = state.commentList.findIndex(item => item.id === id)
+      if (index >= 0) state.commentList[index].opinion = data
+    } else {
+      state.commentList = state.commentList.map(item => {
+        item.children = item.children.map(child => {
+          if (child.id === id) child.opinion = data
+          return child
+        })
+        return item
+      })
+    }
   },
 
   [SET_EXPRESSION] (state, data) {
@@ -112,7 +136,12 @@ export const actions = {
           progress: false
         }
       })
-      return data.success ? Promise.resolve(data.data) : Promise.reject(new Error('请求异常！'))
+      commit(UPDATE_COMMENT_OPINION, {
+        id: requestData.id,
+        parentId: requestData.parentId,
+        data: data.data
+      })
+      return Promise.resolve(data.data)
     } catch (error) {
       return Promise.reject(error)
     }

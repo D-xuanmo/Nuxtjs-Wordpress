@@ -107,24 +107,6 @@ export default {
         this.loadingMore.text = '加载更多'
         this.loadingMore.loading = false
       }
-    },
-
-    // 评论点赞、踩
-    async _updateCommentOpinion (id, type, index) {
-      if (localStorage.getItem(`commentOpinion_${id}`)) {
-        this.$message({ title: '已经发表过了哦！', type: 'warning' })
-        return
-      }
-      try {
-        const data = await this.updateCommentOpinion({
-          id,
-          type
-        })
-        this.$store.commit('comment/UPDATE_COMMENT_OPINION', { index, data })
-        localStorage.setItem(`commentOpinion_${id}`, true)
-      } catch (error) {
-        this.$message({ title: '哦豁，失败了！', type: 'error' })
-      }
     }
   }
 }
