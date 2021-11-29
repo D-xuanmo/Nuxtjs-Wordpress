@@ -123,7 +123,7 @@
             <span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
           <div v-if="info.isOpenReward" class="reward" @click="isShowReward = true">
-            <svg-icon iconName="#icon-dashang" />
+            <svg-icon iconName="icon-dashang" />
             打赏
           </div>
           <!-- 打赏详情 -->
