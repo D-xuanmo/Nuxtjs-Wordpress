@@ -1,7 +1,18 @@
 <template>
-  <div class="comment-list-wrapper" :class="isChild && 'is-child'">
+  <div
+    class="comment-list-wrapper"
+    :class="isChild && 'is-child'"
+  >
     <ul class="comment-list">
-      <li v-for="item in list" :key="item.key" class="comment-list-item">
+      <li
+        v-for="item in list"
+        :key="item.key"
+        class="comment-list-item"
+        :data-level="item._level"
+        :style="{
+          width: item._level.length > 2 ? `calc(100% + calc(var(--avatar-width) + var(--base-gap)) * ${item._level.length - parentLevel.length})` : undefined
+        }"
+      >
         <!-- 头像 -->
         <div class="comment-list-item__avatar">
           <span
@@ -39,14 +50,14 @@
             <div class="comment-list-item--footer">
               <p class="comment-list-item__app">
                 <span class="comment-list-item--app-icon">
-                  <svg-icon :iconName="APP_ICONS[item.userAgent.os]" />
-                  <span class="desktop-show">{{ item.userAgent.os }}&nbsp;</span>
-                  <span>{{ item.userAgent.osVersion }}</span>
+                  <svg-icon :iconName="APP_ICONS[formatUA(item.ua, 'os')]" />
+                  <span class="desktop-show">{{ formatUA(item.ua, 'os') }}&nbsp;</span>
+                  <span>{{ formatUA(item.ua, 'osVersion') }}</span>
                 </span>
                 <span class="comment-list-item--app-icon">
-                  <svg-icon :iconName="APP_ICONS[item.userAgent.browser]" />
-                  <span class="desktop-show">{{ item.userAgent.browserZH }}&nbsp;</span>
-                  <span>{{ item.userAgent.browserVersion.replace(/(\d+\.\d+).*/, '$1') }}</span>
+                  <svg-icon :iconName="APP_ICONS[formatUA(item.ua, 'browser')]" />
+                  <span class="desktop-show">{{ formatUA(item.ua, 'browserZH') }}&nbsp;</span>
+                  <span>{{ formatUA(item.ua, 'browserVersion').replace(/(\d+\.\d+).*/, '$1') }}</span>
                 </span>
               </p>
               <p class="comment-list-item--opinion">
@@ -63,10 +74,15 @@
           <comment-form
             :id="item.id"
             :post-id="$route.params.id"
-            :parent-id="isChild ? item.parentId : item.id"
+            :parent-id="item.id"
             is-child
           />
-          <comment-list v-if="item.children" :list="item.children" is-child />
+          <comment-list
+            v-if="item.children.length"
+            :list="item.children"
+            :parent-level="item._level"
+            is-child
+          />
         </div>
       </li>
     </ul>
@@ -78,6 +94,7 @@ import { mapActions, mapMutations } from 'vuex'
 import CommentForm from './CommentForm'
 import { APP_ICONS } from '../../constants'
 import XIcon from '../Icon/main'
+import { ua } from '@xuanmo/javascript-utils'
 
 export default {
   name: 'CommentList',
@@ -97,6 +114,11 @@ export default {
     isChild: {
       type: Boolean,
       default: false
+    },
+
+    parentLevel: {
+      type: String,
+      default: ''
     }
   },
 
@@ -109,6 +131,10 @@ export default {
   methods: {
     ...mapMutations('comment', ['SET_COMMENT_CURRENT_FORM_ID']),
     ...mapActions('comment', ['updateCommentOpinion']),
+
+    formatUA(data, key) {
+      return ua(data)[key]
+    },
 
     /**
      * 评论点赞、踩
@@ -136,8 +162,16 @@ export default {
 
 <style lang="scss" scoped>
 .comment-list-wrapper {
+  --avatar-width: 50px;
   margin-top: var(--base-gap);
+
+  &.is-child {
+    .comment-list-wrapper.is-child {
+      transform: translateX(#{calc(-1 * calc(var(--avatar-width) + var(--base-gap)))});
+    }
+  }
 }
+
 .comment-list {
   &-item {
     display: flex;
@@ -173,19 +207,19 @@ export default {
     }
 
     &--image-avatar {
-      width: 50px;
-      height: 50px;
+      width: var(--avatar-width);
+      height: var(--avatar-width);
       border-radius: 50%;
     }
 
     &--text-avatar {
       display: inline-block;
-      width: 50px;
-      height: 50px;
+      width: var(--avatar-width);
+      height: var(--avatar-width);
       border-radius: 5px;
       font-size: 22px;
       text-align: center;
-      line-height: 50px;
+      line-height: var(--avatar-width);
       color: #fff;
     }
 
@@ -256,6 +290,11 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
+  .comment-list-wrapper {
+    --avatar-width: 35px;
+    margin-top: var(--base-gap);
+  }
+
   .comment-list-item {
     &__avatar {
       padding-top: 5px;

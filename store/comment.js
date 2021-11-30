@@ -1,4 +1,3 @@
-import { ua } from '@xuanmo/javascript-utils'
 import {
   SET_COMMENT_LIST,
   SET_COMMENT_TOTAL,
@@ -8,6 +7,22 @@ import {
   RESET_COMMENT,
   SET_COMMENT_CURRENT_FORM_ID
 } from './mutations-types'
+
+const recursionModifyDataById = (arr, id, value, key) => {
+  return arr.map(item => {
+    if (item.id === id) {
+      if (key) {
+        item[key] = value
+      } else {
+        item = value
+      }
+      return item
+    } else {
+      item.children = item.children.length ? recursionModifyDataById(item.children, id, value, key) : []
+      return item
+    }
+  })
+}
 
 export const state = () => ({
   commentList: [],
@@ -31,38 +46,11 @@ export const mutations = {
   },
 
   [UPDATE_COMMENT] (state, data) {
-    const newData = {
-      ...data,
-      userAgent: ua(data.ua)
-    }
-    if (data.parentId === '0') {
-      state.commentList.unshift(newData)
-    } else {
-      let index = -1
-      state.commentList.find((item, i) => {
-        if (item.id === data.parentId) {
-          index = i
-          return true
-        }
-        return false
-      })
-      if (index >= 0) state.commentList[index].children.unshift(newData)
-    }
+    state.commentList.unshift(data)
   },
 
-  [UPDATE_COMMENT_OPINION] (state, { id, data, parentId }) {
-    if (parentId === '0') {
-      const index = state.commentList.findIndex(item => item.id === id)
-      if (index >= 0) state.commentList[index].opinion = data
-    } else {
-      state.commentList = state.commentList.map(item => {
-        item.children = item.children.map(child => {
-          if (child.id === id) child.opinion = data
-          return child
-        })
-        return item
-      })
-    }
+  [UPDATE_COMMENT_OPINION] (state, { id, data }) {
+    state.commentList = recursionModifyDataById(state.commentList, id, data, 'opinion')
   },
 
   [SET_EXPRESSION] (state, data) {
@@ -85,14 +73,7 @@ export const actions = {
         params: requestData,
         data: { progress: false }
       })
-      commit(SET_COMMENT_LIST, data.map(item => ({
-        ...item,
-        userAgent: ua(item.ua),
-        children: item.children.map(child => ({
-          ...child,
-          userAgent: ua(child.ua)
-        }))
-      })))
+      commit(SET_COMMENT_LIST, data)
       commit(SET_COMMENT_TOTAL, totalPage)
       return Promise.resolve(data)
     } catch (error) {
@@ -138,10 +119,9 @@ export const actions = {
       })
       commit(UPDATE_COMMENT_OPINION, {
         id: requestData.id,
-        parentId: requestData.parentId,
         data: data.data
       })
-      return Promise.resolve(data.data)
+      return data.success ? Promise.resolve(data.data) : Promise.reject(data)
     } catch (error) {
       return Promise.reject(error)
     }

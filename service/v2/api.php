@@ -59,7 +59,7 @@ function get_comment_list(): array {
     $response = new Response();
 
     $page = empty($_GET['page']) ? 1 : $_GET['page'];
-    $page_size = empty($_GET['pageSize']) ? 8 : $_GET['pageSize'];
+    $page_size = empty($_GET['pageSize']) ? 10 : $_GET['pageSize'];
 
     $comment_list = get_comments(array(
         'post_id' => $_GET['postId'],
@@ -69,24 +69,28 @@ function get_comment_list(): array {
         'status'  => 'approve'
     ));
 
-    $result = array();
-
-    // 循环查询子数据
-    foreach ($comment_list as $key => $list) {
-        $children_response = get_comments(array(
-            'post_id' => $_GET['postId'],
-            'parent'  => $list->comment_ID,
-            'order'   => 'ASC',
-            'status'  => 'approve'
-        ));
-        $children = array();
-
-        foreach ($children_response as $child_key => $child) {
-            $children[$child_key] = xm_format_comment_item($child);
+    function recursion_query($list, $parent_index = null) {
+        foreach ($list as $key => $value) {
+            $uni_key = "$parent_index" . ($key + 0);
+            $children = get_comments(array(
+                'post_id' => $_GET['postId'],
+                'parent'  => $value->comment_ID,
+                'order'   => 'ASC',
+                'status'  => 'approve'
+            ));
+            if (empty($children)) {
+                $list[$key] = array_merge(xm_format_comment_item($value), array(
+                    'children' => array(),
+                    '_level'     => $uni_key
+                ));
+            } else {
+                $list[$key] = array_merge(xm_format_comment_item($value), array(
+                    'children' => recursion_query($children, $uni_key),
+                    '_level'     => $uni_key
+                ));
+            }
         }
-
-        $result[$key] = xm_format_comment_item($list);
-        $result[$key]['children'] = $children;
+        return $list;
     }
 
     $totalCount = (int)get_comments(array(
@@ -99,7 +103,7 @@ function get_comment_list(): array {
     $response->setPageData(array(
         'page'      => (int)$page,
         'pageSize'  => (int)$page_size,
-        'data'      => $result,
+        'data'      => recursion_query($comment_list),
         'total'     => $totalCount,
         'totalPage' => ceil($totalCount / $page_size)
     ));

@@ -372,7 +372,10 @@ function add_api_comment_meta_field() {
                 'post_id' => $object->post,
                 'number'  => 1
             ));
-            return xm_format_comment_item($comment[0]);
+            return array_merge(xm_format_comment_item($comment[0]), array(
+                'children' => array(),
+                '_level'    => '0'
+            ));
         },
         "schema"       => null
     ));
