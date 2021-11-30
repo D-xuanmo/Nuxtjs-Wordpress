@@ -262,7 +262,20 @@ export default {
     }
   }
 
-  .comment-list-item__avatar {
+  .comment-list-item {
+    &__avatar {
+      padding-top: 5px;
+    }
+
+    &--image-avatar {
+      width: 35px;
+      height: 35px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .comment-list-item__app {
     display: none;
   }
 }
