@@ -113,15 +113,6 @@ function xm_new_comment($comment_id) {
     $to = get_bloginfo('admin_email');
     $comment = get_comment($comment_id);
     $title = '[' . get_option('blogname') . '] 新评论："' . get_the_title($comment->comment_post_ID) . '"';
-    if ((bool)$secret['qywx_notify_enabled']) {
-        qywx_notify("站点有新评论到达，记得查看哦~
-            <br>文章标题：" . get_the_title($comment->comment_post_ID) . "
-            <br>作者: " . $comment->comment_author . "
-            <br>电子邮箱: " . $comment->comment_author_email . "
-            <br>URL: " . $comment->comment_author_url . "
-            <br>评论内容: " . xm_output_smiley($comment->comment_content)
-        );
-    }
     $message = '
         <style>
         #container {
@@ -167,6 +158,15 @@ function xm_new_comment($comment_id) {
     $message_headers = "Content-Type: text/html; charset=utf-8;";
     // 为新评论时才发送邮件
     if ($comment->comment_approved == 0 && $to != '') {
+        if ((bool)$secret['qywx_notify_enabled']) {
+            qywx_notify("站点有新评论到达，记得查看哦~
+            <br>文章标题：" . get_the_title($comment->comment_post_ID) . "
+            <br>作者: " . $comment->comment_author . "
+            <br>电子邮箱: " . $comment->comment_author_email . "
+            <br>URL: " . $comment->comment_author_url . "
+            <br>评论内容: " . xm_output_smiley($comment->comment_content)
+            );
+        }
         wp_mail($to, $title, $message, $message_headers);
     }
 }
