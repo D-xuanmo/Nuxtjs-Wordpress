@@ -256,12 +256,6 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
-  .comment-list-wrapper {
-    &.is-child {
-      padding-left: 40px;
-    }
-  }
-
   .comment-list-item {
     &__avatar {
       padding-top: 5px;
