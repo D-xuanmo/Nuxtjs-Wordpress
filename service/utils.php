@@ -41,7 +41,7 @@ function xm_generate_user_avatar(bool $isText, string $email) {
  * @return array|string|string[]|null
  */
 function xm_transform_comment_img($comment) {
-    return preg_replace_callback("/\[img\]\s?((https?:\/\/)?(\/[\w\-]+)+\.\w+)\[\/img\]/", function ($matchs) {
+    return preg_replace_callback("/\[img\]\s?((https?:\/\/(\w+\.)+\w+(:\d+)?)?(\/[\w\-]+)+\.\w+)\[\/img\]/", function ($matchs) {
         return "<img src='$matchs[1]' style='vertical-align: bottom; max-width: 40%; max-height: 250px;' />";
     }, $comment);
 }
