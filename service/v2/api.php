@@ -79,29 +79,16 @@ function get_comment_list(): array {
                 'order'   => 'ASC',
                 'status'  => 'approve'
             ));
-            if (empty($children)) {
-                $list[$key] = array_merge($format_value, array(
-                    'children' => array(),
-                    '_level'   => $uni_key,
-                    'parent'   => array(
-                        'content'     => (string)$parent['content'],
-                        'authorName'  => (string)$parent['authorName'],
-                        'authorSite'  => (string)$parent['comment_author_url'],
-                        'authorLevel' => get_author_level($parent->comment_author_email)
-                    )
-                ));
-            } else {
-                $list[$key] = array_merge($format_value, array(
-                    'children' => recursion_query($children, $uni_key, $format_value),
-                    '_level'   => $uni_key,
-                    'parent'   => array(
-                        'content'     => (string)$parent['content'],
-                        'authorName'  => (string)$parent['authorName'],
-                        'authorSite'  => (string)$parent['comment_author_url'],
-                        'authorLevel' => get_author_level($parent->comment_author_email)
-                    )
-                ));
-            }
+            $list[$key] = array_merge($format_value, array(
+                'children' => empty($children) ? array() : recursion_query($children, $uni_key, $format_value),
+                '_level'   => $uni_key,
+                'parent'   => array(
+                    'content'     => (string)$parent['content'],
+                    'authorName'  => (string)$parent['authorName'],
+                    'authorSite'  => (string)$parent['comment_author_url'],
+                    'authorLevel' => get_author_level($parent->comment_author_email)
+                )
+            ));
         }
         return $list;
     }
