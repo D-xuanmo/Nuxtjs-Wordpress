@@ -52,7 +52,7 @@
 
             <!-- 父级评论内容 -->
             <div
-              v-if="item.parent.authorName"
+              v-if="item.parent.authorName && item._level.length > 2"
               class="comment-list-item--parent-content"
               :title="item.parent.content"
               v-html="`@${item.parent.authorName} - ${item.parent.content}`"
