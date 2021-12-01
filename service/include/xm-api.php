@@ -374,7 +374,8 @@ function add_api_comment_meta_field() {
             ));
             return array_merge(xm_format_comment_item($comment[0]), array(
                 'children' => array(),
-                '_level'    => '0'
+                '_level'   => '0',
+                'parent'   => array()
             ));
         },
         "schema"       => null
