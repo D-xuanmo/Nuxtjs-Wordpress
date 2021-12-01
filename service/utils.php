@@ -5,7 +5,7 @@
  * @return array|string|string[]|null {}转换后的字符串
  */
 function xm_output_smiley(string $str = "") {
-    return preg_replace_callback("/(\[(?!img)\w+(\-[\x{4e00}-\x{9fa5}]+)?\])/u", function ($matchs) {
+    return preg_replace_callback("/(\[(?!img)\w+(\-[\w\x{4e00}-\x{9fa5}]+)?\])/u", function ($matchs) {
         global $wpsmiliestrans;
         $smilies_dir = get_option("xm_vue_options")["domain"] . '/images/smilies/';
         return '<img src="' . $smilies_dir . $wpsmiliestrans[$matchs[1]] . '" width="20" style="vertical-align:bottom;box-shadow:none;">';
