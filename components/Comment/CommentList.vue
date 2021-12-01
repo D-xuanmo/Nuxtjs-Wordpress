@@ -198,7 +198,7 @@ export default {
 
     &__content {
       flex: 1;
-      overflow: hidden;
+      width: 0;
     }
 
     &__avatar {
