@@ -8,7 +8,7 @@ function xm_output_smiley(string $str = "") {
     return preg_replace_callback("/(\[(?!img)\w+(\-[\x{4e00}-\x{9fa5}]+)?\])/u", function ($matchs) {
         global $wpsmiliestrans;
         $smilies_dir = get_option("xm_vue_options")["domain"] . '/images/smilies/';
-        return '<img src="' . $smilies_dir . $wpsmiliestrans[$matchs[1]] . '" width="20" style="vertical-align:baseline;box-shadow:none;">';
+        return '<img src="' . $smilies_dir . $wpsmiliestrans[$matchs[1]] . '" width="20" style="vertical-align:bottom;box-shadow:none;">';
     }, $str);
 }
 
@@ -41,7 +41,7 @@ function xm_generate_user_avatar(bool $isText, string $email) {
  * @return array|string|string[]|null
  */
 function xm_transform_comment_img($comment) {
-    return preg_replace_callback("/\[img\]\s?((\/[\w\-]+)+\.\w+)\[\/img\]/", function ($matchs) {
+    return preg_replace_callback("/\[img\]\s?((https?:\/\/)?(\/[\w\-]+)+\.\w+)\[\/img\]/", function ($matchs) {
         return "<img src='$matchs[1]' style='vertical-align: bottom; max-width: 40%; max-height: 250px;' />";
     }, $comment);
 }
@@ -56,7 +56,7 @@ function xm_format_comment_item($obj): array {
         'id'           => $obj->comment_ID,
         'parentId'     => $obj->comment_parent,
         'postId'       => $obj->comment_post_ID,
-        'ahutorName'   => $obj->comment_author,
+        'authorName'   => $obj->comment_author,
         'authorSite'   => $obj->comment_author_url,
         'createTime'   => $obj->comment_date,
         'isApproved'   => (bool)$obj->comment_approved,

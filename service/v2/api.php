@@ -69,9 +69,10 @@ function get_comment_list(): array {
         'status'  => 'approve'
     ));
 
-    function recursion_query($list, $parent_index = null) {
+    function recursion_query($list, $parent_index = null, $parent = array()) {
         foreach ($list as $key => $value) {
-            $uni_key = "$parent_index" . ($key + 0);
+            $uni_key = "$parent_index" . 0;
+            $format_value = xm_format_comment_item($value);
             $children = get_comments(array(
                 'post_id' => $_GET['postId'],
                 'parent'  => $value->comment_ID,
@@ -79,14 +80,26 @@ function get_comment_list(): array {
                 'status'  => 'approve'
             ));
             if (empty($children)) {
-                $list[$key] = array_merge(xm_format_comment_item($value), array(
+                $list[$key] = array_merge($format_value, array(
                     'children' => array(),
-                    '_level'     => $uni_key
+                    '_level'   => $uni_key,
+                    'parent'   => array(
+                        'content'     => (string)$parent['content'],
+                        'authorName'  => (string)$parent['authorName'],
+                        'authorSite'  => (string)$parent['comment_author_url'],
+                        'authorLevel' => get_author_level($parent->comment_author_email)
+                    )
                 ));
             } else {
-                $list[$key] = array_merge(xm_format_comment_item($value), array(
-                    'children' => recursion_query($children, $uni_key),
-                    '_level'     => $uni_key
+                $list[$key] = array_merge($format_value, array(
+                    'children' => recursion_query($children, $uni_key, $format_value),
+                    '_level'   => $uni_key,
+                    'parent'   => array(
+                        'content'     => (string)$parent['content'],
+                        'authorName'  => (string)$parent['authorName'],
+                        'authorSite'  => (string)$parent['comment_author_url'],
+                        'authorLevel' => get_author_level($parent->comment_author_email)
+                    )
                 ));
             }
         }

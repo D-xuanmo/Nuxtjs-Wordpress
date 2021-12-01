@@ -19,21 +19,23 @@
             v-if="item.isTextAvatar"
             class="comment-list-item--text-avatar"
             :style="{ background: item.avatarColor }"
-          >{{ item.ahutorName.substr(0, 1) }}</span>
+          >{{ item.authorName.substr(0, 1) }}</span>
           <img v-else :src="item.avatar" class="comment-list-item--image-avatar" />
         </div>
 
         <div class="comment-list-item__content">
           <header class="comment-list-item__content-header">
             <div style="display: flex; align-items: center">
-              <a :href="item.authorSite" class="comment-list-item--author" target="_blank">{{ item.ahutorName }}</a>
-              <span
-                class="icon-vip icon-level comment-list-item--level"
-                :class="[item.authorLevel.style, item.authorLevel.level]"
-                :title="item.authorLevel.title"
-                style="margin: 0 5px"
+              <comment-list-item-author
+                :author="{
+                  name: item.authorName,
+                  site: item.authorSite,
+                  style: item.authorLevel.style,
+                  level: item.authorLevel.level,
+                  levelTitle: item.authorLevel.title,
+                  isAdmin: item.authorLevel.isAdmin
+                }"
               />
-              <svg-icon v-if="item.authorLevel.isAdmin" iconName="icon-vip" title="博主" />
             </div>
 
             <div class="comment-list-item--reply">
@@ -45,7 +47,17 @@
           </header>
 
           <div class="comment-list-item--content">
+            <!-- 当前评论内容 -->
             <div v-html="item.content" />
+
+            <!-- 父级评论内容 -->
+            <div
+              v-if="item.parent.authorName"
+              class="comment-list-item--parent-content"
+              :title="item.parent.content"
+              v-html="`@${item.parent.authorName} - ${item.parent.content}`"
+            />
+
             <p v-if="!item.isApproved" class="comment-list-item--approved">您的评论正在等待审核</p>
             <div class="comment-list-item--footer">
               <p class="comment-list-item__app">
@@ -63,9 +75,6 @@
               <p class="comment-list-item--opinion">
                 <span @click="() => _updateCommentOpinion(item, 'good')">
                   <x-icon type="icon-good" /> {{ item.opinion.good || 0 }}
-                </span>
-                <span @click="() => _updateCommentOpinion(item, 'bad')">
-                  <x-icon type="icon-bad" /> {{ item.opinion.bad || 0 }}
                 </span>
               </p>
             </div>
@@ -95,11 +104,13 @@ import CommentForm from './CommentForm'
 import { APP_ICONS } from '../../constants'
 import XIcon from '../Icon/main'
 import { ua } from '@xuanmo/javascript-utils'
+import CommentListItemAuthor from './CommentListItemAuthor'
 
 export default {
   name: 'CommentList',
 
   components: {
+    CommentListItemAuthor,
     XIcon,
     CommentForm
   },
@@ -160,7 +171,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .comment-list-wrapper {
   --avatar-width: 50px;
   margin-top: var(--base-gap);
@@ -177,19 +188,6 @@ export default {
     display: flex;
     width: 100%;
 
-    &--level.vip-style-1 {
-      display: inline-block;
-      width: 20px;
-      height: 18px;
-      @for $i from 1 through 7 {
-        &.vip#{$i} {
-          background-repeat: no-repeat;
-          background-image: url("../../assets/images/vip-style-1-#{$i}.png");
-          background-size: contain;
-        }
-      }
-    }
-
     & + .comment-list-item {
       margin-top: var(--large-gap);
     }
@@ -200,6 +198,7 @@ export default {
 
     &__content {
       flex: 1;
+      overflow: hidden;
     }
 
     &__avatar {
@@ -233,16 +232,35 @@ export default {
       }
     }
 
-    &--author {
-      font-size: 18px;
+    &__author {
+      &-name {
+        font-size: 18px;
+      }
+
+      &-level.vip-style-1 {
+        display: inline-block;
+        width: 18px;
+      }
     }
 
     &--content {
       margin-top: var(--small-gap);
-      padding: var(--base-gap) var(--small-gap);
+      padding: var(--base-gap);
       border-radius: $border-radius;
       background: var(--color-main-background);
       white-space: pre-line;
+    }
+
+    &--parent-content {
+      margin-top: var(--base-gap);
+      padding: var(--small-gap);
+      border-radius: 3px;
+      background: var(--color-sub-background);
+      @extend %ellipsis;
+
+      img {
+        display: none;
+      }
     }
 
     &--approved {
@@ -253,7 +271,7 @@ export default {
     &--footer {
       display: flex;
       justify-content: space-between;
-      margin-top: var(--base-gap);
+      margin-top: var(--small-gap);
     }
 
     &--opinion {
@@ -293,23 +311,44 @@ export default {
   .comment-list-wrapper {
     --avatar-width: 35px;
     margin-top: var(--base-gap);
-  }
 
-  .comment-list-item {
-    &__avatar {
-      padding-top: 5px;
-    }
+    .comment-list-item {
+      &__avatar {
+        padding-top: 5px;
+      }
 
-    &--image-avatar {
-      width: 35px;
-      height: 35px;
+      &--image-avatar {
+        width: 35px;
+        height: 35px;
+      }
+
+      &--app-icon svg {
+        width: 15px;
+        height: 15px;
+      }
     }
   }
 }
 
-@media screen and (max-width: 768px) {
-  .comment-list-item__app {
-    display: none;
+@media screen and (max-width: 320px) {
+  .comment-list-wrapper {
+    --avatar-width: 25px;
+    margin-top: var(--base-gap);
+
+    .comment-list-item {
+      &__avatar {
+        padding-top: 5px;
+      }
+
+      &--image-avatar {
+        width: 25px;
+        height: 25px;
+      }
+
+      &__app {
+        display: none;
+      }
+    }
   }
 }
 </style>
