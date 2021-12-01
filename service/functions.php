@@ -508,3 +508,14 @@ function xm_custom_preview_link() {
 }
 
 add_filter('preview_post_link', 'xm_custom_preview_link');
+
+/**
+ * 替换头像地址
+ * @param $avatar
+ * @return array|string|string[]
+ */
+function xm_replace_avatar($avatar) {
+    return str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com"), "gravatar.xuanmo.xin", $avatar);
+}
+
+add_filter('get_avatar', 'xm_replace_avatar', 10, 3);
