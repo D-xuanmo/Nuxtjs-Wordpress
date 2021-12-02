@@ -348,6 +348,7 @@ function add_api_comment_meta_field() {
     // 评论添加字段
     register_rest_field("comment", "userAgentInfo", array(
         "get_callback" => function ($object) {
+            global $avatar_domain;
             global $avatar_colors;
             global $wpdb;
             $result = $wpdb->get_results("SELECT * FROM $wpdb->comments WHERE comment_ID = $object[id]");
@@ -357,7 +358,7 @@ function add_api_comment_meta_field() {
             return array(
                 "userAgent"          => ($object[author_user_agent] ? $object[author_user_agent] : $result[0]->comment_agent),
                 "vipStyle"           => get_author_level($author_email),
-                "author_avatar_urls" => "https://gravatar.xuanmo.xin/avatar/" . md5(strtolower(trim($author_email))) . "?s=200",
+                "author_avatar_urls" => "https://$avatar_domain/avatar/" . md5(strtolower(trim($author_email))) . "?s=200",
                 "background"         => $avatar_colors[$matches[0]] // 根据邮箱md5后获取第一个数字生成颜色
             );
         },
