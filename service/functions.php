@@ -27,7 +27,7 @@ $xm_theme_options = get_option('xm_vue_options');
 $avatar_colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
 
 // 头像主域名
-$avatar_domain = "gravatar.xuanmo.xin";
+$avatar_domain = "avatar.xuanmo.xin";
 
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
