@@ -106,6 +106,7 @@ add_action("rest_api_init", "add_api_user_meta_field");
 function add_get_blog_info() {
     global $wpdb;
     global $avatar_colors;
+    global $avatar_domain;
 
     // 获取最后更新时间
     $last = $wpdb->get_results("SELECT MAX(post_modified) AS MAX_m FROM $wpdb->posts WHERE (post_type = 'post' OR post_type = 'page') AND (post_status = 'publish' OR post_status = 'private')");
@@ -121,7 +122,7 @@ function add_get_blog_info() {
     $latestComment = array();
     for ($i = 0; $i < count($newComment); $i++) {
         preg_match("/\d/", md5($newComment[$i]->comment_author_email), $matches);
-        $latestComment[$i]->avatar = "https://gravatar.xuanmo.xin/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200";
+        $latestComment[$i]->avatar = "https://$avatar_domain/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200";
         $latestComment[$i]->background = $avatar_colors[$matches[0]]; // 根据邮箱md5后获取第一个数字生成颜色
         $latestComment[$i]->countCom = get_comments_number($newComment[$i]->comment_post_ID);
         $latestComment[$i]->link = get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"];
