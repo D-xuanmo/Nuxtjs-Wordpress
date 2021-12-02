@@ -26,6 +26,9 @@ $xm_theme_options = get_option('xm_vue_options');
 // 头像全局色盘
 $avatar_colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f67", "#f8a5c2", "#596275", "#2196F3", "#fb683a"];
 
+// 头像主域名
+$avatar_domain = "gravatar.xuanmo.xin";
+
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
 
@@ -515,7 +518,8 @@ add_filter('preview_post_link', 'xm_custom_preview_link');
  * @return array|string|string[]
  */
 function xm_replace_avatar($avatar) {
-    return str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com", "secure.gravatar.com"), "gravatar.xuanmo.xin", $avatar);
+    global $avatar_domain;
+    return str_replace(array("www.gravatar.com", "0.gravatar.com", "1.gravatar.com", "2.gravatar.com", "secure.gravatar.com"), $avatar_domain, $avatar);
 }
 
 add_filter('get_avatar', 'xm_replace_avatar', 10, 3);
