@@ -39,19 +39,19 @@
         <h2 class="title">分享本文海报</h2>
         <div class="btn">
           <a :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${$store.state.info.domain}/details/${$route.params.id}&title=${content.title}&summary=${content.summary}&pics=${poster}`" target="_blank">
-            <svg-icon iconName="#icon-QQkongjian" class="vertical-middle"></svg-icon>
+            <svg-icon iconName="icon-QQkongjian" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;分享到QQ空间</span>
           </a>
         </div>
         <div class="btn">
           <a :href="`https://service.weibo.com/share/share.php?url=${$store.state.info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${content.title}&appkey=1343713053&searchPic=true&pic=${poster}#_loginLayer_1473259217614`" target="_blank">
-            <svg-icon iconName="#icon-xinlang1" class="vertical-middle"></svg-icon>
+            <svg-icon iconName="icon-xinlang1" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;分享到新浪</span>
           </a>
         </div>
         <div class="btn">
           <a :href="posterUrl" :download="`${content.title}.png`">
-            <svg-icon iconName="#icon-xiazai" class="vertical-middle"></svg-icon>
+            <svg-icon iconName="icon-xiazai" class="vertical-middle"></svg-icon>
             <span class="vertical-middle">&nbsp;下载海报图</span>
           </a>
         </div>
