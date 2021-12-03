@@ -1743,10 +1743,10 @@
   resolved "https://registry.npmmirror.com/@xtuc/long/download/@xtuc/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha1-0pHGpOl5ibXGHZrPOWrk/hM6cY0=
 
-"@xuanmo/javascript-utils@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.npmmirror.com/@xuanmo/javascript-utils/download/@xuanmo/javascript-utils-0.0.24.tgz#822b61f7db6c9ea919980bf49c30070cf874bfd5"
-  integrity sha512-dcqnlFwx4wiNwYBzaR8v+LkCHAKW0zNPf0d1v/seBWXSZMjPTnRj3ENQf5RhswP81ghCpS93OPPUzoNrqOxliw==
+"@xuanmo/javascript-utils@^0.0.28":
+  version "0.0.28"
+  resolved "https://registry.npmmirror.com/@xuanmo/javascript-utils/download/@xuanmo/javascript-utils-0.0.28.tgz#4284aaaf8d4dea5c07387dbeda06d101842f843c"
+  integrity sha512-Jh7Q98mVS581XyL9XoyU/0ZkGDzvW++qKRDwGX1aE1cM99miAqiPGkkZSi05Ox3nYFltTR0kaoYWYUlUz0uCsQ==
   dependencies:
     "@typescript-eslint/parser" "^4.27.0"
 

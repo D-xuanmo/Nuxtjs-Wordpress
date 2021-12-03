@@ -144,7 +144,7 @@ export default {
     ...mapActions('comment', ['updateCommentOpinion']),
 
     formatUA(data, key) {
-      return ua(data)[key]
+      return ua(data)[key].toString() || ''
     },
 
     /**
