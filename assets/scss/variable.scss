@@ -102,7 +102,7 @@ $box-shadow: 0 0 10px rgba(0,0,0,.2);
 // 多行文字超出显示省略号
 @mixin ellipsisMultiline($number: 1, $line-height: $line-height, $font-size: $font-size-base) {
   display: -webkit-box;
-  max-height: $font-size * $line-height * $number;
+  max-height: ($font-size + 1px) * $line-height * $number;
   overflow: hidden;
   -webkit-box-orient: vertical;
   word-break: break-all;
