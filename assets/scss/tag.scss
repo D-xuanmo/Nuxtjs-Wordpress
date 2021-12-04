@@ -45,8 +45,13 @@ ol {
 }
 
 // 过滤文章正文中的 li 元素
-li:not(.content-details li) {
+li {
   list-style: none;
+}
+
+.content-details li {
+  list-style-type: initial;
+  list-style-position: inside;
 }
 
 img {

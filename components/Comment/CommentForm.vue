@@ -279,7 +279,6 @@ export default {
 
     &-icon-btn {
       font-size: 12px;
-      color: $color-sub-text;
       cursor: pointer;
 
       &:first-of-type {
