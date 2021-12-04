@@ -1,6 +1,6 @@
 <template>
   <div v-show="isShow" class="reward-toast">
-    <div class="mask" @click="$emit('input', false)"></div>
+    <div class="dialog-model" @click="$emit('input', false)"></div>
     <div class="reward-toast-inner align-center">
       <x-icon type="icon-close" @click.native.stop="$emit('input', false)"></x-icon>
       <p class="thumbnail"><img :src="content.thumbnail" alt="" width="80"></p>
@@ -50,17 +50,12 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 9999;
   width: 100%;
   height: 100%;
 
-  .mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $color-mask;
+  .dialog-model {
+    @extend %dialog-model;
   }
 
   img {

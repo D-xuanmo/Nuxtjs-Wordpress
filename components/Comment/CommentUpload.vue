@@ -36,7 +36,7 @@
       </div>
     </div>
     <!-- 遮罩层 -->
-    <div class="model" @click.stop="_hideUpload"></div>
+    <div class="dialog-model" @click.stop="_hideUpload"></div>
   </div>
 </template>
 <script>
@@ -209,14 +209,8 @@ export default {
   width: 100%;
   height: 100%;
 
-  .model {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .7);
+  .dialog-model {
+    @extend %dialog-model;
   }
 
   .sub-upload-wrap {

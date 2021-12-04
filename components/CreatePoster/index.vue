@@ -1,6 +1,6 @@
 <template>
   <div v-show="value" class="poster-container">
-    <div class="mask" @click="$emit('input', false)"></div>
+    <div class="dialog-model" @click="$emit('input', false)"></div>
     <div class="poster-content">
       <x-icon type="icon-close" @click.native="$emit('input', false)"></x-icon>
       <div v-if="JSON.stringify(content) !== '{}'" class="poster-wrap is-border">
@@ -14,7 +14,7 @@
             <p>&nbsp;海报生成中...</p>
           </div>
           <div class="content-img-wrap align-center">
-            <img :src="content.imgUrl" height="200">
+            <div style="height: 200px"><img :src="content.imgUrl" height="200"></div>
             <div class="time">
               <p class="day align-center">{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$3') }}</p>
               <p>{{ content.time.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, '$1/$2') }}</p>
@@ -147,13 +147,8 @@ $padding: 10px;
   width: 100%;
   height: 100%;
 
-  .mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $color-mask;
+  .dialog-model {
+    @extend %dialog-model;
   }
 
   .poster-content {
