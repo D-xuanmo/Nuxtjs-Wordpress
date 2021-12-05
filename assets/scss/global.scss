@@ -141,15 +141,18 @@ body {
 
   ul,
   ol {
-    margin: 10px 0;
+    margin: var(--base-gap) 0;
+  }
+
+  li {
+    margin-top: var(--small-gap);
   }
 }
 
 // 代码高亮
 .code-toolbar {
-  margin-bottom: 20px;
+  margin: var(--small-gap) 0 var(--base-gap);
   border: 1px solid var(--color-border);
-  border-left: 0;
   border-radius: 5px;
   overflow: hidden;
 
