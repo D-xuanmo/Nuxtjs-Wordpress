@@ -115,6 +115,7 @@ body {
 
 // 文章详情正文内容
 .content-details {
+  line-height: 1.8;
   $title-font-size: (
     1: 28px,
     2: 24px,
@@ -137,6 +138,7 @@ body {
 
   img {
     height: auto !important;
+    margin-top: var(--small-gap);
   }
 
   ul,
