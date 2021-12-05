@@ -228,7 +228,7 @@ $padding: 10px;
       padding: 20px $padding 10px;
       overflow: hidden;
       font-size: 18px;
-      color: var(--color-main-text);
+      color: var(--color-primary);
     }
 
     .summary {

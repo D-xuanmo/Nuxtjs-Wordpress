@@ -79,13 +79,14 @@
 
     .author {
       height: 20px;
+      font-weight: 600;
     }
 
     .comment-text {
       max-height: 34px;
       margin: 3px 0;
       font-size: $font-size-small;
-      @include ellipsisMultiline(2, $line-height, $font-size-small);
+      @include ellipsisMultiline(2, $font-size-small + 8px, $font-size-small);
     }
 
     .title {

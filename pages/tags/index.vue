@@ -36,7 +36,7 @@ export default {
 
     span{
       display: inline-block;
-      color: var(--color-main-text);
+      color: var(--color-primary);
 
       &:after{
         content: "";
@@ -44,7 +44,7 @@ export default {
         width: 20px;
         height: 2px;
         margin: 5px auto 0;
-        background: var(--color-main-text);
+        background: var(--color-primary);
       }
     }
   }

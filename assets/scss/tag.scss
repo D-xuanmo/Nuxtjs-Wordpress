@@ -49,9 +49,16 @@ li {
   list-style: none;
 }
 
-.content-details li {
-  list-style-type: initial;
-  list-style-position: inside;
+.content-details {
+  li {
+    list-style-type: initial;
+    list-style-position: inside;
+  }
+  ol {
+    li {
+      list-style-type: decimal;
+    }
+  }
 }
 
 img {
@@ -64,7 +71,7 @@ img {
 a {
   text-decoration: none;
   transition: 0.5s;
-  color: var(--color-main-text);
+  color: var(--color-primary);
 
   &:hover {
     color: $color-theme;

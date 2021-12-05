@@ -82,6 +82,7 @@ export default {
   margin-top: $container-margin;
   padding: 30px 0;
   background: #2d3237;
+  color: rgba(255, 255, 255, .45);
   transition: .5s;
 
   &.is-show-menu {
@@ -93,6 +94,14 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
+  }
+
+  ::v-deep a {
+    color: rgba(255, 255, 255, .45);
+
+    &:hover {
+      color: $color-theme;
+    }
   }
 }
 
@@ -114,11 +123,6 @@ export default {
     display: block;
     margin-right: $container-margin;
     font-size: $font-size-large;
-    color: #9295a2;
-
-    &:hover {
-      color: $color-theme;
-    }
   }
 }
 

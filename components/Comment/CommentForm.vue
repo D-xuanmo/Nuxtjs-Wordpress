@@ -275,6 +275,7 @@ export default {
     &-tips {
       margin-bottom: var(--small-gap);
       font-size: 12px;
+      color: var(--color-secondary);
     }
 
     &-icon-btn {
@@ -286,7 +287,7 @@ export default {
       }
 
       .iconfont {
-        font-size: 20px;
+        font-size: 16px;
         vertical-align: middle;
       }
     }

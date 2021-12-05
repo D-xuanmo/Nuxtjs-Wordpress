@@ -5,10 +5,9 @@ $color-theme: #409eff;
 $color-theme-secondary: #ecf5ff;
 
 // 主文字颜色
-$color-main-text: #666;
-
-// 文字辅助颜色
-$color-sub-text: #999;
+$color-title: rgba(0, 0, 0, .85);
+$color-primary: rgba(0, 0, 0, .85);
+$color-secondary: rgba(0, 0, 0, .45);
 
 $color-red: #f5222d;
 
@@ -40,18 +39,18 @@ $font-size-base: 14px;
 $font-size-large: 16px;
 
 // 行高
-$line-height: 1.5;
+$line-height-base: $font-size-base + 8;
 
 // 圆角
 $border-radius: 4px;
 
 // 容器之间的外间距
-$container-margin: 20px;
+$container-margin: 24px;
 
 // 容器的内边距
-$container-padding: 15px;
+$container-padding: 16px;
 
-$box-shadow: 0 0 10px rgba(0,0,0,.2);
+$box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 
 // 透明兼容写法
 @mixin opacity($number: 0.5) {
@@ -110,13 +109,47 @@ $box-shadow: 0 0 10px rgba(0,0,0,.2);
   backdrop-filter: blur(2px);
 }
 
+@function to-number($value) {
+  @if type-of($value) == 'number' {
+    @return $value;
+  } @else if type-of($value) != 'string' {
+    @error 'Value for `to-number` should be a number or a string.';
+  }
+
+  $result: 0;
+  $digits: 0;
+  $minus: str-slice($value, 1, 1) == '-';
+  $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+
+  @for $i from if($minus, 2, 1) through str-length($value) {
+    $character: str-slice($value, $i, $i);
+
+    @if (index(map-keys($numbers), $character) or $character == '.') {
+      @if $character == '.' {
+        $digits: 1;
+      } @else if $digits == 0 {
+        $result: $result * 10 + map-get($numbers, $character);
+      } @else {
+        $digits: $digits * 10;
+        $result: $result + map-get($numbers, $character) / $digits;
+      }
+    }
+  }
+
+  @return if($minus, -$result, $result);
+}
+
 // 多行文字超出显示省略号
-@mixin ellipsisMultiline($number: 1, $line-height: $line-height, $font-size: $font-size-base) {
+@mixin ellipsisMultiline($number: 1, $line-height: $line-height-base, $font-size: $font-size-base) {
   display: -webkit-box;
-  max-height: ($font-size + 1px) * $line-height * $number;
   overflow: hidden;
   -webkit-box-orient: vertical;
   word-break: break-all;
   text-overflow: ellipsis;
   -webkit-line-clamp: $number;
+  @if str-index($line-height + '', 'px') {
+    max-height: to-number($line-height + '') * $number + px;
+  } @else {
+    max-height: to-number($font-size + '') * $line-height * $number;
+  }
 }

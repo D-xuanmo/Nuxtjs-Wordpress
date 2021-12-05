@@ -43,7 +43,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       currentPage: 1,
       pageSize: 10,
@@ -74,7 +74,7 @@ export default {
     this.getList()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$store.commit('comment/RESET_COMMENT')
   },
 
@@ -115,8 +115,11 @@ export default {
 <style lang="scss" scoped>
 .comment-list-more-btn {
   margin-top: var(--large-gap);
+  color: var(--color-secondary);
+
   .iconfont {
     font-size: 16px;
+    color: var(--color-secondary);
   }
 }
 </style>

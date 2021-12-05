@@ -68,8 +68,8 @@
                 </span>
                 <span class="comment-list-item--app-icon">
                   <svg-icon :iconName="APP_ICONS[formatUA(item.ua, 'browser')]" />
-                  <span class="desktop-show">{{ formatUA(item.ua, 'browserZH') }}&nbsp;</span>
-                  <span>{{ formatUA(item.ua, 'browserVersion').replace(/(\d+\.\d+).*/, '$1') }}</span>
+                  <span class="desktop-show vertical-middle">{{ formatUA(item.ua, 'browserZH') }}&nbsp;</span>
+                  <span class="vertical-middle">{{ formatUA(item.ua, 'browserVersion').replace(/(\d+\.\d+).*/, '$1') }}</span>
                 </span>
               </p>
               <p class="comment-list-item--opinion">
@@ -224,10 +224,11 @@ export default {
 
     &--reply {
       font-size: 12px;
-      color: $color-sub-text;
+      color: var(--color-secondary);
 
       &-btn {
         margin-left: var(--small-gap);
+        color: var(--color-secondary);
         cursor: pointer;
       }
     }
@@ -271,11 +272,12 @@ export default {
     &--footer {
       display: flex;
       justify-content: space-between;
-      margin-top: var(--small-gap);
+      margin-top: var(--base-gap);
     }
 
     &--opinion {
       display: flex;
+      color: var(--color-secondary);
       span {
         cursor: pointer;
 
@@ -292,14 +294,15 @@ export default {
     &--app-icon {
       display: flex;
       align-items: center;
+      color: var(--color-secondary);
 
       & + .comment-list-item--app-icon {
         margin-left: var(--base-gap);
       }
 
       svg {
-        width: 15px;
-        height: 15px;
+        width: 15px !important;
+        height: 15px !important;
         margin-right: var(--small-gap);
         vertical-align: middle;
       }

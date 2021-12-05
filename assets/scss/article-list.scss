@@ -81,7 +81,7 @@
     @include ellipsisMultiline(2, 1.5, 16px);
 
     a {
-      color: var(--color-main-text);
+      color: var(--color-primary);
 
       &:hover {
         color: $color-theme;
@@ -114,8 +114,8 @@
 
   .summary {
     flex: 1;
-    @include ellipsisMultiline(3, 1.8);
-    line-height: 1.8;
+    @include ellipsisMultiline(3);
+    color: var(--color-secondary);
   }
 
   // 文章信息

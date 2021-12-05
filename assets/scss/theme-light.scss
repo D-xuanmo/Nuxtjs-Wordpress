@@ -2,8 +2,11 @@
   :root {
     --color-theme: #{$color-theme};
     --color-theme-secondary: #{$color-theme-secondary};
-    --color-main-text: #{$color-main-text};
-    --color-sub-text: #{$color-sub-text};
+    --color-title: #{$color-theme};
+    --color-primary: #{$color-primary};
+    --color-secondary: #{$color-secondary};
+    --color-primary-reverse: rgba(255, 255, 255, .85);
+    --color-secondary-reverse: rgba(255, 255, 255, .45);
     --color-main-background: #{$color-main-background};
     --color-sub-background: #fff;
     --color-white: #{$color-white};

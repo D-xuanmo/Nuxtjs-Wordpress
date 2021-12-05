@@ -2,14 +2,18 @@
   :root {
     --color-theme: #{$color-theme};
     --color-theme-secondary: var(--color-sub-background);
-    --color-main-text: #A3A3A3;
-    --color-sub-text: #888;
+    --color-title: rgba(255, 255, 255, .75);
+    --color-primary: rgba(255, 255, 255, .75);
+    --color-secondary: rgba(255, 255, 255, .45);
+    --color-primary-reverse: rgba(0, 0, 0, .85);
+    --color-secondary-reverse: rgba(0, 0, 0, .45);
     --color-main-background: #2d363c;
     --color-sub-background: #293238;
     --color-white: #{$color-white};
     --color-border: rgba(233, 234, 237, .3);
     --color-menu-background-m: var(--color-sub-background);
   }
+
   code:not([class*="lang"]),
   .code {
     background: var(--color-main-background);
@@ -28,7 +32,7 @@
   }
   pre[class*="language-"] > code {
     background: var(--color-main-background);
-    color: var(--color-main-text);
+    color: var(--color-primary);
   }
   button,
   input,
@@ -37,16 +41,17 @@
     outline: 0;
     border: 0;
     background: none;
-    color: var(--color-main-text);
+    color: var(--color-primary);
   }
 
   .banner-wrap {
     .list {
       background: none !important;
     }
+
     .title {
       background: rgba(0, 0, 0, .6) !important;
-      color: var(--color-main-text);
+      color: var(--color-primary);
     }
   }
 
@@ -60,12 +65,12 @@
   .el-pagination .btn-next,
   .el-pagination .btn-prev,
   .btn-quicknext {
-    color: var(--color-main-text) !important;
+    color: var(--color-primary) !important;
   }
 
   .header-container .nav-wrapper {
     a {
-      color: var(--color-main-text);
+      color: var(--color-primary);
     }
 
     .nuxt-link-exact-active {

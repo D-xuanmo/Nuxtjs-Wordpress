@@ -228,11 +228,12 @@ $headerHeight: 60px;
   // 搜索框
   .search-wrapper {
     width: 200px;
+    overflow: hidden;
 
     .search-content {
       display: flex;
       align-items: center;
-      border: 1px solid $color-main-background;
+      border: 1px solid var(--color-border);
       border-radius: $border-radius;
     }
 
@@ -249,7 +250,12 @@ $headerHeight: 60px;
       background: $color-main-background;
       text-align: center;
       line-height: 30px;
+      color: $color-primary;
       cursor: pointer;
+    }
+
+    .icon-search {
+      border-radius: 0 $border-radius $border-radius 0;
     }
   }
 }

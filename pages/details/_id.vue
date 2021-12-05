@@ -354,49 +354,10 @@ export default {
     padding-bottom: 5px;
     border-bottom: 1px solid var(--color-border);
     text-align: center;
-    color: var(--color-sub-text);
+    color: var(--color-secondary);
 
     .iconfont {
       vertical-align: baseline;
-    }
-  }
-
-  // 正文
-  .content-details {
-    line-height: 2;
-    word-break: break-all;
-
-    ::v-deep a {
-      color: $color-theme;
-    }
-
-    ::v-deep h2 {
-      margin-top: 10px;
-
-      .iconfont {
-        vertical-align: bottom;
-      }
-    }
-
-    ::v-deep h1,
-    ::v-deep h2 {
-      font-size: $font-size-large;
-    }
-
-    ::v-deep h4,
-    ::v-deep h5,
-    ::v-deep h6 {
-      font-size: $font-size-small;
-    }
-
-    ::v-deep img {
-      height: auto !important;
-      box-shadow: 0 0 10px #d2d2d2;
-    }
-
-    ::v-deep ul,
-    ::v-deep ol {
-      margin: 10px 0;
     }
   }
 }
@@ -518,34 +479,6 @@ export default {
   background: var(--color-sub-background);
   font-size: $font-size-large;
   text-align: center;
-}
-
-// 代码高亮
-::v-deep .code-toolbar {
-  margin-bottom: 20px;
-  border: 1px solid var(--color-border);
-  border-left: 5px solid $color-theme;
-  border-radius: 5px;
-  overflow: hidden;
-
-  pre {
-    margin: 0;
-
-    &:after,
-    &:before {
-      display: none;
-    }
-
-    > code {
-      border-left: 0;
-      box-shadow: none;
-    }
-  }
-
-  :not(pre) > code[class*=language-],
-  pre[class*=language-] {
-    background: none;
-  }
 }
 
 @media screen and (max-width: 767px) {

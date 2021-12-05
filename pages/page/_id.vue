@@ -62,7 +62,7 @@ export default {
 
     span {
       display: inline-block;
-      color: var(--color-main-text);
+      color: var(--color-primary);
 
       &:after {
         content: "";
@@ -70,74 +70,9 @@ export default {
         width: 20px;
         height: 2px;
         margin: 5px auto 0;
-        background: var(--color-main-text);
+        background: var(--color-primary);
       }
     }
-  }
-
-  // 正文
-  .content-details {
-    line-height: 2;
-
-    ::v-deep a {
-      color: $color-theme;
-    }
-
-    ::v-deep h2{
-      margin-top: 10px;
-
-      .iconfont {
-        vertical-align: bottom;
-      }
-    }
-
-    ::v-deep h1,
-    ::v-deep h2{
-      font-size: $font-size-large;
-    }
-
-    ::v-deep h4,
-    ::v-deep h5,
-    ::v-deep h6{
-      font-size: $font-size-small;
-    }
-
-    ::v-deep img {
-      height: auto !important;
-      box-shadow: 0 0 10px #d2d2d2;
-    }
-
-    ::v-deep ul,
-    ::v-deep ol {
-      margin: 10px 0;
-    }
-  }
-}
-
-::v-deep .code-toolbar {
-  margin-bottom: 20px;
-  border: 1px solid var(--color-border);
-  border-left: 5px solid $color-theme;
-  border-radius: 5px;
-  overflow: hidden;
-
-  pre {
-    margin: 0;
-
-    &:after,
-    &:before {
-      display: none;
-    }
-
-    > code {
-      border-left: 0;
-      box-shadow: none;
-    }
-  }
-
-  :not(pre) > code[class*=language-],
-  pre[class*=language-] {
-    background: none;
   }
 }
 
