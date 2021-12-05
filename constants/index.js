@@ -6,7 +6,7 @@ export const APP_ICONS = {
   Mb2345Browser: 'icon-2345',
   Windows: 'icon-windows',
   Macintosh: 'icon-Macintosh',
-  iPhone: 'icon-apple',
+  iPhone: 'icon-pingguo',
   Android: 'icon-android',
   Linux: 'icon-linux',
   MicroMessenger: 'icon-weixin5',
