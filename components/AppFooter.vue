@@ -96,7 +96,7 @@ export default {
     width: 100%;
   }
 
-  ::v-deep a {
+  ::v-deep a:not(.c-theme) {
     color: rgba(255, 255, 255, .45);
 
     &:hover {

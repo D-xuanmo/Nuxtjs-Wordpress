@@ -139,6 +139,10 @@ body {
   img {
     height: auto !important;
     margin-top: var(--small-gap);
+
+    &.wp-smiley {
+      margin-top: 0;
+    }
   }
 
   ul,
