@@ -50,7 +50,7 @@ $container-margin: 24px;
 // 容器的内边距
 $container-padding: 16px;
 
-$box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+$box-shadow: 0 0 15px rgba(0, 0, 0, .1);
 
 // 透明兼容写法
 @mixin opacity($number: 0.5) {

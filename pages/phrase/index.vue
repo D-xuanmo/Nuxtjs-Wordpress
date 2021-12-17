@@ -98,15 +98,9 @@ export default {
       .content {
         box-shadow: $box-shadow;
         transform: translateY(-5px);
-      }
-    }
-
-    &:nth-of-type(odd) {
-      .content {
-        background: #ff845d;
 
         &:before {
-          border-color: transparent #ff845d transparent transparent;
+          transform: translateY(5px);
         }
       }
     }
@@ -117,8 +111,7 @@ export default {
     width: 100%;
     padding: 10px 20px;
     border-radius: 5px;
-    background: #8696e2;
-    color: #fff;
+    background: var(--color-sub-background);
     transition: .3s;
 
     &:before {
@@ -129,8 +122,9 @@ export default {
       border: {
         width: 10px;
         style: solid;
-        color: transparent #8696e2 transparent transparent;
+        color: transparent var(--color-sub-background) transparent transparent;
       }
+      transition: .3s;
     }
   }
 
