@@ -92,7 +92,7 @@ function recursion_query_common_list(array $list, int $level = 2, string $parent
             'number'  => $level === 0 ? '' : 2
         ));
         $list[$key] = array_merge($format_value, array(
-            'hasChildren' => !empty($children),
+            'hasChildren' => count($children) >= 2,
             '_level'      => $uni_key,
             'parent'      => array(
                 'content'     => (string)$parent['content'],
