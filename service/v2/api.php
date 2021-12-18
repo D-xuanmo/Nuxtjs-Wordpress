@@ -44,7 +44,8 @@ function get_all_list(): array {
 }
 
 add_action('rest_api_init', function () {
-    register_rest_route('/xm/v2', '/site/list/all', array(
+    global $router_prefix;
+    register_rest_route($router_prefix, '/site/list/all', array(
         'methods'             => 'get',
         'permission_callback' => '__return_true',
         'callback'            => 'get_all_list'
@@ -69,30 +70,6 @@ function get_comment_list(): array {
         'status'  => 'approve'
     ));
 
-    function recursion_query($list, $parent_index = null, $parent = array()) {
-        foreach ($list as $key => $value) {
-            $uni_key = "$parent_index" . 0;
-            $format_value = xm_format_comment_item($value);
-            $children = get_comments(array(
-                'post_id' => $_GET['postId'],
-                'parent'  => $value->comment_ID,
-                'order'   => 'ASC',
-                'status'  => 'approve'
-            ));
-            $list[$key] = array_merge($format_value, array(
-                'children' => empty($children) ? array() : recursion_query($children, $uni_key, $format_value),
-                '_level'   => $uni_key,
-                'parent'   => array(
-                    'content'     => (string)$parent['content'],
-                    'authorName'  => (string)$parent['authorName'],
-                    'authorSite'  => (string)$parent['comment_author_url'],
-                    'authorLevel' => get_author_level($parent->comment_author_email)
-                )
-            ));
-        }
-        return $list;
-    }
-
     $totalCount = (int)get_comments(array(
         'post_id' => $_GET['postId'],
         'count'   => true,
@@ -103,7 +80,7 @@ function get_comment_list(): array {
     $response->setPageData(array(
         'page'      => (int)$page,
         'pageSize'  => (int)$page_size,
-        'data'      => recursion_query($comment_list),
+        'data'      => recursion_query_common_list($comment_list),
         'total'     => $totalCount,
         'totalPage' => ceil($totalCount / $page_size)
     ));
@@ -112,9 +89,33 @@ function get_comment_list(): array {
 }
 
 add_action('rest_api_init', function () {
-    register_rest_route('/xm/v2', '/comment/list', array(
+    global $router_prefix;
+    register_rest_route($router_prefix, '/comment/list', array(
         'methods'             => 'get',
         'permission_callback' => '__return_true',
         'callback'            => 'get_comment_list'
+    ));
+});
+
+/**
+ * 递归查询单条评论数据
+ * @return array
+ */
+function get_single_comment(): array {
+    $response = new Response();
+
+    $comment_list = get_comment($_GET['commentId']);
+
+    $response->setResponse(recursion_query_common_list(array($comment_list), 0));
+
+    return $response->getResponse();
+}
+
+add_action('rest_api_init', function () {
+    global $router_prefix;
+    register_rest_route($router_prefix, '/comment/list/single', array(
+        'methods'             => 'get',
+        'permission_callback' => '__return_true',
+        'callback'            => 'get_single_comment'
     ));
 });

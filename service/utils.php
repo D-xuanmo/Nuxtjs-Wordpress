@@ -65,8 +65,56 @@ function xm_format_comment_item($obj): array {
         'ua'           => $obj->comment_agent,
         'opinion'      => get_metadata('comment', $obj->comment_ID, 'opinion', true),
         'isTextAvatar' => (boolean)$xm_theme_options['text_pic'],
-        'avatar'       => "https://$avatar_domain/avatar/" . md5(strtolower(trim($obj->comment_author_email))) . "?s=200",
+        'avatar'       => "https://$avatar_domain/avatar/" . md5(strtolower(trim($obj->comment_author_email))) . "?s=100",
         'avatarColor'  => xm_generate_user_avatar((boolean)$xm_theme_options['text_pic'], $obj->comment_author_email),
         'authorLevel'  => get_author_level($obj->comment_author_email)
     );
+}
+
+/**
+ * 递归查询评论列表
+ * @param array $list 需要递归查询的列表
+ * @param int $level 需要查询子级的层级数
+ * @param string | null $parent_index 父级索引值
+ * @param array $parent 父级信息
+ * @return array
+ */
+function recursion_query_common_list(array $list, int $level = 2, string $parent_index = null, array $parent = array()): array {
+    foreach ($list as $key => $value) {
+        $uni_key = "$parent_index" . 0;
+        $format_value = xm_format_comment_item($value);
+        $children = get_comments(array(
+            'post_id' => $_GET['postId'],
+            'parent'  => $value->comment_ID,
+            'order'   => 'ASC',
+            'status'  => 'approve',
+            // 默认只查询2条子级数据
+            'number'  => $level === 0 ? '' : 2
+        ));
+        $list[$key] = array_merge($format_value, array(
+            'hasChildren' => !empty($children),
+            '_level'      => $uni_key,
+            'parent'      => array(
+                'content'     => (string)$parent['content'],
+                'authorName'  => (string)$parent['authorName'],
+                'authorSite'  => (string)$parent['comment_author_url'],
+                'authorLevel' => get_author_level($parent['comment_author_email'])
+            )
+        ));
+
+        if (empty($children)) {
+            $list[$key]['children'] = array();
+        } else {
+            if ($level === 0) {
+                $list[$key]['children'] = recursion_query_common_list($children, $level, $uni_key, $format_value);
+            } else {
+                if (strlen($uni_key) > 1) {
+                    $list[$key]['children'] = array();
+                } else {
+                    $list[$key]['children'] = recursion_query_common_list($children, $level, $uni_key, $format_value);
+                }
+            }
+        }
+    }
+    return $list;
 }

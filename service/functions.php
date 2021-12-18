@@ -29,6 +29,9 @@ $avatar_colors = ["#f3a683", "#778beb", "#e77f67", "#f5cd79", "#0fb9b1", "#e77f6
 // 头像主域名
 $avatar_domain = "avatar.xuanmo.xin";
 
+// 接口前缀
+$router_prefix = "/xm/v2";
+
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
 

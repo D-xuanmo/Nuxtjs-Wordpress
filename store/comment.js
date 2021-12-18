@@ -32,28 +32,39 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [SET_COMMENT_LIST] (state, data) {
+  [SET_COMMENT_LIST](state, data) {
     state.commentList = [...state.commentList, ...data]
   },
 
-  [RESET_COMMENT] (state) {
+  [RESET_COMMENT](state) {
     state.commentList = []
     state.totalPage = 0
   },
 
-  [SET_COMMENT_TOTAL] (state, n) {
+  [SET_COMMENT_TOTAL](state, n) {
     state.totalPage = n
   },
 
-  [UPDATE_COMMENT] (state, data) {
-    state.commentList.unshift(data)
+  [UPDATE_COMMENT](state, { data, type, id }) {
+    if (type === 'unshift') {
+      state.commentList.unshift(data)
+    } else if (type === 'replace') {
+      const index = state.commentList.findIndex((item) => item.id === id)
+      state.commentList.splice(index, 1, data)
+    } else if (type === 'merge') {
+      const index = state.commentList.findIndex((item) => item.id === id)
+      state.commentList.splice(index, 1, {
+        ...state.commentList[index],
+        ...data
+      })
+    }
   },
 
-  [UPDATE_COMMENT_OPINION] (state, { id, data }) {
+  [UPDATE_COMMENT_OPINION](state, { id, data }) {
     state.commentList = recursionModifyDataById(state.commentList, id, data, 'opinion')
   },
 
-  [SET_EXPRESSION] (state, data) {
+  [SET_EXPRESSION](state, data) {
     state.expressionList = data
   },
 
@@ -64,7 +75,7 @@ export const mutations = {
 
 export const actions = {
   // 获取评论列表
-  async getCommentList ({ commit }, requestData) {
+  async getCommentList({ commit }, requestData) {
     try {
       const {
         data,
@@ -73,7 +84,7 @@ export const actions = {
         params: requestData,
         data: { progress: false }
       })
-      commit(SET_COMMENT_LIST, data)
+      commit(SET_COMMENT_LIST, data.map(item => ({ ...item, loading: false })))
       commit(SET_COMMENT_TOTAL, totalPage)
       return Promise.resolve(data)
     } catch (error) {
@@ -81,15 +92,52 @@ export const actions = {
     }
   },
 
+  async getSingleComment({ commit }, requestData) {
+    try {
+      commit(UPDATE_COMMENT, {
+        data: {
+          loading: true
+        },
+        type: 'merge',
+        id: requestData.commentId
+      })
+      const { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm/v2/comment/list/single`, {
+        params: requestData,
+        data: { progress: false }
+      })
+      commit(UPDATE_COMMENT, {
+        data: {
+          ...data[0],
+          hasChildren: false
+        },
+        type: 'replace',
+        id: requestData.commentId
+      })
+      return Promise.resolve(data)
+    } catch (error) {
+      commit(UPDATE_COMMENT, {
+        data: {
+          loading: false
+        },
+        type: 'merge',
+        id: requestData.commentId
+      })
+      return Promise.reject(error)
+    }
+  },
+
   // 提交评论
-  async updateComment ({ commit }, requestData) {
+  async updateComment({ commit }, requestData) {
     try {
       const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/wp/v2/comments`, requestData, {
         headers: {
           progress: false
         }
       })
-      commit(UPDATE_COMMENT, data.newComment)
+      commit(UPDATE_COMMENT, {
+        data: data.newComment,
+        type: 'unshift'
+      })
       return Promise.resolve(data)
     } catch (error) {
       return Promise.reject(error)
@@ -97,7 +145,7 @@ export const actions = {
   },
 
   // 获取表情列表
-  async getExpression ({ commit, rootState }) {
+  async getExpression({ commit, rootState }) {
     try {
       const { data } = await this.$axios.$get(`${rootState.info.templeteUrl}/expression.php`, {
         data: { progress: false }
@@ -110,7 +158,7 @@ export const actions = {
   },
 
   // 评论列表点赞
-  async updateCommentOpinion ({ commit }, requestData) {
+  async updateCommentOpinion({ commit }, requestData) {
     try {
       const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-json/xm-blog/v1/update-comment-meta`, requestData, {
         headers: {

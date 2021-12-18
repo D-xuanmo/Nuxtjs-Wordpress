@@ -8,9 +8,15 @@
         v-for="item in list"
         :key="item.key"
         class="comment-list-item"
+        :class="{
+          'is-child': isChild,
+          'has-child': item.hasChildren
+        }"
         :data-level="item._level"
         :style="{
-          width: item._level.length > 2 ? `calc(100% + calc(var(--avatar-width) + var(--base-gap)) * ${item._level.length - parentLevel.length})` : undefined
+          width: item._level.length > 2
+            ? `calc(100% + calc(var(--avatar-width) + var(--small-gap)) * ${item._level.length - parentLevel.length})`
+            : undefined
         }"
       >
         <!-- 头像 -->
@@ -92,6 +98,11 @@
             :parent-level="item._level"
             is-child
           />
+
+          <div v-if="!isChild && item.hasChildren" class="comment-list-item--more-btn">
+            <span v-if="item.loading"><x-icon type="icon-loading" /> 加载中...</span>
+            <span v-else @click="_getSingleComment(item.id)">查看更多回复 <x-icon type="icon-arrow-bottom" /></span>
+          </div>
         </div>
       </li>
     </ul>
@@ -141,10 +152,17 @@ export default {
 
   methods: {
     ...mapMutations('comment', ['SET_COMMENT_CURRENT_FORM_ID']),
-    ...mapActions('comment', ['updateCommentOpinion']),
+    ...mapActions('comment', ['updateCommentOpinion', 'getSingleComment']),
 
     formatUA(data, key) {
       return ua(data)[key].toString() || ''
+    },
+
+    _getSingleComment(commentId) {
+      this.getSingleComment({
+        postId: this.$route.params.id,
+        commentId
+      });
     },
 
     /**
@@ -173,12 +191,12 @@ export default {
 
 <style lang="scss">
 .comment-list-wrapper {
-  --avatar-width: 50px;
+  --avatar-width: 30px;
   margin-top: var(--base-gap);
 
   &.is-child {
     .comment-list-wrapper.is-child {
-      transform: translateX(#{calc(-1 * calc(var(--avatar-width) + var(--base-gap)))});
+      transform: translateX(#{calc(-1 * calc(var(--avatar-width) + var(--small-gap)))});
     }
   }
 }
@@ -201,8 +219,19 @@ export default {
       width: 0;
     }
 
+    &--more-btn {
+      margin-top: var(--small-gap);
+      padding-left: calc(var(--avatar-width) + var(--small-gap));
+      color: var(--color-secondary);
+      cursor: pointer;
+
+      &.is-loading {
+        cursor: wait;
+      }
+    }
+
     &__avatar {
-      margin-right: var(--base-gap);
+      margin-right: var(--small-gap);
     }
 
     &--image-avatar {
@@ -312,17 +341,11 @@ export default {
 
 @media screen and (max-width: 768px) {
   .comment-list-wrapper {
-    --avatar-width: 35px;
     margin-top: var(--base-gap);
 
     .comment-list-item {
       &__avatar {
         padding-top: 5px;
-      }
-
-      &--image-avatar {
-        width: 35px;
-        height: 35px;
       }
 
       &--app-icon svg {
@@ -335,17 +358,11 @@ export default {
 
 @media screen and (max-width: 320px) {
   .comment-list-wrapper {
-    --avatar-width: 25px;
     margin-top: var(--base-gap);
 
     .comment-list-item {
       &__avatar {
         padding-top: 5px;
-      }
-
-      &--image-avatar {
-        width: 25px;
-        height: 25px;
       }
 
       &__app {
