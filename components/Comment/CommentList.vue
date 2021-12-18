@@ -101,7 +101,9 @@
 
           <div v-if="!isChild && item.hasChildren" class="comment-list-item--more-btn">
             <span v-if="item.loading"><x-icon type="icon-loading" /> 加载中...</span>
-            <span v-else @click="_getSingleComment(item.id)">查看更多回复 <x-icon type="icon-arrow-bottom" /></span>
+            <span v-else @click="_getSingleComment(item.id)">
+              查看全部 {{ item.childrenCount }} 条回复 <x-icon type="icon-arrow-bottom" />
+            </span>
           </div>
         </div>
       </li>

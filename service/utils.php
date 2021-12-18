@@ -72,6 +72,33 @@ function xm_format_comment_item($obj): array {
 }
 
 /**
+ * 统计评论子级条数
+ * @param string $comment_id 当前评论 ID
+ * @return int
+ */
+function xm_get_comment_count(string $comment_id): int {
+    $result = array();
+    $comments = get_comments(array(
+        'parent' => $comment_id,
+        'status' => 'approve'
+    ));
+    $fn = function (&$comments) use (&$fn, $result) {
+        foreach ($comments as $value) {
+            $result[] = $value;
+            $children = get_comments(array(
+                'parent' => $value->comment_ID,
+                'status' => 'approve'
+            ));
+            if (!empty($children)) {
+                $result = array_merge($result, $fn($children));
+            }
+        }
+        return $result;
+    };
+    return count($fn($comments));
+}
+
+/**
  * 递归查询评论列表
  * @param array $list 需要递归查询的列表
  * @param int $level 需要查询子级的层级数
@@ -84,15 +111,13 @@ function recursion_query_common_list(array $list, int $level = 2, string $parent
         $uni_key = "$parent_index" . 0;
         $format_value = xm_format_comment_item($value);
         $children = get_comments(array(
-            'post_id' => $_GET['postId'],
-            'parent'  => $value->comment_ID,
-            'order'   => 'ASC',
-            'status'  => 'approve',
+            'parent' => $value->comment_ID,
+            'order'  => 'ASC',
+            'status' => 'approve',
             // 默认只查询2条子级数据
-            'number'  => $level === 0 ? '' : 2
+            'number' => $level === 0 ? '' : 2
         ));
         $list[$key] = array_merge($format_value, array(
-            'hasChildren' => count($children) >= 2,
             '_level'      => $uni_key,
             'parent'      => array(
                 'content'     => (string)$parent['content'],
@@ -102,13 +127,19 @@ function recursion_query_common_list(array $list, int $level = 2, string $parent
             )
         ));
 
+        if (strlen($uni_key) === 1) {
+            $childrenCount = xm_get_comment_count($value->comment_ID);
+            $list[$key]['hasChildren'] = $childrenCount > 2;
+            $list[$key]['childrenCount'] = $childrenCount;
+        }
+
         if (empty($children)) {
             $list[$key]['children'] = array();
         } else {
             if ($level === 0) {
                 $list[$key]['children'] = recursion_query_common_list($children, $level, $uni_key, $format_value);
             } else {
-                if (strlen($uni_key) > 1) {
+                if (strlen($uni_key) > $level - 1) {
                     $list[$key]['children'] = array();
                 } else {
                     $list[$key]['children'] = recursion_query_common_list($children, $level, $uni_key, $format_value);
