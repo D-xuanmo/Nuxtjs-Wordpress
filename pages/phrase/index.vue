@@ -30,6 +30,10 @@ export default {
   created () {
     this.getPhraseList()
   },
+  mounted() {
+    // eslint-disable-next-line
+    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
+  },
   methods: {
     ...mapActions('phrase', ['getPhraseList'])
   }
@@ -132,6 +136,7 @@ export default {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px dashed $color-border;
+    color: var(--color-secondary);
   }
 }
 </style>
