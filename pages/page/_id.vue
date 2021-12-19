@@ -21,30 +21,34 @@ import Comments from '~/components/Comment'
 import { mapState } from 'vuex'
 export default {
   name: 'Page',
+
   layout: 'page',
+
   fetch ({ params, store }) {
     return store.dispatch('page/getPageDetail', params.id)
   },
+
   components: {
     Comments
   },
+
   computed: {
     ...mapState(['info']),
     ...mapState('page', ['detail'])
   },
+
   head () {
     return {
       title: `${this.detail.title.rendered} | ${this.info.blogName}`,
-      link: [
-        { rel: 'stylesheet', href: 'https://upyun.xuanmo.xin/css/prism.css' }
-      ],
       style: [
         { cssText: this.info.detailsCss, type: 'text/css' }
-      ],
-      script: [
-        { src: 'https://upyun.xuanmo.xin/js/prism.js' }
       ]
     }
+  },
+
+  mounted() {
+    // eslint-disable-next-line
+    document.querySelectorAll('pre code').forEach(el => Prism.highlightElement(el))
   }
 }
 </script>

@@ -20,22 +20,23 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'Phrase',
+
   layout: 'page',
+
+  fetch({ store }) {
+    return store.dispatch('phrase/getPhraseList')
+  },
+
   computed: {
     ...mapState('phrase', ['list'])
   },
-  created () {
-    this.getPhraseList()
-  },
+
   mounted() {
     // eslint-disable-next-line
-    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
-  },
-  methods: {
-    ...mapActions('phrase', ['getPhraseList'])
+    document.querySelectorAll('pre code').forEach(el => Prism.highlightElement(el))
   }
 }
 </script>

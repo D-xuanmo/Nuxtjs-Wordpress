@@ -176,7 +176,7 @@ import XIcon from '../../components/Icon/main'
 export default {
   name: 'Details',
   layout: 'page',
-  fetch({ params, error, store }) {
+  fetch({ params, store }) {
     store.dispatch('article/updateArticleViewCount', { id: params.id })
     return store.dispatch('article/getArticleDetail', params.id)
   },
@@ -262,9 +262,6 @@ export default {
 
     // eslint-disable-next-line
     process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
-  },
-  beforeDestroy() {
-    document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
   },
   methods: {
     ...mapMutations(['TOGGLE_READING_MODE']),

@@ -26,6 +26,9 @@ export default {
   computed: {
     ...mapState(['menuStatus'])
   },
+  beforeDestroy() {
+    document.querySelectorAll('.prism-previewer').forEach(item => (item.style.display = 'none'))
+  },
   methods: {
     _closeMenu () {
       this.$store.commit('UPDATE_MENU_STATUS', false)
