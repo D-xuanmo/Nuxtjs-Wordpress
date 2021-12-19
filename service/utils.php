@@ -29,7 +29,7 @@ function replace_domain($url) {
  */
 function xm_generate_user_avatar(bool $isText, string $email) {
     global $avatar_colors;
-    if ((bool)$isText) {
+    if ($isText) {
         preg_match("/\d/", md5($email), $matches);
         return $avatar_colors[$matches[0]];
     }
@@ -42,7 +42,7 @@ function xm_generate_user_avatar(bool $isText, string $email) {
  */
 function xm_transform_comment_img($comment) {
     return preg_replace_callback("/\[img\]\s?((https?:\/\/(\w+\.)+\w+(:\d+)?)?(\/[\w\-]+)+\.\w+)\[\/img\]/", function ($matchs) {
-        return "<img src='$matchs[1]' style='vertical-align: bottom; max-width: 40%; max-height: 250px;' />";
+        return "<img src='$matchs[1]' class='comment-list-item--upload-img'  alt='' />";
     }, $comment);
 }
 

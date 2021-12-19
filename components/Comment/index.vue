@@ -122,4 +122,14 @@ export default {
     color: var(--color-secondary);
   }
 }
+
+::v-deep .comment-list-item--upload-img {
+  max-width: 40%;
+}
+
+@media screen and (max-width: 768px) {
+  ::v-deep .comment-list-item--upload-img {
+    max-width: 100%;
+  }
+}
 </style>
