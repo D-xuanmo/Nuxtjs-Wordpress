@@ -112,7 +112,9 @@ blockquote {
   background: #f8f8f8;
   border-radius: 5px;
 
-  p {
+  p,
+  ul,
+  ol {
     margin: 0 !important;
   }
 }
