@@ -129,6 +129,10 @@ body {
       margin: var(--large-gap) 0 calc(var(--base-gap) / 2);
       font-size: $size;
       line-height: $size + 8px;
+
+      & + * {
+        margin-top: 0 !important;
+      }
     }
   }
 
@@ -148,6 +152,10 @@ body {
   ul,
   ol {
     margin: var(--base-gap) 0;
+
+    li:first-of-type {
+      margin-top: 0;
+    }
   }
 
   li {
