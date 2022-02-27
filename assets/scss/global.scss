@@ -115,7 +115,7 @@ body {
 
 // 文章详情正文内容
 .content-details {
-  line-height: 1.8;
+  line-height: 2;
   $title-font-size: (
     1: 28px,
     2: 24px,
@@ -126,7 +126,7 @@ body {
   );
   @each $level, $size in $title-font-size {
     h#{$level} {
-      margin: var(--base-gap) 0 calc(var(--base-gap) / 2);
+      margin: var(--large-gap) 0 calc(var(--base-gap) / 2);
       font-size: $size;
       line-height: $size + 8px;
     }
@@ -151,7 +151,7 @@ body {
   }
 
   li {
-    margin-top: var(--small-gap);
+    margin-top: var(--large-gap);
   }
 }
 
