@@ -117,4 +117,8 @@ blockquote {
   ol {
     margin: 0 !important;
   }
+
+  li {
+    margin-top: var(--small-gap);
+  }
 }
