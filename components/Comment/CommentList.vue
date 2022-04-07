@@ -281,6 +281,10 @@ export default {
       border-radius: $border-radius;
       background: var(--color-main-background);
       white-space: pre-line;
+
+      a {
+        color: var(--color-theme);
+      }
     }
 
     &--parent-content {
