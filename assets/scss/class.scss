@@ -167,3 +167,10 @@ code:not([class*="lang"]),
 .p-relative {
   position: relative;
 }
+
+.img-hover {
+  transition: .5s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}

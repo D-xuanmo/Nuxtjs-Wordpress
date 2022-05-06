@@ -12,7 +12,7 @@
       <template v-if="info.banner.style === '1'">
         <div class="big-banner">
           <a class="list block" :href="info.banner.big.link">
-            <img :src="info.banner.big.path" alt="">
+            <img :src="info.banner.big.path" class="img-hover">
             <span
               class="title"
               :title="info.banner.big.text"
@@ -24,7 +24,7 @@
         <ul class="small-banner">
           <li class="list" v-for="item in info.banner.small" :key="item.key">
             <a class="block" :href="item.link">
-              <img :src="item.path" alt="">
+              <img :src="item.path" class="img-hover">
               <span v-if="item.text" class="title" :title="item.text">{{ item.text }}</span>
             </a>
           </li>

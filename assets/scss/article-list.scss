@@ -1,12 +1,12 @@
 // 文章列表
 .article-list-wrap {
-  margin-top: $container-margin;
-  padding: $container-padding;
+  margin-top: var(--base-gap);
+  padding: var(--base-gap);
   border-radius: $border-radius;
   background: var(--color-sub-background);
 
   .header {
-    padding-bottom: $container-padding;
+    padding-bottom: var(--base-gap);
     border-bottom: 1px solid var(--color-border);
     font-size: $font-size-large;
   }
@@ -54,6 +54,7 @@
   .thumbnail-wrap {
     overflow: hidden;
     flex-shrink: 0;
+    margin-right: var(--base-gap);
   }
 
   // 缩略图
@@ -70,7 +71,6 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-left: 15px;
     overflow: hidden;
   }
 

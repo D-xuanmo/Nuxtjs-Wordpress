@@ -143,6 +143,7 @@ body {
   img {
     height: auto !important;
     margin-top: var(--small-gap);
+    vertical-align: baseline;
 
     &.wp-smiley {
       margin-top: 0;

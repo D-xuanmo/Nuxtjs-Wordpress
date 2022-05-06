@@ -1,6 +1,6 @@
 // 侧边栏
 .sidebar-list {
-  margin-top: $container-margin;
+  margin-top: var(--base-gap);
   padding: 10px;
   border-radius: $border-radius;
   background: var(--color-sub-background);
