@@ -20,6 +20,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@xuanmo/javascript-utils": "^0.0.28",
     "element-ui": "^2.13.2",
+    "highlight.js": "^11.5.1",
     "html2canvas": "1.0.0-alpha.12",
     "nuxt": "^2.12.2",
     "qrcode": "^1.4.4"

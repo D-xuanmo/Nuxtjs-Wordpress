@@ -172,6 +172,7 @@ import Comments from '~/components/Comment'
 import Reward from '~/components/Reward'
 import CreatePoster from '~/components/CreatePoster'
 import XIcon from '../../components/Icon/main'
+import hljs from 'highlight.js/lib/core'
 
 export default {
   name: 'Details',
@@ -261,7 +262,7 @@ export default {
     }
 
     // eslint-disable-next-line
-    process.browser && document.querySelectorAll('pre code').forEach(block => Prism.highlightElement(block))
+    process.browser && document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block))
   },
   methods: {
     ...mapMutations(['TOGGLE_READING_MODE']),
