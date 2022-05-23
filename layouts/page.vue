@@ -30,6 +30,7 @@ import php from 'highlight.js/lib/languages/php'
 import scss from 'highlight.js/lib/languages/scss'
 import markdown from 'highlight.js/lib/languages/markdown'
 import sql from 'highlight.js/lib/languages/sql'
+import bash from 'highlight.js/lib/languages/bash'
 import 'highlight.js/styles/atom-one-dark-reasonable.css'
 
 hljs.registerLanguage('javascript', javascript)
@@ -44,6 +45,7 @@ hljs.registerLanguage('php', php)
 hljs.registerLanguage('scss', scss)
 hljs.registerLanguage('markdown', markdown)
 hljs.registerLanguage('sql', sql)
+hljs.registerLanguage('bash', bash)
 
 export default {
   name: 'Page',
