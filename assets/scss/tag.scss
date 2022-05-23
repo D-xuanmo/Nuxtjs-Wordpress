@@ -45,19 +45,13 @@ ol {
 }
 
 // 过滤文章正文中的 li 元素
-li {
+li:not(.content-details li) {
   list-style: none;
 }
 
 .content-details {
   li {
-    list-style-type: initial;
     list-style-position: inside;
-  }
-  ol {
-    li {
-      list-style-type: decimal;
-    }
   }
 }
 
