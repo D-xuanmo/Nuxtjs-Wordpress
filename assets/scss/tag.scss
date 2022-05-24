@@ -52,10 +52,6 @@ li:not(.content-details li) {
 .content-details {
   li {
     list-style-position: inside;
-
-    > p {
-      display: inline;
-    }
   }
 }
 
