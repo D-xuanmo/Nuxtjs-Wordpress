@@ -21,6 +21,8 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import hljs from 'highlight.js/lib/core'
+
 export default {
   name: 'Phrase',
 
@@ -36,7 +38,7 @@ export default {
 
   mounted() {
     // eslint-disable-next-line
-    document.querySelectorAll('pre code').forEach(el => Prism.highlightElement(el))
+    document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el))
   }
 }
 </script>
