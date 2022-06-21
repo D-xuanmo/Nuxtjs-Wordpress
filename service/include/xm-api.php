@@ -210,13 +210,13 @@ function xm_get_view_count($request) {
     $postID = $request->get_params()["id"];
     $count_key = "post_views_count";
     $count = get_post_meta($postID, $count_key, true);
-    if ($count == "") {
+    if ($count) {
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    } else {
         $count = 1;
         delete_post_meta($postID, $count_key);
         add_post_meta($postID, $count_key, "1");
-    } else {
-        $count++;
-        update_post_meta($postID, $count_key, $count);
     }
     return $count;
 }
