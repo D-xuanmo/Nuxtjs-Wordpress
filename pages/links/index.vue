@@ -9,8 +9,8 @@
       <h2 class="link-list--section-title">友情链接</h2>
       <ul class="link-list">
         <li v-for="item in innerList" :key="item.id" class="link-list__item">
-          <a href="" class="link-list__item-link">
-            <img :src="item.url" class="link-list__item--logo" :alt="item.name">
+          <a :href="item.url" :target="item.target" class="link-list__item-link">
+            <img :src="item.logo" class="link-list__item--logo" :alt="item.name">
             <div class="link-list__item-content">
               <p class="link-list__item--title" :title="item.name">{{ item.name }}</p>
               <p class="link-list__item--describe" :title="item.description">{{ item.description }}</p>
@@ -23,8 +23,8 @@
       <h2 class="link-list--section-title">首页链接</h2>
       <ul class="link-list">
         <li v-for="item in links" :key="item.id" class="link-list__item">
-          <a href="" class="link-list__item-link">
-            <img :src="item.url" class="link-list__item--logo" :alt="item.name">
+          <a :href="item.url" :target="item.target" class="link-list__item-link">
+            <img :src="item.logo" class="link-list__item--logo" :alt="item.name">
             <div class="link-list__item-content">
               <p class="link-list__item--title" :title="item.name">{{ item.name }}</p>
               <p class="link-list__item--describe" :title="item.description">{{ item.description }}</p>
