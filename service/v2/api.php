@@ -5,7 +5,7 @@ require_once(TEMPLATEPATH . '/v2/Response.php');
  * 获取全站的文章、分类、标签、页面
  * @return array
  */
-function get_all_list(): array {
+function xm_get_all_list(): array {
     global $wpdb;
     $response = new Response();
 
@@ -48,7 +48,7 @@ add_action('rest_api_init', function () {
     register_rest_route($router_prefix, '/site/list/all', array(
         'methods'             => 'get',
         'permission_callback' => '__return_true',
-        'callback'            => 'get_all_list'
+        'callback'            => 'xm_get_all_list'
     ));
 });
 
@@ -56,7 +56,7 @@ add_action('rest_api_init', function () {
  * 查询评论列表
  * @return array
  */
-function get_comment_list(): array {
+function xm_get_comment_list(): array {
     $response = new Response();
 
     $page = empty($_GET['page']) ? 1 : $_GET['page'];
@@ -93,7 +93,7 @@ add_action('rest_api_init', function () {
     register_rest_route($router_prefix, '/comment/list', array(
         'methods'             => 'get',
         'permission_callback' => '__return_true',
-        'callback'            => 'get_comment_list'
+        'callback'            => 'xm_get_comment_list'
     ));
 });
 
@@ -117,5 +117,64 @@ add_action('rest_api_init', function () {
         'methods'             => 'get',
         'permission_callback' => '__return_true',
         'callback'            => 'get_single_comment'
+    ));
+});
+
+/**
+ * 获取链接列表
+ */
+function xm_get_links($request) {
+    $response = new Response();
+    $arg = array(
+        "orderby"       => "link_id",
+        "order"         => "ASC",
+        "category_name" => $request->get_params()["category"]
+    );
+    $list = get_bookmarks($arg);
+    $result = [];
+    for ($i = 0; $i < count($list); $i++) {
+        $result[$i]->id = $list[$i]->link_id;
+        $result[$i]->name = $list[$i]->link_name;
+        $result[$i]->url = $list[$i]->link_url;
+        $result[$i]->target = $list[$i]->link_target;
+        $result[$i]->logo = $list[$i]->link_image;
+        $result[$i]->description = $list[$i]->link_description;
+    }
+    $response->setResponse($result);
+    return $response->getResponse();
+}
+
+add_action("rest_api_init", function () {
+    global $router_prefix;
+    register_rest_route($router_prefix, '/links', array(
+        'methods'             => 'get',
+        'permission_callback' => '__return_true',
+        'callback'            => 'xm_get_links'
+    ));
+});
+
+/**
+ * 获取链接页面详情
+ */
+function xm_get_link_detail() {
+    $response = new Response();
+    $page = get_page_by_path("links");
+    $response->setResponse(array(
+        "id"              => $page->ID,
+        "title"           =>$page->post_title,
+        "content"         =>$page->post_content,
+        "commentStatus"   =>$page->comment_status,
+        "createTime"      => $page->post_date,
+        "commentCount"    => get_comments_number()
+    ));
+    return $response->getResponse();
+}
+
+add_action('rest_api_init', function() {
+    global $router_prefix;
+    register_rest_route($router_prefix, '/link/page/detail', array(
+        'methods'             => 'get',
+        'permission_callback' => '__return_true',
+        'callback'            => 'xm_get_link_detail'
     ));
 });

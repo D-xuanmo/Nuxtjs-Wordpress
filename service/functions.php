@@ -224,17 +224,17 @@ add_filter('user_contactmethods', 'xm_user_contact');
 /*
  * 解决php添加分号斜杠问题
  */
-if (get_magic_quotes_gpc()) {
-    function stripslashes_deep($value) {
-        return is_array($value) ?
-            array_map('stripslashes_deep', $value) :
-            stripslashes($value);
-    }
+// if (get_magic_quotes_gpc()) {
+//     function stripslashes_deep($value) {
+//         return is_array($value) ?
+//             array_map('stripslashes_deep', $value) :
+//             stripslashes($value);
+//     }
 
-    $_POST = array_map('stripslashes_deep', $_POST);
-    $_GET = array_map('stripslashes_deep', $_GET);
-    $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
-}
+//     $_POST = array_map('stripslashes_deep', $_POST);
+//     $_GET = array_map('stripslashes_deep', $_GET);
+//     $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+// }
 
 /**
  * 允许未登录评论
@@ -465,7 +465,7 @@ add_action('init', 'xm_custom_smilies_conversion', 3);
 /*
  * 评论区@功能
  */
-function comment_add_at($comment_text, $comment = '') {
+function comment_add_at($comment_text, $comment) {
     if ($comment->comment_parent > 0) {
         $comment_text = '@<a href="#comment-' . $comment->comment_parent . '" class="c-theme">' . get_comment_author($comment->comment_parent) . '</a> ' . $comment_text;
     }

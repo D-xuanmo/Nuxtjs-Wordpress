@@ -7,9 +7,9 @@
           :key="index"
           :href="item.url"
           :target="item.target"
-          :title="item.text"
+          :title="item.name"
         >
-          {{ item.text }}
+          {{ item.name }}
         </a>
       </div>
       <div class="copyright">

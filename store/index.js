@@ -40,7 +40,8 @@ export const actions = {
     try {
       const { data: globalInfo } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/info`)
       const { data: menu } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/menu`)
-      const { data: links } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm-blog/v1/get-links?type=home`)
+      const { data: links } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/xm/v2/links?category=${encodeURI('首页')}`)
+
       // 判断banner类型
       if (globalInfo.banner.style === '1') {
         globalInfo.banner.big = globalInfo.banner.list[0]

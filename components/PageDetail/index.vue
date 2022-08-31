@@ -1,0 +1,79 @@
+<template>
+  <div class="container">
+    <article class="article">
+      <h2 class="title">
+        <span v-html="title"></span>
+      </h2>
+      <div class="content-details" v-html="content"></div>
+    </article>
+    <slot />
+    <!-- 评论列表 -->
+    <div class="comment">
+      <h2 class="comment-title" v-html="`共 ${commentCount} 条评论关于 “${title}”`"></h2>
+      <client-only>
+        <comments :comment-status="commentStatus"/>
+      </client-only>
+    </div>
+  </div>
+</template>
+
+<script>
+import Comments from '~/components/Comment'
+
+export default {
+  name: 'PageDetail',
+  components: {
+    Comments
+  },
+  props: {
+    title: String,
+    content: String,
+    commentCount: Number,
+    commentStatus: String
+  }
+}
+</script>
+
+<style lang="scss">
+.article {
+  padding: $container-padding;
+  background: var(--color-sub-background);
+  border-radius: $border-radius;
+
+  .title {
+    margin-bottom: 30px;
+    font-size: 20px;
+    text-align: center;
+
+    span {
+      display: inline-block;
+      color: var(--color-primary);
+
+      &:after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 2px;
+        margin: 5px auto 0;
+        background: var(--color-primary);
+      }
+    }
+  }
+}
+
+.comment {
+  margin-top: $container-margin;
+  padding: $container-padding;
+  background: var(--color-sub-background);
+  border-radius: $border-radius;
+
+  .comment-title {
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-radius: $border-radius;
+    background: var(--color-main-background);
+    font-size: $font-size-large;
+    text-align: center;
+  }
+}
+</style>
