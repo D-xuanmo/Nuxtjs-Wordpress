@@ -165,7 +165,7 @@ function xm_get_link_detail() {
         "content"         => $page->post_content,
         "commentStatus"   => get_post_field("comment_status", $page->ID),
         "createTime"      => $page->post_date,
-        "commentCount"    => get_post_field("comment_count", $page->ID)
+        "commentCount"    => (int)get_post_field("comment_count", $page->ID)
     ));
     return $response->getResponse();
 }
