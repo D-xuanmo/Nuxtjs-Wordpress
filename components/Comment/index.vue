@@ -3,7 +3,7 @@
     <!-- 发表评论 -->
     <template>
       <div v-if="commentStatus === 'closed'" class="comment-closed align-center f-s-large">评论已关闭</div>
-      <comment-form v-else-if="commentStatus === 'open'" :post-id="$route.params.id" />
+      <comment-form v-else-if="commentStatus === 'open'" :post-id="pageId || $route.params.id" />
     </template>
 
     <p v-if="commentListLoading" class="align-center">
@@ -97,7 +97,7 @@ export default {
       this.loadingMore.loading = true
       try {
         await this.getCommentList({
-          postId: this.$route.params.id,
+          postId: this.pageId || this.$route.params.id,
           page: this.currentPage + 1,
           pageSize: this.pageSize
         })
