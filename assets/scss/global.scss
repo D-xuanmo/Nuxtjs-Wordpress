@@ -150,8 +150,7 @@ body {
     }
   }
 
-  ul,
-  ol {
+  ul, ol {
     margin: var(--base-gap) 0;
 
     li:first-of-type {
@@ -161,6 +160,10 @@ body {
 
   li {
     margin-top: var(--small-gap);
+
+    ul, ol, li {
+      padding-left: 1em;
+    }
   }
 }
 
