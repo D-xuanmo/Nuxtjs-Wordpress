@@ -4,6 +4,7 @@
     :content="detail.content"
     :comment-count="detail.commentCount || 0"
     :comment-status="detail.comment_status"
+    :page-id="detail.id"
   >
     <article class="article link-wrapper">
       <h2 class="link-list--section-title">友情链接</h2>

@@ -161,11 +161,11 @@ function xm_get_link_detail() {
     $page = get_page_by_path("links");
     $response->setResponse(array(
         "id"              => $page->ID,
-        "title"           =>$page->post_title,
-        "content"         =>$page->post_content,
-        "commentStatus"   =>$page->comment_status,
+        "title"           => $page->post_title,
+        "content"         => $page->post_content,
+        "commentStatus"   => get_post_field("comment_status", $page->ID),
         "createTime"      => $page->post_date,
-        "commentCount"    => get_comments_number()
+        "commentCount"    => get_post_field("comment_count", $page->ID)
     ));
     return $response->getResponse();
 }

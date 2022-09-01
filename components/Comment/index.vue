@@ -37,6 +37,7 @@ export default {
   },
 
   props: {
+    pageId: [String, Number],
     commentStatus: {
       type: String,
       default: 'open'
@@ -83,7 +84,7 @@ export default {
 
     async getList() {
       await this.getCommentList({
-        postId: this.$route.params.id,
+        postId: this.pageId || this.$route.params.id,
         page: this.currentPage,
         pageSize: this.pageSize
       })

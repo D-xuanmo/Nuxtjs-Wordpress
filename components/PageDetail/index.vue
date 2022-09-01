@@ -11,7 +11,7 @@
     <div class="comment">
       <h2 class="comment-title" v-html="`共 ${commentCount} 条评论关于 “${title}”`"></h2>
       <client-only>
-        <comments :comment-status="commentStatus"/>
+        <comments :comment-status="commentStatus" :page-id="pageId" />
       </client-only>
     </div>
   </div>
@@ -29,7 +29,8 @@ export default {
     title: String,
     content: String,
     commentCount: Number,
-    commentStatus: String
+    commentStatus: String,
+    pageId: [String, Number]
   }
 }
 </script>
