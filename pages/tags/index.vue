@@ -4,7 +4,7 @@
       <span>标签云</span>
     </h2>
     <ul class="list-wrap">
-      <li v-for="item in $store.state.info.tagCloud" :key="item.key" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
+      <li v-for="item in $store.state.globalConfig.tagCloud" :key="item.key" class="list" :class="`color-${Math.floor(Math.random() * 8) + 1}`">
         <router-link :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }">{{ item.name }}({{ item.count }})</router-link>
       </li>
     </ul>
@@ -17,7 +17,7 @@ export default {
   layout: 'page',
   head () {
     return {
-      title: `标签云 | ${this.$store.state.info.blogName}`
+      title: `标签云 | ${this.$store.state.globalConfig.blogName}`
     }
   }
 }

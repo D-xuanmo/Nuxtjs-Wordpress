@@ -52,12 +52,12 @@ export default {
     })
   },
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('article', ['articleList', 'totalPage', 'currentPage'])
   },
   head () {
     return {
-      title: `关于“${this.$route.query.s}”的文章 | ${this.info.blogName}`
+      title: `关于“${this.$route.query.s}”的文章 | ${this.globalConfig.blogName}`
     }
   },
   methods: {

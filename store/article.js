@@ -84,7 +84,7 @@ export const actions = {
         data: { progress: false }
       })
       data.map(item => {
-        item.articleInfor.thumbnail = item.articleInfor.thumbnail ? item.articleInfor.thumbnail.replace(/https?:\/\/(\w+\.)+\w+(:\d+)?/, '') : rootState.info.thumbnail
+        item.articleInfor.thumbnail = item.articleInfor.thumbnail ? item.articleInfor.thumbnail.replace(/https?:\/\/(\w+\.)+\w+(:\d+)?/, '') : rootState.globalConfig.thumbnail
         item.date = item.date.replace('T', ' ')
       })
       commit(UPDATE_ARTICLE_LIST, data)
@@ -106,7 +106,7 @@ export const actions = {
       data.articleInfor.other.authorPic = data.articleInfor.other.authorPic.replace(domainRegexp, '$4')
       data.articleInfor.thumbnail = data.articleInfor.thumbnail
         ? data.articleInfor.thumbnail.replace(domainRegexp, '$4')
-        : rootState.info.thumbnail
+        : rootState.globalConfig.thumbnail
       commit(SET_ARTICLE_DETAIL, data)
       commit(UPDATE_OPINION, data.articleInfor.xmLike)
       return Promise.resolve(data)

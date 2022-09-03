@@ -24,15 +24,15 @@ export default {
   },
 
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('page', ['detail'])
   },
 
   head () {
     return {
-      title: `${this.detail.title.rendered} | ${this.info.blogName}`,
+      title: `${this.detail.title.rendered} | ${this.globalConfig.blogName}`,
       style: [
-        { cssText: this.info.detailsCss, type: 'text/css' }
+        { cssText: this.globalConfig.detailsCss, type: 'text/css' }
       ]
     }
   },

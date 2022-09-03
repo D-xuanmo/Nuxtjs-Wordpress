@@ -54,8 +54,8 @@ export default {
   }),
   computed: {
     ...mapState({
-      contentUrl: state => state.info.contentUrl,
-      templateUrl: state => state.info.templeteUrl
+      contentUrl: state => state.globalConfig.contentUrl,
+      templateUrl: state => state.globalConfig.templeteUrl
     })
   },
   mounted() {

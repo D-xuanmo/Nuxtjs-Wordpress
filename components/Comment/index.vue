@@ -59,10 +59,10 @@ export default {
   },
 
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState({
-      isOpenCommentUpload: state => state.info.isOpenCommentUpload,
-      templateUrl: state => state.info.templeteUrl
+      isOpenCommentUpload: state => state.globalConfig.isOpenCommentUpload,
+      templateUrl: state => state.globalConfig.templeteUrl
     }),
     ...mapState('comment', ['commentList', 'totalPage']),
 

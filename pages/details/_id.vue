@@ -32,7 +32,7 @@
       </div>
       <div class="content-details" ref="articleContent" v-html="detail.content.rendered"></div>
     </article>
-    <div v-if="info.isOpenArticleCopyright" class="section copyright">
+    <div v-if="globalConfig.isOpenArticleCopyright" class="section copyright">
       <p><strong>版权声明: </strong> 本站文章除特别声明外，均为本站原创。转载请注明出处，谢谢。</p>
       <p class="m-t-10px"><strong>本文地址: </strong><a :href="fullPath">{{ fullPath }}</a></p>
     </div>
@@ -55,19 +55,19 @@
       <div class="share align-center">
         <span class="text">分享到：</span>
         <a
-          :href="`https://connect.qq.com/widget/shareqq/index.html?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`"
+          :href="`https://connect.qq.com/widget/shareqq/index.html?url=${globalConfig.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=`"
           target="_blank"
         >
           <svg-icon iconName="icon-QQ"></svg-icon>
         </a>
         <a
-          :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${info.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`"
+          :href="`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${globalConfig.domain}/details/${$route.params.id}&title=${detail.title.rendered}&summary=${detail.articleInfor.summary}`"
           target="_blank"
         >
           <svg-icon iconName="icon-Qzone"></svg-icon>
         </a>
         <a
-          :href="`https://service.weibo.com/share/share.php?url=${info.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`"
+          :href="`https://service.weibo.com/share/share.php?url=${globalConfig.domain}/details/${$route.params.id}%230-tsina-1-21107-397232819ff9a47a7b7e80a40613cfe1&title=${detail.title.rendered}&appkey=1343713053&searchPic=true#_loginLayer_1473259217614`"
           target="_blank"
         >
           <svg-icon iconName="icon-xinlang"></svg-icon>
@@ -122,7 +122,7 @@
             <x-icon type="icon-about-f" />
             <span class="f-s-14px">{{ detail.articleInfor.author }}</span>
           </p>
-          <div v-if="info.isOpenReward" class="reward" @click="isShowReward = true">
+          <div v-if="globalConfig.isOpenReward" class="reward" @click="isShowReward = true">
             <svg-icon iconName="icon-dashang" />
             打赏
           </div>
@@ -215,25 +215,25 @@ export default {
     }
   },
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('article', ['detail', 'viewCount', 'opinion'])
   },
   head() {
     const keywords = []
     this.detail.articleInfor.tags && this.detail.articleInfor.tags.forEach(item => keywords.push(item.name))
     return {
-      title: `${this.detail.title.rendered} | ${this.info.blogName}`,
+      title: `${this.detail.title.rendered} | ${this.globalConfig.blogName}`,
       meta: [
         { hid: 'keywords', name: 'keywords', content: keywords.join(',') },
         { hid: 'description', name: 'description', content: this.detail.articleInfor.summary }
       ],
       style: [
-        { cssText: this.info.detailsCss, type: 'text/css' }
+        { cssText: this.globalConfig.detailsCss, type: 'text/css' }
       ]
     }
   },
   created() {
-    this.fullPath = `${this.info.domain.replace(/\/$/, '')}${this.$route.path}`
+    this.fullPath = `${this.globalConfig.domain.replace(/\/$/, '')}${this.$route.path}`
     const other = this.detail.articleInfor.other
 
     // 合并作者数据
@@ -244,9 +244,9 @@ export default {
     // 打赏数据
     this.rewardContent = {
       thumbnail: this.detail.articleInfor.other.authorPic,
-      text: this.info.rewardText,
-      alipay: this.info.alipay,
-      wechatpay: this.info.wechatpay
+      text: this.globalConfig.rewardText,
+      alipay: this.globalConfig.alipay,
+      wechatpay: this.globalConfig.wechatpay
     }
   },
   mounted() {
@@ -256,8 +256,8 @@ export default {
       title: this.detail.title.rendered,
       summary: this.detail.articleInfor.summary,
       time: this.detail.date.replace(/\s.*/, ' '),
-      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.info.domain}$4`),
-      qrcodeText: this.info.blogName,
+      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.globalConfig.domain}$4`),
+      qrcodeText: this.globalConfig.blogName,
       id: this.$route.params.id
     }
 

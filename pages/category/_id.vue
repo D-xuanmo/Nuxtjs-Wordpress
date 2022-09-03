@@ -54,11 +54,11 @@ export default {
   },
   head () {
     return {
-      title: `${this.$route.query.title} | ${this.info.blogName}`
+      title: `${this.$route.query.title} | ${this.globalConfig.blogName}`
     }
   },
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('article', ['articleList', 'totalPage', 'currentPage'])
   },
   methods: {

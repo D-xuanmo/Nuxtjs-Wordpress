@@ -50,7 +50,7 @@ export default {
     })
   },
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('article', ['articleList', 'totalPage', 'currentPage'])
   },
   methods: {

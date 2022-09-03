@@ -72,7 +72,7 @@ export default {
 
   computed: {
     ...mapState({
-      blogInfo: state => state.info
+      blogInfo: state => state.globalConfig
     })
   },
 

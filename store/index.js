@@ -5,7 +5,7 @@ import {
 } from './mutations-types'
 
 export const state = () => ({
-  info: {},
+  globalConfig: {},
   menu: {},
   subMenu: {},
   links: [],
@@ -18,8 +18,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [UPDATE_GLOBAL_INFO](state, { info, menu, subMenu, links }) {
-    state.info = info
+  [UPDATE_GLOBAL_INFO](state, { globalConfig, menu, subMenu, links }) {
+    state.globalConfig = globalConfig
     state.menu = menu
     state.subMenu = subMenu
     state.links = links
@@ -49,7 +49,7 @@ export const actions = {
         globalInfo.banner.small = [banner1, banner2, banner3]
       }
       const result = {
-        info: globalInfo,
+        globalConfig: globalInfo,
         menu: menu.mainMenu,
         subMenu: menu.subMenu,
         links
@@ -64,7 +64,7 @@ export const actions = {
   // 上传图片
   async uploadImage({ commit, rootState }, { requestData, config = {} }) {
     try {
-      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/v2/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.globalConfig.themeDir}/v2/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false
@@ -80,7 +80,7 @@ export const actions = {
   // 删除图片
   async deleteImage({ commit, rootState }, requestData) {
     try {
-      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.info.themeDir}/v2/xm_upload.php`, requestData, {
+      const { data } = await this.$axios.$post(`${process.env.baseUrl}/wp-content/themes/${rootState.globalConfig.themeDir}/v2/xm_upload.php`, requestData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           progress: false

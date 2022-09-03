@@ -93,17 +93,17 @@ export default {
   computed: {
     ...mapState({
       sidebar: state => ({
-        notice: state.info.notice,
-        newComment: state.info.newComment,
-        isOpenTextThumbnail: state.info.isOpenTextThumbnail,
-        isOpenAsideCount: state.info.isOpenAsideCount,
-        getAllCountTag: state.info.getAllCountTag,
-        getAllCountArticle: state.info.getAllCountArticle,
-        getAllCountPage: state.info.getAllCountPage,
-        getAllCountComment: state.info.getAllCountComment,
-        getAllCountCat: state.info.getAllCountCat,
-        lastUpDate: state.info.lastUpDate,
-        tagCloud: state.info.tagCloud
+        notice: state.globalConfig.notice,
+        newComment: state.globalConfig.newComment,
+        isOpenTextThumbnail: state.globalConfig.isOpenTextThumbnail,
+        isOpenAsideCount: state.globalConfig.isOpenAsideCount,
+        getAllCountTag: state.globalConfig.getAllCountTag,
+        getAllCountArticle: state.globalConfig.getAllCountArticle,
+        getAllCountPage: state.globalConfig.getAllCountPage,
+        getAllCountComment: state.globalConfig.getAllCountComment,
+        getAllCountCat: state.globalConfig.getAllCountCat,
+        lastUpDate: state.globalConfig.lastUpDate,
+        tagCloud: state.globalConfig.tagCloud
       })
     })
   }

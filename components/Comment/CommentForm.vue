@@ -6,7 +6,7 @@
         <p class="comment-form-tips">昵称、邮箱为必填项，电子邮件地址不会被公开</p>
       </template>
       <div class="p-relative">
-        <button v-if="info.isOpenCommentUpload" class="comment-form-icon-btn" @click="isShowUpload = true">
+        <button v-if="globalConfig.isOpenCommentUpload" class="comment-form-icon-btn" @click="isShowUpload = true">
           <x-icon type="icon-upload-img2" />
           <span class="vertical-middle">图片</span>
         </button>
@@ -96,7 +96,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('comment', ['commentFormId'])
   },
 

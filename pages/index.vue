@@ -5,24 +5,24 @@
       ref="bannerWrapper"
       :class="[
         'banner-wrap',
-        info.banner.style === '1' && 'style-1',
-        info.banner.style === '2' && 'style-2'
+        globalConfig.banner.style === '1' && 'style-1',
+        globalConfig.banner.style === '2' && 'style-2'
       ]"
     >
-      <template v-if="info.banner.style === '1'">
+      <template v-if="globalConfig.banner.style === '1'">
         <div class="big-banner">
-          <a class="list block" :href="info.banner.big.link">
-            <img :src="info.banner.big.path" class="img-hover">
+          <a class="list block" :href="globalConfig.banner.big.link">
+            <img :src="globalConfig.banner.big.path" class="img-hover">
             <span
               class="title"
-              :title="info.banner.big.text"
-              v-if="info.banner.big.text">
-              {{ info.banner.big.text }}
+              :title="globalConfig.banner.big.text"
+              v-if="globalConfig.banner.big.text">
+              {{ globalConfig.banner.big.text }}
             </span>
           </a>
         </div>
         <ul class="small-banner">
-          <li class="list" v-for="item in info.banner.small" :key="item.key">
+          <li class="list" v-for="item in globalConfig.banner.small" :key="item.key">
             <a class="block" :href="item.link">
               <img :src="item.path" class="img-hover">
               <span v-if="item.text" class="title" :title="item.text">{{ item.text }}</span>
@@ -30,9 +30,9 @@
           </li>
         </ul>
       </template>
-      <template v-else-if="info.banner.style === '2'">
+      <template v-else-if="globalConfig.banner.style === '2'">
         <el-carousel trigger="click" :height="bannerHeight" :autoplay="false">
-          <el-carousel-item v-for="(item, i) in info.banner.list" :key="i">
+          <el-carousel-item v-for="(item, i) in globalConfig.banner.list" :key="i">
             <a :href="item.link" class="block">
               <img :src="item.path" alt="">
               <h3 class="title">{{ item.text }}</h3>
@@ -42,13 +42,13 @@
       </template>
     </div>
     <!-- banner end -->
-    <div v-if="info.notice" class="sidebar-list notice tablet-show">
+    <div v-if="globalConfig.notice" class="sidebar-list notice tablet-show">
       <div class="header">
         <p>
           <x-icon type="icon-notice2"></x-icon> 公告
         </p>
       </div>
-      <div class="content" v-html="info.notice"></div>
+      <div class="content" v-html="globalConfig.notice"></div>
     </div>
     <!-- article list start -->
     <div class="article-list-wrap">
@@ -104,15 +104,15 @@ export default {
     })
   },
   computed: {
-    ...mapState(['info']),
+    ...mapState(['globalConfig']),
     ...mapState('article', ['articleList', 'totalPage', 'currentPage'])
   },
   head () {
     return {
-      title: `${this.info.blogName} | ${this.info.blogDescription}`,
+      title: `${this.globalConfig.blogName} | ${this.globalConfig.blogDescription}`,
       meta: [
-        { name: 'keywords', content: this.info.keywords },
-        { name: 'description', content: this.info.description }
+        { name: 'keywords', content: this.globalConfig.keywords },
+        { name: 'description', content: this.globalConfig.description }
       ]
     }
   },

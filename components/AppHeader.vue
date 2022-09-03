@@ -5,9 +5,9 @@
       <div class="wrap h-f-100">
         <!-- logo 开始 -->
         <div class="logo">
-          <h1>{{ info.blogName }}</h1>
+          <h1>{{ globalConfig.blogName }}</h1>
           <nuxt-link :to="{ name: 'index' }" class="block">
-            <img :src="info.logo" class="vertical-middle" width="120" height="40">
+            <img :src="globalConfig.logo" class="vertical-middle" width="120" height="40">
           </nuxt-link>
         </div>
         <!-- logo结束 -->
@@ -118,15 +118,15 @@ export default {
   head () {
     return {
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: this.info.favicon }
+        { rel: 'icon', type: 'image/x-icon', href: this.globalConfig.favicon }
       ],
       style: [
-        { cssText: this.info.globalCss, type: 'text/css' }
+        { cssText: this.globalConfig.globalCss, type: 'text/css' }
       ]
     }
   },
   computed: {
-    ...mapState(['info', 'menu', 'menuStatus']),
+    ...mapState(['globalConfig', 'menu', 'menuStatus']),
     height () {
       return this.menuStatus ? `${window.innerHeight}px` : '100%'
     }

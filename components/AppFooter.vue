@@ -61,7 +61,7 @@ export default {
   computed: {
     ...mapState(['menuStatus', 'links', 'subMenu', 'errorInformation']),
     ...mapState({
-      copyright: state => state.info.copyright
+      copyright: state => state.globalConfig.copyright
     })
   },
   mounted () {
