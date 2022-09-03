@@ -16,9 +16,9 @@
 
   code:not([class*="lang"]),
   .code {
-    background: var(--color-main-background);
+    background: #444;
     border-color: var(--color-border);
-    color: var(--color-secondary);
+    color: var(--color-primary);
   }
   blockquote {
     background: var(--color-main-background);
