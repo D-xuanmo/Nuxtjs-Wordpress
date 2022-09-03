@@ -11,7 +11,11 @@
       <ul class="link-list">
         <li v-for="item in innerList" :key="item.id" class="link-list__item">
           <a :href="item.url" :target="item.target" class="link-list__item-link">
-            <img :src="item.logo" class="link-list__item--logo" :alt="item.name">
+            <img
+              :src="item.logo || `${globalConfig.templeteUrl}/include/favicon.php?url=${item.url}`"
+              class="link-list__item--logo"
+              :alt="item.name"
+            />
             <div class="link-list__item-content">
               <p class="link-list__item--title" :title="item.name">{{ item.name }}</p>
               <p class="link-list__item--describe" :title="item.description">{{ item.description }}</p>
