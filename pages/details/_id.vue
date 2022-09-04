@@ -338,6 +338,7 @@ export default {
   margin-top: 0;
 
   .title {
+    margin-bottom: 0;
     padding: 10px 0;
     font-size: 20px;
     text-align: center;
