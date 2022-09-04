@@ -1,9 +1,9 @@
 // 字体图标
 @font-face {
   font-family: 'iconfont';  /* Project id 552040 */
-  src: url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.woff2?t=1638004937328') format('woff2'),
-  url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.woff?t=1638004937328') format('woff'),
-  url('//at.alicdn.com/t/font_552040_c5p5qnlg9vc.ttf?t=1638004937328') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_552040_ebs0urfwux4.woff2?t=1662305814548') format('woff2'),
+  url('//at.alicdn.com/t/c/font_552040_ebs0urfwux4.woff?t=1662305814548') format('woff'),
+  url('//at.alicdn.com/t/c/font_552040_ebs0urfwux4.ttf?t=1662305814548') format('truetype');
 }
 
 .iconfont {
@@ -80,6 +80,7 @@ $iconMap         : (
   "angular-f"    : "\e615",
   "bootstrap-f"  : "\e608",
   "javascript-f" : "\e635",
+  "typescript-f" : "\ecef",
   "nodejs"       : "\e71d",
   "sass"         : "\e616",
   "less"         : "\e66a",
