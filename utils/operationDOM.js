@@ -1,4 +1,4 @@
-class OpeartionDOM {
+class OperationDOM {
   constructor (selector, parent) {
     if (typeof selector === 'object') {
       this.$el = selector
@@ -55,11 +55,11 @@ class OpeartionDOM {
   }
 
   parent () {
-    return new OpeartionDOM(this.$el.parentNode)
+    return new OperationDOM(this.$el.parentNode)
   }
 
   prev () {
-    return new OpeartionDOM(this.$el.previousElementSibling)
+    return new OperationDOM(this.$el.previousElementSibling)
   }
 
   children () {
@@ -127,6 +127,6 @@ class OpeartionDOM {
   }
 }
 
-const $ = (el, parent = document) => new OpeartionDOM(el, parent)
+const $ = (el, parent = document) => new OperationDOM(el, parent)
 
 export default $
