@@ -82,6 +82,18 @@
         <!-- 导航结束 -->
         <!-- 右侧搜索开始 -->
         <div class="controller">
+          <client-only>
+            <span
+              v-if="theme === 'dark'"
+              class="theme-switch--handler"
+              @click="_switchTheme('light')"
+            >🌝</span>
+            <span
+              v-if="theme === 'light'"
+              class="theme-switch--handler"
+              @click="_switchTheme('dark')"
+            >🌚</span>
+          </client-only>
           <div :class="['search-wrapper', isShowSearch && 'is-show']">
             <div class="search-content">
               <input
@@ -112,7 +124,8 @@ export default {
     return {
       searchText: '',
       isShowSearch: false,
-      mark: true
+      mark: true,
+      theme: 'light'
     }
   },
   head () {
@@ -138,6 +151,10 @@ export default {
       v ? $('body').addClass('h-f-100') : $('body').removeClass('h-f-100')
     }
   },
+  mounted() {
+    this.theme = localStorage.getItem('x-theme') || 'light'
+    document.body.setAttribute('data-theme', this.theme)
+  },
   methods: {
     // 搜索
     _search () {
@@ -160,6 +177,12 @@ export default {
 
     _closeMenu () {
       this.$store.commit('UPDATE_MENU_STATUS', false)
+    },
+
+    _switchTheme(mode) {
+      this.theme = mode
+      localStorage.setItem('x-theme', mode)
+      document.body.setAttribute('data-theme', mode)
     }
   }
 }
@@ -222,6 +245,17 @@ $headerHeight: 60px;
           display: block;
         }
       }
+    }
+  }
+
+  .controller {
+    display: flex;
+    align-items: center;
+
+    .theme-switch--handler {
+      margin-right: 10px;
+      font-size: 20px;
+      cursor: pointer;
     }
   }
 

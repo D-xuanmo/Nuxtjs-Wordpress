@@ -1,18 +1,16 @@
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-theme: #{$color-theme};
-    --color-theme-secondary: #{$color-theme-secondary};
-    --color-title: #{$color-theme};
-    --color-primary: #{$color-primary};
-    --color-secondary: #{$color-secondary};
-    --color-primary-reverse: rgba(255, 255, 255, .85);
-    --color-secondary-reverse: rgba(255, 255, 255, .45);
-    --color-main-background: #{$color-main-background};
-    --color-sub-background: #fff;
-    --color-white: #{$color-white};
-    --color-border: #{$color-border};
-    --color-menu-background-m: var(--color-sub-background);
-  }
+body[data-theme="light"] {
+  --color-theme: #{$color-theme};
+  --color-theme-secondary: #{$color-theme-secondary};
+  --color-title: #{$color-theme};
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-primary-reverse: rgba(255, 255, 255, .85);
+  --color-secondary-reverse: rgba(255, 255, 255, .45);
+  --color-main-background: #{$color-main-background};
+  --color-sub-background: #fff;
+  --color-white: #{$color-white};
+  --color-border: #{$color-border};
+  --color-menu-background-m: var(--color-sub-background);
 
   #app {
     .header-container {

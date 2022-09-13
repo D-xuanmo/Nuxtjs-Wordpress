@@ -1,18 +1,16 @@
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-theme: #{$color-theme};
-    --color-theme-secondary: var(--color-sub-background);
-    --color-title: rgba(255, 255, 255, .75);
-    --color-primary: rgba(255, 255, 255, .75);
-    --color-secondary: rgba(255, 255, 255, .45);
-    --color-primary-reverse: rgba(0, 0, 0, .85);
-    --color-secondary-reverse: rgba(0, 0, 0, .45);
-    --color-main-background: #2d363c;
-    --color-sub-background: #293238;
-    --color-white: #{$color-white};
-    --color-border: rgba(233, 234, 237, .3);
-    --color-menu-background-m: var(--color-sub-background);
-  }
+body[data-theme="dark"] {
+  --color-theme: #{$color-theme};
+  --color-theme-secondary: var(--color-sub-background);
+  --color-title: rgba(255, 255, 255, .75);
+  --color-primary: rgba(255, 255, 255, .75);
+  --color-secondary: rgba(255, 255, 255, .45);
+  --color-primary-reverse: rgba(0, 0, 0, .85);
+  --color-secondary-reverse: rgba(0, 0, 0, .45);
+  --color-main-background: #2d363c;
+  --color-sub-background: #293238;
+  --color-white: #{$color-white};
+  --color-border: rgba(233, 234, 237, .3);
+  --color-menu-background-m: var(--color-sub-background);
 
   code:not([class*="lang"]),
   .code {
@@ -20,20 +18,25 @@
     border-color: var(--color-border);
     color: var(--color-primary);
   }
+
   blockquote {
     background: var(--color-main-background);
   }
+
   img {
     box-shadow: none !important;
     filter: opacity(.8);
   }
+
   .nuxt-loading-container {
     background: rgba(0, 0, 0, .8);
   }
+
   pre[class*="language-"] > code {
     background: var(--color-main-background);
     color: var(--color-primary);
   }
+
   button,
   input,
   select,
