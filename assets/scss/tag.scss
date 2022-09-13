@@ -39,20 +39,9 @@ button {
   cursor: pointer;
 }
 
-ul,
-ol {
-  list-style-position: inside;
-}
-
 // 过滤文章正文中的 li 元素
 li:not(.content-details li) {
   list-style: none;
-}
-
-.content-details {
-  li {
-    list-style-position: inside;
-  }
 }
 
 img {
