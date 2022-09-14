@@ -88,7 +88,7 @@
 
           <comment-form
             :id="item.id"
-            :post-id="$route.params.id"
+            :post-id="pageId || $route.params.id"
             :parent-id="item.id"
             is-child
           />
@@ -143,7 +143,9 @@ export default {
     parentLevel: {
       type: String,
       default: ''
-    }
+    },
+
+    pageId: String
   },
 
   data() {

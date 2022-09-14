@@ -9,7 +9,8 @@
     <p v-if="commentListLoading" class="align-center">
       <img src="../../assets/images/circle-loading-icon.svg" alt="">
     </p>
-    <comment-list :list="commentList" />
+
+    <comment-list :list="commentList" :page-id="pageId || $route.params.id" />
 
     <div class="align-center">
       <button v-if="!commentListLoading" class="comment-list-more-btn" @click="handleLoadingMore">
