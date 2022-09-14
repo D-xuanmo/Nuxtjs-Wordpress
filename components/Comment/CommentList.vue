@@ -310,6 +310,9 @@ export default {
       display: flex;
       justify-content: space-between;
       margin-top: var(--base-gap);
+      padding-top: var(--small-gap);
+      border-top: 1px dashed var(--color-border);
+      font-size: 12px;
     }
 
     &--opinion {
@@ -338,9 +341,9 @@ export default {
       }
 
       svg {
-        width: 15px !important;
-        height: 15px !important;
-        margin-right: var(--small-gap);
+        width: 12px !important;
+        height: 12px !important;
+        margin-right: 4px;
         vertical-align: middle;
       }
     }
