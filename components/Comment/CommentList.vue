@@ -88,13 +88,14 @@
 
           <comment-form
             :id="item.id"
-            :post-id="pageId || $route.params.id"
+            :post-id="postId"
             :parent-id="item.id"
             is-child
           />
           <comment-list
             v-if="item.children.length"
             :list="item.children"
+            :page-id="postId"
             :parent-level="item._level"
             is-child
           />
@@ -146,6 +147,12 @@ export default {
     },
 
     pageId: String
+  },
+
+  computed: {
+    postId() {
+      return this.pageId || this.$route.params.id
+    }
   },
 
   data() {
