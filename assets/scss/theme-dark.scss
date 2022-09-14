@@ -16,6 +16,7 @@ body[data-theme="dark"] {
   .code {
     background: #444;
     border-color: var(--color-border);
+    box-shadow: none;
     color: var(--color-primary);
   }
 
