@@ -146,7 +146,7 @@ export default {
       default: ''
     },
 
-    pageId: String
+    pageId: [String, Number]
   },
 
   computed: {
