@@ -151,17 +151,10 @@ body {
   }
 
   ul, ol {
-    margin: var(--base-gap) 0;
     padding-left: 16px;
-
-    li:first-of-type {
-      margin-top: 0;
-    }
   }
 
   li {
-    margin-top: var(--small-gap);
-
     ul, ol, li {
       padding-left: 1em;
     }
