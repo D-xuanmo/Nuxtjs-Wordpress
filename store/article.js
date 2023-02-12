@@ -79,8 +79,9 @@ export const actions = {
   // 获取文章列表
   async getArticleList ({ rootState, commit }, requestData) {
     try {
+      const categories = rootState.menu.find(item => +item.object_id === +requestData.categories)?.childrenIds?.join(',')
       const { data, headers } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`, {
-        params: requestData,
+        params: { ...requestData, categories: categories || requestData.categories },
         data: { progress: false }
       })
       data.map(item => {

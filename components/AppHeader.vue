@@ -22,7 +22,7 @@
                   params: { id: 1 },
                   query: { type: item.object_id, title: item.title }
                 }"
-                :class="['first-link', item.children.length !== 0 && 'prohibit-event__none']"
+                :class="['first-link']"
               >
                 <x-icon :type="item.classes"></x-icon> {{ item.title }}
                 <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
