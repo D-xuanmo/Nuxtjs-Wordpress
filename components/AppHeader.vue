@@ -24,7 +24,7 @@
                 }"
                 :class="{
                   'first-link': true,
-                  'nuxt-link-exact-active': $route.query.type === item.object_id || $route
+                  'nuxt-link-exact-active': $route.query.type === item.object_id
                 }"
               >
                 <x-icon :type="item.classes"></x-icon> {{ item.title }}
