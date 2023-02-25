@@ -103,11 +103,8 @@ export const actions = {
       const { data } = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts/${id}`, {
         data: { progress: false }
       })
-      data.date = data.date.replace('T', ' ')
-      data.articleInfor.other.authorPic = data.articleInfor.other.authorPic.replace(domainRegexp, '$4')
-      data.articleInfor.thumbnail = data.articleInfor.thumbnail
-        ? data.articleInfor.thumbnail.replace(domainRegexp, '$4')
-        : rootState.globalConfig.thumbnail
+      data.date = data.date.replace?.('T', ' ')
+      data.articleInfor.thumbnail = data.articleInfor.thumbnail?.replace?.(domainRegexp, '$4') || rootState.globalConfig.thumbnail
       commit(SET_ARTICLE_DETAIL, data)
       commit(UPDATE_OPINION, data.articleInfor.xmLike)
       return Promise.resolve(data)

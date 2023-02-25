@@ -37,6 +37,7 @@ add_action("rest_api_init", "add_api_page_meta_field");
  * 文章添加自定义字段
  */
 function xm_get_article_infor($object) {
+    global $avatar_domain;
     $postID = $object["id"];
     // 添加发表意见默认值
     if (get_post_meta($postID, "xm_post_link", true) === "") {
@@ -51,11 +52,12 @@ function xm_get_article_infor($object) {
     $current_category = get_the_category($postID);
     $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($postID), "Full");
     $authorPic = get_the_author_meta("simple_local_avatar");
+    $defaultAuthorPic = "https://$avatar_domain/avatar/" . md5(strtolower(trim(get_the_author_meta("user_email")))) . "?s=200";
 
     return array(
         "author"       => get_the_author(),
         "other"        => array(
-            "authorPic" => $authorPic ? $authorPic["full"] : null,
+            "authorPic" => $authorPic ? $authorPic["full"] : $defaultAuthorPic,
             "authorTro" => get_the_author_meta("description"),
             "github"    => get_the_author_meta("github_url"),
             "qq"        => get_the_author_meta("qq"),

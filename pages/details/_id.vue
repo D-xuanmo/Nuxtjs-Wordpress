@@ -256,7 +256,7 @@ export default {
       title: this.detail.title.rendered,
       summary: this.detail.articleInfor.summary,
       time: this.detail.date.replace(/\s.*/, ' '),
-      qrcodeLogo: this.detail.articleInfor.other.authorPic.replace(/(https?:\/\/([a-z\d-]\.?)+(:\d+)?)?(\/.*)/gi, `${this.globalConfig.domain}$4`),
+      qrcodeLogo: this.detail.articleInfor.other.authorPic,
       qrcodeText: this.globalConfig.blogName,
       id: this.$route.params.id
     }
