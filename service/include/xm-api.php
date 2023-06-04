@@ -9,7 +9,7 @@ require_once(TEMPLATEPATH . "/utils.php");
  */
 function xm_rest_prepare_post($data, $post, $request) {
     $_data = $data->data;
-    $params = $request->get_params();
+    $request->get_params();
     unset($_data["template"]);
     unset($_data["categories"]);
     unset($_data["excerpt"]);
@@ -36,7 +36,8 @@ add_action("rest_api_init", "add_api_page_meta_field");
 /**
  * 文章添加自定义字段
  */
-function xm_get_article_infor($object) {
+function xm_get_article_infor($object): array
+{
     global $avatar_domain;
     $postID = $object["id"];
     // 添加发表意见默认值
@@ -126,18 +127,18 @@ function add_get_blog_info() {
     $latestComment = array();
     for ($i = 0; $i < count($newComment); $i++) {
         preg_match("/\d/", md5($newComment[$i]->comment_author_email), $matches);
-        array_push($latestComment, array(
-            "id"         => $newComment[$i]->comment_post_ID,
-            "avatar"     => "https://$avatar_domain/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200",
+        $latestComment[] = array(
+            "id" => $newComment[$i]->comment_post_ID,
+            "avatar" => "https://$avatar_domain/avatar/" . md5(strtolower(trim($newComment[$i]->comment_author_email))) . "?s=200",
             // 根据邮箱md5后获取第一个数字生成颜色
             "background" => $avatar_colors[$matches[0]],
-            "countCom"   => get_comments_number($newComment[$i]->comment_post_ID),
-            "link"       => get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true) ? get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"] : 0,
-            "title"      => get_the_title($newComment[$i]->comment_post_ID),
-            "author"     => $newComment[$i]->comment_author,
-            "content"    => xm_output_smiley($newComment[$i]->comment_content),
-            "postType"   => get_post($newComment[$i]->comment_post_ID)->post_type,
-        ));
+            "countCom" => get_comments_number($newComment[$i]->comment_post_ID),
+            "link" => get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true) ? get_post_meta($newComment[$i]->comment_post_ID, "xm_post_link", true)["very_good"] : 0,
+            "title" => get_the_title($newComment[$i]->comment_post_ID),
+            "author" => $newComment[$i]->comment_author,
+            "content" => xm_output_smiley($newComment[$i]->comment_content),
+            "postType" => get_post($newComment[$i]->comment_post_ID)->post_type,
+        );
     }
 
     $xm_options = get_option("xm_vue_options");
@@ -243,7 +244,7 @@ function xm_get_categories_children_ids($parentId) {
     $children = get_categories("parent={$parentId}&hide_empty=0");
     $result = array();
     foreach ($children as $item) {
-        array_push($result, $item->term_id);
+        $result[] = $item->term_id;
     }
     return $result;
 }
@@ -260,7 +261,7 @@ function xm_get_menu() {
         $value->classes = $value->classes[0];
         for ($i = 0; $i < count($sourceMenu); $i++) {
             if ($sourceMenu[$i]->menu_item_parent == $value->ID) {
-                array_push($value->children, array_splice($sourceMenu, $i, 1, "")[0]);
+                $value->children[] = array_splice($sourceMenu, $i, 1, "")[0];
             }
         }
     }
@@ -307,14 +308,17 @@ add_action("rest_api_init", function () {
  */
 function add_api_get_phrase() {
     global $wpdb;
+    global $avatar_domain;
     $list = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'phrase' AND post_status = 'publish' ORDER BY post_date DESC");
-    $result = [];
+    $result = array();
     for ($i = 0; $i < count($list); $i++) {
-        $result[$i]->date = $list[$i]->post_date;
-        // $result[$i]->title = $list[$i]->post_title;
-        $result[$i]->content = xm_output_smiley($list[$i]->post_content);
-        $result[$i]->link = $list[$i]->post_excerpt;
-        $result[$i]->avatar = replace_domain(get_the_author_meta("simple_local_avatar", $list[$i]->post_author)["full"]);
+        $result[] = array(
+            "title"    => $list[$i]->post_title,
+            "date"     => $list[$i]->post_date,
+            "content"  => xm_output_smiley($list[$i]->post_content),
+            "link"     => $list[$i]->post_excerpt,
+            "avatar"   => "https://$avatar_domain/avatar/" . md5(strtolower(trim(get_the_author_meta("user_email", $list[$i]->post_author)))) . "?s=200"
+        );
     }
     return array(
         "success" => true,
@@ -341,7 +345,7 @@ function add_api_get_links($request) {
         "category_name" => $type === "home" ? "首页" : ""
     );
     $list = get_bookmarks($arg);
-    $result = [];
+    $result = array();
     for ($i = 0; $i < count($list); $i++) {
         $result[$i]->text = $list[$i]->link_name;
         $result[$i]->url = $list[$i]->link_url;
