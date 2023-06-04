@@ -68,12 +68,9 @@ export default {
 
   // 将此处2个地址改为自己的地址
   proxy: {
-    '/api': {
+    '/wp-json': {
       // target: 'https://www.xuanmo.xin',
-      target: 'http://localhost:5100',
-      pathRewrite: {
-        '^/api': '/'
-      }
+      target: 'http://localhost:5100'
     },
     '/wp-content': {
       // target: 'https://www.xuanmo.xin'
@@ -82,6 +79,6 @@ export default {
   },
 
   env: {
-    baseUrl: '/api'
+    baseUrl: ''
   }
 }

@@ -106,7 +106,12 @@ function xm_get_comment_count(string $comment_id): int {
  * @param array $parent 父级信息
  * @return array
  */
-function recursion_query_common_list(array $list, int $level = 2, string $parent_index = null, array $parent = array()): array {
+function recursion_query_common_list(
+    array $list,
+    int $level = 2,
+    string $parent_index = null,
+    array $parent = array()
+): array {
     foreach ($list as $key => $value) {
         $uni_key = "$parent_index" . 0;
         $format_value = xm_format_comment_item($value);
@@ -129,7 +134,7 @@ function recursion_query_common_list(array $list, int $level = 2, string $parent
 
         if (strlen($uni_key) === 1) {
             $childrenCount = xm_get_comment_count($value->comment_ID);
-            $list[$key]['hasChildren'] = $childrenCount > 2;
+            $list[$key]['hasChildren'] = $childrenCount > 1;
             $list[$key]['childrenCount'] = $childrenCount;
         }
 
