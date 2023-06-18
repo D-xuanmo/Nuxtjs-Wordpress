@@ -2,7 +2,7 @@
   <div v-show="value" class="poster-container">
     <div class="dialog-model" @click="$emit('input', false)"></div>
     <div class="poster-content">
-      <x-icon type="icon-close" @click.native="$emit('input', false)"></x-icon>
+      <x-icon type="icon-close" @click.native="$emit('input', false)" />
       <div v-if="JSON.stringify(content) !== '{}'" class="poster-wrap is-border">
         <!-- 最终海报图片 -->
         <img v-if="isCompleted" :src="posterUrl">
@@ -10,7 +10,7 @@
         <!-- 用于生成海报 -->
         <div v-else ref="poster" class="create">
           <div class="poster-loading" data-html2canvas-ignore>
-            <x-icon type="icon-loading"></x-icon>
+            <x-icon type="icon-loading" />
             <p>&nbsp;海报生成中...</p>
           </div>
           <div class="content-img-wrap align-center">
@@ -64,8 +64,11 @@
 import { mapActions } from 'vuex'
 import QRCode from 'qrcode'
 import html2canvas from 'html2canvas'
+import XIcon from '../Icon/main.vue'
+import SvgIcon from '../Icon/svgIcon.vue'
 export default {
   name: 'CreatePoster',
+  components: { SvgIcon, XIcon },
   data () {
     return {
       QRCodeUrl: '',

@@ -41,10 +41,7 @@ export default {
 
   plugins: [
     '~/plugins/axios',
-    { src: '~/plugins/element-ui', ssr: true },
-    { src: '~/plugins/message', ssr: false },
-    { src: '~/plugins/icon', ssr: true }
-    // { src: '~/plugins/common', ssr: false }
+    { src: '~/plugins/message', ssr: false }
   ],
 
   modules: [
@@ -62,8 +59,6 @@ export default {
     transpile: [/^element-ui/],
     extractCSS: true,
     vendors: ['@nuxtjs/axios', 'element-ui']
-    // extend(config, ctx) {
-    // }
   },
 
   // 将此处2个地址改为自己的地址

@@ -16,10 +16,10 @@
         <p class="summary">{{ item.articleInfor.summary }}</p>
         <div class="opeartion">
           <div class="information">
-            <span><x-icon type="icon-date"></x-icon>{{ item.date }}</span>
-            <span><x-icon type="icon-hot1"></x-icon>{{ item.articleInfor.viewCount }}</span>
-            <span><x-icon type="icon-message"></x-icon>{{ item.articleInfor.commentCount }}</span>
-            <span><x-icon type="icon-good"></x-icon>{{ item.articleInfor.xmLike.very_good }}</span>
+            <span><x-icon type="icon-date" />{{ item.date }}</span>
+            <span><x-icon type="icon-hot1" />{{ item.articleInfor.viewCount }}</span>
+            <span><x-icon type="icon-message" />{{ item.articleInfor.commentCount }}</span>
+            <span><x-icon type="icon-good" />{{ item.articleInfor.xmLike.very_good }}</span>
           </div>
           <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
         </div>
@@ -40,7 +40,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import XIcon from '../../components/Icon/main.vue'
+import { Pagination as ElPagination } from 'element-ui'
 export default {
+  components: { XIcon, ElPagination },
   watchQuery: ['type'],
   name: 'Category',
   fetch ({ store, query, params }) {

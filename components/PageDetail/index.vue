@@ -28,7 +28,7 @@ export default {
   props: {
     title: String,
     content: String,
-    commentCount: Number,
+    commentCount: [Number, String],
     commentStatus: String,
     pageId: [String, Number]
   }

@@ -11,9 +11,9 @@
     >
       <div class="xm-message-content" :style="`width: ${width}`">
         <p class="text">
-          <x-icon :type="icon" class="vertical-middle"></x-icon>
+          <x-icon :type="icon" class="vertical-middle" />
           <span class="vertical-middle">{{ msg }}</span>
-          <x-icon v-if="showClose" type="icon-close" class="fr" @click.native="leave"></x-icon>
+          <x-icon v-if="showClose" type="icon-close" class="fr" @click.native="leave" />
         </p>
         <p v-if="showImg && imgUrl" class="align-center msg-img">
           <img :src="imgUrl" width="100" height="100" alt="">
@@ -23,8 +23,11 @@
   </transition>
 </template>
 <script>
+import XIcon from '../Icon/main.vue'
+
 export default {
   name: 'message',
+  components: { XIcon },
   data () {
     return {
       msg: '',

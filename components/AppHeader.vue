@@ -27,20 +27,20 @@
                   'nuxt-link-exact-active': $route.query.type === item.object_id
                 }"
               >
-                <x-icon :type="item.classes"></x-icon> {{ item.title }}
-                <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom"></x-icon>
+                <x-icon :type="item.classes" /> {{ item.title }}
+                <x-icon v-if="item.children.length !== 0" type="icon-arrow-bottom" />
               </nuxt-link>
               <nuxt-link
                 v-else-if="item.object === 'page'"
                 :to="{ name: 'page-id', params: { id: item.object_id } }"
                 class="first-link">
-                <x-icon :type="item.classes"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes" /> {{ item.title }}
               </nuxt-link>
               <nuxt-link
                 v-else-if="item.object === 'post_tag'"
                 :to="{ name: 'tags-id', params: { id: 1 }, query: { type: item.term_id, title: item.name } }"
                 class="first-link">
-                <x-icon :type="item.classes"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes" /> {{ item.title }}
               </nuxt-link>
               <a
                 v-else-if="item.object === 'custom'"
@@ -50,7 +50,7 @@
                   'nuxt-link-exact-active': $route.path === item.url
                 }"
               >
-                <x-icon :type="item.classes"></x-icon> {{ item.title }}
+                <x-icon :type="item.classes" /> {{ item.title }}
               </a>
               <!-- 二级菜单 -->
               <div v-if="item.children.length !== 0" class="sub-nav-wrapper">
@@ -64,7 +64,7 @@
                         query: { type: child.object_id, title: child.title }
                       }"
                     >
-                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes" /> {{ child.title }}
                     </nuxt-link>
                     <nuxt-link
                       v-else-if="child.object === 'page'"
@@ -73,15 +73,15 @@
                         params: { id: child.object_id }
                       }"
                     >
-                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes" /> {{ child.title }}
                     </nuxt-link>
                     <nuxt-link
                       v-else-if="child.object === 'post_tag'"
                       :to="{ name: 'tags-id', params: { id: 1 }, query: { type: child.object_id, title: child.title } }">
-                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes" /> {{ child.title }}
                     </nuxt-link>
                     <a v-else-if="child.object === 'custom'" :href="child.url">
-                      <x-icon :type="child.classes"></x-icon> {{ child.title }}
+                      <x-icon :type="child.classes" /> {{ child.title }}
                     </a>
                   </li>
                 </ul>
@@ -112,12 +112,12 @@
                 placeholder="请输入关键字"
                 @keyup.enter="_search"
               >
-              <x-icon type="icon-search" @click.native="_search"></x-icon>
-              <x-icon type="icon-close hide"  @click.native="isShowSearch = false"></x-icon>
+              <x-icon type="icon-search" @click.native="_search" />
+              <x-icon type="icon-close hide"  @click.native="isShowSearch = false" />
             </div>
           </div>
-          <x-icon type="icon-search tablet-show" @click.native="isShowSearch = true"></x-icon>
-          <x-icon type="icon-menu hide" @click.native="_showNavWrap"></x-icon>
+          <x-icon type="icon-search tablet-show" @click.native="isShowSearch = true" />
+          <x-icon type="icon-menu hide" @click.native="_showNavWrap" />
         </div>
         <!-- 右侧搜索结束 -->
       </div>
@@ -127,7 +127,9 @@
 <script>
 import { mapState } from 'vuex'
 import $ from '@/utils/operationDOM'
+import XIcon from './Icon/main.vue'
 export default {
+  components: { XIcon },
   watchQuery: ['type'],
   name: 'AppHeader',
   data () {

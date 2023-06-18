@@ -119,11 +119,13 @@ import { APP_ICONS } from '../../constants'
 import XIcon from '../Icon/main'
 import { ua } from '@xuanmo/javascript-utils'
 import CommentListItemAuthor from './CommentListItemAuthor'
+import SvgIcon from '../Icon/svgIcon.vue'
 
 export default {
   name: 'CommentList',
 
   components: {
+    SvgIcon,
     CommentListItemAuthor,
     XIcon,
     CommentForm

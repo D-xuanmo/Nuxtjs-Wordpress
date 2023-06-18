@@ -7,15 +7,17 @@
       'opacity': show ? 1 : 0
     }">
     </div>
-    <x-icon type="icon-loading"></x-icon>
+    <x-icon type="icon-loading" />
     <p>{{ text }}</p>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import XIcon from '../Icon/main.vue'
 export default {
   name: 'nuxt-loading',
+  components: { XIcon },
   data () {
     return {
       percent: 0,

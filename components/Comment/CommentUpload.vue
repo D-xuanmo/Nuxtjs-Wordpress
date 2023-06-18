@@ -3,7 +3,7 @@
     <div class="sub-upload-wrap align-center">
       <template v-if="!bShowDragWrap">
         <h2 class="title">插入图片</h2>
-        <x-icon type="icon-close" @click.native.stop="_hideUpload"></x-icon>
+        <x-icon type="icon-close" @click.native.stop="_hideUpload" />
         <div class="progress-wrap">
           <p class="text">上传进度：</p>
           <div class="current-progress">
@@ -17,7 +17,7 @@
             @change.stop="_preview($event)"
           >
           <p class="mask">
-            <span v-if="bFileMark"><x-icon type="icon-upload-img2"></x-icon>点击选择图片或者拖动图片到此窗口内</span>
+            <span v-if="bFileMark"><x-icon type="icon-upload-img2" />点击选择图片或者拖动图片到此窗口内</span>
             <template v-else>
               已选择：<img :src="previewUrl" alt="">
             </template>
@@ -41,9 +41,11 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import XIcon from '../Icon/main.vue'
 
 export default {
   name: 'CommentUpload',
+  components: { XIcon },
   data: () => ({
     currentProgress: 0,
     resultImgUrl: '',

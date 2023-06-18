@@ -63,11 +63,13 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import { createRandomID, debounce } from '@xuanmo/javascript-utils'
 import CommentUpload from './CommentUpload'
 import CommentExpression from './CommentExpression'
+import XIcon from '../Icon/main.vue'
 
 export default {
   name: 'CommentForm',
 
   components: {
+    XIcon,
     CommentUpload,
     CommentExpression
   },

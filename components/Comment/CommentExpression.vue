@@ -1,7 +1,7 @@
 <template>
   <div v-show="visible" ref="expression" class="expression-wrapper">
     <div v-if="!expressionList.length" class="loading">
-      <x-icon type="icon-loading"></x-icon>
+      <x-icon type="icon-loading" />
       <p>加载中...</p>
     </div>
     <template v-else>
@@ -32,9 +32,11 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
+import XIcon from '../Icon/main.vue'
 
 export default {
   name: 'CommentExpression',
+  components: { XIcon },
 
   props: {
     visible: {

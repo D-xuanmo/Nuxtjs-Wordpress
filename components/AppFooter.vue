@@ -45,14 +45,16 @@
       </div>
     </div>
     <div class="back-top" ref="backTop" @click="backTop" :class="{ show: isShowBackTop }">
-      <x-icon class="icon-back-top"></x-icon>
+      <x-icon class="icon-back-top" />
     </div>
   </footer>
 </template>
 <script>
 import { mapState } from 'vuex'
+import XIcon from './Icon/main.vue'
 export default {
   name: 'AppFooter',
+  components: { XIcon },
   data () {
     return {
       isShowBackTop: false

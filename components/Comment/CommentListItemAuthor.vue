@@ -14,8 +14,11 @@
 </template>
 
 <script>
+import SvgIcon from '../Icon/svgIcon.vue'
+
 export default {
   name: 'CommentListItemAuthor',
+  components: { SvgIcon },
 
   props: {
     author: {

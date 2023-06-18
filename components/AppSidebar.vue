@@ -4,7 +4,7 @@
     <div v-if="sidebar.notice" class="sidebar-list notice">
       <div class="header">
         <p>
-          <x-icon type="icon-notice2"></x-icon>
+          <x-icon type="icon-notice2" />
           公告
         </p>
       </div>
@@ -14,7 +14,7 @@
     <div class="sidebar-list comment">
       <div class="header">
         <p>
-          <x-icon type="icon-hot1"></x-icon>
+          <x-icon type="icon-hot1" />
           最新评论
         </p>
       </div>
@@ -51,7 +51,7 @@
     <div v-if="sidebar.isOpenAsideCount" class="sidebar-list count">
       <div class="header">
         <p>
-          <x-icon type="icon-count"></x-icon>
+          <x-icon type="icon-count" />
           站点统计
         </p>
       </div>
@@ -68,7 +68,7 @@
     <div class="sidebar-list tag-cloud">
       <div class="header">
         <p>
-          <x-icon type="icon-tag1"></x-icon>
+          <x-icon type="icon-tag1" />
           标签云
         </p>
         <router-link :to="{ name: 'tags' }">更多</router-link>
@@ -87,9 +87,11 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import XIcon from './Icon/main.vue'
 
 export default {
   name: 'AppSidebar',
+  components: { XIcon },
   computed: {
     ...mapState({
       sidebar: state => ({

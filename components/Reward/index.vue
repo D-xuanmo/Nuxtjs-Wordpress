@@ -2,7 +2,7 @@
   <div v-show="isShow" class="reward-toast">
     <div class="dialog-model" @click="$emit('input', false)"></div>
     <div class="reward-toast-inner align-center">
-      <x-icon type="icon-close" @click.native.stop="$emit('input', false)"></x-icon>
+      <x-icon type="icon-close" @click.native.stop="$emit('input', false)" />
       <p class="thumbnail"><img :src="content.thumbnail" alt="" width="80"></p>
       <p class="summary">{{ content.text }}</p>
       <div class="reward-qrcode-wrap">
@@ -21,8 +21,12 @@
   </div>
 </template>
 <script>
+import XIcon from '../Icon/main.vue'
+import { Radio as ElRadio } from 'element-ui'
+
 export default {
   name: 'Reward',
+  components: { XIcon, ElRadio },
   data () {
     return {
       reward: true,

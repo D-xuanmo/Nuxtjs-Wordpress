@@ -45,7 +45,7 @@
     <div v-if="globalConfig.notice" class="sidebar-list notice tablet-show">
       <div class="header">
         <p>
-          <x-icon type="icon-notice2"></x-icon> 公告
+          <x-icon type="icon-notice2" /> 公告
         </p>
       </div>
       <div class="content" v-html="globalConfig.notice"></div>
@@ -67,10 +67,10 @@
           <p class="summary">{{ item.articleInfor.summary }}</p>
           <div class="opeartion">
             <div class="information">
-              <span><x-icon type="icon-date"></x-icon>{{ item.date }}</span>
-              <span><x-icon type="icon-hot1"></x-icon>{{ item.articleInfor.viewCount }}</span>
-              <span><x-icon type="icon-message"></x-icon>{{ item.articleInfor.commentCount }}</span>
-              <span><x-icon type="icon-good"></x-icon>{{ item.articleInfor.xmLike.very_good }}</span>
+              <span><x-icon type="icon-date" />{{ item.date }}</span>
+              <span><x-icon type="icon-hot1" />{{ item.articleInfor.viewCount }}</span>
+              <span><x-icon type="icon-message" />{{ item.articleInfor.commentCount }}</span>
+              <span><x-icon type="icon-good" />{{ item.articleInfor.xmLike.very_good }}</span>
             </div>
             <nuxt-link class="details-btn" :to="{ name: 'details-id', params: { id: item.id } }">阅读详情</nuxt-link>
           </div>
@@ -93,8 +93,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import XIcon from '../components/Icon/main.vue'
+import {
+  Carousel as ElCarousel,
+  CarouselItem as ElCarouselItem,
+  Pagination as ElPagination
+} from 'element-ui'
 export default {
   name: 'Index',
+  components: { XIcon, ElCarousel, ElCarouselItem, ElPagination },
   fetch ({ store }) {
     store.commit('article/SET_CURRENT_PAGE', 1)
     return store.dispatch('article/getArticleList', {

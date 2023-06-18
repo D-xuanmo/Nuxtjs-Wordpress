@@ -6,13 +6,13 @@
         <template v-if="item.link">
           <a :href="item.link" class="block content">
             <div class="text" v-html="item.content"></div>
-            <div class="date"><x-icon type="icon-time"></x-icon> {{ item.date }}</div>
+            <div class="date"><x-icon type="icon-time" /> {{ item.date }}</div>
           </a>
         </template>
         <template v-else>
           <div class="content">
             <div class="text" v-html="item.content"></div>
-            <div class="date"><x-icon type="icon-time"></x-icon> {{ item.date }}</div>
+            <div class="date"><x-icon type="icon-time" /> {{ item.date }}</div>
           </div>
         </template>
       </li>
@@ -22,9 +22,11 @@
 <script>
 import { mapState } from 'vuex'
 import hljs from 'highlight.js/lib/core'
+import XIcon from '../../components/Icon/main.vue'
 
 export default {
   name: 'Phrase',
+  components: { XIcon },
 
   layout: 'page',
 
