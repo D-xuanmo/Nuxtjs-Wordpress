@@ -410,7 +410,7 @@ $headerHeight: 60px;
       right: 0;
       z-index: $z-index + 200;
       width: 200px;
-      height: calc(100% - 60px);
+      height: calc(100vh - 60px);
       margin: 0;
       padding: 0 20px;
       overflow-y: scroll;
