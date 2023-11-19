@@ -133,6 +133,7 @@ function xm_get_links($request) {
     $list = get_bookmarks($arg);
     $result = [];
     for ($i = 0; $i < count($list); $i++) {
+        $result[$i] = new stdClass();
         $result[$i]->id = $list[$i]->link_id;
         $result[$i]->name = $list[$i]->link_name;
         $result[$i]->url = $list[$i]->link_url;

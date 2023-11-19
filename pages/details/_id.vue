@@ -154,7 +154,7 @@
       </div>
     </div>
     <!-- 评论列表 -->
-    <div class="section comment">
+    <div class="section comment" id="comment">
       <h2 class="comment-title" v-html="`共 ${detail.articleInfor.commentCount} 条评论关于 “${detail.title.rendered}”`"></h2>
       <client-only>
         <comments :comment-status="detail.comment_status" />
